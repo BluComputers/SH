@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bo & Obs | Sarah Halligan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pink: #eabec3; 
+            --section-bg: #f4d3d6;
+            --accent-dark: #8c5e63;
+            --text-color: #2d2d2d;
+            --header-font: 'Playfair Display', serif;
+            --body-font: 'Lato', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-pink);
+            color: var(--text-color);
+            font-family: var(--body-font);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            background-color: var(--bg-pink);
+        }
+
+        .main-logo {
+            max-width: 350px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        nav {
+            margin-top: 10px;
+            border-top: 1px solid var(--accent-dark);
+            border-bottom: 1px solid var(--accent-dark);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-pink);
+            z-index: 100;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin: 0 15px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        .bio-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .bio-image {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 8px solid var(--section-bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .bio-text {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 40px auto;
+            text-align: center;
+            background: var(--section-bg);
+            border-radius: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            font-family: var(--header-font);
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: var(--accent-dark);
+        }
+
+        /* Updated Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.03);
+        }
+
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 5px solid white;
+            border-radius: 5px;
+        }
+
+        .poem-card {
+            font-style: italic;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 0.9rem;
+            color: var(--accent-dark);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .bio-text { text-align: center; }
+            .main-logo { max-width: 250px; }
+            .gallery { grid-template-columns: 1fr 1fr; } /* Two columns on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="">
+    </div>
+
+    <header>
+        <img src="https://boandobs.co.uk/gallery_gen/a2cee6d95feb8b612a9ce03259b9dee2_710x546_fit.png?ts=1771359574" alt="Bo & Obs Logo" class="main-logo">
+        <nav>
+            <a href="#bio">Bio</a>
+            <a href="#bo-obs">Bo & Obs</a>
+            <a href="#mum">Dedicated to Mum</a>
+            <a href="#all-poems">All Poems</a>
+        </nav>
+    </header>
+
+    <div id="bio" class="bio-container">
+        <img src="https://boandobs.co.uk/gallery_gen/f249d54d8bd5e701070d9078179840fb_362x362_0x52_362x467_crop.jpg?ts=1771359574" alt="Sarah Halligan" class="bio-image">
+        <div class="bio-text">
+            <h2>About Sarah</h2>
+            <p>Hello everyone and welcome to my website! The home of <strong>Bo and Obs</strong>! And also the rest of my poetry.</p>
+            <p>I started writing after my mum died really as grief therapy. Looking after my dad through the day and writing at night. I write about anything that happens to drop into my head so maybe here you'll find something that strikes a chord.</p>
+            <p>I want my poems to be available to anyone so if you do see one you'd like to use for any occasion there's no need to ask me. Here and now I give my blessing. Just dont say you wrote it!! Thanks for dropping by.</p>
+            <p><strong>Love Sarah H ❤️</strong></p>
+        </div>
+    </div>
+
+    <section id="bo-obs">
+        <h2>Bo & Obs</h2>
+        <div class="gallery">
+            <img src="https://boandobs.co.uk/gallery/1.jpg" alt="Poem 1" onclick="openLightbox(this.src)">
+            <img src="https://boandobs.co.uk/gallery/2.jpg" alt="Poem 2" onclick="openLightbox(this.src)">
+            <img src="https://boandobs.co.uk/gallery/3.jpg" alt="Poem 3" onclick="openLightbox(this.src)">
+            <img src="https://boandobs.co.uk/gallery/4.jpg" alt="Poem 4" onclick="openLightbox(this.src)">
+            <img src="https://boandobs.co.uk/gallery/5.jpg" alt="Poem 5" onclick="openLightbox(this.src)">
+            <img src="https://boandobs.co.uk/gallery/6.jpg" alt="Poem 6" onclick="openLightbox(this.src)">
+            <img src="https://boandobs.co.uk/gallery/7.jpg" alt="Poem 7" onclick="openLightbox(this.src)">
+        </div>
+    </section>
+
+    <section id="mum">
+        <h2>Dedicated Poems To My Mum</h2>
+        <div class="poem-card">
+            <p><em>"A place for the poems written in quiet nights, reflecting on a mother's love."</em></p>
+        </div>
+    </section>
+
+    <section id="all-poems">
+        <h2>All Poems</h2>
+        <p>Browse the full collection of verses.</p>
+        <div class="gallery">
+            <div class="poem-card" style="width: 100%;">More poems coming soon...</div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2024 Bo & Obs By Sarah Halligan.
+    </footer>
+
+    <script>
+        function openLightbox(imgUrl) {
+            document.getElementById('lightbox-img').src = imgUrl;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
