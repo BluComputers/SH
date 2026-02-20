@@ -22,6 +22,7 @@
             margin: 0;
             padding: 0;
             line-height: 1.8;
+            scroll-behavior: smooth;
         }
 
         header {
@@ -56,6 +57,7 @@
             font-size: 0.85rem;
             letter-spacing: 2px;
             font-weight: bold;
+            transition: color 0.3s ease;
         }
 
         nav a:hover {
@@ -108,7 +110,6 @@
             color: var(--accent-dark);
         }
 
-        /* Updated Gallery Grid */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -169,7 +170,7 @@
         @media (max-width: 768px) {
             .bio-text { text-align: center; }
             .main-logo { max-width: 250px; }
-            .gallery { grid-template-columns: 1fr 1fr; } /* Two columns on mobile */
+            .gallery { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -180,7 +181,7 @@
     </div>
 
     <header>
-        <img src="https://boandobs.co.uk/gallery_gen/a2cee6d95feb8b612a9ce03259b9dee2_710x546_fit.png?ts=1771359574" alt="Bo & Obs Logo" class="main-logo">
+        <img src="https://raw.githubusercontent.com/BluComputers/SH/main/lgo.png" alt="Bo & Obs Logo" class="main-logo">
         <nav>
             <a href="#bio">Bio</a>
             <a href="#bo-obs">Bo & Obs</a>
@@ -190,7 +191,7 @@
     </header>
 
     <div id="bio" class="bio-container">
-        <img src="https://boandobs.co.uk/gallery_gen/f249d54d8bd5e701070d9078179840fb_362x362_0x52_362x467_crop.jpg?ts=1771359574" alt="Sarah Halligan" class="bio-image">
+        <img src="https://raw.githubusercontent.com/BluComputers/SH/main/Main.jpg" alt="Sarah Halligan" class="bio-image">
         <div class="bio-text">
             <h2>About Sarah</h2>
             <p>Hello everyone and welcome to my website! The home of <strong>Bo and Obs</strong>! And also the rest of my poetry.</p>
@@ -203,13 +204,15 @@
     <section id="bo-obs">
         <h2>Bo & Obs</h2>
         <div class="gallery">
-            <img src="https://boandobs.co.uk/gallery/1.jpg" alt="Poem 1" onclick="openLightbox(this.src)">
-            <img src="https://boandobs.co.uk/gallery/2.jpg" alt="Poem 2" onclick="openLightbox(this.src)">
-            <img src="https://boandobs.co.uk/gallery/3.jpg" alt="Poem 3" onclick="openLightbox(this.src)">
-            <img src="https://boandobs.co.uk/gallery/4.jpg" alt="Poem 4" onclick="openLightbox(this.src)">
-            <img src="https://boandobs.co.uk/gallery/5.jpg" alt="Poem 5" onclick="openLightbox(this.src)">
-            <img src="https://boandobs.co.uk/gallery/6.jpg" alt="Poem 6" onclick="openLightbox(this.src)">
-            <img src="https://boandobs.co.uk/gallery/7.jpg" alt="Poem 7" onclick="openLightbox(this.src)">
+            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/1.jpg" alt="Poem 1" onclick="openLightbox(this.src)">
+            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/2.jpg" alt="Poem 2" onclick="openLightbox(this.src)">
+            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/3.jpg" alt="Poem 3" onclick="openLightbox(this.src)">
+            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/4.jpg" alt="Poem 4" onclick="openLightbox(this.src)">
+            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/5.jpg" alt="Poem 5" onclick="openLightbox(this.src)">
+            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/6.jpg" alt="Poem 6" onclick="openLightbox(this.src)">
+            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/7.jpg" alt="Poem 7" onclick="openLightbox(this.src)">
+            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/8.jpg" alt="Poem 8" onclick="openLightbox(this.src)">
+            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/9.jpg" alt="Poem 9" onclick="openLightbox(this.src)">
         </div>
     </section>
 
@@ -229,7 +232,7 @@
     </section>
 
     <footer>
-        &copy; 2024 Bo & Obs By Sarah Halligan.
+        &copy; 2026 Bo & Obs By Sarah Halligan.
     </footer>
 
     <script>
