@@ -13,6 +13,8 @@
             --text-color: #2d2d2d;
             --header-font: 'Playfair Display', serif;
             --body-font: 'Lato', sans-serif;
+            /* Archive Specific */
+            --modal-bg: #fdfcf0;
         }
 
         body {
@@ -103,14 +105,15 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
-        h2 {
+        h2, h1 {
             font-family: var(--header-font);
             font-size: 2.2rem;
             margin-bottom: 30px;
             color: var(--accent-dark);
         }
 
-        .gallery {
+        /* Gallery & Archive Grid */
+        .gallery, .archive-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
@@ -130,18 +133,55 @@
             transform: scale(1.03);
         }
 
-        #lightbox {
+        /* Archive Tile Styling */
+        .tile {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border-bottom: 4px solid var(--accent-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+        }
+
+        .tile:hover {
+            transform: translateY(-8px);
+            background-color: var(--accent-dark);
+        }
+
+        .tile h3 { margin: 0; font-family: var(--header-font); transition: color 0.3s; color: var(--text-color); }
+        .tile:hover h3 { color: white; }
+
+        /* Lightboxes & Modals */
+        .modal {
             display: none;
             position: fixed;
-            z-index: 999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
             justify-content: center;
             align-items: center;
-            cursor: zoom-out;
+            padding: 20px;
+        }
+
+        #lightbox { cursor: zoom-out; }
+
+        .modal-content {
+            background: var(--modal-bg);
+            padding: 50px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            text-align: left;
         }
 
         #lightbox img {
@@ -149,6 +189,31 @@
             max-height: 90%;
             border: 5px solid white;
             border-radius: 5px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .modal-title {
+            font-family: var(--header-font);
+            font-size: 1.8rem;
+            color: var(--accent-dark);
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dcdcdc;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .poem-body {
+            white-space: pre-line;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #2c3e50;
         }
 
         .poem-card {
@@ -170,14 +235,23 @@
         @media (max-width: 768px) {
             .bio-text { text-align: center; }
             .main-logo { max-width: 250px; }
-            .gallery { grid-template-columns: 1fr 1fr; }
+            .gallery, .archive-grid { grid-template-columns: 1fr 1fr; }
+            .modal-content { padding: 25px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="lightbox" onclick="closeLightbox()">
+    <div id="lightbox" class="modal" onclick="closeLightbox()">
         <img id="lightbox-img" src="">
+    </div>
+
+    <div id="poemModal" class="modal" onclick="closePoem()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closePoem()">&times;</span>
+            <div id="modalTitle" class="modal-title"></div>
+            <div id="modalBody" class="poem-body"></div>
+        </div>
     </div>
 
     <header>
@@ -186,6 +260,7 @@
             <a href="#bio">Bio</a>
             <a href="#bo-obs">Bo & Obs</a>
             <a href="#mum">Dedicated to Mum</a>
+            <a href="#archive">Remembrance Archive</a>
             <a href="#all-poems">All Poems</a>
         </nav>
     </header>
@@ -223,6 +298,22 @@
         </div>
     </section>
 
+    <section id="archive">
+        <h1>Remembrance Archive</h1>
+        <p style="font-style: italic; margin-bottom: 40px;">Full Poetry Collection</p>
+        <div class="archive-grid">
+            <div class="tile" onclick="openPoem('moon')"><h3>The Moon Story</h3></div>
+            <div class="tile" onclick="openPoem('dec1914')"><h3>December 1914</h3></div>
+            <div class="tile" onclick="openPoem('ukraine')"><h3>Children of Ukraine</h3></div>
+            <div class="tile" onclick="openPoem('shoes')"><h3>All We Have Left Are Shoes</h3></div>
+            <div class="tile" onclick="openPoem('grateful')"><h3>A Grateful Country</h3></div>
+            <div class="tile" onclick="openPoem('gaza')"><h3>Children of Gaza</h3></div>
+            <div class="tile" onclick="openPoem('poppy')"><h3>I Am Your Poppy</h3></div>
+            <div class="tile" onclick="openPoem('hela')"><h3>Hela's Diary</h3></div>
+            <div class="tile" onclick="openPoem('letter')"><h3>A Letter to Mam</h3></div>
+        </div>
+    </section>
+
     <section id="all-poems">
         <h2>All Poems</h2>
         <p>Browse the full collection of verses.</p>
@@ -236,12 +327,39 @@
     </footer>
 
     <script>
+        // Image Lightbox Logic
         function openLightbox(imgUrl) {
             document.getElementById('lightbox-img').src = imgUrl;
             document.getElementById('lightbox').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Text Poem Modal Logic
+        const poems = {
+            moon: { title: "The Moon Story", text: `"Grandad! Grandad! tell us the moon story!\nTell us about your dad in the war\nWe know we,ve heard it many times\nBut please tell us just once more"\n\nWell I was six years old when war came\nUp to then I knew no pain or fear\nBut i remember the look on my fathers face\nAs he wiped away my mothers tears\n\nThat night as he sat on the edge of my bed\nWe both looked at the moon shining bright\nAnd we made a pact between father and son\nTo always remember that sight\n\n"Wherever this war takes me son\nJust remember we see the same sky\nAt bedtime each night look for moonlight\nAnd i promise the time will fly by"\n\nThe next day we went to the station\nTo wave our boys off on their way\nI felt out out of place as mother held him so tight\nTried to hold my own tears at bay\n\nAs the train pulled away he shot me a wink\n"Remember to look for the moon!"\nI waved till the last carriage was out of sight\nNow just hope that i,d see him again soon\n\nI held mothers hand as we trudged home that day\nBoth lost in our own thoughts and fears\nThe house seemed so empty without fathers laugh\nJust sadness , lonliness and tears\n\nMother gave me a picture of father to keep\nAnd i placed it at the side of my bed\nEach night as i prayed i held it close to my heart\nAnd remembered the words that he,d said\n\nThen before i finally turned out the light\nI,d look to the moon and make a wish\n"Bring them all safely back to us"\nSent on its way with a kiss\n\nI would hear mother crying herself to sleep\nI felt so helpless. We missed him so much\nI tried so hard to make her happy\nAll she wanted was father,s touch\n\nWeeks turned to months. Months to a year\nJust one letter to say he was well\nHe missed us and loved us so very much\nThe end of the war nobody could tell\n\nI missed his stories. I missed his laugh\nI longed to hear his voice again\nI wandered sometimes to the station\nBut he was never on the next train\n\nThe radio told us things were better\nHow the enemy was now on the run\nAnd mother seemed to be hopeful\nThat just maybe this war might be won\n\nI remember the last night so clearly\nSaid my prayers to the light of the moon\nClosed my eyes as tight as can be\nHoped i,d wake to a happier tune\n\nAnd then as the sun kissed me gently awake\nI looked out of my window to see\nA weary soldier slowly marching\nMarching home to me\n\nStill in pyjamas i ran down the lane\nHe dropped his bag and sank to one knee\nAnd i sobbed as i fell into his embrace\nAt last we were once again three\n\nAnd then for a while i stayed out of the way\nI played in the garden till late afternoon\nThen at bedtime a kiss from my father\nAnd we said thank you to our old friend the moon\n\nAs i drifted off to a peaceful sleep\nI heard my parents laughing together once more\nOur family complete. The story now told\nHow the moon brought father home from the war` },
+            dec1914: { title: "December 1914", text: `Is anybody coming for me?\nIs this where my life will end?\nI,m only a lad. It,s not my time\nHappier days are just round the bend\n\nHow can you leave me here in this mud?\nWhen yesterday no bullets flew\nWe were friends for twenty four hours\nNow it means nothing to me or you\n\nTwo days ago the guns fell silent\nWe waited. Too scared to blink\nThe hours of nothing but stillness\nNot knowing just what to think\n\nThen suddenly the softest of voices\nA Christmas melody borne on the wind\nAn enemy choir, A serenade\nAll aggression suddenly dimmed\n\nAnd then with both arms aloft\nA single soldier came over the top\n"Frohe Weihnachten" he said in a nervous voice\n"Frohe Weihnachten for one day let,s stop"\n\nThen slowly his comrades began to appear\nArms raised. They meant us no harm\nWe did the same. We met in the middle\nThere were smiles. No cause for alarm\n\nThe officers saluted. A mutual respect\nHandshakes and cigarettes shared\nAnd photographs of our girls back home\nWe were all human, We all knew we cared\n\nI got some chocolate. Oh the heaven of it,s taste\nExchanged for a cigar or two\nConversation and laughter. A smile and a wink\nFriendships forged as we shared a brew\n\nThen out of the blue a ball appeared\nIn that instant the war was no more\nA football match for two hundred men\nNobody cared who won or what score\n\nWe ran till our hearts burst out of our chests\nNations aligned in the common goal\nThat day football brought us together\nNo enemies. Just a perfect collective soul\n\nAnd then at the dusk it was over\nWe shared a rum and bid them goodnight\nBack to our trench. Back to the stench\nBack to the pointless fight\n\nMorning came and over we went\nI felt bullets whizz past my ear\nYou dont have time to stop and think\nToo busy to feel any fear\n\nBut then you know. It burns so bad\nYou know when you,ve been hit\nAnd you lie there and hope they dont see you\nThe lads will fetch me back in a bit\n\nThe winter sky is grey and white\nThe snowflakes cover my face\nIt,s nearly time to say goodbye\nFor my soul to leave this place\n\nI,ll leave it in the knowledge\nThat there,s always another way\nI,ve made my peace with God and man\nOn this my dying day` },
+            ukraine: { title: "For the children of Ukraine", text: `If I could ask you to paint me a picture\nYellow sun and sea of blue\nI'd proudly hang it on my wall\nAnd tell the world it was created by you\n\nIf I could walk through your fields and pick flowers\nButtercups of yellow and forget me not blue\nI'd make each and every one of you a posy\nBrighten your lives for a moment or two\n\nIf I could spend just a day in your company\nFrom the yellow dawn to the twilight of blue\nWe'd share stories and memories from happier times\nHopes and dreams for me and for you\n\nIf I could rebuild your houses\nI'd paint them in shades of yellow and blue\nBright colours for a brighter future\nA safe place for your light to shine through\n\nIf I could make a rainbow appear in your sky\nThe brightest colours would be yellow and blue\nShining for peace, shining for love\nThe start of a new life for you\n\nAnd one day I pray you will line the streets\nWaving your flags of yellow and blue\nWelcoming home your daddies\nAs they come marching home to you` },
+            shoes: { title: "All We Have Left Are Shoes", text: `They marched in rows, dare not slow\nFear etched across each face\nMen and women, children too\nOnwards to that place\n\nThey came by train all crammed inside\nNo room to sit or rest\nNot knowing what hell lay ahead\nNo chance of passing this test\n\nThey arrived on trucks like sheep to slaughter\nThe lucky ones died on the way\nGood people herded like cattle\nThe human race's darkest day\n\nRise at dawn, work all day\nBeaten if they stop\nA number tattooed on an arm\nStarvation till they drop\n\nSalvation comes in the chambers\nFinally spirits set free\nA story we cannot imagine\nFreedom for you and for me\n\nNow all we have are photographs\nOf the poor souls who paid their dues\nAll we have is a terrible history\nAll we have left are shoes\n\nAll we have left are shoes` },
+            grateful: { title: "A Grateful Country", text: `I'm sitting on an English hillside\nThe poppies are swaying in the breeze\nSomewhere a lark is singing\nThe wind is whispering through the trees\n\nIn the distance I can hear footsteps\nI strain my eyes to see\nA million men are marching\nA million men who died for me\n\nLed by the boys of Passchendaele\nOf Ypres, Jutland and the Somme\nBrave young lads who stood up tall\nFaced the gas, the bullets and the bomb\n\nThey march in silence, in perfect time\nTurn to salute me as they go\nI blow them a kiss as they fade away\nTo where I do not know\n\nNow come the men who fought for the skies\nThe Spitfire aces that fell\nAnd the boys who died on the beaches\nWho didn't flinch in the face of hell\n\nAs they disappear, a song I hear\nBorne on the wind from somewhere far away\n" We.ll meet again, dont know where,dont know when\nBut I know we'll meet again some sunny day "\n\nNow a moment of quiet as i sit and reflect\nOn this army that would never yield\nApproaching me the boys of the Ardent\nOf Coventry, Glamorgan and the Sheffield\n\nThe class of 82. A task force so brave\nSent to reclaim our land far away\nSir Galahad's lads were right by their side\nTheir legacy is a safer world today\n\nI can feel the heat of the desert now\nImagine the sand blowing into their eyes\nOur heroes who fell so far from home\nUnderneath those blistering skies\n\nThe heat of the day and the chill of the night\nThoughts of sweethearts and family time\nEvery one of them died a hero\nFor a freedom that is yours and mine\n\nSo thank you to all our boys and girls\nOn the land, in the air and at sea\nThank you from a grateful country\nYou gave it all so that we could live free` },
+            gaza: { title: "For the Children of Gaza", text: `I am Khalid, I am 13 years old\nMy name means Immortal one\nI spend my days searching for my family\nIn places I knew but now are gone\n\nThe streets all look the same these days\nI can hear wailing all day long\nEveryone in this city is searching\nI dont know what we all did so wrong\n\nHas anybody seen my father?\nHe’s strong so I’m sure he’s alright\nHis name is Hamza, the mighty lion\nI miss his smile when he bids me goodnight\n\nMany times in the crowds I see my mother\nAnd I run like the wind to her side\nBut it’s never her, I back away\nAnd I cry as all my hope subsides\n\nLet me tell you about Mustafa\nMy little brother and my best friend\nHe’ll be eight next year, I need to find him\nProtect him until the war ends\n\nPlay the games that we love to play\nKick a ball in the street, scream and shout\nHis happy laughter fills my dreams\nMemories of what childhood is all about\n\nI must have walked miles around this broken place\nAnd I will walk until my very last breath\nThrough the chill of the night and the screaming\nThe heat of the day and the stench of death\n\nSomewhere out there is Mariam\nMy baby sister, she’s only four\nAnd I pray that one day I’ll find her\nAnd we can be together once more\n\nHer name means ‘ star of the ocean ’\nHer smile glints like the sun on the waves\nPlease someone protect these children\nGive us the peace that we crave\n\nYou’ll know her if you see her\nShe chats and laughs all day\nTake her hand and gently lead her\nSafely back my way\n\nPlease tell the world to read my words\nShow your leaders the children’s plea\nEnd the war and bring a peaceful life\nFor Mustafa, Mariam and me\n\nI am Khalid, I am 13 years old\nMy name means Immortal one\nBut who wants to be Immortal ?\nWhen all your hope is gone` },
+            poppy: { title: "I Am Your Poppy", text: `I am the boys who lied to serve their king\nI am the Fathers who waved them on their way\nI am the letters that never made it home\nI am a Mother's wait, day after day\n\nI am a million horses that carried our brave lads\nI am the tears shed for a fallen steed\nI am the terror and the fear in every young man's eyes\nI am the destination where no road ever leads\n\nI am a sweetheart's fading photograph\nI am a distant memory of home\nI am a song until we meet again\nI am the hope whenever you feel alone\n\nI am the only colour in this barren land\nI am still blooming at the fading of the light\nI am with you my boys as you take your final breath\nI am proud to be your final earthly sight\n\nI am the memories in every veteran's tears\nI am the comrades that still walk by their side\nI am the friendship that burns bright forever more\nI am the love, the loyalty and pride\n\nI am the blood of all who went before\nI am the heroes who gave only of their best\nI am hope and peace for the future\nI am your poppy, proud upon your chest` },
+            hela: { title: "Hela's Diary", text: `My name is Hela . A name that means hope\nTattoo number 294533\nI write my words in darkness\nMust never let them see\n\nI am a prisoner of all that is evil\nMy homeland invaded by hate\nFaceless impostors, wicked and cruel\nThey will decide my fate\n\nI am writing this so the world will know\nWhat mankind can do to it's own\nA fourteen year old girl alone in this place\nI am nothing now but skin and bone\n\nWhat year is this? What day? What time?\nEach day the same as the one before\nRead my words if you find this\nSee what we had to endure\n\nOctober 1942\n\nIt's always still dark when they wake us\nWe rise to the sound of the gong\nWait in line for a cold water wash\nBlows rain down to rush us along\n\nNo food in the morning just a warm drink\nMy stomach is used to the pain\nThen roll call and we stand to be counted\nIn sunshine, snow or rain\n\nGod help us all if someone is missing\nWe stand till the person is found\nSometimes all day, sometimes all night\nBeaten if you slump to the ground\n\nNovember 1942\n\nI work in the timber yard from dawn to dusk\nChopping logs for fires we can't see\nKeeping our captors warm and happy\nTrying to remember what it's like to be free\n\nMouldy bread for supper, eat just a little\nSave some for morning, hide it away\nThen evening roll call , can hardly stand up\nBut you have to. You have to do it their way\n\nDecember 1942\n\nFrom my dormitory window I see them arrive\nThousands come every day to this place\nMothers and children walk hand in hand\nFear etched on each little one's face\n\nThe stench of death is everywhere\nIt sticks to you like tar\nThe dead are lucky, spirits set free\nFree from this festering scar\n\nSometimes I stand at the wire\nI can see fields, see birds flying by\nAnd I wonder what life is like out there\nBeyond the point where the land meets the sky\n\nJanuary 1943\n\nToday I was beaten by the guards\nToday I did something wrong\nToday I committed a terrible crime\nI was caught singing my favourite song\n\nWhen they lash you then you must count\nDon't get it wrong or they go back to the start\nThen you thank them for your punishment\nBow your head to them as you depart\n\nFebruary 1943\n\nThis winter is endless, I'm cold to my bones\nHow I'm still alive I do not know\nSleep brings no relief, best to keep moving\nTry to brace against cold winds that blow\n\nMy time is coming, I sense that it's near\nAnd I'm ready to take God's hand\nBring me to you oh lord, end this pitiful life\nCarry me to the promised land\n\nWhen you find my diary please tell the world\nDont let all this be in vain\nRemember me . Remember us all.\nRemember these years full of pain\n\nMarch 1943\n\nMy name is Hela a name that means hope\nIt was all I had and now is no more\nThey are here, it is time. My words at an end\nMother and Father await me at heavens door` },
+            letter: { title: "A Letter to Mam", text: `It’s a beautiful day today mam\nBlue skies, whispy clouds passing by\nAnd I’m trying to remember the good times\nSo I’ll chat to you here where I lie\n\nThey say it all flashes in front of your eyes\nYour whole life in a second of time\nI can see it so clearly, such happy days\nThe lakes i swam and the hills i climbed\n\nRemember our street mam? Remember the games?\nBritish bulldog and tag, blind man’s buff\nKnock on and run, they never caught me\nSomehow you managed to give us enough\n\nTimes were hard, we were hungry but never complained\nYou grafted and slaved, fed us all\nAnd i promised to give you the life you deserved\nTill I answered my country’s call\n\nTraining was tough mam but friends got me through\nAll great lads and eighteen like me\nThen they brought us here to this hell on earth\nTo fight an enemy we can’t even see\n\nDigging for days in the mud and the worms\nBuilding trenches "Keep your heads down!" Sarge said\nIt’s hard work but we do it, this place is now home\nFor the rats, the living and the dead\n\nOn my watch nights i think only of you mam\nI know you worry about your little lad\nI still carry your picture, it’s close to my heart\nI know you’re with me through good times and bad\n\nDid you get my letter? I sent it last month\nI hope it gave you some hope and a smile\nI’m trying to keep safe, longing for home\nGod willing I’ll be there in a while\n\nHow’s life at home mam? I miss my old room\nA comfortable bed seems a lifetime away\nAn hour of sleep is so precious here\nLittle escapes, keep the gunfire at bay\n\nI had to do my bit mam\nI know you cried as I marched away\nI said that i’d soon be back in your arms\nBut I’m breaking that promise today\n\nThis barbed wire has got me mam, I can’t get away\nNobody is coming for me\nI’ll hang on as long as I can for you mam\nTill my spirit is ready to fly free\n\nThen I’ll soar over these battlefields\nShine down on my comrades so brave\nAnd one day I’ll smile down at a world\nThat’s found a calm and a peace we all crave\n\nDon’t weep for me mam, I had to do this\nFor my King and my country I stand\nYou will stay in my heart forever\nI’ll never forget the touch of your hand\n\nThis field will be my resting place\nAnd the poppies will mark where I lie\nOne day the grass will banish the mud\nOne day the last man will die\n\nThis terrible war is over for me mam\nGuns are silent, I’m ready to fly\nBe proud of your lad , I gave it my best\nBut for now it’s time for goodbye\n\nKnow that I’ll always be with you\nThis squaddie will march by your side\nAnd I’ll turn to your beautiful face mam\nFull of love and bursting with pride\n\nThank you to all our service men and women in the air,\nat sea and on the land who gave us this life we take for granted.` }
+        };
+
+        function openPoem(id) {
+            document.getElementById('modalTitle').innerText = poems[id].title;
+            document.getElementById('modalBody').innerText = poems[id].text;
+            document.getElementById('poemModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closePoem() {
+            document.getElementById('poemModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
     </script>
 
