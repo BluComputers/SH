@@ -13,7 +13,6 @@
             --text-color: #2d2d2d;
             --header-font: 'Playfair Display', serif;
             --body-font: 'Lato', sans-serif;
-            /* Archive Specific */
             --modal-bg: #fdfcf0;
         }
 
@@ -27,6 +26,7 @@
             scroll-behavior: smooth;
         }
 
+        /* --- Navigation & Header --- */
         header {
             padding: 40px 20px;
             text-align: center;
@@ -62,10 +62,9 @@
             transition: color 0.3s ease;
         }
 
-        nav a:hover {
-            color: white;
-        }
+        nav a:hover { color: white; }
 
+        /* --- Bio Section --- */
         .bio-container {
             display: flex;
             align-items: center;
@@ -95,6 +94,7 @@
             border-radius: 20px;
         }
 
+        /* --- General Section Layout --- */
         section {
             padding: 80px 20px;
             max-width: 1000px;
@@ -105,14 +105,14 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
-        h2, h1 {
+        h1, h2 {
             font-family: var(--header-font);
             font-size: 2.2rem;
             margin-bottom: 30px;
             color: var(--accent-dark);
         }
 
-        /* Gallery & Archive Grid */
+        /* --- Galleries & Archive Tiles --- */
         .gallery, .archive-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -129,11 +129,8 @@
             cursor: pointer;
         }
 
-        .gallery img:hover {
-            transform: scale(1.03);
-        }
+        .gallery img:hover { transform: scale(1.03); }
 
-        /* Archive Tile Styling */
         .tile {
             background: white;
             padding: 40px 20px;
@@ -154,10 +151,10 @@
             background-color: var(--accent-dark);
         }
 
-        .tile h3 { margin: 0; font-family: var(--header-font); transition: color 0.3s; color: var(--text-color); }
+        .tile h3 { margin: 0; font-family: var(--header-font); color: var(--text-color); transition: color 0.3s; }
         .tile:hover h3 { color: white; }
 
-        /* Lightboxes & Modals */
+        /* --- Modals & Lightbox --- */
         .modal {
             display: none;
             position: fixed;
@@ -180,7 +177,6 @@
             overflow-y: auto;
             border-radius: 15px;
             position: relative;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
             text-align: left;
         }
 
@@ -234,7 +230,6 @@
 
         @media (max-width: 768px) {
             .bio-text { text-align: center; }
-            .main-logo { max-width: 250px; }
             .gallery, .archive-grid { grid-template-columns: 1fr 1fr; }
             .modal-content { padding: 25px; }
         }
@@ -261,7 +256,6 @@
             <a href="#bo-obs">Bo & Obs</a>
             <a href="#mum">Dedicated to Mum</a>
             <a href="#archive">Remembrance Archive</a>
-            <a href="#all-poems">All Poems</a>
         </nav>
     </header>
 
@@ -302,6 +296,8 @@
         <h1>Remembrance Archive</h1>
         <p style="font-style: italic; margin-bottom: 40px;">Full Poetry Collection</p>
         <div class="archive-grid">
+            <div class="tile" onclick="openPoem('beach')"><h3>Because of Their Day at the Beach</h3></div>
+            <div class="tile" onclick="openPoem('leoPoppy')"><h3>Leo & The Poppy Man</h3></div>
             <div class="tile" onclick="openPoem('moon')"><h3>The Moon Story</h3></div>
             <div class="tile" onclick="openPoem('dec1914')"><h3>December 1914</h3></div>
             <div class="tile" onclick="openPoem('ukraine')"><h3>Children of Ukraine</h3></div>
@@ -314,20 +310,12 @@
         </div>
     </section>
 
-    <section id="all-poems">
-        <h2>All Poems</h2>
-        <p>Browse the full collection of verses.</p>
-        <div class="gallery">
-            <div class="poem-card" style="width: 100%;">More poems coming soon...</div>
-        </div>
-    </section>
-
     <footer>
         &copy; 2026 Bo & Obs By Sarah Halligan.
     </footer>
 
     <script>
-        // Image Lightbox Logic
+        // Lightbox for Images
         function openLightbox(imgUrl) {
             document.getElementById('lightbox-img').src = imgUrl;
             document.getElementById('lightbox').style.display = 'flex';
@@ -338,8 +326,16 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Text Poem Modal Logic
+        // Archive Modal Content
         const poems = {
+            beach: {
+                title: "Because of Their Day at the Beach",
+                text: `You can stroll along the beach today\nCarry your flip flops in your hand\nFeel the gentle breeze in your face today\nAnd the softness of the sand\n\nChildren paddle at the beach today\nYou can sit and watch them play\nHappy laughter fills the air today\nSee them flee the ocean,s spray\n\nPeople picnic on the beach today\nCupcakes, crisps and lemonade\nFamilies come together today\nMemories shared and plans are made\n\nLovers run on the beach today\nWrite their names with a heart in the sand\nShare their hopes and dreams today\nWatch the sunset hand in hand\n\nBuild a castle at the beach today\nWatch as the tide takes it away\nDig for buried treasure today\nPretend to be a castaway\n\nToast marshmallows at the beach today\nWarm your hands in the firelight,s glow\nPrecious moments with friends today\nPerfect days we must never let go\n\nClose your eyes as you lie in the sun today\nYour mind,s eye might let you see\nAn armada of ships sailing today\nOn a voyage to set the world free\n\nWatch as they near the shore today\nWith their cargo of soldiers so proud\nThey leap from the boats on the beach today\nBravely facing the bullets and bombs so loud\n\nSoldiers are dying on the beach today\nThe bravest who ever did live\nTheir blood flows for freedom today\nThey gave all that they had to give\n\nTheir comrades march onwards today\nSo many will not make it back\nYoung lads will fight for you today\nOn they go ready for the attack\n\nThey fight for all the lovers today\nFor the children who leap over waves\nFor the fun that you had on the beach today\nOh the countless lives they will save\n\nAnd now you wake from your dream today\nThe battleground noise slowly fades\nThe ghosts of heroes are with us today\nAnd the few last remaining comrades\n\nClose your eyes and feel the breeze today\nTry to imagine if all this was lost\nPicture those boys on the beach today\nPaying for us the ultimate cost\n\nWe thank the lads of Omaha today\nOf Utah, Juno and Gold\nAnd thank you the boys of Sword today\nQuite simply the best of the brave and the bold\n\nThe children play on the beach today\nFun filled days with buckets and spades\nAnd we promise all those heroes today\nOur gratitude never fades`
+            },
+            leoPoppy: {
+                title: "Leo & The Poppy Man (Parts 1 & 2)",
+                text: `Leo wakes from another sad dream\nThe one where he cant find his dad\nWipes away tears. Cant upset mum\nTime to step up and be a big lad\n\nThe man of the house at 6 years old\nDown to breakfast he goes with a smile\nMum looks tired today. He gives her a hug\nShe hasnt slept in such a long while\n\nLeo,s dad was a soldier in a far away land\nA hero to all that he knew\nBut heroes dont always make it back home\nSometimes they dont make it through\n\nHe remembers the day that his daddy came home\nIn a cargo plane,s dark lonely hold\nThen carried aloft by six comrades\nThe best of the brave and the hold\n\nHat and gloves on for the walk to school\nHolding hands against November,s chill\nMum doesnt speak. People just smile\nFeels like time is standing still\n\nAcross from the school there,s a man in a wheelchair\nAn old boy with medals so bright\nLeo wants to talk, Mum says 'no time'\nAll day he remembers that sight\n\nThe old man is there again at hometime\nMum chats. Leo seizes his chance\nWanders across, smiles and says 'hi'\nThere,s a sparkle in the old hero,s glance\n\n'You look a bit sad young man, are you ok?'\nLeo tells him how daddy didnt come home\n'Ah well, me and you are kind of the same\nLet me tell you where all heroes roam\n\nThese poppies i sell remind of a time\nThat men fought for kids just like you\nFor freedom so precious. Against evil we stood\nAnd now we are left but a few\n\nI remember so clearly good mates at my side\nAnd i remember them fall by the way\nYou never forget son. You just soldier on\nJust like your dad did day after day\n\nEach year in November i sit on this street\nAnd i cry for the lads that were lost\nBut they died for a reason and i,ll never forget\nHow many paid the ultimate cost\n\nSo here lad take two poppies. Pin one on your chest\nThe other one keep for your dad\nPut it under your pillow each night when you rest\nIt,ll get you through nights when you,re sad'\n\n'Can you make my mummy happy again?\nCan you put the smile back in its place?\nI miss her laughter and bedtime stories\nAnd the sparkle in her beautiful face'\n\n'She just needs time Leo' the old man said\n'And hugs from her brave little man\nTogether you,ll get there. Lean on each other\nAnd one day you,ll see that you can'\n\nThe two heroes hugged. "Thanks for the chat!"\nNow he knew what had to be done\nA run to his mum. A hug and a smile\nHome for tea. Who knows maybe some fun?\n\nBedtime and mum reads. First time in a while\nA few chapters from Wind in the willows\nAnd a little boy dreams happy dreams of his dad\nThanks to a friend and a poppy under his pillow\n\n--- PART 2 ---\n\nFour years had rolled by since Leo looked into the eyes\nOf the poppy man outside his school\nGenerations bridged through heartbreak\nFriendship forged against life so cruel\n\nLeo had never forgotten the kindness\nThat old George had shown him that day\nA poppy he kept under his pillow\nThat kept all the nightmares at bay\n\nAs Remembrance day drew near every year\nGeorge and Leo would sit on the street\nSelling their poppies and saying hello\nTo all the people they chanced to meet\n\nGeorge would tell stories of all his old friends\nAnd of how they fell on that day\nLeo would gently touch his hand\nTry and love the demons away\n\nThen one day it happened. George wasnt there\nThe lollipop lady looked sad\n'He,s in the hospital Leo my love\nHad a fall and it looks pretty bad'\n\nLeo ran home and sobbed to his mum\nOff to visit with grapes and flowers\n'We,re friends of the family. Is he alright?'\nLeft to wonder and pray for hours\n\nAs the hours passed and turned into days\nLeo sat and chatted away\nTried to remind old George of the time\nHe,d chased his nightmares away\n\n'Do you remember George? You helped so much\nYou taught me to smile again\nGave my mummy back to me\nWhen all we had was pain'\n\nMum and Leo visited George\nEvery day. No family came\nThen one day Leo heard\nA whispered voice call out his name\n\n'I,m still here lad. Not ready to go yet\nI cant face those lads that we lost\nI,ve had ninety five years. A good life\nI havent paid my dues or the cost\n\nThose boys died for me and they died for you\nGave their whole lives and for what?\nFor us to have fun. To have a good time\nTo give life our very best shot\n\nHelp me stay awake lad. Talk to me\nPlease dont let me drift away\nI cant go yet. Still carry the guilt\nOf surviving that awful day'\n\nLeo whispered to mum his instructions\nShe nodded with a knowing smile\nTime to nip home and fetch\nSomething she hadnt seen in a while\n\nAs she returned she held him tight\n'I,m so proud of you my son\nYou,re only ten but somehow you know\nJust what needs to be done'\n\nGeorge fell asleep one final time\nLeo sat with his hero till the end\nPlaced the poppy in George,s hand\nA parting gift from a grateful friend\n\n'Carry it with you George' he said\n'Wear it proudly as you meet your mates\nRun into their arms one more time\nAs they greet you at heaven,s gates\n\nAnd if you see my dad up there\nPlease send to him my love\nTell him me and mum are doing fine\nThanks to our heroes up above'`
+            },
             moon: { title: "The Moon Story", text: `"Grandad! Grandad! tell us the moon story!\nTell us about your dad in the war\nWe know we,ve heard it many times\nBut please tell us just once more"\n\nWell I was six years old when war came\nUp to then I knew no pain or fear\nBut i remember the look on my fathers face\nAs he wiped away my mothers tears\n\nThat night as he sat on the edge of my bed\nWe both looked at the moon shining bright\nAnd we made a pact between father and son\nTo always remember that sight\n\n"Wherever this war takes me son\nJust remember we see the same sky\nAt bedtime each night look for moonlight\nAnd i promise the time will fly by"\n\nThe next day we went to the station\nTo wave our boys off on their way\nI felt out out of place as mother held him so tight\nTried to hold my own tears at bay\n\nAs the train pulled away he shot me a wink\n"Remember to look for the moon!"\nI waved till the last carriage was out of sight\nNow just hope that i,d see him again soon\n\nI held mothers hand as we trudged home that day\nBoth lost in our own thoughts and fears\nThe house seemed so empty without fathers laugh\nJust sadness , lonliness and tears\n\nMother gave me a picture of father to keep\nAnd i placed it at the side of my bed\nEach night as i prayed i held it close to my heart\nAnd remembered the words that he,d said\n\nThen before i finally turned out the light\nI,d look to the moon and make a wish\n"Bring them all safely back to us"\nSent on its way with a kiss\n\nI would hear mother crying herself to sleep\nI felt so helpless. We missed him so much\nI tried so hard to make her happy\nAll she wanted was father,s touch\n\nWeeks turned to months. Months to a year\nJust one letter to say he was well\nHe missed us and loved us so very much\nThe end of the war nobody could tell\n\nI missed his stories. I missed his laugh\nI longed to hear his voice again\nI wandered sometimes to the station\nBut he was never on the next train\n\nThe radio told us things were better\nHow the enemy was now on the run\nAnd mother seemed to be hopeful\nThat just maybe this war might be won\n\nI remember the last night so clearly\nSaid my prayers to the light of the moon\nClosed my eyes as tight as can be\nHoped i,d wake to a happier tune\n\nAnd then as the sun kissed me gently awake\nI looked out of my window to see\nA weary soldier slowly marching\nMarching home to me\n\nStill in pyjamas i ran down the lane\nHe dropped his bag and sank to one knee\nAnd i sobbed as i fell into his embrace\nAt last we were once again three\n\nAnd then for a while i stayed out of the way\nI played in the garden till late afternoon\nThen at bedtime a kiss from my father\nAnd we said thank you to our old friend the moon\n\nAs i drifted off to a peaceful sleep\nI heard my parents laughing together once more\nOur family complete. The story now told\nHow the moon brought father home from the war` },
             dec1914: { title: "December 1914", text: `Is anybody coming for me?\nIs this where my life will end?\nI,m only a lad. It,s not my time\nHappier days are just round the bend\n\nHow can you leave me here in this mud?\nWhen yesterday no bullets flew\nWe were friends for twenty four hours\nNow it means nothing to me or you\n\nTwo days ago the guns fell silent\nWe waited. Too scared to blink\nThe hours of nothing but stillness\nNot knowing just what to think\n\nThen suddenly the softest of voices\nA Christmas melody borne on the wind\nAn enemy choir, A serenade\nAll aggression suddenly dimmed\n\nAnd then with both arms aloft\nA single soldier came over the top\n"Frohe Weihnachten" he said in a nervous voice\n"Frohe Weihnachten for one day let,s stop"\n\nThen slowly his comrades began to appear\nArms raised. They meant us no harm\nWe did the same. We met in the middle\nThere were smiles. No cause for alarm\n\nThe officers saluted. A mutual respect\nHandshakes and cigarettes shared\nAnd photographs of our girls back home\nWe were all human, We all knew we cared\n\nI got some chocolate. Oh the heaven of it,s taste\nExchanged for a cigar or two\nConversation and laughter. A smile and a wink\nFriendships forged as we shared a brew\n\nThen out of the blue a ball appeared\nIn that instant the war was no more\nA football match for two hundred men\nNobody cared who won or what score\n\nWe ran till our hearts burst out of our chests\nNations aligned in the common goal\nThat day football brought us together\nNo enemies. Just a perfect collective soul\n\nAnd then at the dusk it was over\nWe shared a rum and bid them goodnight\nBack to our trench. Back to the stench\nBack to the pointless fight\n\nMorning came and over we went\nI felt bullets whizz past my ear\nYou dont have time to stop and think\nToo busy to feel any fear\n\nBut then you know. It burns so bad\nYou know when you,ve been hit\nAnd you lie there and hope they dont see you\nThe lads will fetch me back in a bit\n\nThe winter sky is grey and white\nThe snowflakes cover my face\nIt,s nearly time to say goodbye\nFor my soul to leave this place\n\nI,ll leave it in the knowledge\nThat there,s always another way\nI,ve made my peace with God and man\nOn this my dying day` },
             ukraine: { title: "For the children of Ukraine", text: `If I could ask you to paint me a picture\nYellow sun and sea of blue\nI'd proudly hang it on my wall\nAnd tell the world it was created by you\n\nIf I could walk through your fields and pick flowers\nButtercups of yellow and forget me not blue\nI'd make each and every one of you a posy\nBrighten your lives for a moment or two\n\nIf I could spend just a day in your company\nFrom the yellow dawn to the twilight of blue\nWe'd share stories and memories from happier times\nHopes and dreams for me and for you\n\nIf I could rebuild your houses\nI'd paint them in shades of yellow and blue\nBright colours for a brighter future\nA safe place for your light to shine through\n\nIf I could make a rainbow appear in your sky\nThe brightest colours would be yellow and blue\nShining for peace, shining for love\nThe start of a new life for you\n\nAnd one day I pray you will line the streets\nWaving your flags of yellow and blue\nWelcoming home your daddies\nAs they come marching home to you` },
