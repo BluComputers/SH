@@ -94,7 +94,7 @@
 
         section {
             padding: 80px 20px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 40px auto;
             text-align: center;
             background: var(--section-bg);
@@ -109,7 +109,7 @@
             color: var(--accent-dark);
         }
 
-        .gallery, .archive-grid {
+        .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 20px;
@@ -127,6 +127,13 @@
 
         .gallery img:hover { transform: scale(1.03); }
 
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
         .tile {
             background: white;
             border-radius: 10px;
@@ -140,6 +147,9 @@
             overflow: hidden;
             aspect-ratio: 1 / 1;
             padding: 0;
+            border-top: none;
+            border-left: none;
+            border-right: none;
         }
 
         .tile:hover {
@@ -187,6 +197,7 @@
 
         .tile:hover h3, .tile:hover .tile-label { color: white; }
 
+        /* Modal Logic */
         .modal {
             display: none;
             position: fixed;
@@ -229,7 +240,7 @@
         }
 
         .poem-body {
-            white-space: pre-line;
+            white-space: pre-wrap;
             line-height: 1.8;
             font-size: 1.1rem;
             color: #1c1e21;
@@ -302,7 +313,7 @@
     </div>
 
     <section id="bo-obs">
-        <h2>Bo & Obs</h2>
+        <h2>Bo & Obs Gallery</h2>
         <div class="gallery">
             <img src="https://raw.githubusercontent.com/BluComputers/SH/main/1.jpg" alt="Poem 1" onclick="openLightbox(this.src)">
             <img src="https://raw.githubusercontent.com/BluComputers/SH/main/2.jpg" alt="Poem 2" onclick="openLightbox(this.src)">
@@ -319,46 +330,46 @@
     <section id="all-poems">
         <h1>All Poems By Sarah Halligan</h1>
         <div class="archive-grid">
-            <div class="tile" onclick="openPoem('m1')">
-                <div class="tile-img-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s" alt="Poetry"></div>
-                <div class="tile-text-container"><div class="tile-label">Poem 1</div><h3>Louise B. Butcher</h3></div>
-            </div>
-            <div class="tile" onclick="openPoem('m2')">
-                <div class="tile-img-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s" alt="Poetry"></div>
-                <div class="tile-text-container"><div class="tile-label">Poem 2</div><h3>Regarding Ian Huntley</h3></div>
-            </div>
-            <div class="tile" onclick="openPoem('m3')">
-                <div class="tile-img-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s" alt="Poetry"></div>
-                <div class="tile-text-container"><div class="tile-label">Poem 3</div><h3>Holly and Jess</h3></div>
-            </div>
-            <div class="tile" onclick="openPoem('m4')">
-                <div class="tile-img-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s" alt="Poetry"></div>
-                <div class="tile-text-container"><div class="tile-label">Poem 4</div><h3>Bo and Obs Intro</h3></div>
-            </div>
-            <div class="tile" onclick="openPoem('m5')">
-                <div class="tile-img-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s" alt="Poetry"></div>
-                <div class="tile-text-container"><div class="tile-label">Poem 5</div><h3>Limp Larry</h3></div>
-            </div>
-            <div class="tile" onclick="openPoem('m6')">
-                <div class="tile-img-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s" alt="Poetry"></div>
-                <div class="tile-text-container"><div class="tile-label">Poem 6</div><h3>A Serious Message</h3></div>
-            </div>
-            <div class="tile" onclick="openPoem('m7')">
-                <div class="tile-img-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s" alt="Poetry"></div>
-                <div class="tile-text-container"><div class="tile-label">Poem 7</div><h3>A Day at the Fair</h3></div>
-            </div>
-            <div class="tile" onclick="openPoem('m8')">
-                <div class="tile-img-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s" alt="Poetry"></div>
-                <div class="tile-text-container"><div class="tile-label">Poem 8</div><h3>I Wish (Brianna Ghey)</h3></div>
-            </div>
-            <div class="tile" onclick="openPoem('m9')">
-                <div class="tile-img-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s" alt="Poetry"></div>
-                <div class="tile-text-container"><div class="tile-label">Poem 9</div><h3>Dad's Army Tribute</h3></div>
-            </div>
-            <div class="tile" onclick="openPoem('m10')">
-                <div class="tile-img-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s" alt="Poetry"></div>
-                <div class="tile-text-container"><div class="tile-label">Poem 10</div><h3>I Wake From a Dream</h3></div>
-            </div>
+            <script>
+                const tileData = [
+                    { id: 'm1', title: 'Louise B. Butcher' },
+                    { id: 'm2', title: 'Regarding Ian Huntley' },
+                    { id: 'm3', title: 'Holly and Jess' },
+                    { id: 'm4', title: 'Bo and Obs Intro' },
+                    { id: 'm5', title: 'Limp Larry' },
+                    { id: 'm6', title: 'A Serious Message' },
+                    { id: 'm7', title: 'A Day at the Fair' },
+                    { id: 'm8', title: 'I Wish (Brianna Ghey)' },
+                    { id: 'm9', title: "Dad's Army Tribute" },
+                    { id: 'm10', title: 'I Wake From a Dream' },
+                    { id: 'm11', title: 'Madonna Tribute' },
+                    { id: 'm12', title: 'Cheryl at Maccies' },
+                    { id: 'm13', title: 'Beatles Memories' },
+                    { id: 'm14', title: 'Wibbly Christmas' },
+                    { id: 'm15', title: 'Sleeping on the Sand' },
+                    { id: 'm16', title: 'Bedroom Monster' },
+                    { id: 'm17', title: 'Bo and Obs at the Zoo' },
+                    { id: 'm18', title: 'Guardian Angel' },
+                    { id: 'm19', title: "Teddy's Memories" },
+                    { id: 'm20', title: 'Bo and Obs in Blackpool' }
+                ];
+
+                const imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s";
+
+                tileData.forEach((item, index) => {
+                    document.write(`
+                        <div class="tile" onclick="openPoem('${item.id}')">
+                            <div class="tile-img-container">
+                                <img src="${imgUrl}" alt="Poetry Image">
+                            </div>
+                            <div class="tile-text-container">
+                                <div class="tile-label">Poem ${index + 1}</div>
+                                <h3>${item.title}</h3>
+                            </div>
+                        </div>
+                    `);
+                });
+            </script>
         </div>
     </section>
 
@@ -367,16 +378,7 @@
     </footer>
 
     <script>
-        function openLightbox(imgUrl) {
-            document.getElementById('lightbox-img').src = imgUrl;
-            document.getElementById('lightbox').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
+        // Data for all 20 poems
         const poems = {
             m1: { title: "Louise B. Butcher", text: `Louise Bernadette Butcher you crazy, gorgeous, inspirational woman! This one's for you!!\nI am Bo! And I am Obs!\nLet us tell you about a stunner\nYou might have seen her on the telly\nThey call her the topless runner!\nLouise B. Butcher is a legend\nShe vowed to smile through tears and sobs\nWhen the big old C came calling\nAnd she lost her Bo and Obs\nNow she runs to spread her message\nIt's ok to be flat chested\nYou're still 100% a woman\nLike you were when you were breasted!\nMarathons and fun runs\nShe waves at vans and cars\nA symbol of survival\nAnd proud of all her scars\nListen to Lou's mantra\nGet checked, have a prod and a poke\nDo it in front of the mirror\nOr when you're having your nightly soak\nSo girls always keep a look out\nYou may see her running past\nShout "go Louise we love you!"\nPull up your top and give her a flash!\nI am Bo! And I am Obs!\nLouise doesn't seek fortune and fame\nBut we really think King Charlie\nShould make her his newest Dame!!\nThank you Louise for all you do for the women of the world! All our love Bo , Obs and Sarah!` },
             m2: { title: "Regarding Ian Huntley", text: `You lie there clinging to your life\nWe pray it is at an end\nThere are no angels waiting for you\nFeelings of hate are all we send\nSoon we hope the time will come\nWhen you will breathe your very last\nAnd the world can finally rid itself\nFrom your evil sordord past\nSo go in haste and don't delay\nThe Devil knows you well\nSuffer now and for all eternity\nMay you burn in the fires of hell` },
@@ -387,7 +389,17 @@
             m7: { title: "A Day at the Fair", text: `I am Bo! And I am Obs!\nWe're really quite a pair\nAnd what a day we've had today\nWe spent it at the fair!\nAnd because the day was sunny\nSarah left us free and easy\nWhich didn't help on the Waltzers\nWe both felt rather queasy!\nAt lunchtime Sarah found a seat\nAnd ate chips out of a carton\nThen wandered through the hall of mirrors\nIt made us look like Dolly Parton!\nThe coconut shy was lots of fun\nSame shape as us but hairy\nThe thought of sprouting all that fuzz\nIs really rather scary!\nFinally Sarah had her palm read\nBy a gypsy with gold bangles\nShe said " I see bottles of gin and lots of wine\nAnd two humps that dingle dangle"!\nI am Bo! And I am Obs!\nThanks for reading our little ditty\nWhat a joy it is to be\nA Sarah Halligan titty!!` },
             m8: { title: "I Wish (Brianna Ghey)", text: `I wish that I had known you\nAnd we'd shared a joke or two\nI wish we'd climbed a flowery hill\nThen sat and shared the view\nI wish we could run through dandelions\nAnd blow them to the sky\nI wish we could share sweet memories\nOf childhood times gone by\nI wish we could stand under blossom trees\nHold out our arms as the petals fall\nI wish we could laugh through summer days\nWhat I'd give for you to relive it all\nI wish that I could have held you\nIn that moment of darkness and pain\nI wish that there really is a place\nFor us all to be together again\nI wish , I wish it's all just a bad dream\nAnd we'll wake up from these long lonely years\nBut most of all beautiful Brianna\nHow I wish that you were still here` },
             m9: { title: "Dad's Army Tribute", text: `Today I'm paying tribute\nAnd I'm sure you'll all agree\nTo the finest band of fighting men\nThe home guard of Walmington on sea\nLed by Captain Mainwaring\nA fine upstanding man\nHe had no time for "stupid boys "\nAnd always ready with a plan\nSergeant Wilson was more gentle\nHe had royalty in his kin\nAnd he'd get the boys out on parade\n"Would you mind awfully falling in?"\nNow one step behind the others\n"Don't panic!" It's Corporal Jones\nButcher by day, soldier at night\nPlenty life left in those old bones\nPrivate Fraser was a happy soul\nFrom the land where the thistles bloom\nHe took great delight in telling us\n"We're all doomed I tell you doomed!"\nGodfrey lived with his sister Dolly\nAnd was often quite confused\nAlways had his hand up\n"Captain Mainwaring may I be excused?"\nNow if you needed extra rations\nPrivate Walker was your man\nEverything from tights to chocolate\nAnd petrol in a can\nFinally to Private Pike\nStill his mummy's boy\nHe completes this magnificent seven\nThat even today we still enjoy\nSo thank you to Dad's Army\nWe'll never again see the like\nAnd do you remember the most famous line?\nAll together now "Don't tell him Pike!!"` },
-            m10: { title: "I Wake From a Dream", text: `I wake from a dream and then I see\nYour beautiful face smiling back at me\nThe picture I keep beside my bed\nThe happy memories that fill my head\nLast night through the swirling mists of sleep\nI felt again our love so deep\nNo more sorrow, no more pain\nSafe within your arms again\nWipe away these tears that sting\nWith a gentle touch only dreams can bring\nShine your light and be with me\nAs I face each day's reality\nThat you are never coming home\nAnd I must face the world alone\nWithout my guide to show the way\nAnd lead me through each endless day\nBe there tonight when I close my eyes\nStay with me until I rise\nTo greet the day and start anew\nAnd wish it could be spent with you` }
+            m10: { title: "I Wake From a Dream", text: `I wake from a dream and then I see\nYour beautiful face smiling back at me\nThe picture I keep beside my bed\nThe happy memories that fill my head\nLast night through the swirling mists of sleep\nI felt again our love so deep\nNo more sorrow, no more pain\nSafe within your arms again\nWipe away these tears that sting\nWith a gentle touch only dreams can bring\nShine your light and be with me\nAs I face each day's reality\nThat you are never coming home\nAnd I must face the world alone\nWithout my guide to show the way\nAnd lead me through each endless day\nBe there tonight when I close my eyes\nStay with me until I rise\nTo greet the day and start anew\nAnd wish it could be spent with you` },
+            m11: { title: "Madonna Tribute", text: `A message from Bo and Obs!\nI am Bo! And I am Obs!\nToday we have a tale to tell\nA tribute to our heroes\nWe're sure you'll know them very well!\nBack in the days when we were little\nAnd only just started sprouting\nWe saw Madonna on the telly\nAll Bo and Obs and pouting\nSarah would dance around her room\nDreaming of fame and glory\nThen mum would gently calm her down\nAnd read us a bedtime story\nWe used to cherish those early days\nThe days when all we had was rain\nSarah and mum busy baking bread\nAnd yummy angel cakes again!\nSometimes we'd go out shopping\nWe knew we'd get a special treat\nStrawberry bubble bath from Body shop\nOh us boobs did smell so sweet\nThen off on a Scottish holiday\nWe'd be frozen under Sarah's sweater\nDreaming of sunny summer days\nWhen the world can see us better\nWe're always causing a commotion\nWhen Sarah lets us out to play\nWe wonder what today might bring\nAnd what dad might have to say!\nSo take a bow Madonna\nWe're you're wobbliest supporters\nThank you for the music\nAnd the naughtiness you taught us!\nI am Bo! And I am Obs!\nHave you managed to read our minds?\nTen wibbly wobbly Madonna songs\nAre hiding in these lines!` },
+            m12: { title: "Cheryl at Maccies", text: `Cheryl worked at Maccies\nAs she'd done since leaving school\nThe only job that she could find\nAfter years of playing the fool\nUnderneath the golden arches\nShe served car after car\nThen mopped the floors and emptied bins\nAll to earn her third gold star\nOne day while she was chatting\nTo her favourite Uber guy\nShe noticed an old couple\nOut of the corner of her eye\nShe watched them as they struggled\nWith their automated order\nSo she wandered over and offered help\nThey were either deaf or just ignored her\nFinally they got their tray\nAnd sat near the toilet door\nA cheese burger with fries and salt\nTwo teas, one with a straw\nCheryl watched in horror\nAnd thought " what a typical man!\nThat poor old lady is sitting there\nAnd he's scoffed all the scran!"\nOver she went and finger wagged\nAt the poor confused old duffer\n"How can you treat your wife like that?\nHow can you sit there and watch her suffer?"\nThe old boy sat there open mouthed\nHe was really quite afraid\nAnd he hoped his wife would save him\nFrom Cheryl's stern tirade\nAt last the little old lady spoke\n"Dear it's really not what you think\nAlbert's feeling hungry\nAnd I'm happy with a drink\nWe eat out every Tuesday\nSo I understand your disbelief\nBut the second Tuesday in every month\nIs his turn for the teeth!"` },
+            m13: { title: "Beatles Memories", text: `When I was a little child\nNo one was luckier than me\nMum was always there to wipe my tears\nIf I fell and banged my knee\nDad always worked so very hard\nHe said it kept the taxman sweet\nAnd me and mum would bake him cakes\nThe two of us made so many treats\nOn school days I'd hide under my duvet\n"I'm so tired, don't bother me!"\nMum would shout "come on lazy bum!"\n"Just five more minutes please!"\nAnd then the best days in my life\nWhen I was the birthday girl\nMum would dress me in my party frock\nAnd I'd give them all a twirl\nDays out in Blackpool were always fun\nWith all the fun of the fair\nSlide down the helter skelter\nRide the revolution if you dare !\nWe shared so many happy times\nTravelled here, there and everywhere\n"Are we there yet dad?" I'd always say\n"It won't be long, we're nearly there "\nBut by far my happiest memories\nAs I look back through the years\nThe long and winding road to Scotland\nAnd I remember through my tears\nDad would say " look out for Nessie!\nRun for your life, she's pretty fast!"\nSweet memories from my childhood\nA time I thought would always last\nI've got a feeling that I knew back then\nThat I'll be back one day\nTo live here in these mountains\nAnd remember yesterday\nLife here is getting better now\nAcross the universe above\nMum protects us and I realise\nThat all you need is love` },
+            m14: { title: "Wibbly Christmas", text: `I am Bo! And I am Obs!\nWe're full of yuletide cheer\nSarah's on the raspberry gin\nAnd dad's enjoying a beer!\nWhat a day we had today\nWe bounced round Inverness\nDid all the Christmas shopping\nSarah bought....you'll never guess!\nTwo brand new bras, oh what joy!\nWe can't wait to have a ride\nOne of them is see through\nSo we'll be able to peep outside!\nAnd then the highlight of our day\nBefore Sarah got all blotto\nWe went and sat on Santa's knee\nIn Tesco's little grotto\nHe bounced us up and down so much\nWe really felt quite high\nSanta seemed to struggle\nTo look Sarah in the eye!\nIt's been a wiggly jiggly 25\nUs boobs enjoyed our highland fling\nNow we're ready for more adventures\nLet's see what next year may bring!\nI am Bo! And I am Obs!\nThank you all for being here\nWe wish you a wibbly Christmas\nAnd a wobbly New year!!!\n\nMerry Christmas from Sarah, Bo and Obs! Xx` },
+            m15: { title: "Sleeping on the Sand", text: `In memory of Alan Kurdi, his brother Galib and their mother Rehana. 2 September 2015\nAs I was walking on the beach\nI saw a little boy\nHe looked so peaceful sleeping there\nIt filled my heart with joy\nI wondered should I wake him ?\nThe tide was coming fast\nWe could jump the waves together\nSweet memories from the past\nThis tiny lad he wouldn't stir\nHe lay there on the sand\nIt was then I knew I'd found an angel\nAnd I gently held his hand\nThe sea seemed to apologise\nHer tears caressed his face\nIt wasn't meant to be this way\nTo end here in this place\nA beautiful child, a heart so pure\nA flower reaching for the sun\nThe innocent ones that suffer\nFor actions that cannot be undone\nI wish I knew the answers\nI wish I held them in my hand\nI pray there's no more children\nFound sleeping on the sand...` },
+            m16: { title: "Bedroom Monster", text: `There's a monster in my bedroom\nHe comes here every week\nHow on earth will I fight him?\nHe knows I'm small and weak\nI creep along the landing\nAnd I listen at the door\nCarefully planning my next move\nLike so many times before\nGently easing the door ajar\nI quickly scan the room\nA feeling of overwhelming\nThe heavy sense of doom\nI tiptoe to the bedside\nUse the shadows to conceal\nThe secret weapon in my hand\nMy trump card soon to deal\nBodily I throw myself\nUse my weight to pin him down\nForce him out at every corner\nFight the feeling I may drown\nHe thrashes and he crashes\nTries to take me in his jaw\nThis is now the height of battle\nAs we roll around the floor\nThen slowly, oh so slowly\nI can feel him start to fade\nAnd I seal him in his prison\nI no longer feel afraid\nWe catch our breath together\nThe vanquished and the bold\nThis battle rages in every home\nSo many stories left untold\nTonight I know he'll hold me\nIn his petal soft embrace\nI will drift away to perfect sleep\nAnd dream of a better place\nIn a few short days we'll rejoin the fight\nAnd I'll battle through the pain\nWith the monster in my bedroom\nWhen I change my duvet again!` },
+            m17: { title: "Bo and Obs at the Zoo", text: `I am Bo! And I am Obs!\nWe're on a day trip to the zoo\nTo wobble at the Elephants\nAnd wiggle at Gnu !\nIt's a lovely sunny summer's day\nAll the animals are very sleepy\nBut Sarah kept it nice and skimpy\nSo we can have a little peepy!\nWe went inside the Rhino house\nIt really smelled quite rotten\nThen we got too close to a Mandrill\nAnd he turned and flashed his bottom!\nThe Chimpanzees were lots of fun\nBut the Gorillas beat their chest!\nWe're really very lucky\nSafe and snug in Sarah's vest\nWe compared humps with the Camels\nWhat we found was rather scary\nBo and Obs are Bactrians\nNot silly old Dromedary!\nI am Bo! And I am Obs!\nWe think this may be our last rhyme\nBut keep an eye on Sarah's Facebook\nWe may pop out from time to time!!` },
+            m18: { title: "Guardian Angel", text: `Guardian angel pray for me\nI'm drifting, drowning, lost at sea\nGuide me to a safer shore\nShine your light on me once more\nGuardian angel comfort me\nWhen darker days are all I see\nBe there as night turns into dawn\nShow me how to be reborn\nGuardian angel carry me\nAs I search for my life's destiny\nHold me, calm me, soothe my fears\nGently wipe away my tears\nGuardian angel always be\nIn dreams and memories of you and me\nAnd when it all gets far too much\nI know I have your gentle touch\nGuardian angel hear my plea\nI wish you could come back to me\nFor now I carry you in my heart\nTill the day when we're no longer apart` },
+            m19: { title: "Teddy's Memories", text: `Teddy is all alone again\nThe dawn of another endless day\nAll he has are memories\nSince Maisie went away\nHe doesn't really understand\nAnd he thought she'd always stay\nThe clock has stopped and time has stood still\nSince Maisie went away\nHe remembers all the happy times\nSo many games to play\nBut the fun has gone and silence reigns\nSince Maisie went away\nHe wishes they could dance again\nShe would hold him , twirl and sway\nNow the music doesn't play anymore\nSince Maisie went away\nDaddy slept in her bed again last night\nAs he's done since that day in May\nTeddy has tried so hard to comfort him\nSince Maisie went away\nNobody wipes away a teddy's tears\nIt's the price they have to pay\nAll they have are memories and a broken heart\nWhen their little ones go away` },
+            m20: { title: "Bo and Obs in Blackpool", text: `I am Bo! And I am Obs!\nWe're snug and warm in bed\nWaiting very patiently\nFor Sarah to raise her sleepy head\nYou'll never guess where we've been\nSomewhere really rather cool\nKiss me quick and donkey rides\nA weekend in sunny Blackpool!!\nWe bounced around the Big One\nWobbled at all the folk we met\nIt was very chilly on the ghost train\nAnd Valhalla got us soaking wet!!\nThe water slides at the Sandcastle\nWhat happy days are all about\nOh how we lay there laughing\nAt the bottom when Bo fell out!\nAt the top of the tower the wind was wild\nAnd it woke up both our nipples!\nThen back to the hotel for tea\nWith wine and other tipples\nFinally a tram ride down the golden mile\nSarah wore that top with the missing button\nThe conductor's face went rather red\nWhen he saw she had no bra on!\nI am Bo! And I am Obs!\nThis tired girl is finally waking\nAnother great day to be a boob\nFull of wobbliness and shaking!!` }
         };
 
         function openPoem(id) {
@@ -396,8 +408,20 @@
             document.getElementById('poemModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
+
         function closePoem() {
             document.getElementById('poemModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function openLightbox(imgUrl) {
+            document.getElementById('lightbox-img').src = imgUrl;
+            document.getElementById('lightbox').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
     </script>
