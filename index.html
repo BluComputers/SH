@@ -147,9 +147,6 @@
             overflow: hidden;
             aspect-ratio: 1 / 1;
             padding: 0;
-            border-top: none;
-            border-left: none;
-            border-right: none;
         }
 
         .tile:hover {
@@ -197,7 +194,6 @@
 
         .tile:hover h3, .tile:hover .tile-label { color: white; }
 
-        /* Modal Logic */
         .modal {
             display: none;
             position: fixed;
@@ -240,8 +236,8 @@
         }
 
         .poem-body {
-            white-space: pre-wrap;
-            line-height: 1.8;
+            white-space: pre-wrap; /* Ensures line breaks and spacing are preserved */
+            line-height: 1.6;
             font-size: 1.1rem;
             color: #1c1e21;
         }
@@ -378,28 +374,715 @@
     </footer>
 
     <script>
-        // Data for all 20 poems
         const poems = {
-            m1: { title: "Louise B. Butcher", text: `Louise Bernadette Butcher you crazy, gorgeous, inspirational woman! This one's for you!!\nI am Bo! And I am Obs!\nLet us tell you about a stunner\nYou might have seen her on the telly\nThey call her the topless runner!\nLouise B. Butcher is a legend\nShe vowed to smile through tears and sobs\nWhen the big old C came calling\nAnd she lost her Bo and Obs\nNow she runs to spread her message\nIt's ok to be flat chested\nYou're still 100% a woman\nLike you were when you were breasted!\nMarathons and fun runs\nShe waves at vans and cars\nA symbol of survival\nAnd proud of all her scars\nListen to Lou's mantra\nGet checked, have a prod and a poke\nDo it in front of the mirror\nOr when you're having your nightly soak\nSo girls always keep a look out\nYou may see her running past\nShout "go Louise we love you!"\nPull up your top and give her a flash!\nI am Bo! And I am Obs!\nLouise doesn't seek fortune and fame\nBut we really think King Charlie\nShould make her his newest Dame!!\nThank you Louise for all you do for the women of the world! All our love Bo , Obs and Sarah!` },
-            m2: { title: "Regarding Ian Huntley", text: `You lie there clinging to your life\nWe pray it is at an end\nThere are no angels waiting for you\nFeelings of hate are all we send\nSoon we hope the time will come\nWhen you will breathe your very last\nAnd the world can finally rid itself\nFrom your evil sordord past\nSo go in haste and don't delay\nThe Devil knows you well\nSuffer now and for all eternity\nMay you burn in the fires of hell` },
-            m3: { title: "Holly and Jess", text: `I went for a stroll through the park today\nTwo little butterflies danced on the wind\nI felt I'd seen them somewhere before\nA memory from somewhere deep within\nCerise were their wings, visions in pink\nThey flew with me as I wandered the trail\nThen led me to a garden where sweet peas grow\nAn oasis where life can prevail\nI sat for a while and watched them flit\nAround the snap dragons and roses so rare\nAnd I realised who my companions were\nI knew that beauty beyond compare\nThey rested a while in my outstretched hand\nCaught their breath and then they were gone\nOff to spread their message of love\nTo bring us all together as one\nHolly and Jess we thank you so much\nFor the fleeting chance to watch you fly\nYou will never be forgotten\nOur lives are richer because you stopped by\nfly with the angels xx` },
-            m4: { title: "Bo and Obs Intro", text: `A bouncy young booby called Bo\nWould whinge everywhere that she'd go\nShe said "it's not fair\nBehind Sarah's hair\nI can't tell if it's sunny or snow!"\nObs was Bo's cheeky big sister\nThe boys found it hard to resist her\nShe liked to lose all her troubles\nAll covered in bubbles\nAnd decline all the offers to assist her!\nTogether they make a great team\nAs happy as two cats with the cream\nUp here with Nessie\nWatching Sarah get messy\nThey really are living the dream!` },
-            m5: { title: "Limp Larry", text: `It was a beautiful sunny Sodor day\nAnd Thomas was working hard\nPicking up coal from Brendam docks\nFor the lads at the shunting yard\nThe coal trucks rattled, cried and moaned\n"It's too heavy, we want a rest!"\nBut Thomas pressed on with a wink and a smile\nAnd he giggled at their protest\nAs he passed the ironworks Gordon went by\nAnd said "I feel sorry for you\nYou'd better get over to Knapford\nThe fat controller wants a word or two!"\n"How odd!" thought Thomas as he dumped his trucks\nAnd headed off to see the gaffer\n" I need you to go over to Barrow young Thomas "\nSaid the fat controller stifling his laughter\n"We've got a new engine joining the crew\nLimp Larry, he's here for the summer\nI want you to go and fetch him back here\nRun along lad I know it's a bummer!"\nNow Larry was a sparkly engine\nAnd painted in a gorgeous pale pink\nHe liked to puff and he loved to chuff\nAnd give all the boys a wink!\nLarry flashed Thomas a beaming smile\nAnd said "ooh I do like that blue!\nIt's like summer skies and it matches my eyes\nOh I can't wait to ride behind you!"\nThomas was nervous as they started on back\nLarry kept calling "yoohoo!"\nA toot from his funnel as they entered the tunnel\n"Oh I'm scared of the dark aren't you?"\n"Not me!" Scoffed Thomas as he soldiered on\n"Hurry up now we'll soon be back"\nBut just around the next corner\nA little lost sheep was blocking the track!\nThomas closed his eyes and hit the brakes\nHis wheels screeched and he said "oh dear!"\nThe sheep said "Baaaa!" And Larry said "Ahhh!"\nAs he smashed into Thomas's rear!\nThe fat controller came down to see\nShook his head as he surveyed the scene\n"Limp Larry you've made a right mess here\nIt's the worst I've ever seen!"\n"Get yourselves down to Tidmouth\nThe lads will straighten you out\nNot sure about you Larry but we'll give it a go\nWe'll soon have you out and about!"\nThe engines all laughed as Thomas came home\nAll night they were very unkind\nThen that little blue engine drifted off to sleep\nWith a gentle whistle and a tender behind\nNight night Thomas` },
-            m6: { title: "A Serious Message", text: `For once a serious message from Bo and Obs!!\nI am Bo! And I am Obs!\nWe'd like to send a little rhyme\nTo all the ladies of the world\nPlease check us from time to time\nOnce a month before you dress\nHave a good look at your humps\nDo they look the same as always?\nAny new lumps and bumps?\nRaise your arms and check your pits\nLook for rashes, moles and sores\nAny pain or tenderness?\nAre they smooth just like before?\nAnd if you've got a boyfriend\nA hubby or some lovers\nGet them to have a feel aswell\nWhile you're underneath those covers!\nSo please girls listen to our plea\nBecause cancer doesn't care\nYou only get two boobies\nThere's no shop to buy a spare\nI am Bo! And I am Obs!\nYou know we argue like sister and brother\nBut we don't want to ever imagine a life\nWith one and not the other\nCheck those Boobs!!!` },
-            m7: { title: "A Day at the Fair", text: `I am Bo! And I am Obs!\nWe're really quite a pair\nAnd what a day we've had today\nWe spent it at the fair!\nAnd because the day was sunny\nSarah left us free and easy\nWhich didn't help on the Waltzers\nWe both felt rather queasy!\nAt lunchtime Sarah found a seat\nAnd ate chips out of a carton\nThen wandered through the hall of mirrors\nIt made us look like Dolly Parton!\nThe coconut shy was lots of fun\nSame shape as us but hairy\nThe thought of sprouting all that fuzz\nIs really rather scary!\nFinally Sarah had her palm read\nBy a gypsy with gold bangles\nShe said " I see bottles of gin and lots of wine\nAnd two humps that dingle dangle"!\nI am Bo! And I am Obs!\nThanks for reading our little ditty\nWhat a joy it is to be\nA Sarah Halligan titty!!` },
-            m8: { title: "I Wish (Brianna Ghey)", text: `I wish that I had known you\nAnd we'd shared a joke or two\nI wish we'd climbed a flowery hill\nThen sat and shared the view\nI wish we could run through dandelions\nAnd blow them to the sky\nI wish we could share sweet memories\nOf childhood times gone by\nI wish we could stand under blossom trees\nHold out our arms as the petals fall\nI wish we could laugh through summer days\nWhat I'd give for you to relive it all\nI wish that I could have held you\nIn that moment of darkness and pain\nI wish that there really is a place\nFor us all to be together again\nI wish , I wish it's all just a bad dream\nAnd we'll wake up from these long lonely years\nBut most of all beautiful Brianna\nHow I wish that you were still here` },
-            m9: { title: "Dad's Army Tribute", text: `Today I'm paying tribute\nAnd I'm sure you'll all agree\nTo the finest band of fighting men\nThe home guard of Walmington on sea\nLed by Captain Mainwaring\nA fine upstanding man\nHe had no time for "stupid boys "\nAnd always ready with a plan\nSergeant Wilson was more gentle\nHe had royalty in his kin\nAnd he'd get the boys out on parade\n"Would you mind awfully falling in?"\nNow one step behind the others\n"Don't panic!" It's Corporal Jones\nButcher by day, soldier at night\nPlenty life left in those old bones\nPrivate Fraser was a happy soul\nFrom the land where the thistles bloom\nHe took great delight in telling us\n"We're all doomed I tell you doomed!"\nGodfrey lived with his sister Dolly\nAnd was often quite confused\nAlways had his hand up\n"Captain Mainwaring may I be excused?"\nNow if you needed extra rations\nPrivate Walker was your man\nEverything from tights to chocolate\nAnd petrol in a can\nFinally to Private Pike\nStill his mummy's boy\nHe completes this magnificent seven\nThat even today we still enjoy\nSo thank you to Dad's Army\nWe'll never again see the like\nAnd do you remember the most famous line?\nAll together now "Don't tell him Pike!!"` },
-            m10: { title: "I Wake From a Dream", text: `I wake from a dream and then I see\nYour beautiful face smiling back at me\nThe picture I keep beside my bed\nThe happy memories that fill my head\nLast night through the swirling mists of sleep\nI felt again our love so deep\nNo more sorrow, no more pain\nSafe within your arms again\nWipe away these tears that sting\nWith a gentle touch only dreams can bring\nShine your light and be with me\nAs I face each day's reality\nThat you are never coming home\nAnd I must face the world alone\nWithout my guide to show the way\nAnd lead me through each endless day\nBe there tonight when I close my eyes\nStay with me until I rise\nTo greet the day and start anew\nAnd wish it could be spent with you` },
-            m11: { title: "Madonna Tribute", text: `A message from Bo and Obs!\nI am Bo! And I am Obs!\nToday we have a tale to tell\nA tribute to our heroes\nWe're sure you'll know them very well!\nBack in the days when we were little\nAnd only just started sprouting\nWe saw Madonna on the telly\nAll Bo and Obs and pouting\nSarah would dance around her room\nDreaming of fame and glory\nThen mum would gently calm her down\nAnd read us a bedtime story\nWe used to cherish those early days\nThe days when all we had was rain\nSarah and mum busy baking bread\nAnd yummy angel cakes again!\nSometimes we'd go out shopping\nWe knew we'd get a special treat\nStrawberry bubble bath from Body shop\nOh us boobs did smell so sweet\nThen off on a Scottish holiday\nWe'd be frozen under Sarah's sweater\nDreaming of sunny summer days\nWhen the world can see us better\nWe're always causing a commotion\nWhen Sarah lets us out to play\nWe wonder what today might bring\nAnd what dad might have to say!\nSo take a bow Madonna\nWe're you're wobbliest supporters\nThank you for the music\nAnd the naughtiness you taught us!\nI am Bo! And I am Obs!\nHave you managed to read our minds?\nTen wibbly wobbly Madonna songs\nAre hiding in these lines!` },
-            m12: { title: "Cheryl at Maccies", text: `Cheryl worked at Maccies\nAs she'd done since leaving school\nThe only job that she could find\nAfter years of playing the fool\nUnderneath the golden arches\nShe served car after car\nThen mopped the floors and emptied bins\nAll to earn her third gold star\nOne day while she was chatting\nTo her favourite Uber guy\nShe noticed an old couple\nOut of the corner of her eye\nShe watched them as they struggled\nWith their automated order\nSo she wandered over and offered help\nThey were either deaf or just ignored her\nFinally they got their tray\nAnd sat near the toilet door\nA cheese burger with fries and salt\nTwo teas, one with a straw\nCheryl watched in horror\nAnd thought " what a typical man!\nThat poor old lady is sitting there\nAnd he's scoffed all the scran!"\nOver she went and finger wagged\nAt the poor confused old duffer\n"How can you treat your wife like that?\nHow can you sit there and watch her suffer?"\nThe old boy sat there open mouthed\nHe was really quite afraid\nAnd he hoped his wife would save him\nFrom Cheryl's stern tirade\nAt last the little old lady spoke\n"Dear it's really not what you think\nAlbert's feeling hungry\nAnd I'm happy with a drink\nWe eat out every Tuesday\nSo I understand your disbelief\nBut the second Tuesday in every month\nIs his turn for the teeth!"` },
-            m13: { title: "Beatles Memories", text: `When I was a little child\nNo one was luckier than me\nMum was always there to wipe my tears\nIf I fell and banged my knee\nDad always worked so very hard\nHe said it kept the taxman sweet\nAnd me and mum would bake him cakes\nThe two of us made so many treats\nOn school days I'd hide under my duvet\n"I'm so tired, don't bother me!"\nMum would shout "come on lazy bum!"\n"Just five more minutes please!"\nAnd then the best days in my life\nWhen I was the birthday girl\nMum would dress me in my party frock\nAnd I'd give them all a twirl\nDays out in Blackpool were always fun\nWith all the fun of the fair\nSlide down the helter skelter\nRide the revolution if you dare !\nWe shared so many happy times\nTravelled here, there and everywhere\n"Are we there yet dad?" I'd always say\n"It won't be long, we're nearly there "\nBut by far my happiest memories\nAs I look back through the years\nThe long and winding road to Scotland\nAnd I remember through my tears\nDad would say " look out for Nessie!\nRun for your life, she's pretty fast!"\nSweet memories from my childhood\nA time I thought would always last\nI've got a feeling that I knew back then\nThat I'll be back one day\nTo live here in these mountains\nAnd remember yesterday\nLife here is getting better now\nAcross the universe above\nMum protects us and I realise\nThat all you need is love` },
-            m14: { title: "Wibbly Christmas", text: `I am Bo! And I am Obs!\nWe're full of yuletide cheer\nSarah's on the raspberry gin\nAnd dad's enjoying a beer!\nWhat a day we had today\nWe bounced round Inverness\nDid all the Christmas shopping\nSarah bought....you'll never guess!\nTwo brand new bras, oh what joy!\nWe can't wait to have a ride\nOne of them is see through\nSo we'll be able to peep outside!\nAnd then the highlight of our day\nBefore Sarah got all blotto\nWe went and sat on Santa's knee\nIn Tesco's little grotto\nHe bounced us up and down so much\nWe really felt quite high\nSanta seemed to struggle\nTo look Sarah in the eye!\nIt's been a wiggly jiggly 25\nUs boobs enjoyed our highland fling\nNow we're ready for more adventures\nLet's see what next year may bring!\nI am Bo! And I am Obs!\nThank you all for being here\nWe wish you a wibbly Christmas\nAnd a wobbly New year!!!\n\nMerry Christmas from Sarah, Bo and Obs! Xx` },
-            m15: { title: "Sleeping on the Sand", text: `In memory of Alan Kurdi, his brother Galib and their mother Rehana. 2 September 2015\nAs I was walking on the beach\nI saw a little boy\nHe looked so peaceful sleeping there\nIt filled my heart with joy\nI wondered should I wake him ?\nThe tide was coming fast\nWe could jump the waves together\nSweet memories from the past\nThis tiny lad he wouldn't stir\nHe lay there on the sand\nIt was then I knew I'd found an angel\nAnd I gently held his hand\nThe sea seemed to apologise\nHer tears caressed his face\nIt wasn't meant to be this way\nTo end here in this place\nA beautiful child, a heart so pure\nA flower reaching for the sun\nThe innocent ones that suffer\nFor actions that cannot be undone\nI wish I knew the answers\nI wish I held them in my hand\nI pray there's no more children\nFound sleeping on the sand...` },
-            m16: { title: "Bedroom Monster", text: `There's a monster in my bedroom\nHe comes here every week\nHow on earth will I fight him?\nHe knows I'm small and weak\nI creep along the landing\nAnd I listen at the door\nCarefully planning my next move\nLike so many times before\nGently easing the door ajar\nI quickly scan the room\nA feeling of overwhelming\nThe heavy sense of doom\nI tiptoe to the bedside\nUse the shadows to conceal\nThe secret weapon in my hand\nMy trump card soon to deal\nBodily I throw myself\nUse my weight to pin him down\nForce him out at every corner\nFight the feeling I may drown\nHe thrashes and he crashes\nTries to take me in his jaw\nThis is now the height of battle\nAs we roll around the floor\nThen slowly, oh so slowly\nI can feel him start to fade\nAnd I seal him in his prison\nI no longer feel afraid\nWe catch our breath together\nThe vanquished and the bold\nThis battle rages in every home\nSo many stories left untold\nTonight I know he'll hold me\nIn his petal soft embrace\nI will drift away to perfect sleep\nAnd dream of a better place\nIn a few short days we'll rejoin the fight\nAnd I'll battle through the pain\nWith the monster in my bedroom\nWhen I change my duvet again!` },
-            m17: { title: "Bo and Obs at the Zoo", text: `I am Bo! And I am Obs!\nWe're on a day trip to the zoo\nTo wobble at the Elephants\nAnd wiggle at Gnu !\nIt's a lovely sunny summer's day\nAll the animals are very sleepy\nBut Sarah kept it nice and skimpy\nSo we can have a little peepy!\nWe went inside the Rhino house\nIt really smelled quite rotten\nThen we got too close to a Mandrill\nAnd he turned and flashed his bottom!\nThe Chimpanzees were lots of fun\nBut the Gorillas beat their chest!\nWe're really very lucky\nSafe and snug in Sarah's vest\nWe compared humps with the Camels\nWhat we found was rather scary\nBo and Obs are Bactrians\nNot silly old Dromedary!\nI am Bo! And I am Obs!\nWe think this may be our last rhyme\nBut keep an eye on Sarah's Facebook\nWe may pop out from time to time!!` },
-            m18: { title: "Guardian Angel", text: `Guardian angel pray for me\nI'm drifting, drowning, lost at sea\nGuide me to a safer shore\nShine your light on me once more\nGuardian angel comfort me\nWhen darker days are all I see\nBe there as night turns into dawn\nShow me how to be reborn\nGuardian angel carry me\nAs I search for my life's destiny\nHold me, calm me, soothe my fears\nGently wipe away my tears\nGuardian angel always be\nIn dreams and memories of you and me\nAnd when it all gets far too much\nI know I have your gentle touch\nGuardian angel hear my plea\nI wish you could come back to me\nFor now I carry you in my heart\nTill the day when we're no longer apart` },
-            m19: { title: "Teddy's Memories", text: `Teddy is all alone again\nThe dawn of another endless day\nAll he has are memories\nSince Maisie went away\nHe doesn't really understand\nAnd he thought she'd always stay\nThe clock has stopped and time has stood still\nSince Maisie went away\nHe remembers all the happy times\nSo many games to play\nBut the fun has gone and silence reigns\nSince Maisie went away\nHe wishes they could dance again\nShe would hold him , twirl and sway\nNow the music doesn't play anymore\nSince Maisie went away\nDaddy slept in her bed again last night\nAs he's done since that day in May\nTeddy has tried so hard to comfort him\nSince Maisie went away\nNobody wipes away a teddy's tears\nIt's the price they have to pay\nAll they have are memories and a broken heart\nWhen their little ones go away` },
-            m20: { title: "Bo and Obs in Blackpool", text: `I am Bo! And I am Obs!\nWe're snug and warm in bed\nWaiting very patiently\nFor Sarah to raise her sleepy head\nYou'll never guess where we've been\nSomewhere really rather cool\nKiss me quick and donkey rides\nA weekend in sunny Blackpool!!\nWe bounced around the Big One\nWobbled at all the folk we met\nIt was very chilly on the ghost train\nAnd Valhalla got us soaking wet!!\nThe water slides at the Sandcastle\nWhat happy days are all about\nOh how we lay there laughing\nAt the bottom when Bo fell out!\nAt the top of the tower the wind was wild\nAnd it woke up both our nipples!\nThen back to the hotel for tea\nWith wine and other tipples\nFinally a tram ride down the golden mile\nSarah wore that top with the missing button\nThe conductor's face went rather red\nWhen he saw she had no bra on!\nI am Bo! And I am Obs!\nThis tired girl is finally waking\nAnother great day to be a boob\nFull of wobbliness and shaking!!` }
+            m1: { title: "Louise B. Butcher", text: `Louise Bernadette Butcher you crazy, gorgeous, inspirational woman! This one's for you!!
+
+I am Bo! And I am Obs!
+Let us tell you about a stunner 
+You might have seen her on the telly 
+They call her the topless runner!
+
+Louise B. Butcher is a legend 
+She vowed to smile through tears and sobs 
+When the big old C came calling 
+And she lost her Bo and Obs 
+
+Now she runs to spread her message 
+It's ok to be flat chested 
+You're still 100% a woman 
+Like you were when you were breasted!
+
+Marathons and fun runs 
+She waves at vans and cars
+A symbol of survival 
+And proud of all her scars 
+
+Listen to Lou's mantra
+Get checked, have a prod and a poke
+Do it in front of the mirror
+Or when you're having your nightly soak
+
+So girls always keep a look out
+You may see her running past
+Shout "go Louise we love you!"
+Pull up your top and give her a flash!
+
+I am Bo! And I am Obs!
+Louise doesn't seek fortune and fame
+But we really think King Charlie 
+Should make her his newest Dame!!
+
+Thank you Louise for all you do for the women of the world! All our love Bo , Obs and Sarah!` },
+            m2: { title: "Regarding Ian Huntley", text: `I don't hate easily but for Ian Huntley I make an exception. I'm not going to soil my Facebook with his picture but this is for him.
+
+You lie there clinging to your life
+We pray it is at an end
+There are no angels waiting for you
+Feelings of hate are all we send 
+
+Soon we hope the time will come 
+When you will breathe your very last
+And the world can finally rid itself 
+From your evil sordord past
+
+So go in haste and don't delay 
+The Devil knows you well
+Suffer now and for all eternity 
+May you burn in the fires of hell` },
+            m3: { title: "Holly and Jess", text: `I think today should be about Holly and Jess and not the monster who took them. I wrote this poem back in October 23 for Brianna and then adapted it in August 24 for Bebe, Alice and Elsie. Today I've revisited it again for Holly and Jess. 
+
+I went for a stroll through the park today
+Two little butterflies danced on the wind
+I felt I'd seen them somewhere before 
+A memory from somewhere deep within 
+
+Cerise were their wings, visions in pink
+They flew with me as I wandered the trail
+Then led me to a garden where sweet peas grow
+An oasis where life can prevail 
+
+I sat for a while and watched them flit 
+Around the snap dragons and roses so rare
+And I realised who my companions were
+I knew that beauty beyond compare 
+
+They rested a while in my outstretched hand
+Caught their breath and then they were gone
+Off to spread their message of love
+To bring us all together as one
+
+Holly and Jess we thank you so much
+For the fleeting chance to watch you fly
+You will never be forgotten 
+Our lives are richer because you stopped by
+
+fly with the angels xx` },
+            m4: { title: "Bo and Obs Intro", text: `A bouncy young booby called Bo
+Would whinge everywhere that she'd go
+She said "it's not fair
+Behind Sarah's hair
+I can't tell if it's sunny or snow!"
+
+Obs was Bo's cheeky big sister
+The boys found it hard to resist her
+She liked to lose all her troubles 
+All covered in bubbles 
+And decline all the offers to assist her!
+
+Together they make a great team
+As happy as two cats with the cream
+Up here with Nessie 
+Watching Sarah get messy
+They really are living the dream!` },
+            m5: { title: "Limp Larry", text: `Here's the Thomas the tank engine poem . Now you can read this to your little ones and don't laugh! Make sure you do a northern accent for the fat controller and a suitable one for Sodor's latest recruit Limp Larry!
+
+It was a beautiful sunny Sodor day 
+And Thomas was working hard 
+Picking up coal from Brendam docks 
+For the lads at the shunting yard 
+
+The coal trucks rattled, cried and moaned 
+"It's too heavy, we want a rest!"
+But Thomas pressed on with a wink and a smile 
+And he giggled at their protest 
+
+As he passed the ironworks Gordon went by 
+And said "I feel sorry for you 
+You'd better get over to Knapford 
+The fat controller wants a word or two!"
+
+"How odd!" thought Thomas as he dumped his trucks 
+And headed off to see the gaffer 
+" I need you to go over to Barrow young Thomas "
+Said the fat controller stifling his laughter 
+
+"We've got a new engine joining the crew 
+Limp Larry, he's here for the summer 
+I want you to go and fetch him back here
+Run along lad I know it's a bummer!"
+
+Now Larry was a sparkly engine 
+And painted in a gorgeous pale pink 
+He liked to puff and he loved to chuff 
+And give all the boys a wink!
+
+Larry flashed Thomas a beaming smile 
+And said "ooh I do like that blue!
+It's like summer skies and it matches my eyes 
+Oh I can't wait to ride behind you!"
+
+Thomas was nervous as they started on back 
+Larry kept calling "yoohoo!"
+A toot from his funnel as they entered the tunnel 
+"Oh I'm scared of the dark aren't you?"
+
+"Not me!" Scoffed Thomas as he soldiered on 
+"Hurry up now we'll soon be back"
+But just around the next corner 
+A little lost sheep was blocking the track!
+
+Thomas closed his eyes and hit the brakes 
+His wheels screeched and he said "oh dear!"
+The sheep said "Baaaa!" And Larry said "Ahhh!"
+As he smashed into Thomas's rear!
+
+The fat controller came down to see 
+Shook his head as he surveyed the scene 
+"Limp Larry you've made a right mess here
+It's the worst I've ever seen!"
+
+"Get yourselves down to Tidmouth 
+The lads will straighten you out
+Not sure about you Larry but we'll give it a go 
+We'll soon have you out and about!"
+
+The engines all laughed as Thomas came home
+All night they were very unkind 
+Then that little blue engine drifted off to sleep
+With a gentle whistle and a tender behind
+
+Night night Thomas` },
+            m6: { title: "A Serious Message", text: `For once a serious message from Bo and Obs!!
+
+I am Bo! And I am Obs!
+We'd like to send a little rhyme 
+To all the ladies of the world 
+Please check us from time to time 
+
+Once a month before you dress 
+Have a good look at your humps 
+Do they look the same as always?
+Any new lumps and bumps?
+
+Raise your arms and check your pits 
+Look for rashes, moles and sores 
+Any pain or tenderness?
+Are they smooth just like before?
+
+And if you've got a boyfriend 
+A hubby or some lovers 
+Get them to have a feel aswell 
+While you're underneath those covers!
+
+So please girls listen to our plea 
+Because cancer doesn't care 
+You only get two boobies 
+There's no shop to buy a spare 
+
+I am Bo! And I am Obs!
+You know we argue like sister and brother 
+But we don't want to ever imagine a life
+With one and not the other 
+
+Check those Boobs!!!` },
+            m7: { title: "A Day at the Fair", text: `I am Bo! And I am Obs!
+We're really quite a pair 
+And what a day we've had today 
+We spent it at the fair!
+
+And because the day was sunny 
+Sarah left us free and easy 
+Which didn't help on the Waltzers 
+We both felt rather queasy!
+
+At lunchtime Sarah found a seat 
+And ate chips out of a carton 
+Then wandered through the hall of mirrors 
+It made us look like Dolly Parton!
+
+The coconut shy was lots of fun
+Same shape as us but hairy 
+The thought of sprouting all that fuzz
+Is really rather scary!
+
+Finally Sarah had her palm read
+By a gypsy with gold bangles
+She said " I see bottles of gin and lots of wine 
+And two humps that dingle dangle"!
+
+I am Bo! And I am Obs!
+Thanks for reading our little ditty
+What a joy it is to be
+A Sarah Halligan titty!!` },
+            m8: { title: "I Wish (Brianna Ghey)", text: `Tomorrow is the 3rd anniversary of Brianna Ghey's senseless murder. I've written this to mark the occasion. I've called it I wish. Because I do wish. I wish I'd known her. I wish I'd been there to save her. It breaks my heart to think of her suffering like that.
+
+I wish that I had known you 
+And we'd shared a joke or two 
+I wish we'd climbed a flowery hill
+Then sat and shared the view
+
+I wish we could run through dandelions
+And blow them to the sky
+I wish we could share sweet memories 
+Of childhood times gone by
+
+I wish we could stand under blossom trees
+Hold out our arms as the petals fall
+I wish we could laugh through summer days
+What I'd give for you to relive it all
+
+I wish that I could have held you
+In that moment of darkness and pain
+I wish that there really is a place 
+For us all to be together again 
+
+I wish , I wish it's all just a bad dream 
+And we'll wake up from these long lonely years 
+But most of all beautiful Brianna 
+How I wish that you were still here` },
+            m9: { title: "Dad's Army Tribute", text: `Today I'm paying tribute 
+And I'm sure you'll all agree 
+To the finest band of fighting men 
+The home guard of Walmington on sea 
+
+Led by Captain Mainwaring 
+A fine upstanding man 
+He had no time for "stupid boys "
+And always ready with a plan 
+
+Sergeant Wilson was more gentle 
+He had royalty in his kin 
+And he'd get the boys out on parade 
+"Would you mind awfully falling in?"
+
+Now one step behind the others 
+"Don't panic!" It's Corporal Jones 
+Butcher by day, soldier at night 
+Plenty life left in those old bones 
+
+Private Fraser was a happy soul 
+From the land where the thistles bloom 
+He took great delight in telling us 
+"We're all doomed I tell you doomed!"
+
+Godfrey lived with his sister Dolly 
+And was often quite confused 
+Always had his hand up 
+"Captain Mainwaring may I be excused?"
+
+Now if you needed extra rations 
+Private Walker was your man 
+Everything from tights to chocolate 
+And petrol in a can
+
+Finally to Private Pike 
+Still his mummy's boy 
+He completes this magnificent seven 
+That even today we still enjoy 
+
+So thank you to Dad's Army
+We'll never again see the like
+And do you remember the most famous line?
+All together now "Don't tell him Pike!!"` },
+            m10: { title: "I Wake From a Dream", text: `I wake from a dream and then I see 
+Your beautiful face smiling back at me 
+The picture I keep beside my bed 
+The happy memories that fill my head 
+
+Last night through the swirling mists of sleep 
+I felt again our love so deep 
+No more sorrow, no more pain 
+Safe within your arms again 
+
+Wipe away these tears that sting 
+With a gentle touch only dreams can bring 
+Shine your light and be with me 
+As I face each day's reality 
+
+That you are never coming home 
+And I must face the world alone 
+Without my guide to show the way
+And lead me through each endless day 
+
+Be there tonight when I close my eyes 
+Stay with me until I rise
+To greet the day and start anew 
+And wish it could be spent with you` },
+            m11: { title: "Madonna Tribute", text: `A message from Bo and Obs!
+
+I am Bo! And I am Obs!
+Today we have a tale to tell 
+A tribute to our heroes 
+We're sure you'll know them very well!
+
+Back in the days when we were little 
+And only just started sprouting 
+We saw Madonna on the telly 
+All Bo and Obs and pouting 
+
+Sarah would dance around her room 
+Dreaming of fame and glory 
+Then mum would gently calm her down 
+And read us a bedtime story 
+
+We used to cherish those early days 
+The days when all we had was rain 
+Sarah and mum busy baking bread
+And yummy angel cakes again!
+
+Sometimes we'd go out shopping 
+We knew we'd get a special treat
+Strawberry bubble bath from Body shop
+Oh us boobs did smell so sweet
+
+Then off on a Scottish holiday 
+We'd be frozen under Sarah's sweater
+Dreaming of sunny summer days
+When the world can see us better
+
+We're always causing a commotion 
+When Sarah lets us out to play
+We wonder what today might bring 
+And what dad might have to say!
+
+So take a bow Madonna 
+We're you're wobbliest supporters 
+Thank you for the music 
+And the naughtiness you taught us!
+
+I am Bo! And I am Obs!
+Have you managed to read our minds?
+Ten wibbly wobbly Madonna songs 
+Are hiding in these lines!` },
+            m12: { title: "Cheryl at Maccies", text: `My version of this classic gag!
+
+Cheryl worked at Maccies 
+As she'd done since leaving school 
+The only job that she could find 
+After years of playing the fool 
+
+Underneath the golden arches 
+She served car after car 
+Then mopped the floors and emptied bins 
+All to earn her third gold star 
+
+One day while she was chatting 
+To her favourite Uber guy 
+She noticed an old couple 
+Out of the corner of her eye 
+
+She watched them as they struggled 
+With their automated order 
+So she wandered over and offered help 
+They were either deaf or just ignored her 
+
+Finally they got their tray 
+And sat near the toilet door 
+A cheese burger with fries and salt 
+Two teas, one with a straw 
+
+Cheryl watched in horror 
+And thought " what a typical man!
+That poor old lady is sitting there 
+And he's scoffed all the scran!"
+
+Over she went and finger wagged 
+At the poor confused old duffer 
+"How can you treat your wife like that?
+How can you sit there and watch her suffer?"
+
+The old boy sat there open mouthed 
+He was really quite afraid 
+And he hoped his wife would save him
+From Cheryl's stern tirade
+
+At last the little old lady spoke
+"Dear it's really not what you think
+Albert's feeling hungry 
+And I'm happy with a drink 
+
+We eat out every Tuesday 
+So I understand your disbelief 
+But the second Tuesday in every month 
+Is his turn for the teeth!"` },
+            m13: { title: "Beatles Memories", text: `Here's a little thing I've written this morning. There's 21 Beatles songs in here . Have fun finding them all xxx
+
+When I was a little child 
+No one was luckier than me 
+Mum was always there to wipe my tears 
+If I fell and banged my knee 
+
+Dad always worked so very hard 
+He said it kept the taxman sweet 
+And me and mum would bake him cakes 
+The two of us made so many treats 
+
+On school days I'd hide under my duvet 
+"I'm so tired, don't bother me!"
+Mum would shout "come on lazy bum!"
+"Just five more minutes please!"
+
+And then the best days in my life 
+When I was the birthday girl 
+Mum would dress me in my party frock 
+And I'd give them all a twirl 
+
+Days out in Blackpool were always fun 
+With all the fun of the fair 
+Slide down the helter skelter 
+Ride the revolution if you dare !
+
+We shared so many happy times 
+Travelled here, there and everywhere 
+"Are we there yet dad?" I'd always say 
+"It won't be long, we're nearly there "
+
+But by far my happiest memories 
+As I look back through the years 
+The long and winding road to Scotland 
+And I remember through my tears
+
+Dad would say " look out for Nessie!
+Run for your life, she's pretty fast!"
+Sweet memories from my childhood 
+A time I thought would always last
+
+I've got a feeling that I knew back then
+That I'll be back one day
+To live here in these mountains 
+And remember yesterday 
+
+Life here is getting better now
+Across the universe above
+Mum protects us and I realise 
+That all you need is love` },
+            m14: { title: "Wibbly Christmas", text: `I am Bo! And I am Obs!
+We're full of yuletide cheer 
+Sarah's on the raspberry gin 
+And dad's enjoying a beer!
+
+What a day we had today 
+We bounced round Inverness 
+Did all the Christmas shopping 
+Sarah bought....you'll never guess!
+
+Two brand new bras, oh what joy!
+We can't wait to have a ride 
+One of them is see through 
+So we'll be able to peep outside!
+
+And then the highlight of our day 
+Before Sarah got all blotto 
+We went and sat on Santa's knee 
+In Tesco's little grotto 
+
+He bounced us up and down so much 
+We really felt quite high 
+Santa seemed to struggle 
+To look Sarah in the eye!
+
+It's been a wiggly jiggly 25
+Us boobs enjoyed our highland fling
+Now we're ready for more adventures 
+Let's see what next year may bring!
+
+I am Bo! And I am Obs!
+Thank you all for being here 
+We wish you a wibbly Christmas 
+And a wobbly New year!!!
+
+Merry Christmas from Sarah, Bo and Obs! Xx` },
+            m15: { title: "Sleeping on the Sand", text: `In memory of Alan Kurdi, his brother Galib and their mother Rehana. 2 September 2015 
+
+As I was walking on the beach 
+I saw a little boy 
+He looked so peaceful sleeping there 
+It filled my heart with joy 
+
+I wondered should I wake him ?
+The tide was coming fast 
+We could jump the waves together 
+Sweet memories from the past 
+
+This tiny lad he wouldn't stir 
+He lay there on the sand
+It was then I knew I'd found an angel 
+And I gently held his hand 
+
+The sea seemed to apologise 
+Her tears caressed his face
+It wasn't meant to be this way 
+To end here in this place 
+
+A beautiful child, a heart so pure 
+A flower reaching for the sun
+The innocent ones that suffer
+For actions that cannot be undone
+
+I wish I knew the answers
+I wish I held them in my hand 
+I pray there's no more children 
+Found sleeping on the sand...` },
+            m16: { title: "Bedroom Monster", text: `The struggle is real!!!
+
+There's a monster in my bedroom 
+He comes here every week 
+How on earth will I fight him?
+He knows I'm small and weak 
+
+I creep along the landing 
+And I listen at the door 
+Carefully planning my next move 
+Like so many times before 
+
+Gently easing the door ajar 
+I quickly scan the room 
+A feeling of overwhelming 
+The heavy sense of doom 
+
+I tiptoe to the bedside 
+Use the shadows to conceal 
+The secret weapon in my hand 
+My trump card soon to deal 
+
+Bodily I throw myself 
+Use my weight to pin him down 
+Force him out at every corner 
+Fight the feeling I may drown 
+
+He thrashes and he crashes 
+Tries to take me in his jaw
+This is now the height of battle 
+As we roll around the floor 
+
+Then slowly, oh so slowly 
+I can feel him start to fade 
+And I seal him in his prison 
+I no longer feel afraid 
+
+We catch our breath together 
+The vanquished and the bold 
+This battle rages in every home 
+So many stories left untold 
+
+Tonight I know he'll hold me 
+In his petal soft embrace 
+I will drift away to perfect sleep 
+And dream of a better place 
+
+In a few short days we'll rejoin the fight
+And I'll battle through the pain 
+With the monster in my bedroom 
+When I change my duvet again!` },
+            m17: { title: "Bo and Obs at the Zoo", text: `I am Bo! And I am Obs!
+We're on a day trip to the zoo 
+To wobble at the Elephants 
+And wiggle at Gnu !
+
+It's a lovely sunny summer's day
+All the animals are very sleepy 
+But Sarah kept it nice and skimpy 
+So we can have a little peepy!
+
+We went inside the Rhino house 
+It really smelled quite rotten 
+Then we got too close to a Mandrill 
+And he turned and flashed his bottom!
+
+The Chimpanzees were lots of fun 
+But the Gorillas beat their chest!
+We're really very lucky 
+Safe and snug in Sarah's vest 
+
+We compared humps with the Camels 
+What we found was rather scary 
+Bo and Obs are Bactrians
+Not silly old Dromedary!
+
+I am Bo! And I am Obs!
+We think this may be our last rhyme 
+But keep an eye on Sarah's Facebook 
+We may pop out from time to time!!` },
+            m18: { title: "Guardian Angel", text: `Guardian angel pray for me
+I'm drifting, drowning, lost at sea
+Guide me to a safer shore 
+Shine your light on me once more 
+
+Guardian angel comfort me
+When darker days are all I see
+Be there as night turns into dawn
+Show me how to be reborn 
+
+Guardian angel carry me 
+As I search for my life's destiny
+Hold me, calm me, soothe my fears
+Gently wipe away my tears
+
+Guardian angel always be
+In dreams and memories of you and me
+And when it all gets far too much 
+I know I have your gentle touch
+
+Guardian angel hear my plea
+I wish you could come back to me
+For now I carry you in my heart 
+Till the day when we're no longer apart` },
+            m19: { title: "Teddy's Memories", text: `Woke up with this one in my head yesterday. Made myself cry again 
+
+Teddy is all alone again 
+The dawn of another endless day 
+All he has are memories 
+Since Maisie went away 
+
+He doesn't really understand 
+And he thought she'd always stay 
+The clock has stopped and time has stood still 
+Since Maisie went away 
+
+He remembers all the happy times 
+So many games to play 
+But the fun has gone and silence reigns 
+Since Maisie went away 
+
+He wishes they could dance again 
+She would hold him , twirl and sway
+Now the music doesn't play anymore 
+Since Maisie went away 
+
+Daddy slept in her bed again last night 
+As he's done since that day in May 
+Teddy has tried so hard to comfort him 
+Since Maisie went away 
+
+Nobody wipes away a teddy's tears
+It's the price they have to pay
+
+All they have are memories and a broken heart
+When their little ones go away` },
+            m20: { title: "Bo and Obs in Blackpool", text: `I am Bo! And I am Obs!
+We're snug and warm in bed 
+Waiting very patiently 
+For Sarah to raise her sleepy head 
+
+You'll never guess where we've been 
+Somewhere really rather cool 
+Kiss me quick and donkey rides 
+A weekend in sunny Blackpool!!
+
+We bounced around the Big One 
+Wobbled at all the folk we met 
+It was very chilly on the ghost train 
+And Valhalla got us soaking wet!!
+
+The water slides at the Sandcastle 
+What happy days are all about 
+Oh how we lay there laughing 
+At the bottom when Bo fell out!
+
+At the top of the tower the wind was wild 
+And it woke up both our nipples!
+Then back to the hotel for tea 
+With wine and other tipples 
+
+Finally a tram ride down the golden mile 
+Sarah wore that top with the missing button 
+The conductor's face went rather red 
+When he saw she had no bra on!
+
+I am Bo! And I am Obs!
+This tired girl is finally waking 
+Another great day to be a boob
+Full of wobbliness and shaking!!` }
         };
 
         function openPoem(id) {
