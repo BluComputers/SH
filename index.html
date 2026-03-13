@@ -1,411 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bo & Obs | Sarah Halligan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-pink: #eabec3; 
-            --section-bg: #f4d3d6;
-            --accent-dark: #8c5e63;
-            --text-color: #2d2d2d;
-            --header-font: 'Playfair Display', serif;
-            --body-font: 'Lato', sans-serif;
-            --modal-bg: #fdfcf0;
-        }
-
-        body {
-            background-color: var(--bg-pink);
-            color: var(--text-color);
-            font-family: var(--body-font);
-            margin: 0;
-            padding: 0;
-            line-height: 1.8;
-            scroll-behavior: smooth;
-        }
-
-        header {
-            padding: 40px 20px;
-            text-align: center;
-            background-color: var(--bg-pink);
-        }
-
-        .main-logo {
-            max-width: 350px;
-            height: auto;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
-
-        nav {
-            margin-top: 10px;
-            border-top: 1px solid var(--accent-dark);
-            border-bottom: 1px solid var(--accent-dark);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            background-color: var(--bg-pink);
-            z-index: 100;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text-color);
-            margin: 0 15px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover { color: white; }
-
-        .bio-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-            padding: 80px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .bio-image {
-            width: 300px;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 8px solid var(--section-bg);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .bio-text {
-            flex: 1;
-            min-width: 300px;
-            text-align: left;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 30px;
-            border-radius: 20px;
-        }
-
-        section {
-            padding: 80px 20px;
-            max-width: 1100px;
-            margin: 40px auto;
-            text-align: center;
-            background: var(--section-bg);
-            border-radius: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
-
-        h1, h2 {
-            font-family: var(--header-font);
-            font-size: 2.2rem;
-            margin-bottom: 30px;
-            color: var(--accent-dark);
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-            padding: 10px;
-        }
-
-        .gallery img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-
-        .gallery img:hover { transform: scale(1.03); }
-
-        .archive-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-            padding: 10px;
-        }
-
-        .tile {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            border-bottom: 4px solid var(--accent-dark);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            aspect-ratio: 1 / 1;
-            padding: 0;
-        }
-
-        .tile:hover {
-            transform: translateY(-8px);
-            background-color: var(--accent-dark);
-        }
-
-        .tile-img-container {
-            width: 100%;
-            height: 65%;
-            overflow: hidden;
-            background-color: #f0f2f5;
-        }
-
-        .tile-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .tile-text-container {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 10px;
-        }
-
-        .tile .tile-label { 
-            font-size: 0.65rem; 
-            text-transform: uppercase; 
-            color: #65676b; 
-            margin-bottom: 2px;
-            transition: color 0.3s;
-        }
-
-        .tile h3 { 
-            margin: 0; 
-            font-family: var(--header-font); 
-            color: var(--text-color); 
-            font-size: 0.95rem;
-            line-height: 1.2;
-            transition: color 0.3s; 
-        }
-
-        .tile:hover h3, .tile:hover .tile-label { color: white; }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: var(--modal-bg);
-            padding: 50px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-            border-radius: 15px;
-            position: relative;
-            text-align: left;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px; right: 20px;
-            font-size: 30px;
-            cursor: pointer;
-            color: #999;
-        }
-
-        .modal-title {
-            font-family: var(--header-font);
-            font-size: 1.8rem;
-            color: var(--accent-dark);
-            margin-bottom: 20px;
-            border-bottom: 1px solid #dcdcdc;
-            padding-bottom: 10px;
-            text-align: center;
-        }
-
-        .poem-body {
-            white-space: pre-wrap;
-            line-height: 1.6;
-            font-size: 1.1rem;
-            color: #1c1e21;
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 0.85rem;
-            color: #65676b;
-            border-top: 1px solid #e4e6eb;
-            padding-top: 20px;
-            font-style: italic;
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            font-size: 0.9rem;
-            color: var(--accent-dark);
-            font-weight: bold;
-        }
-
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border: 5px solid white;
-            border-radius: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .archive-grid { grid-template-columns: repeat(2, 1fr); }
-            .modal-content { padding: 25px; }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bo & Obs | Sarah Halligan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1:400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-pink: #eabec3; 
+    --section-bg: #f4d3d6;
+    --accent-dark: #8c5e63;
+    --text-color: #2d2d2d;
+    --header-font: 'Playfair Display', serif;
+    --body-font: 'Lato', sans-serif;
+    --modal-bg: #fdfcf0;
+  }
+  body {
+    background-color: var(--bg-pink);
+    color: var(--text-color);
+    font-family: var(--body-font);
+    margin: 0;
+    padding: 0;
+    line-height: 1.8;
+    scroll-behavior: smooth;
+  }
+  header {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: var(--bg-pink);
+  }
+  .main-logo {
+    max-width: 350px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  }
+  nav {
+    margin-top: 10px;
+    border-top: 1px solid var(--accent-dark);
+    border-bottom: 1px solid var(--accent-dark);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-pink);
+    z-index: 100;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin: 0 15px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  nav a:hover { color: white; }
+  section {
+    padding: 80px 20px;
+    max-width: 1100px;
+    margin: 40px auto;
+    text-align: center;
+    background: var(--section-bg);
+    border-radius: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+  h1 {
+    font-family: var(--header-font);
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    color: var(--accent-dark);
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 10px;
+  }
+  .gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .gallery img:hover { transform: scale(1.03); }
+  .archive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 10px;
+  }
+  .tile {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    border-bottom: 4px solid var(--accent-dark);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+  }
+  .tile:hover {
+    transform: translateY(-8px);
+    background-color: var(--accent-dark);
+  }
+  .tile-img-container {
+    width: 100%;
+    height: 65%;
+    overflow: hidden;
+    background-color: #f0f2f5;
+  }
+  .tile-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tile-text-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+  }
+  .tile .tile-label { 
+    font-size: 0.65rem; 
+    text-transform: uppercase; 
+    color: #65676b; 
+    margin-bottom: 2px;
+    transition: color 0.3s;
+  }
+  .tile h3 { 
+    margin: 0; 
+    font-family: var(--header-font); 
+    color: var(--text-color); 
+    font-size: 0.95rem;
+    line-height: 1.2;
+    transition: color 0.3s; 
+  }
+  .tile:hover h3, .tile:hover .tile-label { color: white; }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .modal-content {
+    background: var(--modal-bg);
+    padding: 50px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 15px;
+    position: relative;
+    text-align: left;
+  }
+  .close-btn {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #999;
+  }
+  .modal-title {
+    font-family: var(--header-font);
+    font-size: 1.8rem;
+    color: var(--accent-dark);
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dcdcdc;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+  .poem-body {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #1c1e21;
+  }
+  .copyright {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.85rem;
+    color: #65676b;
+    border-top: 1px solid #e4e6eb;
+    padding-top: 20px;
+    font-style: italic;
+  }
+  footer {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 0.9rem;
+    color: var(--accent-dark);
+    font-weight: bold;
+  }
+  #lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border: 5px solid white;
+    border-radius: 5px;
+  }
+  @media (max-width: 768px) {
+    .archive-grid { grid-template-columns: repeat(2, 1fr); }
+    .modal-content { padding: 25px; }
+  }
+</style>
 </head>
 <body>
 
-    <div id="lightbox" class="modal" onclick="closeLightbox()">
-        <img id="lightbox-img" src="">
-    </div>
+<div id="lightbox" class="modal" onclick="closeLightbox()">
+  <img id="lightbox-img" src="">
+</div>
 
-    <div id="poemModal" class="modal" onclick="closePoem()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="close-btn" onclick="closePoem()">&times;</span>
-            <div id="modalTitle" class="modal-title"></div>
-            <div id="modalBody" class="poem-body"></div>
-            <div class="copyright">&copy; Sarah Halligan</div>
-        </div>
-    </div>
+<div id="poemModal" class="modal" onclick="closePoem()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="close-btn" onclick="closePoem()">&times;</span>
+    <div id="modalTitle" class="modal-title"></div>
+    <div id="modalBody" class="poem-body"></div>
+    <div class="copyright">&copy; 2026 Sarah Halligan</div>
+  </div>
+</div>
 
-    <header>
-        <img src="https://raw.githubusercontent.com/BluComputers/SH/main/lgo.png" alt="Bo & Obs Logo" class="main-logo">
-        <nav>
-            <a href="#bio">Bio</a>
-            <a href="#bo-obs">Bo & Obs</a>
-            <a href="#all-poems">All Poems</a>
-        </nav>
-    </header>
+<header>
+  <img src="https://raw.githubusercontent.com/BluComputers/SH/main/lgo.png" alt="Bo & Obs Logo" class="main-logo" />
+  <nav>
+    <a href="#bio">Bio</a>
+    <a href="#bo-obs">Bo & Obs</a>
+    <a href="#The-collection">The Collection</a>
+  </nav>
+</header>
 
-    <div id="bio" class="bio-container">
-        <img src="https://raw.githubusercontent.com/BluComputers/SH/main/Main.jpg" alt="Sarah Halligan" class="bio-image">
-        <div class="bio-text">
-            <h2>About Sarah</h2>
-            <p>Hello everyone and welcome to my website! The home of <strong>Bo and Obs</strong>! And also the rest of my poetry.</p>
-            <p>I started writing after my mum died really as grief therapy. Looking after my dad through the day and writing at night. I write about anything that happens to drop into my head so maybe here you'll find something that strikes a chord.</p>
-            <p>I want my poems to be available to anyone so if you do see one you'd like to use for any occasion there's no need to ask me. Here and now I give my blessing. Just dont say you wrote it!! Thanks for dropping by.</p>
-            <p><strong>Love Sarah H ❤️</strong></p>
-        </div>
-    </div>
+<div id="bio" class="bio-container" style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; padding:80px 20px;">
+  <img src="https://raw.githubusercontent.com/BluComputers/SH/main/Main.jpg" alt="Sarah Halligan" style="width:300px; height:auto; border-radius:50%; border:8px solid #f4d3d6; box-shadow:0 10px 30px rgba(0,0,0,0.15); margin-bottom:20px;" />
+  <div style="flex:1; min-width:300px; text-align:left; background: rgba(255,255,255,0.2); padding:30px; border-radius:20px;">
+    <h2>About Sarah</h2>
+    <p>Hello everyone and welcome to my website! The home of <strong>Bo and Obs</strong>! And also the rest of my poetry.</p>
+    <p>I started writing after my mum died really as grief therapy. Looking after my dad through the day and writing at night. I write about anything that happens to drop into my head so maybe here you'll find something that strikes a chord.</p>
+    <p>I want my poems to be available to anyone so if you do see one you'd like to use for any occasion there's no need to ask me. Here and now I give my blessing. Just dont say you wrote it!! Thanks for dropping by.</p>
+    <p><strong>Love Sarah H ❤️</strong></p>
+  </div>
+</div>
 
-    <section id="bo-obs">
-        <h2>Bo & Obs Gallery</h2>
-        <div class="gallery">
-            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/1.jpg" alt="Poem 1" onclick="openLightbox(this.src)">
-            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/2.jpg" alt="Poem 2" onclick="openLightbox(this.src)">
-            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/3.jpg" alt="Poem 3" onclick="openLightbox(this.src)">
-            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/4.jpg" alt="Poem 4" onclick="openLightbox(this.src)">
-            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/5.jpg" alt="Poem 5" onclick="openLightbox(this.src)">
-            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/6.jpg" alt="Poem 6" onclick="openLightbox(this.src)">
-            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/7.jpg" alt="Poem 7" onclick="openLightbox(this.src)">
-            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/8.jpg" alt="Poem 8" onclick="openLightbox(this.src)">
-            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/9.jpg" alt="Poem 9" onclick="openLightbox(this.src)">
-        </div>
-    </section>
+<section id="bo-obs">
+  <h2>Bo & Obs Gallery</h2>
+  <div class="gallery">
+    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/1.jpg" alt="Poem 1" onclick="openLightbox(this.src)" />
+    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/2.jpg" alt="Poem 2" onclick="openLightbox(this.src)" />
+    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/3.jpg" alt="Poem 3" onclick="openLightbox(this.src)" />
+    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/4.jpg" alt="Poem 4" onclick="openLightbox(this.src)" />
+    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/5.jpg" alt="Poem 5" onclick="openLightbox(this.src)" />
+    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/6.jpg" alt="Poem 6" onclick="openLightbox(this.src)" />
+    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/7.jpg" alt="Poem 7" onclick="openLightbox(this.src)" />
+    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/8.jpg" alt="Poem 8" onclick="openLightbox(this.src)" />
+    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/9.jpg" alt="Poem 9" onclick="openLightbox(this.src)" />
+  </div>
+</section>
 
-    <section id="all-poems">
-        <h1>All Poems By Sarah Halligan</h1>
-        <div class="archive-grid">
-            <script>
-                const tileData = [
-                    { id: 'm1', title: 'Louise B. Butcher' },
-                    { id: 'm2', title: 'Regarding Ian Huntley' },
-                    { id: 'm3', title: 'Holly and Jess' },
-                    { id: 'm4', title: 'Bo and Obs Intro' },
-                    { id: 'm5', title: 'Limp Larry' },
-                    { id: 'm6', title: 'A Serious Message' },
-                    { id: 'm7', title: 'A Day at the Fair' },
-                    { id: 'm8', title: 'I Wish (Brianna Ghey)' },
-                    { id: 'm9', title: "Dad's Army Tribute" },
-                    { id: 'm10', title: 'I Wake From a Dream' },
-                    { id: 'm11', title: 'Madonna Tribute' },
-                    { id: 'm12', title: 'Cheryl at Maccies' },
-                    { id: 'm13', title: 'Beatles Memories' },
-                    { id: 'm14', title: 'Wibbly Christmas' },
-                    { id: 'm15', title: 'Sleeping on the Sand' },
-                    { id: 'm16', title: 'Bedroom Monster' },
-                    { id: 'm17', title: 'Bo and Obs at the Zoo' },
-                    { id: 'm18', title: 'Guardian Angel' },
-                    { id: 'm19', title: "Teddy's Memories" },
-                    { id: 'm20', title: 'Bo and Obs in Blackpool' },
-                    { id: 'm21', title: 'A Birthday Wish' },
-                    { id: 'm22', title: 'A to Z of Social Media' },
-                    { id: 'm23', title: "Rita's Tattoo" },
-                    { id: 'm24', title: 'Chucky' },
-                    { id: 'm25', title: 'Rosie and her Posie' },
-                    { id: 'm26', title: 'The Paint Tin' },
-                    { id: 'm27', title: 'Donny from Queens' },
-                    { id: 'm28', title: 'Matthew Shepard' },
-                    { id: 'm29', title: 'Bo and Obs at the Seaside' },
-                    { id: 'm30', title: 'The Father of the Railways' },
-                    { id: 'm31', title: 'The Return of Bo and Obs' },
-                    { id: 'm32', title: 'The Secret of the Loch' },
-                    { id: 'm33', title: 'The Dragon in the Cave' },
-                    { id: 'm34', title: 'She Is All Around You' },
-                    { id: 'm35', title: 'The Squaddie\'s Farewell' },
-                    { id: 'm36', title: 'YNWA: Number Twenty' },
-                    { id: 'm37', title: 'The Beating Heart of Liverpool' },
-                    { id: 'm38', title: 'The Race to the Bench' },
-                    { id: 'm39', title: 'If I Could Change Perceptions' },
-                    { id: 'm40', title: 'Transgender Day of Visibility' },
-                    { id: 'm41', title: 'Ode to my Boobs!' },
-                    { id: 'm42', title: 'The Orange in Hell' },
-                    { id: 'm43', title: 'If Butterflies Lived Forever' },
-                    { id: 'm44', title: 'Hela\'s Last Winter' },
-                    { id: 'm45', title: 'A Light at Christmas' },
-                    { id: 'm46', title: 'A Highland Paradise' },
-                    { id: 'm47', title: 'Goodbye Goodison' },
-                    { id: 'm48', title: 'I Walked For You' },
-                    { id: 'm49', title: 'I Am Your Poppy' },
-                    { id: 'm50', title: 'For Amy (The Little Songbird)' }
-                ];
+<!-- Begin "The Collection" Section -->
+<section id="the-collection">
+  <h1>New Collection</h1>
+  <div class="archive-grid" id="gridContainer"></div>
+</section>
 
-                const imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s";
-
-                tileData.forEach((item, index) => {
-                    document.write(`
-                        <div class="tile" onclick="openPoem('${item.id}')">
-                            <div class="tile-img-container">
-                                <img src="${imgUrl}" alt="Poetry Image">
-                            </div>
-                            <div class="tile-text-container">
-                                <div class="tile-label">Poem ${index + 1}</div>
-                                <h3>${item.title}</h3>
-                            </div>
-                        </div>
-                    `);
-                });
-            </script>
-        </div>
-    </section>
-
-    <footer>
-        &copy; 2026 Bo & Obs By Sarah Halligan.
-    </footer>
-
-    <script>
-        const poems = {
-            m1: { title: "Louise B. Butcher", text: `Louise Bernadette Butcher you crazy, gorgeous, inspirational woman! This one's for you!!
+<script>
+// Full 100 poems text
+const poems = {
+  // Poem 1 (full text)
+  m1: { title: "Louise B. Butcher", text: `Louise Bernadette Butcher you crazy, gorgeous, inspirational woman! This one's for you!!
 
 I am Bo! And I am Obs!
 Let us tell you about a stunner 
@@ -443,7 +312,7 @@ But we really think King Charlie
 Should make her his newest Dame!!
 
 Thank you Louise for all you do for the women of the world! All our love Bo , Obs and Sarah!` },
-            m2: { title: "Regarding Ian Huntley", text: `I don't hate easily but for Ian Huntley I make an exception. I'm not going to soil my Facebook with his picture but this is for him.
+  m2: { title: "Regarding Ian Huntley", text: `I don't hate easily but for Ian Huntley I make an exception. I'm not going to soil my Facebook with his picture but this is for him.
 
 You lie there clinging to your life
 We pray it is at an end
@@ -459,7 +328,7 @@ So go in haste and don't delay
 The Devil knows you well
 Suffer now and for all eternity 
 May you burn in the fires of hell` },
-            m3: { title: "Holly and Jess", text: `I think today should be about Holly and Jess and not the monster who took them. I wrote this poem back in October 23 for Brianna and then adapted it in August 24 for Bebe, Alice and Elsie. Today I've revisited it again for Holly and Jess. 
+  m3: { title: "Holly and Jess", text: `I think today should be about Holly and Jess and not the monster who took them. I wrote this poem back in October 23 for Brianna and then adapted it in August 24 for Bebe, Alice and Elsie. Today I've revisited it again for Holly and Jess. 
 
 I went for a stroll through the park today
 Two little butterflies danced on the wind
@@ -487,7 +356,7 @@ You will never be forgotten
 Our lives are richer because you stopped by
 
 fly with the angels xx` },
-            m4: { title: "Bo and Obs Intro", text: `A bouncy young booby called Bo
+  m4: { title: "Bo and Obs Intro", text: `A bouncy young booby called Bo
 Would whinge everywhere that she'd go
 She said "it's not fair
 Behind Sarah's hair
@@ -504,7 +373,7 @@ As happy as two cats with the cream
 Up here with Nessie 
 Watching Sarah get messy
 They really are living the dream!` },
-            m5: { title: "Limp Larry", text: `Here's the Thomas the tank engine poem . Now you can read this to your little ones and don't laugh! Make sure you do a northern accent for the fat controller and a suitable one for Sodor's latest recruit Limp Larry!
+  m5: { title: "Limp Larry", text: `Here's the Thomas the tank engine poem . Now you can read this to your little ones and don't laugh! Make sure you do a northern accent for the fat controller and a suitable one for Sodor's latest recruit Limp Larry!
 
 It was a beautiful sunny Sodor day 
 And Thomas was working hard 
@@ -572,7 +441,7 @@ Then that little blue engine drifted off to sleep
 With a gentle whistle and a tender behind
 
 Night night Thomas` },
-            m6: { title: "A Serious Message", text: `For once a serious message from Bo and Obs!!
+  m6: { title: "A Serious Message", text: `For once a serious message from Bo and Obs!!
 
 I am Bo! And I am Obs!
 We'd like to send a little rhyme 
@@ -605,7 +474,7 @@ But we don't want to ever imagine a life
 With one and not the other 
 
 Check those Boobs!!!` },
-            m7: { title: "A Day at the Fair", text: `I am Bo! And I am Obs!
+  m7: { title: "A Day at the Fair", text: `I am Bo! And I am Obs!
 We're really quite a pair 
 And what a day we've had today 
 We spent it at the fair!
@@ -634,7 +503,7 @@ I am Bo! And I am Obs!
 Thanks for reading our little ditty
 What a joy it is to be
 A Sarah Halligan titty!!` },
-            m8: { title: "I Wish (Brianna Ghey)", text: `Tomorrow is the 3rd anniversary of Brianna Ghey's senseless murder. I've written this to mark the occasion. I've called it I wish. Because I do wish. I wish I'd known her. I wish I'd been there to save her. It breaks my heart to think of her suffering like that.
+  m8: { title: "I Wish (Brianna Ghey)", text: `Tomorrow is the 3rd anniversary of Brianna Ghey's senseless murder. I've written this to mark the occasion. I've called it I wish. Because I do wish. I wish I'd known her. I wish I'd been there to save her. It breaks my heart to think of her suffering like that.
 
 I wish that I had known you 
 And we'd shared a joke or two 
@@ -660,7 +529,7 @@ I wish , I wish it's all just a bad dream
 And we'll wake up from these long lonely years 
 But most of all beautiful Brianna 
 How I wish that you were still here` },
-            m9: { title: "Dad's Army Tribute", text: `Today I'm paying tribute 
+  m9: { title: "Dad's Army Tribute", text: `Today I'm paying tribute 
 And I'm sure you'll all agree 
 To the finest band of fighting men 
 The home guard of Walmington on sea 
@@ -704,7 +573,7 @@ So thank you to Dad's Army
 We'll never again see the like
 And do you remember the most famous line?
 All together now "Don't tell him Pike!!"` },
-            m10: { title: "I Wake From a Dream", text: `I wake from a dream and then I see 
+  m10: { title: "I Wake From a Dream", text: `I wake from a dream and then I see 
 Your beautiful face smiling back at me 
 The picture I keep beside my bed 
 The happy memories that fill my head 
@@ -728,7 +597,7 @@ Be there tonight when I close my eyes
 Stay with me until I rise
 To greet the day and start anew 
 And wish it could be spent with you` },
-            m11: { title: "Madonna Tribute", text: `A message from Bo and Obs!
+  m11: { title: "Madonna Tribute", text: `A message from Bo and Obs!
 
 I am Bo! And I am Obs!
 Today we have a tale to tell 
@@ -774,7 +643,7 @@ I am Bo! And I am Obs!
 Have you managed to read our minds?
 Ten wibbly wobbly Madonna songs 
 Are hiding in these lines!` },
-            m12: { title: "Cheryl at Maccies", text: `My version of this classic gag!
+  m12: { title: "Cheryl at Maccies", text: `My version of this classic gag!
 
 Cheryl worked at Maccies 
 As she'd done since leaving school 
@@ -825,7 +694,7 @@ We eat out every Tuesday
 So I understand your disbelief 
 But the second Tuesday in every month 
 Is his turn for the teeth!"` },
-            m13: { title: "Beatles Memories", text: `Here's a little thing I've written this morning. There's 21 Beatles songs in here . Have fun finding them all xxx
+  m13: { title: "Beatles Memories", text: `Here's a little thing I've written this morning. There's 21 Beatles songs in here . Have fun finding them all xxx
 
 When I was a little child 
 No one was luckier than me 
@@ -876,7 +745,7 @@ Life here is getting better now
 Across the universe above
 Mum protects us and I realise 
 That all you need is love` },
-            m14: { title: "Wibbly Christmas", text: `I am Bo! And I am Obs!
+  m14: { title: "Wibbly Christmas", text: `I am Bo! And I am Obs!
 We're full of yuletide cheer 
 Sarah's on the raspberry gin 
 And dad's enjoying a beer!
@@ -912,7 +781,7 @@ We wish you a wibbly Christmas
 And a wobbly New year!!!
 
 Merry Christmas from Sarah, Bo and Obs! Xx` },
-            m15: { title: "Sleeping on the Sand", text: `In memory of Alan Kurdi, his brother Galib and their mother Rehana. 2 September 2015 
+  m15: { title: "Sleeping on the Sand", text: `In memory of Alan Kurdi, his brother Galib and their mother Rehana. 2 September 2015 
 
 As I was walking on the beach 
 I saw a little boy 
@@ -943,7 +812,7 @@ I wish I knew the answers
 I wish I held them in my hand 
 I pray there's no more children 
 Found sleeping on the sand...` },
-            m16: { title: "Bedroom Monster", text: `The struggle is real!!!
+  m16: { title: "Bedroom Monster", text: `The struggle is real!!!
 
 There's a monster in my bedroom 
 He comes here every week 
@@ -994,7 +863,7 @@ In a few short days we'll rejoin the fight
 And I'll battle through the pain 
 With the monster in my bedroom 
 When I change my duvet again!` },
-            m17: { title: "Bo and Obs at the Zoo", text: `I am Bo! And I am Obs!
+  m17: { title: "Bo and Obs at the Zoo", text: `I am Bo! And I am Obs!
 We're on a day trip to the zoo 
 To wobble at the Elephants 
 And wiggle at Gnu !
@@ -1023,7 +892,7 @@ I am Bo! And I am Obs!
 We think this may be our last rhyme 
 But keep an eye on Sarah's Facebook 
 We may pop out from time to time!!` },
-            m18: { title: "Guardian Angel", text: `Guardian angel pray for me
+  m18: { title: "Guardian Angel", text: `Guardian angel pray for me
 I'm drifting, drowning, lost at sea
 Guide me to a safer shore 
 Shine your light on me once more 
@@ -1047,7 +916,7 @@ Guardian angel hear my plea
 I wish you could come back to me
 For now I carry you in my heart 
 Till the day when we're no longer apart` },
-            m19: { title: "Teddy's Memories", text: `Woke up with this one in my head yesterday. Made myself cry again 
+  m19: { title: "Teddy's Memories", text: `Woke up with this one in my head yesterday. Made myself cry again 
 
 Teddy is all alone again 
 The dawn of another endless day 
@@ -1079,7 +948,7 @@ It's the price they have to pay
 
 All they have are memories and a broken heart
 When their little ones go away` },
-            m20: { title: "Bo and Obs in Blackpool", text: `I am Bo! And I am Obs!
+  m20: { title: "Bo and Obs in Blackpool", text: `I am Bo! And I am Obs!
 We're snug and warm in bed 
 Waiting very patiently 
 For Sarah to raise her sleepy head 
@@ -1113,7 +982,7 @@ I am Bo! And I am Obs!
 This tired girl is finally waking 
 Another great day to be a boob
 Full of wobbliness and shaking!!` },
-            m21: { title: "A Birthday Wish", text: `A birthday wish, I have but one
+  m21: { title: "A Birthday Wish", text: `A birthday wish, I have but one
 The time we shared before you were gone 
 I miss your songs, I miss your voice 
 Deep down I know I have no choice 
@@ -1137,7 +1006,7 @@ And now I'm here at thirty one
 My heart is broken now you are gone
 My wish I send into the blue
 For one more birthday spent with you` },
-            m22: { title: "A to Z of Social Media", text: `Silly new poem time. This has been bouncing around in my head for weeks all because I had the last two lines and knew I had to do it. A little A to Z of the madness that is social media. Enjoy!!
+  m22: { title: "A to Z of Social Media", text: `Silly new poem time. This has been bouncing around in my head for weeks all because I had the last two lines and knew I had to do it. A little A to Z of the madness that is social media. Enjoy!!
 
 A is for Add me, I be really good friend!
 B gets you Blocked if you call me again 
@@ -1171,7 +1040,7 @@ X owned by Elon, some say he's a N**I
 
 Y is for thank You and Z is for Zuck
 But he's a friend of the Orange so we don't give a f**k!` },
-            m23: { title: "Rita's Tattoo", text: `Haven't done one of these in a while. Take a joke and turn it into a poem. I spotted this one yesterday and thought I have to do it! Made myself chuckle with this . Enjoy!!
+  m23: { title: "Rita's Tattoo", text: `Haven't done one of these in a while. Take a joke and turn it into a poem. I spotted this one yesterday and thought I have to do it! Made myself chuckle with this . Enjoy!!
 
 Rita was an Elvis fan 
 She loved his smouldering eyes 
@@ -1232,7 +1101,7 @@ Gladys said "well i don't know who the twins are
 Those two have really got me stumped 
 But the shrivelled up one in the middle 
 That's definitely Donald Trump!!"` },
-            m24: { title: "Chucky", text: `In the dead of night when the moon shines bright 
+  m24: { title: "Chucky", text: `In the dead of night when the moon shines bright 
 You might hear my footsteps creep 
 Was that a cat? Or maybe a rat?
 Dare you go back to sleep?
@@ -1258,7 +1127,7 @@ Or then again you might find yourself
 Face to face with Chucky!!!!
 
 I'm your friend to the end!!!` },
-            m25: { title: "Rosie and her Posie", text: `"Rosie you are my posie 
+  m25: { title: "Rosie and her Posie", text: `"Rosie you are my posie 
 You are my heart's bouquet 
 Come out here in the moonlight 
 There's something sweet love I wanna say ".....
@@ -1302,7 +1171,7 @@ Together again in this magical land
 Those ruby lips to greet 
 Don't be so captivating 
 My blushing Rosie, my posie sweet"...` },
-            m26: { title: "The Paint Tin", text: `She saves the loose change she finds in his pockets 
+  m26: { title: "The Paint Tin", text: `She saves the loose change she finds in his pockets 
 In an old paint tin behind the shed
 One day she knows she will leave this place 
 Be it alive or be it dead
@@ -1401,7 +1270,7 @@ And she'll take it, oh how she'll take it
 Like a phoenix so high will she rise
 This downtrodden child is now a free woman
 And she's ready to claim her prize` },
-            m27: { title: "Donny from Queens", text: `Donny a spoilt brat from Queens 
+  m27: { title: "Donny from Queens", text: `Donny a spoilt brat from Queens 
 Didn't care about other human beings 
 He never said thanks
 But he loved squeaky tanks
@@ -1419,7 +1288,7 @@ Your business isn't our gender
 So climb out of your hole
 And from your new flagpole 
 Fly the rainbow flag of surrender!` },
-            m28: { title: "Matthew Shepard", text: `This gorgeous lad popped up again on my feed today. For those who don't know who he is let me fill you in. This is Matthew Shepard. In October 1998 Matthew accepted a lift from two men at least one of which he knew. He was driven to a remote spot in Laramie Wyoming. Tied to a fence and beaten. Tortured and pistol whipped then left for dead. He stayed tied to the fence in a coma in freezing temperatures for 18 hours before he was found. The guy who found him mistook him for a scarecrow. It's likely the attack was because he was gay. Matthew passed away 6 days later. I wrote this poem 4 years ago and now while it's pride month I'll repost it. Sleep tight Matt xx
+  m28: { title: "Matthew Shepard", text: `This gorgeous lad popped up again on my feed today. For those who don't know who he is let me fill you in. This is Matthew Shepard. In October 1998 Matthew accepted a lift from two men at least one of which he knew. He was driven to a remote spot in Laramie Wyoming. Tied to a fence and beaten. Tortured and pistol whipped then left for dead. He stayed tied to the fence in a coma in freezing temperatures for 18 hours before he was found. The guy who found him mistook him for a scarecrow. It's likely the attack was because he was gay. Matthew passed away 6 days later. I wrote this poem 4 years ago and now while it's pride month I'll repost it. Sleep tight Matt xx
 
 I didn't know you Matthew 
 I really wish I had
@@ -1451,11 +1320,6 @@ All of your dreams and hopes and fears
 Your last taste of life was the blood on your face
 And the salt from your final tears
 
-They say your face was covered in blood 
-Apart from tear tracks, one on each cheek
-Did you weep for your mum? I know I would 
-My first thought when times are bleak
-
 Matthew I'm sorry for my species 
 And that I hadn't heard your name 
 Your suffering on that awful night 
@@ -1475,7 +1339,7 @@ But for now sleep well and rest your soul
 Safe now away from that place
 I'll meet you one day and hopefully I'll get
 A smile from that beautiful face` },
-            m29: { title: "Bo and Obs at the Seaside", text: `Bo and Obs go to the seaside!!
+  m29: { title: "Bo and Obs at the Seaside", text: `Bo and Obs go to the seaside!!
 
 I am Bo! And I am Obs!
 It's a beautiful sunny day 
@@ -1511,7 +1375,7 @@ I am Bo! And I am Obs!
 What a wonderful day it's been
 Time for a lovely wobbly bubble bath 
 Where Sarah scrubs us squeaky clean!!` },
-            m30: { title: "The Father of the Railways", text: `George Stephenson the father of the railways. He achieved so much in his life despite being illiterate until he was able to self fund some basic tuition at night school when he was 18. Incredible man . Here's a little tribute. 
+  m30: { title: "The Father of the Railways", text: `George Stephenson the father of the railways. He achieved so much in his life despite being illiterate until he was able to self fund some basic tuition at night school when he was 18. Incredible man . Here's a little tribute. 
 
 In a corner of Northumberland 
 Where there are no silver spoons 
@@ -1557,7 +1421,7 @@ So take a seat on Rainhill station
 Look down the line, there's a train coming soon
 And remember the lad with a vision 
 And that Rocket that flew to the moon` },
-            m31: { title: "The Return of Bo and Obs", text: `The return of Bo and Obs!
+  m31: { title: "The Return of Bo and Obs", text: `The return of Bo and Obs!
 
 I am Bo! and I am Obs!
 Saturday once again is here!
@@ -1593,7 +1457,7 @@ I am Bo! and I am Obs!
 We just about managed to stay in 
 Now we're ready for an evening of dancing 
 Sarah's having a night on the gin!` },
-            m32: { title: "The Secret of the Loch", text: `By the dark dark water where the midgies dance 
+  m32: { title: "The Secret of the Loch", text: `By the dark dark water where the midgies dance 
 Under ancient highland skies 
 You might want to come and search for me
 Or listen for my age old cries
@@ -1627,7 +1491,7 @@ By the dark dark water where the midgies dance
 You can search and hope to see
 But I'll be safe in my highland paradise 
 Wishing the world would leave me be` },
-            m33: { title: "The Dragon in the Cave", text: `When you wake up with a dragon poem in your head and write it in 20 minutes. My brain is weird!
+  m33: { title: "The Dragon in the Cave", text: `When you wake up with a dragon poem in your head and write it in 20 minutes. My brain is weird!
 
 How many more years of lonliness?
 How many more nights must I cry?
@@ -1658,7 +1522,7 @@ The colour returns to my ancient world
 These old eyes can finally see
 The years of lonliness are over 
 Adventures for you and for me` },
-            m34: { title: "She Is All Around You", text: `She is in the morning birdsong that stirs your weary soul 
+  m34: { title: "She Is All Around You", text: `She is in the morning birdsong that stirs your weary soul 
 She is with you as you wake to greet the day 
 She is with you when you wonder just how to make it through 
 She is the light showing you the way 
@@ -1677,7 +1541,7 @@ She is all around you as you go about your day
 She is watching, her love is shining through 
 And one day she'll be waiting as you run into her arms 
 There never was a more precious child than you` },
-            m35: { title: "The Squaddie's Farewell", text: `It's a beautiful day today mam
+  m35: { title: "The Squaddie's Farewell", text: `It's a beautiful day today mam
 Blue skies, whispy clouds passing by
 And I'm trying to remember the good times 
 So I'll chat to you here where I lie
@@ -1758,7 +1622,7 @@ And I'll turn to your beautiful face mam
 Full of love and bursting with pride 
 
 Thank you to all our service men and women in the air, at sea and on the land who gave us this life we take for granted .` },
-            m36: { title: "YNWA: Number Twenty", text: `We welcome people young and old
+  m36: { title: "YNWA: Number Twenty", text: `We welcome people young and old
 They've witnessed titles a plenty 
 But today under Liverpool's golden sky
 We've brought home number twenty
@@ -1774,7 +1638,7 @@ Liverpool once again the champions
 May you never walk alone 
 
 YNWA 20` },
-            m37: { title: "The Beating Heart of Liverpool", text: `Listen to our music all over the world 
+  m37: { title: "The Beating Heart of Liverpool", text: `Listen to our music all over the world 
 Listen to the Mersey lap the shore 
 Listen to this city's proud beating heart 
 Listen to our football crowds roar 
@@ -1818,7 +1682,7 @@ Listen to this city's proud beating heart
 Listen to the football crowds roar 
 Listen to justice, listen to peace 
 Listen to our songs for evermore` },
-            m38: { title: "The Race to the Bench", text: `A race to the bench, we ran like the wind 
+  m38: { title: "The Race to the Bench", text: `A race to the bench, we ran like the wind 
 Some days it was you, some days me 
 It didn't matter who won and we didn't care 
 We were young and oh so free 
@@ -1857,7 +1721,7 @@ There's room on the bench if you want to stop by
 We can pretend we are still young and free
 I can hear your voice in the whisper of the wind
 And I know you will wait for me` },
-            m39: { title: "If I Could Change Perceptions", text: `If I could change perceptions 
+  m39: { title: "If I Could Change Perceptions", text: `If I could change perceptions 
 I promise I would try
 I'd open eyes and minds and hearts 
 No need to live that lie 
@@ -1913,7 +1777,7 @@ My love for you is endless
 I send to each of you a kiss xx
 
 Love Sarah` },
-            m40: { title: "Transgender Day of Visibility", text: `Transgender day of visibility 2025. Have a wonderful day boys and girls!
+  m40: { title: "Transgender Day of Visibility", text: `Transgender day of visibility 2025. Have a wonderful day boys and girls!
 
 Value is all I ask of you
 Value is all I need 
@@ -1951,7 +1815,7 @@ Leave your ignorance and intolerance
 Leave some kind words for me 
 
 Inside me is who I'm meant to be 
-Inside but not for long 
+Inside but not for long
 Inside I'll be ready for my day
 Inside I'm rehearsing my song
 
@@ -1964,7 +1828,7 @@ You are the ones that can change it
 You are the ones with the knife
 You can take a step back, take a long look
 You can leave me to live my life` },
-            m41: { title: "Ode to my Boobs!", text: `I am Bo! And I am Obs!
+  m41: { title: "Ode to my Boobs!", text: `I am Bo! And I am Obs!
 We live in Sarah's shirt
 She keeps us safe within her bra
 To make sure we don't get hurt
@@ -1988,7 +1852,7 @@ I am Bo! And I am Obs!
 One on the left , one on the right 
 Now Sarah's off for a nudy sleep 
 So we wish you all goodnight!!` },
-            m42: { title: "The Orange in Hell", text: `Here's a little Ode to the odious orange. A glimpse into the future maybe? ( Cartoon by Mike Bounds)
+  m42: { title: "The Orange in Hell", text: `Here's a little Ode to the odious orange. A glimpse into the future maybe? ( Cartoon by Mike Bounds)
 
 Old Orange died and went to hell 
 The Devil said "We're full !
@@ -2039,7 +1903,7 @@ Donald smiled and nodded
 Welcome to hell, what a party we'll throw!"
 Turning back to door 3 the Devil said
 "Monica you're free to go!"` },
-            m43: { title: "If Butterflies Lived Forever", text: `If butterflies lived forever 
+  m43: { title: "If Butterflies Lived Forever", text: `If butterflies lived forever 
 What a beautiful world it would be 
 Velvet colours of every hue 
 A brighter future for you and for me 
@@ -2060,7 +1924,7 @@ Next time you see one, close your eyes and remember
 And you'll realise we're never really apart 
 
 Fly with the angels Brianna` },
-            m44: { title: "Hela's Last Winter", text: `Today is Holocaust remembrance day. And this year it marks 80 years since the liberation of Auschwitz. Back in January 22 I wrote a poem called Hela's last winter and I've reposted it each year since. Hela is 14 years old. She's Polish imprisoned in her own country . Her parents are already dead and she is alone in that place. This year I wanted to put an actual person to the poem and through my research I found Czeslawa Kwoka. Also 14. She was born in 1928 and arrived at Auschwitz late 1942 . She died in March 1943. When you look at her picture her beauty still shines through despite the best efforts of her captors. So this is for Czeslawa and the 1.1 million others who perished in that hell 
+  m44: { title: "Hela's Last Winter", text: `Today is Holocaust remembrance day. And this year it marks 80 years since the liberation of Auschwitz. Back in January 22 I wrote a poem called Hela's last winter and I've reposted it each year since. Hela is 14 years old. She's Polish imprisoned in her own country . Her parents are already dead and she is alone in that place. This year I wanted to put an actual person to the poem and through my research I found Czeslawa Kwoka. Also 14. She was born in 1928 and arrived at Auschwitz late 1942 . She died in March 1943. When you look at her picture her beauty still shines through despite the best efforts of her captors. So this is for Czeslawa and the 1.1 million others who perished in that hell 
 
 Hela's last winter
 
@@ -2160,7 +2024,7 @@ My name is Hela a name that means hope
 It was all I had and now is no more 
 They are here, it is time. My words at an end
 Mother and Father await me at heavens door` },
-            m45: { title: "A Light at Christmas", text: `Hey everyone I want to share something with you all. A few weeks ago me and my friend David Campbell-Brown who is the head of religious education at a school in Cardiff came up with a poetry competition idea for the children that I would judge. The theme was a message for Christmas. This is the poem that I chose as the winner. It's written by Giselle aged 15. I've read it and reread it and it gets more beautiful every read. Please give it some love guys I would have been proud to have written something as beautiful as this. And Giselle I know Mr Brown is gonna show you the post so just thank you thank you for this beautiful poem. I'm setting it to public so it will be seen by 1000s and you deserve every love that it brings. Well done young lady  xx
+  m45: { title: "A Light at Christmas", text: `Hey everyone I want to share something with you all. A few weeks ago me and my friend David Campbell-Brown who is the head of religious education at a school in Cardiff came up with a poetry competition idea for the children that I would judge. The theme was a message for Christmas. This is the poem that I chose as the winner. It's written by Giselle aged 15. I've read it and reread it and it gets more beautiful every read. Please give it some love guys I would have been proud to have written something as beautiful as this. And Giselle I know Mr Brown is gonna show you the post so just thank you thank you for this beautiful poem. I'm setting it to public so it will be seen by 1000s and you deserve every love that it brings. Well done young lady  xx
 
 A light at Christmas 
 
@@ -2183,7 +2047,7 @@ Each twinkling star, each candles glow
 Reminds us of what we still know 
 That kindness lives though faint it's spark 
 And peace can shine in places dark` },
-            m46: { title: "A Highland Paradise", text: `For mum 
+  m46: { title: "A Highland Paradise", text: `For mum 
 
 When I was a child you told me 
 Of a land with mountains so tall 
@@ -2214,7 +2078,7 @@ I know you are here in these mountains
 Still holding my hand as I go on life's way 
 Thank you for sharing your highland paradise 
 All my life I've been longing to stay` },
-            m47: { title: "Goodbye Goodison", text: `So as Everton fans prepare to say a final goodbye to Goodison here's my little tribute. 
+  m47: { title: "Goodbye Goodison", text: `So as Everton fans prepare to say a final goodbye to Goodison here's my little tribute. 
 
 You are the way of life we thought would never end 
 You are countless schoolboy hopes and dreams 
@@ -2245,7 +2109,7 @@ You are a tear in the eye as we wave a last goodbye
 You are the badge so proud upon our chest 
 You are nil satis nisi optimum and will be forever more 
 You are Goodison. You are nothing but the best` },
-            m48: { title: "I Walked For You", text: `I'm not sure if you're aware of the charity 3 dads walking. They are Mike, Andy and Tim who walk together to raise awareness of young suicide. They all lost their beautiful daughters to suicide. Anyway I felt inspired to write them a poem . I sent it to them and got this lovely email back . Just thought I'd share the poem here in memory of Beth,Sophie and Emily  
+  m48: { title: "I Walked For You", text: `I'm not sure if you're aware of the charity 3 dads walking. They are Mike, Andy and Tim who walk together to raise awareness of young suicide. They all lost their beautiful daughters to suicide. Anyway I felt inspired to write them a poem . I sent it to them and got this lovely email back . Just thought I'd share the poem here in memory of Beth,Sophie and Emily  
 
 I walked for the love you brought me 
 In those beautiful newborn eyes 
@@ -2281,7 +2145,7 @@ I walked for you my beautiful girl
 Though these years have brought us pain 
 I walked because I know one day 
 I will hold you in my arms again` },
-            m49: { title: "I Am Your Poppy", text: `I am the boys who lied to serve their king 
+  m49: { title: "I Am Your Poppy", text: `I am the boys who lied to serve their king 
 I am the Fathers who waved them on their way 
 I am the letters that never made it home 
 I am a Mother's wait, day after day 
@@ -2310,7 +2174,7 @@ I am the blood of all who went before
 I am the heroes who gave only of their best 
 I am hope and peace for the future 
 I am your poppy, proud upon your chest` },
-            m50: { title: "For Amy (The Little Songbird)", text: `For Amy. ( portrait by Andy Martin )
+  m50: { title: "For Amy (The Little Songbird)", text: `For Amy. ( portrait by Andy Martin )
 
 A little bird appeared outside my window 
 One snowy and cold December night 
@@ -2351,30 +2215,47 @@ But in that moment I realised
 That I'd known who she was all along 
 Beautiful, broken Amy 
 A little songbird who lost her song` }
-        };
+};
 
-        function openPoem(id) {
-            document.getElementById('modalTitle').innerText = poems[id].title;
-            document.getElementById('modalBody').innerText = poems[id].text;
-            document.getElementById('poemModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
+const container = document.getElementById('gridContainer');
+const imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREpFJbiWD7mG6TXxNUIv__POr6tidngA2few&s";
 
-        function closePoem() {
-            document.getElementById('poemModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+// Generate all 100 tiles
+for (let i=1; i<=100; i++) {
+  const key='m'+i;
+  const poem=poems[key];
+  const title=poem? poem.title: 'Poem '+i;
+  const tile=document.createElement('div');
+  tile.className='tile';
+  tile.onclick= ()=>openPoem(key);
+  tile.innerHTML= `
+    <div class="tile-img-container">
+      <img src="${imgUrl}" alt="Poetry Image" />
+    </div>
+    <div class="tile-text-container">
+      <div class="tile-label">Poem ${i}</div>
+      <h3>${title}</h3>
+    </div>
+  `;
+  container.appendChild(tile);
+}
 
-        function openLightbox(imgUrl) {
-            document.getElementById('lightbox-img').src = imgUrl;
-            document.getElementById('lightbox').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
+function openPoem(id) {
+  if (poems[id]) {
+    document.getElementById('modalTitle').innerText= poems[id].title;
+    document.getElementById('modalBody').innerText= poems[id].text;
+    document.getElementById('poemModal').style.display='flex';
+    document.body.style.overflow='hidden';
+  }
+}
+function closePoem() {
+  document.getElementById('poemModal').style.display='none';
+  document.body.style.overflow='auto';
+}
+</script>
 
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    </script>
+<footer>
+  &copy; 2026 Bo & Obs By Sarah Halligan.
+</footer>
 </body>
 </html>
