@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 2</title>
+    <style>
+        :root {
+            --rose-pink: #f4c2c2;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--rose-pink);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #ffe4e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d08484;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        /* Fullscreen Overlay */
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #b05e5e;
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: #b05e5e; 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--rose-pink);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "My Rabbit Called John",
+                body: `I have a pet rabbit called John 
+He's there for me when that mood comes on 
+He's not soft and fuzzy 
+But he is rather buzzy!
+My lovely pink rabbit called John 
+
+You may wonder why is my rabbit called John?
+Where would I pick that name from?
+Well it's a dishy guitar player 
+Who goes by the name Mayer 
+My future husband called John 
+
+I have to be careful with my rabbit called John 
+It's not easy arranging our liaison 
+When you live with your dad 
+And you know he'd go mad
+If he knew I had a secret fella called John 
+
+It's a lovely life with my rabbit called John 
+And I know he's just an automaton 
+But he's never a bore 
+And he doesn't even snore!
+My reliable playmate called John 
+
+Guess where I keep my rabbit called John 
+But don't tell my dad if you ever knock on
+In my left divan drawer
+That's what storage is for!
+Safe in his box till my next night with John 
+
+Maybe tonight I'll see my man John 
+Perhaps under my duvet we'll get it on
+Will it be fast or slow?
+Wouldn't you like to know!
+Well that's a secret between me and my John 😈`
+            },
+            {
+                title: "I am Bo! And I am Obs!",
+                body: `I am Bo! And I am Obs!
+Let us tell you about a stunner 
+You might have seen her on the telly 
+They call her the topless runner!
+
+Louise B. Butcher is a legend 
+She vowed to smile through tears and sobs 
+When the big old C came calling 
+And she lost her Bo and Obs 
+
+Now she runs to spread her message 
+It's ok to be flat chested 
+You're still 100% a woman 
+Like you were when you were breasted!
+
+Marathons and fun runs 
+She waves at vans and cars
+A symbol of survival 
+And proud of all her scars 
+
+Listen to Lou's mantra
+Get checked, have a prod and a poke
+Do it in front of the mirror
+Or when you're having your nightly soak
+
+So girls always keep a look out
+You may see her running past
+Shout "go Louise we love you!"
+Pull up your top and give her a flash!
+
+I am Bo! And I am Obs!
+Louise doesn't seek fortune and fame
+But we really think King Charlie 
+Should make her his newest Dame!!
+
+Thank you Louise for all you do for the women of the world! All our love Bo , Obs and Sarah!`
+            },
+            {
+                title: "For Ian Huntley",
+                body: `You lie there clinging to your life
+We pray it is at an end
+There are no angels waiting for you
+Feelings of hate are all we send 
+
+Soon we hope the time will come 
+When you will breathe your very last
+And the world can finally rid itself 
+From your evil sordid past
+
+So go in haste and don't delay 
+The Devil knows you well
+Suffer now and for all eternity 
+May you burn in the fires of hell`
+            },
+            {
+                title: "For Holly and Jess",
+                body: `I went for a stroll through the park today
+Two little butterflies danced on the wind
+I felt I'd seen them somewhere before 
+A memory from somewhere deep within 
+
+Cerise were their wings, visions in pink
+They flew with me as I wandered the trail
+Then led me to a garden where sweet peas grow
+An oasis where life can prevail 
+
+I sat for a while and watched them flit 
+Around the snap dragons and roses so rare
+And I realised who my companions were
+I knew that beauty beyond compare 
+
+They rested a while in my outstretched hand
+Caught their breath and then they were gone
+Off to spread their message of love
+To bring us all together as one
+
+Holly and Jess we thank you so much
+For the fleeting chance to watch you fly
+You will never be forgotten 
+Our lives are richer because you stopped by
+
+🩷🩷 fly with the angels xx`
+            },
+            {
+                title: "Bo and Obs",
+                body: `A bouncy young booby called Bo
+Would whinge everywhere that she'd go
+She said "it's not fair
+Behind Sarah's hair
+I can't tell if it's sunny or snow!"
+
+Obs was Bo's cheeky big sister
+The boys found it hard to resist her
+She liked to lose all her troubles 
+All covered in bubbles 
+And decline all the offers to assist her!
+
+Together they make a great team
+As happy as two cats with the cream
+Up here with Nessie 
+Watching Sarah get messy
+They really are living the dream!`
+            },
+            {
+                title: "Limp Larry on Sodor",
+                body: `It was a beautiful sunny Sodor day 
+And Thomas was working hard 
+Picking up coal from Brendam docks 
+For the lads at the shunting yard 
+
+The coal trucks rattled, cried and moaned 
+"It's too heavy, we want a rest!"
+But Thomas pressed on with a wink and a smile 
+And he giggled at their protest 
+
+As he passed the ironworks Gordon went by 
+And said "I feel sorry for you 
+You'd better get over to Knapford 
+The fat controller wants a word or two!"
+
+"How odd!" thought Thomas as he dumped his trucks 
+And headed off to see the gaffer 
+" I need you to go over to Barrow young Thomas "
+Said the fat controller stifling his laughter 
+
+"We've got a new engine joining the crew 
+Limp Larry, he's here for the summer 
+I want you to go and fetch him back here
+Run along lad I know it's a bummer!"
+
+Now Larry was a sparkly engine 
+And painted in a gorgeous pale pink 
+He liked to puff and he loved to chuff 
+And give all the boys a wink!
+
+Larry flashed Thomas a beaming smile 
+And said "ooh I do like that blue!
+It's like summer skies and it matches my eyes 
+Oh I can't wait to ride behind you!"
+
+Thomas was nervous as they started on back 
+Larry kept calling "yoohoo!"
+A toot from his funnel as they entered the tunnel 
+"Oh I'm scared of the dark aren't you?"
+
+"Not me!" Scoffed Thomas as he soldiered on 
+"Hurry up now we'll soon be back"
+But just around the next corner 
+A little lost sheep was blocking the track!
+
+Thomas closed his eyes and hit the brakes 
+His wheels screeched and he said "oh dear!"
+The sheep said "Baaaa!" And Larry said "Ahhh!"
+As he smashed into Thomas's rear!
+
+The fat controller came down to see 
+Shook his head as he surveyed the scene 
+"Limp Larry you've made a right mess here
+It's the worst I've ever seen!"
+
+"Get yourselves down to Tidmouth 
+The lads will straighten you out
+Not sure about you Larry but we'll give it a go 
+We'll soon have you out and about!"
+
+The engines all laughed as Thomas came home
+All night they were very unkind 
+Then that little blue engine drifted off to sleep
+With a gentle whistle and a tender behind
+
+Night night Thomas 🌙`
+            },
+            {
+                title: "A Message from Bo and Obs",
+                body: `I am Bo! And I am Obs!
+We'd like to send a little rhyme 
+To all the ladies of the world 
+Please check us from time to time 
+
+Once a month before you dress 
+Have a good look at your humps 
+Do they look the same as always?
+Any new lumps and bumps?
+
+Raise your arms and check your pits 
+Look for rashes, moles and sores 
+Any pain or tenderness?
+Are they smooth just like before?
+
+And if you've got a boyfriend 
+A hubby or some lovers 
+Get them to have a feel aswell 
+While you're underneath those covers!
+
+So please girls listen to our plea 
+Because cancer doesn't care 
+You only get two boobies 
+There's no shop to buy a spare 
+
+I am Bo! And I am Obs!
+You know we argue like sister and brother 
+But we don't want to ever imagine a life
+With one and not the other 
+
+Check those Boobs!!!`
+            },
+            {
+                title: "Bo and Obs at the Fair",
+                body: `I am Bo! And I am Obs!
+We're really quite a pair 
+And what a day we've had today 
+We spent it at the fair!
+
+And because the day was sunny 
+Sarah left us free and easy 
+Which didn't help on the Waltzers 
+We both felt rather queasy!
+
+At lunchtime Sarah found a seat 
+And ate chips out of a carton 
+Then wandered through the hall of mirrors 
+It made us look like Dolly Parton!
+
+The coconut shy was lots of fun
+Same shape as us but hairy 
+The thought of sprouting all that fuzz
+Is really rather scary!
+
+Finally Sarah had her palm read
+By a gypsy with gold bangles
+She said " I see bottles of gin and lots of wine 
+And two humps that dingle dangle"!
+
+I am Bo! And I am Obs!
+Thanks for reading our little ditty
+What a joy it is to be
+A Sarah Halligan titty!! 😃😃`
+            },
+            {
+                title: "I Wish",
+                body: `I wish that I had known you 
+And we'd shared a joke or two 
+I wish we'd climbed a flowery hill
+Then sat and shared the view
+
+I wish we could run through dandelions
+And blow them to the sky
+I wish we could share sweet memories 
+Of childhood times gone by
+
+I wish we could stand under blossom trees
+Hold out our arms as the petals fall
+I wish we could laugh through summer days
+What I'd give for you to relive it all
+
+I wish that I could have held you
+In that moment of darkness and pain
+I wish that there really is a place 
+For us all to be together again 
+
+I wish , I wish it's all just a bad dream 
+And we'll wake up from these long lonely years 
+But most of all beautiful Brianna 
+How I wish that you were still here 💔`
+            },
+            {
+                title: "Dad's Army Tribute",
+                body: `Today I'm paying tribute 
+And I'm sure you'll all agree 
+To the finest band of fighting men 
+The home guard of Walmington on sea 
+
+Led by Captain Mainwaring 
+A fine upstanding man 
+He had no time for "stupid boys "
+And always ready with a plan 
+
+Sergeant Wilson was more gentle 
+He had royalty in his kin 
+And he'd get the boys out on parade 
+"Would you mind awfully falling in?"
+
+Now one step behind the others 
+"Don't panic!" It's Corporal Jones 
+Butcher by day, soldier at night 
+Plenty life left in those old bones 
+
+Private Fraser was a happy soul 
+From the land where the thistles bloom 
+He took great delight in telling us 
+"We're all doomed I tell you doomed!"
+
+Godfrey lived with his sister Dolly 
+And was often quite confused 
+Always had his hand up 
+"Captain Mainwaring may I be excused?"
+
+Now if you needed extra rations 
+Private Walker was your man 
+Everything from tights to chocolate 
+And petrol in a can
+
+Finally to Private Pike 
+Still his mummy's boy 
+He completes this magnificent seven 
+That even today we still enjoy 
+
+So thank you to Dad's Army
+We'll never again see the like
+And do you remember the most famous line?
+All together now "Don't tell him Pike!!"`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

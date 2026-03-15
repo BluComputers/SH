@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 8</title>
+    <style>
+        :root {
+            --rose-pink: #f4c2c2;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--rose-pink);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #ffe4e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d08484;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #b05e5e;
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: #b05e5e; 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--rose-pink);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "Stars in the Tapestry",
+                body: `Last night I looked to the heavens 
+It's tapestry shining bright 
+Three new stars were twinkling 
+Three new angels taking flight 
+
+Beyond the place our eyes can see 
+They dance now hand in hand 
+Play hide and seek amongst the clouds 
+Safe from our broken land 
+
+Our tears are falling like the rain 
+We wanted to help so much 
+Broken hearted families 
+Desperate for one more touch 
+
+We all have an angel in heaven 
+We all have our twinkling star 
+So tonight let's remember our loved ones 
+And the place where our memories are 
+
+Look to the skies and make a wish 
+A safer world for you and for me 
+And blow a kiss to three little angels 
+Bebe, Alice and Elsie 💔💔`
+            },
+            {
+                title: "I Was There",
+                body: `I was there this morning as you rubbed your eyes awake 
+I was there as you slowly trudged downstairs 
+I was there at breakfast time my chin upon your knee 
+I was there because to me we're still a pair 
+
+I was there beside you as you drove yourself to work 
+I was there to help you through your day 
+I was there at lunchtime, you thought you sat alone 
+I was there. I cant ever go away 
+
+I was there in the window to welcome you back home 
+I was there as you wearily turned the key 
+I was there when the empty house made your tears fall 
+I was there. I wish you could see me 
+
+I was there in the evening curled up on the rug 
+I was there at the fading of the light 
+I was there behind you as you made your way to bed 
+I was there to protect you through the night 
+
+I was there for you as you were there for me 
+I was there for you my old friend 
+I was there and I always will be 
+I was there because our love will never end`
+            },
+            {
+                title: "Paw Prints in the Sand",
+                body: `I went to our favourite beach today 
+The first time without you by my side 
+I sat and watched the world go by 
+Until the turning of the tide 
+
+I strolled along with thoughts of you 
+Remembering our happy years 
+The gentle salty sea breeze dried 
+My desperate lonely tears 
+
+Hands in my pockets against the chill 
+I felt your tennis ball still there 
+It smelt of you,  I held it tight 
+A little comfort in my despair 
+
+Happy dogs and people played 
+A young Spaniel spun round my feet 
+I watched him run back to his master 
+Their happy family now complete 
+
+I was glad they had their happy time 
+That's what best friends are for 
+They knew nothing of the lonliness 
+That waits behind my door 
+
+I wandered back along the shore 
+Past the sand dunes you loved so much 
+To the gate where you ran back to me 
+What I'd give for one more touch 
+
+I turned for one last lingering look 
+Will I return? I do not know 
+Maybe when I'm stronger 
+When my tears no longer flow 
+
+I saw so many things today 
+Happy young lovers hand in hand 
+But the one thing that I longed for
+Were your paw prints in the sand`
+            },
+            {
+                title: "Seventy Summers",
+                body: `"Close your eyes " my mother said 
+"Shut them tight so you can't see "
+Then she placed you gently in my arms 
+A perfect playmate just for me 
+
+My 8th birthday morning what a surprise!
+Happy tears fell like rain 
+And I knew in that beautiful moment 
+I'd never be alone again 
+
+You were there when I woke every morning 
+There to greet me when I came home for tea 
+Nothing else mattered because I had you 
+Life was perfect for you and for me 
+
+Thirteen glorious carefree summers 
+We swam, we ran and we rolled 
+I've never loved like I loved you 
+A friendship forged in gold 
+
+I was so full of youthful hopes and dreams 
+But your sparkle was beginning to fade 
+You left me with a million memories 
+Of all the happy games we played 
+
+I laid you to rest under the apple tree 
+Where we dozed in the afternoon sun 
+And I thanked you for all the memories 
+For all the love, the kisses and the fun 
+
+I never felt that love again 
+Nothing could ever replace 
+That birthday morning opening my eyes 
+And seeing your beautiful face 
+
+Now my days are growing shorter 
+And my race is nearly run
+I wonder are you out there 
+Still dozing in the sun?
+
+I know that soon I'll make that journey 
+And I'll find our apple tree 
+My childhood friend I thank you 
+For the seventy summers you waited for me`
+            },
+            {
+                title: "The Reason to my Rhyme",
+                body: `For the morning kisses I thank you 
+For all the days you welcomed me home 
+For filling my life with happiness 
+For the company when I felt so alone 
+
+Until you came along life meant nothing 
+Until you I had no rise and shine 
+Until you I wasn't sure of my purpose 
+Until you gave me the reason to my rhyme 
+
+Reminders of you are all around me 
+Reminders of a lifetime shared 
+Reminders of days spent exploring the world 
+Reminders of a friendship so rare 
+
+Beautiful moments shared by us two 
+Beautiful days that we spent by the sea 
+Beautiful evenings with your head in my lap 
+Beautiful memories for you and for me 
+
+Anywhere and everywhere I feel you with me 
+Anywhere I sit you are there 
+Anywhere we shared a memory 
+Anywhere we once were a pair 
+
+Beyond this veil is where you are now 
+Beyond where our eyes cannot see 
+Beyond where they wait for our turn to come 
+Beyond where all animals fly free 
+
+If I could walk with you just one more mile 
+If I could be woken by just one more kiss 
+If I could tell you I love you just one more time 
+If I could share one more moment of bliss 
+
+Every day I'm trying to be stronger 
+Every day that I spend without you 
+Every day I sense you are near me 
+Every day pulling me through 
+
+Stay with me until my time is done 
+Stay with me until the end 
+Stay till we meet at the rainbow bridge 
+Stay with me my old friend`
+            },
+            {
+                title: "Angels with Whiskers",
+                body: `When they close their eyes for that final time 
+When your heart is breaking in two 
+Their journey begins to the rainbow bridge 
+Where they'll wait with memories of you 
+
+But a part of them will linger 
+To help you through your days 
+A reward for the life you gave them 
+You loved them in so many ways 
+
+Each broken hearted morning 
+When you wake with heavy eyes 
+Always know a friend watched over you 
+From twilight to sunrise 
+
+At lunchtime they are always there 
+That old head still on your lap 
+Watching every mouthful 
+Just hoping for a scrap 
+
+When lonely evening shadows fall
+In the firelight's gentle glow 
+Curled up asleep in their favourite spot 
+Until it's your turn to go
+
+And when your time comes to leave this place 
+On that day your eyes will see
+That some angels really do have whiskers 
+And they're waiting for you and for me`
+            },
+            {
+                title: "The Perfect Pebble",
+                body: `Waiting by the window 
+Watching for your car 
+Ready for adventures 
+Wandering near and far 
+
+Never worried about the weather 
+Mother told you "Keep him warm!"
+A wink from you was all I needed 
+My shelter from life's storm 
+
+A day out at the seaside 
+We went crabbing off the pier 
+Ate candy floss and cockles 
+Drank fizzy pop and beer 
+
+We rode the rides and played the games 
+Watched the Punch and Judy show 
+Fleeting hours we filled with fun 
+Before it was time to go 
+
+But no day with you was ever complete 
+Until we'd skimmed those stones 
+And if I live to be one hundred 
+They were the happiest days I've known 
+
+The crunch of the shingle under my feet 
+Keeping one eye on the tide 
+Skimming a two, a three or a four 
+Just filled my heart with pride 
+
+We would spend an hour with the sea 
+She knew it was the end of our day 
+And I'll be forever grateful 
+That she granted us our play 
+
+Then high on your shoulders to the car and back home 
+A hug and a kiss then goodbye
+You never looked back but I'm sure I saw
+The tears that were in your eyes
+
+They were magical days I will never forget 
+The memories made by us two
+The crunch of the shingle and the sound of the sea
+Searching for the perfect pebble with you`
+            },
+            {
+                title: "Bursting with Pride",
+                body: `Raise a glass to freedom today 
+Raise your head up high 
+Raise your rainbow flag with pride 
+Raise it up to the sky 
+
+Around the world people coming together 
+Around the world a message to bring 
+Around the world with love and laughter 
+Around the world our songs we'll sing 
+
+Imagine a planet where love prevails 
+Imagine no fear or hate 
+Imagine holding someone's hand 
+Imagine the world we can create 
+
+Now is the time for acceptance 
+Now we have a right to live free 
+Now it's time to say no to the knife 
+Now is peace for you and for me 
+
+Be proud of the face in the mirror 
+Be proud of the person you are 
+Be pink, be blue be any old hue 
+Be ready to shine like the stars 
+
+Open your minds to all culture 
+Open your heart, make a friend 
+Open your arms and offer a haven 
+Open a world of love without end 
+
+We will shout it from the rooftops 
+We will sing it far and wide 
+We will love and laugh and celebrate 
+We will all be bursting with PRIDE!!!`
+            },
+            {
+                title: "Fields of Dandelions",
+                body: `Do you miss those carefree summer days 
+Of childhood times gone by 
+When you danced through fields of dandelions 
+And blew them to the sky 
+
+Do you miss the bedtime stories 
+All the places you visited in dreams 
+The nights you flew into space in a rocket 
+Then rode home on moonbeams 
+
+Do you miss the Christmas mornings
+Excited feet on the stair 
+Hoping in your heart of hearts 
+That Santa had been there 
+
+Do you miss those early birthdays 
+Your parents hugs and kiss 
+Blow out all your candles 
+Close your eyes and make a wish 
+
+Do you miss just always knowing 
+That you were loved so much 
+When all you really needed 
+Was Mother's gentle touch 
+
+Do you miss just taking a moment 
+To remember those beautiful days 
+The days of love and laughter 
+We treasured in so many ways 
+
+When you danced through fields of dandelions 
+And blew them to the sky 
+Our happiest of memories 
+Of a childhood time gone by`
+            },
+            {
+                title: "I Am Khalid",
+                body: `I am Khalid, I am 13 years old 
+My name means Immortal one 
+I spend my days searching for my family 
+In places I knew but now are gone 
+
+The streets all look the same these days 
+I can hear wailing all day long 
+Everyone in this city is searching 
+I dont know what we all did so wrong 
+
+Has anybody seen my father?
+He's strong so I'm sure he's alright 
+His name is Hamza, the mighty lion 
+I miss his smile when he bids me goodnight 
+
+Many times in the crowds I see my mother 
+And I run like the wind to her side 
+But it's never her, I back away 
+And I cry as all my hope subsides 
+
+Let me tell you about Mustafa 
+My little brother and my best friend 
+He'll be eight next year, I need to find him 
+Protect him until the war ends 
+
+Play the games that we love to play 
+Kick a ball in the street, scream and shout 
+His happy laughter fills my dreams 
+Memories of what childhood is all about 
+
+I must have walked miles around this broken place 
+And I will walk until my very last breath 
+Through the chill of the night and the screaming 
+The heat of the day and the stench of death 
+
+Somewhere out there is Mariam 
+My baby sister, she's only four
+And I pray that one day I'll find her
+And we can be together once more 
+
+Her name means ' star of the ocean '
+Her smile glints like the sun on the waves 
+Please someone protect these children 
+Give us the peace that we crave
+
+You'll know her if you see her
+She chats and laughs all day 
+Take her hand and gently lead her 
+Safely back my way
+
+Please tell the world to read my words 
+Show your leaders the children's plea 
+End the war and bring a peaceful life 
+For Mustafa, Mariam and me
+
+I am Khalid, I am 13 years old
+My name means Immortal one 
+But who wants to be Immortal ?
+When all your hope is gone`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

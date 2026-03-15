@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 7</title>
+    <style>
+        :root {
+            --rose-pink: #f4c2c2;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--rose-pink);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #ffe4e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d08484;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #b05e5e;
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: #b05e5e; 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--rose-pink);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "The Songbird",
+                body: `A little bird appeared outside my window 
+One snowy and cold December night 
+She looked so sad and lonely 
+Exhausted from her winter flight 
+
+I invited her in to rest a while 
+Catch her breath and warm her wings 
+She seemed in no hurry to leave me 
+No rush to see what tomorrow would bring 
+
+I left the window ajar and went to my bed 
+And in the morning my new friend had flown 
+I wondered would I see her again 
+Was she safe out there all alone?
+
+A day or two later she returned to my ledge 
+Warmed herself from the heat of my room 
+She seemed happier now and I smiled at the thought 
+Warmer days would be coming soon 
+
+As the days passed she stayed a little longer 
+I played music that she seemed to know 
+I'm sure I saw her close her eyes 
+Maybe a memory from long ago?
+
+I was grateful that she chose me 
+To let her stay and rest her wings 
+But I wish with all my heart and soul 
+She had let me hear her sing 
+
+On her last visit she brought me a present 
+A blood red rose to remember her by 
+She laid it down and bowed her head 
+And I cried as I watched her fly 
+
+But in that moment I realised 
+That I'd known who she was all along 
+Beautiful, broken Amy 
+A little songbird who lost her song 💔`
+            },
+            {
+                title: "The People's Poet",
+                body: `If you happen to be in Hammersmith 
+And you need to rest your bottom 
+There's a bench I know where pilgrims go 
+A legend who'll never be forgotten 
+
+Sit a while and remember 
+Those topsy turvy days 
+When comedy was changing 
+In oh so many ways 
+
+When the People's poet graced our screens 
+In his bright yellow dungarees 
+Anarchy with Neil, Mike and Vyvyan 
+Surviving on lentil casserole and peas 
+
+We learned about crop rotation 
+And that his name had a silent P 
+We said goodbye to him and Cliff 
+On that final summer holiday 
+
+High rise life with his good pal Eddie 
+Tried to kill each other day after day 
+And now as we look back on those laughs 
+We wouldn't have had it any other way 
+
+From Turvey to Rick he made us smile 
+Ritchie to Flash heart we loved him so much 
+And comedy these days isn't quite the same 
+Without his magic touch 
+
+A comedy genius, a true one off 
+The one who stood out from the crowd 
+And he's in my thoughts every time 
+I wear a smashing blouse!
+
+So if you happen to be in Hammersmith 
+Take a seat and remember the thrill 
+Of watching the completely brilliant Rik Mayall 
+People's poet we love you still`
+            },
+            {
+                title: "One Day in Heaven",
+                body: `If you could journey up to heaven 
+If you could stay for just one day 
+Who would be there to greet you?
+Who would be there to guide the way?
+
+The mist would clear and you'd see their face 
+Their arms would be open wide 
+And you'd run like you've never run before 
+All these years you've been denied 
+
+The warmth and the love of that special one 
+Precious memories we all need to share 
+Happy tears would mingle and fall 
+A moment of bliss beyond compare 
+
+Walk hand in hand across the clouds 
+Look into those eyes you miss so much 
+Remember the voice, remember the laugh 
+Remember the smile, remember the touch 
+
+Now this fleeting chance is nearly done 
+And evening shadows fall 
+The time has come to bid farewell 
+The hardest goodbye of all 
+
+If you could journey up to heaven 
+If you could stay for just one day
+Would you be able to say goodbye?
+Would you be able to find a way....?`
+            },
+            {
+                title: "3.04",
+                body: `A clock on a wall frozen in time 
+A day remembered for evermore 
+When the football world stopped turning 
+In the snow at 3.04 
+
+A band of brothers, a team so young 
+Heroes for every schoolboy to adore 
+Potential forever unfulfilled 
+Lost to the world at 3.04 
+
+It was a time for working men to dream 
+Caps held aloft at every score 
+Now a city left in mourning 
+For the boys who left at 3.04 
+
+Geoff and Roger, Eddie and Mark 
+Names the Old Trafford crowd would roar 
+David, Tommy, Billy and Duncan 
+Remembered forever at 3.04 
+
+Now on the 6th of February we light a candle 
+And remember those gone before 
+Stand in silent tribute 
+To the boys of 3.04 
+
+They are still there in the shadows 
+And they will be there for evermore 
+That beautiful band of brothers 
+The Busby babes of 3.04`
+            },
+            {
+                title: "If Tomorrow",
+                body: `If tomorrow was your final day 
+Would you want to know?
+Would you want to know the moment 
+When your river would cease to flow?
+
+If you had the chance to raise a child 
+Would you scream and shout and preach?
+Would you take a moment from your day 
+To nurture and to teach?
+
+If life became too much to take
+Would you bury your head in the sand?
+Would you be able to put your pride aside 
+And ask for a helping hand?
+
+If a loved one is beginning to fade 
+When they no longer know your face 
+Would you put your whole life on hold?
+Would you give them that safe place?
+
+If the grass appears greener 
+On the other side of the road 
+Would you be brave enough to jump the fence?
+Would you be fearless and bold?
+
+If tomorrow was my final day 
+When it's time for my curtain call
+I'll hope I made someone happy 
+And I'll know I gave my all`
+            },
+            {
+                title: "Your Secret is Safe",
+                body: `As a child I heard your legend 
+An ancient beast below the waves
+Scotland's greatest secret 
+That for centuries man has craved 
+
+Soon I will make that journey 
+To your mysterious magical shore 
+And I'll scour the deep dark water 
+Perhaps a glimpse of something more 
+
+I'll sit silently on the shingle 
+Maybe I'll hide amongst the trees
+In the evening time when all is still
+Save for the rustling of the leaves 
+
+And I'll watch for you to raise your head
+As you gently glide along
+And if I'm really lucky 
+I might hear your age old song
+
+But I promise you as long as I live
+If my eyes ever truly see
+I'll blow you a kiss on the highland breeze
+Your secret is safe with me`
+            },
+            {
+                title: "The Soundtrack of Generations",
+                body: `The world still remembers your beautiful voice 
+My heart still melts when I see that smile 
+You were the soundtrack of generations 
+I still listen once in a while
+
+Forty seven years since you left us
+We still remember every line
+Thank you Elvis for the memories 
+You'll be ours till the end of time 🐻❤️`
+            },
+            {
+                title: "The Girl in the Mirror",
+                body: `There's a little girl in my mirror 
+A sweet memory from the past 
+A reminder of how I used to be 
+A time I thought would always last 
+
+Every morning we chat and plan our day 
+How we can fill the hours with fun 
+Fool myself that I'm young again 
+That all these years can be undone 
+
+Sometimes we climb the highest hill 
+Make daisy chains in the sun 
+Lie in the grass and watch the clouds go by 
+Until the daylight hours are done 
+
+Some days we go to the seaside 
+Jump the waves and dig in the sand 
+Sit and watch the tide come in 
+Wander home again hand in hand 
+
+I try to tell her to stop a while 
+Slow down and watch the world go by 
+She doesn't listen, she just winks and smiles 
+Oh I know that twinkle in her eye 
+
+Today we played our favourite games 
+Hopscotch and skipped all day 
+Maybe tomorrow we'll go to the farm 
+Feed the lambs and lie in the hay 
+
+I wish I could tell her what lies ahead 
+All the love that will come and go 
+But for now all she wants to do is play 
+Be a child, to blossom and grow 
+
+So for now it's goodnight to the mirror 
+To the little girl who makes my heart sing 
+Sleep well my little playmate 
+I wonder what tomorrow may bring`
+            },
+            {
+                title: "Hart Street",
+                body: `Come and take a stroll down Hart street 
+There's a sweet bouquet in the air 
+Follow as it drifts on the summer breeze 
+You'll find some comfort there 
+
+Bumblebees on the wing in Hart street 
+A bounty beyond compare 
+They know not why the flowers bloom 
+They know nothing of our despair 
+
+Butterflies dance in Hart street 
+Velvet colours of every hue 
+They have but days to spread their wings 
+Before they're gone from me and you 
+
+People come together in Hart street 
+A hug or a hand to hold 
+We stand together and remember 
+A town united young and old 
+
+Now the stars shine down on Hart street 
+We light a candle for those taken too soon 
+Somewhere three little angels are dancing 
+By the light of the midnight moon 💔💔💔`
+            },
+            {
+                title: "The Butterflies",
+                body: `I went for a stroll through the park today 
+Three little butterflies danced on the wind 
+I felt I'd seen them somewhere before 
+A memory from somewhere deep within 
+
+Cerise were their wings, visions in pink 
+They flew with me as I wandered the trail 
+Then led me to a garden where sweet peas grow 
+An oasis where life can prevail 
+
+I sat for a while and watched them flit 
+Around the snap dragons and roses so rare 
+And I realised who my companions were
+I knew that beauty beyond compare 
+
+They rested a while in my outstretched hands 
+Caught their breath and then they were gone
+Off to spread their message of love 
+To bring us all together as one
+
+Bebe, Alice and Elsie thank you so much 
+For the fleeting chance to watch you fly
+You will never be forgotten 
+Our lives are richer because you stopped by`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 5</title>
+    <style>
+        :root {
+            --rose-pink: #f4c2c2;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--rose-pink);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #ffe4e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d08484;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #b05e5e;
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: #b05e5e; 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--rose-pink);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "The Rocket to the Moon",
+                body: `In a corner of Northumberland 
+Where there are no silver spoons 
+A little lad dreamt of building a rocket 
+And flying it to the moon 
+
+Each night he sat and watched the stars 
+Tried to count them one by one 
+And he wondered what his life would bring 
+And what he might become 
+
+No money, no school, no sums to learn 
+No mysteries to unravel 
+But this lad had a vision 
+About how the world should travel 
+
+He knew that horses had had their day 
+It was time for them to retire 
+Industrial revolution was coming 
+The steam was rising higher 
+
+He tried to tell the bosses 
+"Take the wind out of your sails!
+The world is no longer horse-drawn 
+The future is on the rails!"
+
+And so they set him a challenge 
+To build an engine borne by steam 
+To win a trial at Rainhill 
+And lead the industrial dream 
+
+Cycloped and Novelty 
+Perseverance and Sans Pareil 
+All fell by the way on that fateful day
+Under the grey October sky
+
+The age of the train was now begun
+Perfect days spent by the sea 
+George's legacy lives forever 
+Happy memories for you and me
+
+So take a seat on Rainhill station 
+Look down the line, there's a train coming soon
+And remember the lad with a vision 
+And that Rocket that flew to the moon`
+            },
+            {
+                title: "A Night on the Gin",
+                body: `I am Bo! and I am Obs!
+Saturday once again is here!
+The day we feel the cooling breeze 
+And watch Dad shed a tear 
+
+First of all it's shower time 
+Sarah soaps and makes us shiny 
+She's done it every single day 
+Since we were really tiny!
+
+We wonder what she'll wear today 
+Will she let us have a peek? 
+Dad won't be happy if she wears that dress 
+We nearly fell out last week!
+
+Finally she's ready to go 
+And she's left us free and easy!
+No silly bra to hold us back
+No pinchy and no squeezy!
+
+Dad holds his weary head in his hands
+He wishes it was colder 
+Then maybe she'd wear a big sweater 
+Hopefully feel a little less bolder
+
+But for now it's a wobble down to the pub
+An afternoon to soak up some rays
+Feel the sun shining down on our white bits
+For us boobs these are perfect days
+
+I am Bo! and I am Obs!
+We just about managed to stay in 
+Now we're ready for an evening of dancing 
+Sarah's having a night on the gin!`
+            },
+            {
+                title: "The Secret of the Loch",
+                body: `By the dark dark water where the midgies dance 
+Under ancient highland skies 
+You might want to come and search for me
+Or listen for my age old cries
+
+Maybe I'm here or maybe I'm not 
+No man has ever seen 
+The beastie that lurks beneath the waves
+No proof has there ever been 
+
+I'll never tell ye yay or nay
+Am I a girl or am I a boy?
+The nearest you will ever get
+Is your Nessie souvenir toy
+
+Year after year they search for me
+Centuries come and they go
+I see their boats but they don't see me
+I'm the secret that no one can know 
+
+Many times I've thought of raising my head
+Give them the answer they truly desire
+But that would bring an end for me
+Surely that would extinguish my fire
+
+So if you come to my loch and scour the water 
+Any time of the night or day
+You'll not see me but I'll see you 
+And down in the depths I'll stay
+
+By the dark dark water where the midgies dance 
+You can search and hope to see
+ But I'll be safe in my highland paradise 
+Wishing the world would leave me be`
+            },
+            {
+                title: "The Patient Dragon",
+                body: `How many more years of lonliness?
+How many more nights must I cry?
+How many more days must I wait in this cave
+Before my new playmate passes by?
+
+You see the worst part of being a dragon 
+Is when the children are fully grown 
+They have no time for fun and games 
+Too busy building their homes
+
+And so I wait in the darkness 
+The world turns and the time goes by
+Waiting for the next generation 
+Dreaming that soon we will fly
+
+We'll soar over mountains and rivers 
+Loop the loop and fly around the moon
+I know deep down in my heart of hearts 
+Happy days are coming soon
+
+And when that day finally dawns
+When your tiny footsteps fall on my ears
+I will bow my head and thank you
+I will soothe your worries and fears
+
+The colour returns to my ancient world 
+These old eyes can finally see
+The years of lonliness are over 
+Adventures for you and for me`
+            },
+            {
+                title: "The Guiding Light",
+                body: `She is in the morning birdsong that stirs your weary soul 
+She is with you as you wake to greet the day 
+She is with you when you wonder just how to make it through 
+She is the light showing you the way 
+
+She is the gentle breeze that waves the daffodils 
+She is the nectar for early morning bees 
+She is sunny summer days that remind you of a time 
+She is the voice whispering through the trees 
+
+She is in the evening shadows that creep around the door 
+She is in every tear that you cry 
+She is all the perfect lessons that carried you through life 
+She will never say a last goodbye 
+
+She is all around you as you go about your day 
+She is watching, her love is shining through 
+And one day she'll be waiting as you run into her arms 
+There never was a more precious child than you ❤️`
+            },
+            {
+                title: "A Letter from the Field",
+                body: `It's a beautiful day today mam
+Blue skies, whispy clouds passing by
+And I'm trying to remember the good times 
+So I'll chat to you here where I lie
+
+They say it all flashes in front of your eyes 
+Your whole life in a second of time 
+I can see it so clearly, such happy days
+The lakes i swam and the hills i climbed 
+
+Remember our street mam? Remember the games?
+British bulldog and tag, blind man's buff
+Knock on and run, they never caught me
+Somehow you managed to give us enough 
+
+Times were hard, we were hungry but never complained 
+You grafted and slaved, fed us all 
+And I promised to give you the life you deserved 
+Till I answered my country's call
+
+Training was tough mam but friends got me through 
+All great lads and eighteen like me
+Then they brought us here to this hell on earth
+To fight an enemy we can't even see
+
+Digging for days in the mud and the worms 
+Building trenches "Keep your heads down!" Sarge said
+It's hard work but we do it, this place is now home
+For the rats, the living and the dead 
+
+On my watch nights i think only of you mam
+I know you worry about your little lad
+I still carry your picture, it's close to my heart 
+I know you're with me through good times and bad 
+
+Did you get my letter? I sent it last month
+I hope it gave you some hope and a smile
+I'm trying to keep safe, longing for home
+God willing I'll be there in a while 
+
+How's life at home mam? I miss my old room
+A comfortable bed seems a lifetime away
+An hour of sleep is so precious here
+Little escapes, keep the gunfire at bay
+
+I had to do my bit mam
+I know you cried as I marched away
+I said that I'd soon be back in your arms 
+But I'm breaking that promise today 
+
+This barbed wire has got me mam, I can't get away
+Nobody is coming for me
+I'll hang on as long as I can for you mam
+Till my spirit is ready to fly free
+
+Then I'll soar over these battlefields 
+Shine down on my comrades so brave
+And one day I'll smile down at a world 
+That's found a calm and a peace we all crave
+
+Don't weep for me mam, I had to do this
+For my King and my country I stand
+You will stay in my heart forever 
+I'll never forget the touch of your hand
+
+This field will be my resting place
+And the poppies will mark where I lie
+One day the grass will banish the mud
+One day the last man will die
+
+This terrible war is over for me mam
+Guns are silent, I'm ready to fly
+Be proud of your lad , I gave it my best
+But for now it's time for goodbye 
+
+Know that I'll always be with you
+This squaddie will march by your side
+And I'll turn to your beautiful face mam
+Full of love and bursting with pride`
+            },
+            {
+                title: "Number Twenty",
+                body: `We welcome people young and old
+They've witnessed titles a plenty 
+But today under Liverpool's golden sky
+We've brought home number twenty
+
+Through smoke of red the tears fall 
+Fans all across these lands 
+Join hands with friends and players past
+And the ghosts up in the stands 
+
+Tonight the songs we'll sing again 
+Melodies we've made our own 
+Liverpool once again the champions 
+May you never walk alone 
+
+YNWA 20 ❤️‍🔥`
+            },
+            {
+                title: "Only Liverpool",
+                body: `Listen to our music all over the world 
+Listen to the Mersey lap the shore 
+Listen to this city's proud beating heart 
+Listen to our football crowds roar 
+
+In this city we welcome all people 
+In this town hold your head up high 
+In our hearts there is always a place for you 
+In the Pool there's a golden sky 
+
+Visions of red and visions of blue 
+Visions of Jamie and Rhys 
+Visions of hopes for the future 
+Visions of justice and peace 
+
+Eternal flame for the ninety seven 
+Eternal flames against gangland war 
+Eternal memories of all the fallen 
+Eternal pride for those gone before 
+
+Remember those halcyon heady days 
+Remember the " yeah yeah yeah"
+Remember those sweaty cellar nights 
+Remember that you were there 
+
+Play a song that brings back memories 
+Play kerby, play knock and run 
+Play childhood games and remember 
+Play again those happy days in the sun 
+
+Open your door to a stranger 
+Open your arms and make a new friend 
+Open your heart to fun and laughter 
+Open your life to love without end 
+
+Only Liverpool will ever do 
+Only Liverpool our mighty town 
+Only Liverpool stands tall above the rest 
+Only Liverpool will never be knocked down 
+
+Listen to this city's proud beating heart 
+Listen to the football crowds roar 
+Listen to justice, listen to peace 
+Listen to our songs for evermore`
+            },
+            {
+                title: "The Bench",
+                body: `A race to the bench, we ran like the wind 
+Some days it was you, some days me 
+It didn't matter who won and we didn't care 
+We were young and oh so free 
+
+Two childhood friends, two soldiers brave
+Carefree days spent with you in the sun
+We laughed, we cried, we ran and we rolled
+Endless summers we filled with fun
+
+Side by side through the years of school 
+Kissed all the girls and made them cry
+We didn't notice in those years of bliss
+How quickly the time goes by
+
+The days grew darker and we went to war 
+Two brothers in arms against the foe
+You had my back and I had yours
+We promised we'd never let go
+
+We made it through, we made it home
+We married, had children, made a life
+But friends are forever whatever the weather 
+Through good times, through trouble and strife 
+
+And then we were widowed. Back to us two
+And we leaned on each other again 
+We did what we said, we never let go
+Through the sunshine, the snow and the rain
+
+I knew it was coming, you started to fade
+But you faced it without fear to the end
+I held your hand, not sure if you knew
+I'll never let go my old friend 
+
+There's room on the bench if you want to stop by
+We can pretend we are still young and free
+I can hear your voice in the whisper of the wind
+And I know you will wait for me`
+            },
+            {
+                title: "Forever I'll Love You",
+                body: `If I could change perceptions 
+I promise I would try
+I'd open eyes and minds and hearts 
+No need to live that lie 
+
+If I could give you childhood back
+I promise that I would
+Being different would be fine
+Feel the feelings that you should 
+
+If I could write a fairy tale 
+Mirror mirror on the wall
+You'd see only a princess staring back
+No more tears would fall 
+
+If I could walk you down the street
+We'd do it heads held high 
+How proud I'd be to see you shine 
+Folk would smile as we passed by
+
+If I could bring you to my home 
+My door would open wide 
+No judgement here  just friendship 
+And endless love and pride 
+
+If I could take away the bullies 
+I promise that I'd fight
+Wipe your tears with my bare hands 
+Defend you with all my might
+
+If I could make a wish come true
+I'd clear all minds of hate
+Your world would be a better place 
+Safe beyond your garden gate
+
+If I could guide you through the darkness 
+I'd shine my light so bright 
+Carry you home along life's roads 
+Hold your hand so tight
+
+If I could write a song for you 
+I promise that I'd sing
+Of happy days and beautiful dreams 
+And what tomorrow brings 
+
+If I could tell you just four words 
+From my heart I swear it's true
+I'd look you in the eyes and say
+Forever I'll love you 
+
+If I could be your friend forever 
+I promise you just this
+My love for you is endless 
+I send to each of you a kiss xx
+
+Love Sarah ❤️`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

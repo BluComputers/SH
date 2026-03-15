@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 3</title>
+    <style>
+        :root {
+            --rose-pink: #f4c2c2;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--rose-pink);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #ffe4e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d08484;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #b05e5e;
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: #b05e5e; 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--rose-pink);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "In My Dreams",
+                body: `I wake from a dream and then I see 
+Your beautiful face smiling back at me 
+The picture I keep beside my bed 
+The happy memories that fill my head 
+
+Last night through the swirling mists of sleep 
+I felt again our love so deep 
+No more sorrow, no more pain 
+Safe within your arms again 
+
+Wipe away these tears that sting 
+With a gentle touch only dreams can bring 
+Shine your light and be with me 
+As I face each day's reality 
+
+That you are never coming home 
+And I must face the world alone 
+Without my guide to show the way
+And lead me through each endless day 
+
+Be there tonight when I close my eyes 
+Stay with me until I rise
+To greet the day and start anew 
+And wish it could be spent with you 💔`
+            },
+            {
+                title: "Bo and Obs: The Madonna Tribute",
+                body: `I am Bo! And I am Obs!
+Today we have a tale to tell 
+A tribute to our heroes 
+We're sure you'll know them very well!
+
+Back in the days when we were little 
+And only just started sprouting 
+We saw Madonna on the telly 
+All Bo and Obs and pouting 
+
+Sarah would dance around her room 
+Dreaming of fame and glory 
+Then mum would gently calm her down 
+And read us a bedtime story 
+
+We used to cherish those early days 
+The days when all we had was rain
+Sarah and mum busy baking bread
+And yummy angel cakes again!
+
+Sometimes we'd go out shopping 
+We knew we'd get a special treat
+Strawberry bubble bath from Body shop
+Oh us boobs did smell so sweet
+
+Then off on a Scottish holiday 
+We'd be frozen under Sarah's sweater
+Dreaming of sunny summer days
+When the world can see us better
+
+We're always causing a commotion 
+When Sarah lets us out to play
+We wonder what today might bring 
+And what dad might have to say!
+
+So take a bow Madonna 
+We're you're wobbliest supporters 
+Thank you for the music 
+And the naughtiness you taught us!
+
+I am Bo! And I am Obs!
+Have you managed to read our minds?
+Ten wibbly wobbly Madonna songs 
+Are hiding in these lines!`
+            },
+            {
+                title: "His Turn for the Teeth",
+                body: `Cheryl worked at Maccies 
+As she'd done since leaving school 
+The only job that she could find 
+After years of playing the fool 
+
+Underneath the golden arches 
+She served car after car 
+Then mopped the floors and emptied bins 
+All to earn her third gold star 
+
+One day while she was chatting 
+To her favourite Uber guy 
+She noticed an old couple 
+Out of the corner of her eye 
+
+She watched them as they struggled 
+With their automated order 
+So she wandered over and offered help 
+They were either deaf or just ignored her 
+
+Finally they got their tray 
+And sat near the toilet door 
+A cheese burger with fries and salt 
+Two teas, one with a straw 
+
+Cheryl watched in horror 
+And thought " what a typical man!
+That poor old lady is sitting there 
+And he's scoffed all the scran!"
+
+Over she went and finger wagged 
+At the poor confused old duffer 
+"How can you treat your wife like that?
+How can you sit there and watch her suffer?"
+
+The old boy sat there open mouthed 
+He was really quite afraid 
+And he hoped his wife would save him
+From Cheryl's stern tirade
+
+At last the little old lady spoke
+"Dear it's really not what you think
+Albert's feeling hungry 
+And I'm happy with a drink 
+
+We eat out every Tuesday 
+So I understand your disbelief 
+But the second Tuesday in every month 
+Is his turn for the teeth!"`
+            },
+            {
+                title: "Beatles Memories",
+                body: `When I was a little child 
+No one was luckier than me 
+Mum was always there to wipe my tears 
+If I fell and banged my knee 
+
+Dad always worked so very hard 
+He said it kept the taxman sweet 
+And me and mum would bake him cakes 
+The two of us made so many treats 
+
+On school days I'd hide under my duvet 
+"I'm so tired, don't bother me!"
+Mum would shout "come on lazy bum!"
+"Just five more minutes please!"
+
+And then the best days in my life 
+When I was the birthday girl 
+Mum would dress me in my party frock 
+And I'd give them all a twirl 
+
+Days out in Blackpool were always fun 
+With all the fun of the fair 
+Slide down the helter skelter 
+Ride the revolution if you dare !
+
+We shared so many happy times 
+Travelled here, there and everywhere 
+"Are we there yet dad?" I'd always say 
+"It won't be long, we're nearly there "
+
+But by far my happiest memories 
+As I look back through the years 
+The long and winding road to Scotland 
+And I remember through my tears
+
+Dad would say " look out for Nessie!
+Run for your life, she's pretty fast!"
+Sweet memories from my childhood 
+A time I thought would always last
+
+I've got a feeling that I knew back then
+That I'll be back one day
+To live here in these mountains 
+And remember yesterday 
+
+Life here is getting better now
+Across the universe above
+Mum protects us and I realise 
+That all you need is love ❤️`
+            },
+            {
+                title: "A Wibbly Christmas with Bo and Obs",
+                body: `I am Bo! And I am Obs!
+We're full of yuletide cheer 
+Sarah's on the raspberry gin 
+And dad's enjoying a beer!
+
+What a day we had today 
+We bounced round Inverness 
+Did all the Christmas shopping 
+Sarah bought....you'll never guess!
+
+Two brand new bras, oh what joy!
+We can't wait to have a ride 
+One of them is see through 
+So we'll be able to peep outside!
+
+And then the highlight of our day 
+Before Sarah got all blotto 
+We went and sat on Santa's knee 
+In Tesco's little grotto 
+
+He bounced us up and down so much 
+We really felt quite high 
+Santa seemed to struggle 
+To look Sarah in the eye!
+
+It's been a wiggly jiggly 25
+Us boobs enjoyed our highland fling
+Now we're ready for more adventures 
+Let's see what next year may bring!
+
+I am Bo! And I am Obs!
+Thank you all for being here 
+We wish you a wibbly Christmas 
+And a wobbly New year!!!
+
+Merry Christmas from Sarah, Bo and Obs! Xx`
+            },
+            {
+                title: "Sleeping on the Sand",
+                body: `As I was walking on the beach 
+I saw a little boy 
+He looked so peaceful sleeping there 
+It filled my heart with joy 
+
+I wondered should I wake him ?
+The tide was coming fast 
+We could jump the waves together 
+Sweet memories from the past 
+
+This tiny lad he wouldn't stir 
+He lay there on the sand
+It was then I knew I'd found an angel 
+And I gently held his hand 
+
+The sea seemed to apologise 
+Her tears caressed his face
+It wasn't meant to be this way 
+To end here in this place 
+
+A beautiful child, a heart so pure 
+A flower reaching for the sun
+The innocent ones that suffer
+For actions that cannot be undone
+
+I wish I knew the answers
+I wish I held them in my hand 
+I pray there's no more children 
+Found sleeping on the sand...`
+            },
+            {
+                title: "The Duvet Monster",
+                body: `There's a monster in my bedroom 
+He comes here every week 
+How on earth will I fight him?
+He knows I'm small and weak 
+
+I creep along the landing 
+And I listen at the door 
+Carefully planning my next move 
+Like so many times before 
+
+Gently easing the door ajar 
+I quickly scan the room 
+A feeling of overwhelming 
+The heavy sense of doom 
+
+I tiptoe to the bedside 
+Use the shadows to conceal 
+The secret weapon in my hand 
+My trump card soon to deal 
+
+Bodily I throw myself 
+Use my weight to pin him down 
+Force him out at every corner 
+Fight the feeling I may drown 
+
+He thrashes and he crashes 
+Tries to take me in his jaw
+This is now the height of battle 
+As we roll around the floor 
+
+Then slowly, oh so slowly 
+I can feel him start to fade 
+And I seal him in his prison 
+I no longer feel afraid 
+
+We catch our breath together 
+The vanquished and the bold 
+This battle rages in every home 
+So many stories left untold 
+
+Tonight I know he'll hold me 
+In his petal soft embrace 
+I will drift away to perfect sleep 
+And dream of a better place 
+
+In a few short days we'll rejoin the fight
+And I'll battle through the pain 
+With the monster in my bedroom 
+When I change my duvet again!`
+            },
+            {
+                title: "Bo and Obs at the Zoo",
+                body: `I am Bo! And I am Obs!
+We're on a day trip to the zoo 
+To wobble at the Elephants 
+And wiggle at Gnu !
+
+It's a lovely sunny summer's day
+All the animals are very sleepy 
+But Sarah kept it nice and skimpy 
+So we can have a little peepy!
+
+We went inside the Rhino house 
+It really smelled quite rotten 
+Then we got too close to a Mandrill 
+And he turned and flashed his bottom!
+
+The Chimpanzees were lots of fun 
+But the Gorillas beat their chest!
+We're really very lucky 
+Safe and snug in Sarah's vest 
+
+We compared humps with the Camels 
+What we found was rather scary
+Bo and Obs are Bactrians
+Not silly old Dromedary!
+
+I am Bo! And I am Obs!
+We think this may be our last rhyme 
+But keep an eye on Sarah's Facebook 
+We may pop out from time to time!!`
+            },
+            {
+                title: "Guardian Angel",
+                body: `Guardian angel pray for me
+I'm drifting, drowning, lost at sea
+Guide me to a safer shore 
+Shine your light on me once more 
+
+Guardian angel comfort me
+When darker days are all I see
+Be there as night turns into dawn
+Show me how to be reborn 
+
+Guardian angel carry me 
+As I search for my life's destiny
+Hold me, calm me, soothe my fears
+Gently wipe away my tears
+
+Guardian angel always be
+In dreams and memories of you and me
+And when it all gets far too much 
+I know I have your gentle touch
+
+Guardian angel hear my plea
+I wish you could come back to me
+For now I carry you in my heart 
+Till the day when we're no longer apart 💔`
+            },
+            {
+                title: "Since Maisie Went Away",
+                body: `Teddy is all alone again 
+The dawn of another endless day 
+All he has are memories 
+Since Maisie went away 
+
+He doesn't really understand 
+And he thought she'd always stay 
+The clock has stopped and time has stood still 
+Since Maisie went away 
+
+He remembers all the happy times 
+So many games to play 
+But the fun has gone and silence reigns 
+Since Maisie went away 
+
+He wishes they could dance again 
+She would hold him , twirl and sway
+Now the music doesn't play anymore 
+Since Maisie went away 
+
+Daddy slept in her bed again last night 
+As he's done since that day in May 
+Teddy has tried so hard to comfort him 
+Since Maisie went away 
+
+Nobody wipes away a teddy's tears
+It's the price they have to pay
+All they have are memories and a broken heart
+When their little ones go away 💔`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

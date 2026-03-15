@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 4</title>
+    <style>
+        :root {
+            --rose-pink: #f4c2c2;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--rose-pink);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #ffe4e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d08484;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #b05e5e;
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: #b05e5e; 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--rose-pink);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "Bo and Obs in Blackpool",
+                body: `I am Bo! And I am Obs!
+We're snug and warm in bed 
+Waiting very patiently 
+For Sarah to raise her sleepy head 
+
+You'll never guess where we've been 
+Somewhere really rather cool 
+Kiss me quick and donkey rides 
+A weekend in sunny Blackpool!!
+
+We bounced around the Big One 
+Wobbled at all the folk we met 
+It was very chilly on the ghost train 
+And Valhalla got us soaking wet!!
+
+The water slides at the Sandcastle 
+What happy days are all about 
+Oh how we lay there laughing 
+At the bottom when Bo fell out!
+
+At the top of the tower the wind was wild 
+And it woke up both our nipples!
+Then back to the hotel for tea 
+With wine and other tipples 
+
+Finally a tram ride down the golden mile 
+Sarah wore that top with the missing button 
+The conductor's face went rather red 
+When he saw she had no bra on!
+
+I am Bo! And I am Obs!
+This tired girl is finally waking 
+Another great day to be a boob
+Full of wobbliness and shaking!!`
+            },
+            {
+                title: "A Birthday Wish",
+                body: `A birthday wish , I have but one
+The time we shared before you were gone 
+I miss your songs , I miss your voice 
+Deep down I know I have no choice 
+
+I want to blow my candles out
+And hear the cheers that you would shout
+I need to close my eyes,  then see
+That you are standing next to me
+
+Opening gifts, eyes open wide 
+You watching , smiling full of pride 
+The doll i wanted oh so much 
+How I'd trade for one more touch
+
+Party games and jelly too
+Hugs for me and dad and you 
+Little treats for all my friends 
+The life I thought would never end 
+
+And now I'm here at thirty one
+My heart is broken now you are gone
+My wish I send into the blue
+For one more birthday spent with you 💔`
+            },
+            {
+                title: "The Social Media A to Z",
+                body: `A is for Add me, I be really good friend!
+B gets you Blocked if you call me again 
+
+C for the stolen photos of hollywood Chicks 
+D the unwanted Dinners and Dicks 
+
+E for the Endless love when I'm down 
+F for the Filters that make you look like a clown 
+
+G is for Gender, doesn't matter to me 
+H for the Hate, one day you'll be free 
+
+I the Inboxes asking for money 
+J for the Jibes and Jokes that ain't funny 
+
+K the Kids photos on the first day at school 
+L for the Lads who think I'm a fool 
+
+M all the Messages,  I do try to reply 
+N for Nigeria, haha mate nice try!!
+
+O for the Orange or should I say Donny 
+P for the people who constantly Poke me!
+
+Q all the Questions I'm asked every day 
+R for the Randoms always coming my way 
+
+S for the Slappers who charge you for photos 
+T for the Toes, the Titties and Torsos 
+
+U for the Unusual trouser snakes 
+V all the Various sizes and shapes 
+
+W the very kind offers to Wax me 
+X owned by Elon, some say he's a N**I
+
+Y is for thank You and Z is for Zuck
+But he's a friend of the Orange so we don't give a f**k!`
+            },
+            {
+                title: "Elvis on the Pelvis",
+                body: `Rita was an Elvis fan 
+She loved his smouldering eyes 
+And she'd always wanted his picture 
+At the top of her inner thigh 
+
+A tattoo of the King's beautiful face 
+Right next to her ' you know what!'
+"It's the closest I'll ever get " she mused 
+The thought made her really quite hot 
+
+An appointment was made so she had a quick shave 
+And picked out her best pink knickers 
+On to the bus with kids making a fuss 
+Screaming babies and city slickers 
+
+As she arrived at the place she screwed up her face 
+It looked grotty and smelled of wee 
+Then a skinny little man with a Stella can 
+Said "it'll all be fine you'll see!"
+
+She gave him a picture and lay there akimbo 
+Played Candy Crush for a while 
+His tongue on his cheek, it felt like a week 
+But finally he stood up with a smile 
+
+He gave her a mirror, she gasped in terror 
+"That looks nothing like Elvis!" She cried 
+"I'm not paying for that terrible tat 
+Try again on the other side!"
+
+So back to his work Stella man went 
+Then he said "I think I've cracked it this time!"
+But on closer inspection when she saw the reflection 
+Rita screamed "I'm not paying a dime!"
+
+"These are the worst tats I've ever seen!
+I wanted mine to be the smartest 
+But now I'm disfigured for the rest of my life 
+How can you call yourself an artist?"
+
+"I'll make you a deal " the little man said 
+"We'll stop someone walking this way 
+And if they say that's Elvis tattooed on your pelvis 
+Then you have to promise you'll pay!"
+
+So into the street for someone to meet 
+Old Gladys came walking by 
+Rita said "can we borrow you for a minute?
+I need you to look at my thighs "
+
+Rita dropped her knickers and sat on the wall 
+Spread her legs so that Gladys could see
+After five minutes the old lady stood back
+Rita asked " do you know who it might be?"
+
+Gladys said "well i don't know who the twins are
+Those two have really got me stumped 
+But the shrivelled up one in the middle 
+That's definitely Donald Trump!!"`
+            },
+            {
+                title: "Friend to the End",
+                body: `In the dead of night when the moon shines bright 
+You might hear my footsteps creep 
+Was that a cat? Or maybe a rat?
+Dare you go back to sleep?
+
+With hair of flame and blade of steel 
+I slowly mount the stair
+Don't bother hiding under your covers 
+You'll find no comfort there
+
+A creaky door , a squeaky floor 
+The patter of tiny feet
+You peer into the darkness 
+Afraid of what you might meet
+
+Am I lurking in the shadows?
+Am I playing hide and seek?
+Was that a little laugh you heard?
+I dare you to take a peek!
+
+Maybe I'm hiding under your bed
+Take a look, you might get lucky 
+Or then again you might find yourself 
+Face to face with Chucky!!!!
+
+I'm your friend to the end!!! 😈😈`
+            },
+            {
+                title: "My Blushing Rosie",
+                body: `"Rosie you are my posie 
+You are my heart's bouquet 
+Come out here in the moonlight 
+There's something sweet love I wanna say ".....
+
+A song that lingered for ninety years 
+A memory from a stolen past 
+Two young lovers dancing in the moonlight 
+A time she thought would always last 
+
+Never did an hour go by
+When Harry was not in her mind 
+His smile would light the darkest night 
+His eyes would sparkle and shine 
+
+And he sang her song to her every day 
+Bow down low then take her hand 
+Their eyes would close in that sweet embrace 
+Drift away to some magical land 
+
+The day he left he held her tight 
+Tears fell for their final dance 
+Rosie vowed to wait for evermore 
+As her soldier boy left for France 
+
+A fading photograph, that beautiful smile 
+All she had left as the years rolled by 
+Her tears so full of memories 
+Of her boy with the sparkling eyes
+
+Now Rosie's time is nearly come 
+All the family gathered near 
+To pay respects and say goodbye 
+A sweet reunion will soon be here 
+
+A distant light, a soldier brave 
+Bows down low and takes her hand 
+And they dance once again in the moonlight 
+Together again in this magical land 
+
+" Your honey boy I'm waiting 
+Those ruby lips to greet 
+Don't be so captivating 
+My blushing Rosie, my posie sweet"...`
+            },
+            {
+                title: "The Paint Tin",
+                body: `She saves the loose change she finds in his pockets 
+In an old paint tin behind the shed
+One day she knows she will leave this place 
+Be it alive or be it dead
+
+She hopes one day these pennies will buy her
+The freedom she craves so much 
+Back to a life away from his grasp
+And far from his evil touch
+
+Eight pounds seventy nine and counting 
+She won't be in anyone's debt
+For now she must wait, suffer in silence 
+Not enough for a train ticket yet
+
+He changed in the instant he gave her that ring
+She became a possession instead of a wife
+Where had his love gone? Who was this man?
+What happened to their happy life?
+
+She rises at six his breakfast to cook
+Holds her breath as he inspects his plate 
+Prays that she's got it just right today 
+She waits to discover her fate
+
+Some days it's coffee poured over her head
+Or egg and beans hurled across the room
+She knows how he likes it but he changes his mind
+This bride tries so hard for her groom
+
+As he leaves for work she ponders her day
+How she'll fill it till he's home again 
+Cleaning the house and talking to walls
+The paint tin now at thirteen pounds ten
+
+He calls on the hour. Every hour. All day
+On the house phone to make sure she's in
+He tells her he loves her as he hangs up the phone
+Hollow words only fit for the bin
+
+Her mind takes her back to that beautiful wedding 
+She felt like a princess that day
+She promised to love him till death do us part 
+Now this road could be heading that way
+
+Friday is her favourite day of the week
+He gives her money for the weekly shop
+Makes his list she must stick to, can't deviate 
+She has an hour, must be quick, mustn't stop
+
+What she wears on a Friday depends on the bruises
+She wonders if people can tell
+They smile as they head to their heaven 
+She smiles on the way back to hell 
+
+Five thirty his dinner is ready 
+Timed to perfection again 
+Crosses her fingers he's had a good day
+Will it be relief or will it be pain
+
+Then he drinks from teatime to bedtime 
+She knows how this evening will end
+She goes early to grab an hour 
+This is routine, a nightly trend
+
+Midnight she hears drunken feet on the stairs 
+Turns her back on his side of the bed 
+Cold hands on her body, she stifles her tears
+He takes what he wants, she plays dead
+
+At dawn she limps to the garden 
+He's in a coma, snoring away 
+Counts those precious pennies one more time
+Just enough for her freedom. It's today 
+
+She goes through the motions one last time 
+Fights the guilt as she fries him an egg
+But this is her day, now or never
+No more will she grovel and beg
+
+No time to pack, can't be weighed down
+She waits for an hour then she's out
+She feels like the whole world is watching 
+Every second expecting his shout 
+
+As the train pulls away tears stream down her face 
+Relief and guilt all rolled into one 
+Now she's a fugitive, she has four hours
+Till he realises she's finally gone
+
+She wipes her tears, sits up straight in her seat 
+Watches the towns and the sheep passing by
+A new world awaits her, new friends to be made
+A chance to dream and a chance to fly
+
+And she'll take it, oh how she'll take it 
+Like a phoenix so high will she rise
+This downtrodden child is now a free woman
+And she's ready to claim her prize`
+            },
+            {
+                title: "The Baked Bean of Queens",
+                body: `Donny a spoilt brat from Queens 
+Didn't care about other human beings 
+He never said thanks
+But he loved squeaky tanks
+And he resembled an ancient baked bean
+
+Underneath his red cap with its MAGA
+He tried to put on a cool swagger 
+Now the economy is crashing 
+The whole world is laughing 
+And Elon is twisting the dagger!
+
+Donny you need to change your agenda
+Your business isn't our gender 
+So climb out of your hole
+And from your new flagpole 
+Fly the rainbow flag of surrender!`
+            },
+            {
+                title: "A Promise to Matthew",
+                body: `I didn't know you Matthew 
+I really wish I had
+I imagine you were full of life
+A beautiful young lad
+
+I came across your story
+By chance the other night
+And it filled me with such sadness 
+You inspired me to write
+
+26 years have passed since you left
+Have attitudes changed? I'm not sure 
+Nobody should ever suffer again 
+That terrible pain you endured 
+
+I close my eyes and try to imagine 
+The blows raining down on your face
+Tied to a fence unable to run
+Your final memory will be of that place
+
+In every blow a spit of hatred
+An ignorance we see every day 
+They probably laughed as they snuffed out your life
+The ultimate price paid for being gay
+
+What went through your mind as you hung on that fence?
+All of your dreams and hopes and fears
+Your last taste of life was the blood on your face
+And the salt from your final tears
+
+They say your face was covered in blood 
+Apart from tear tracks, one on each cheek
+Did you weep for your mum? I know I would 
+My first thought when times are bleak
+
+Matthew I'm sorry for my species 
+And that I hadn't heard your name 
+Your suffering on that awful night 
+Is our eternal shame
+
+But I promise I'll remember now
+To keep you in my mind
+To fight for rights for everyone 
+Be humble and be kind
+
+If heaven's real then one day Matt
+I'd love to be your mate 
+And tell you how the world is better
+And free from fear and hate 
+
+But for now sleep well and rest your soul
+Safe now away from that place
+I'll meet you one day and hopefully I'll get
+A smile from that beautiful face 💔`
+            },
+            {
+                title: "Bo and Obs go to the Seaside",
+                body: `I am Bo! And I am Obs!
+It's a beautiful sunny day 
+We wonder where Sarah will take us 
+Will she let us out to play?
+
+She's searching through her smalls drawer 
+We hope it's something teeny 
+We're bouncing up and down with joy 
+It's that gorgeous red bikini!
+
+A day out at the seaside 
+Relaxing in the sun 
+Covered in factor 50
+Don't want to be too well done!
+
+But then she turns to tan her back 
+We mumble and we growl 
+It's no fun at all being a boob 
+When you're squished up in a towel!
+
+Later on she buys an ice cream 
+Always chocolate, she's very picky 
+It dribbles down our cleavage 
+And makes us very sticky 
+
+Before we go we take a dip 
+Even though the water's murky
+It's cold and gives us goose bumps
+And we do get rather perky!
+
+I am Bo! And I am Obs!
+What a wonderful day it's been
+Time for a lovely wobbly bubble bath 
+Where Sarah scrubs us squeaky clean!!`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

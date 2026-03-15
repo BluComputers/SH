@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 6</title>
+    <style>
+        :root {
+            --rose-pink: #f4c2c2;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--rose-pink);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #ffe4e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d08484;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #b05e5e;
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: #b05e5e; 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--rose-pink);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "Value",
+                body: `Value is all I ask of you
+Value is all I need 
+Value me in society 
+Value me in thought and deed
+
+In this life our time is short 
+In this life we need to shine
+In this life I have no room for hate
+In this life my dream is mine 
+
+Spend an hour in these shoes of mine 
+Spend some quality time with me
+Spend just a day living this life
+Spend it and try to live free
+
+Imagine a lie that you live every day 
+Imagine the cry from the voice inside 
+Imagine the tears in the bathroom mirror 
+Imagine a life denied
+
+Be there for me in times of need 
+Be that person I know I can call
+Be my friend for now and always 
+Be the arms that catch me when I fall 
+
+I ask you to let me live in peace
+I know you don't really understand 
+I hope you can open your heart and mind
+I pray that one day you'll hold my hand
+
+Leave your fear and hatred behind 
+Leave your blinkers off so you can see 
+Leave your ignorance and intolerance 
+Leave some kind words for me 
+
+Inside me is who I'm meant to be 
+Inside but not for long 
+Inside I'll be ready for my day
+Inside I'm rehearsing my song
+
+This girl will not be stifled 
+This boy will not be put down 
+This is our day to finally shine
+This is our time to wear the crown 
+
+You are the ones that can change it
+You are the ones with the knife
+You can take a step back, take a long look
+You can leave me to live my life`
+            },
+            {
+                title: "Ode to My Boobs",
+                body: `I am Bo! And I am Obs!
+We live in Sarah's shirt
+She keeps us safe within her bra
+To make sure we don't get hurt
+
+Some days she's feeling lazy
+We bounce around all day
+It's wonderful to be a boob
+Without that silly bra in the way!
+
+She takes us out on pub day
+Dad always rolls his eyes 
+But we just giggle and wobble 
+At his protests and his sighs
+
+Sunday nights are always best
+Sarah shakes off all her troubles 
+She spends an hour in the bath
+And hides us in the bubbles!
+
+I am Bo! And I am Obs!
+One on the left , one on the right 
+Now Sarah's off for a nudy sleep 
+So we wish you all goodnight!!`
+            },
+            {
+                title: "The Choice",
+                body: `Old Orange died and went to hell 
+The Devil said "We're full !
+But just for you I'll make some room 
+It's about time I had a cull "
+
+"You get to choose who's place to take 
+Here are doors 1,2 and 3
+Choose wisely Donald because you know this is 
+For all eternity "
+
+So the Devil opened up door 1
+And released a stench so rare 
+Richard Nixon standing nude
+His face etched with despair 
+
+He dived into a pool of filth 
+And then he dived again 
+Over and over he took the plunge 
+Would the Orange ease his pain?
+
+Donald shook his head and moved along 
+The Devil opened number 2
+And George Bush appeared hammer in hand 
+Breaking rocks the whole day through 
+
+Every time he smashed one
+Another would appear 
+Orange moved along again 
+George shed a little tear
+
+The Devil said "Well Donald 
+You've reached your resting place 
+What lies behind this final door 
+Is what you have to face "
+
+Door 3 swung open and what a sight!
+Bill Clinton in his birthday suit
+Strapped to a bed and Monica 
+In her undies looking cute
+
+Bill moaned and groaned as Miss Lewinsky 
+Did what she did best
+Donald smiled and nodded 
+"Oh I think I can pass this test!"
+
+"Very well " said the Devil "You've made your choice
+Welcome to hell, what a party we'll throw!"
+Turning back to door 3 the Devil said
+"Monica you're free to go!"`
+            },
+            {
+                title: "Forever Butterflies",
+                body: `If butterflies lived forever 
+What a beautiful world it would be 
+Velvet colours of every hue 
+A brighter future for you and for me 
+
+Would they dance with you as you stroll along?
+Would they rest in your outstretched hand?
+Would they flit amongst us with a message 
+Of peace in our broken land?
+
+We all know that butterflies love flowers 
+And flowers need to reach for the light 
+So let's make it our mission to nurture 
+To give them their very best chance at flight
+
+I think that some butterflies do live forever 
+And we all carry one deep in our heart
+Next time you see one, close your eyes and remember 
+And you'll realise we're never really apart 
+
+Fly with the angels Brianna 💔💔💔💔`
+            },
+            {
+                title: "Hela's Last Winter",
+                body: `September 1942
+
+My name is Hela . A name that means hope 
+Tattoo number 294533
+I write my words in darkness 
+Must never let them see
+
+I am a prisoner of all that is evil
+My homeland invaded by hate
+Faceless impostors, wicked and cruel 
+They will decide my fate
+
+I am writing this so the world will know 
+What mankind can do to it's own 
+A fourteen year old girl alone in this place
+I am nothing now but skin and bone
+
+What year is this? What day? What time?
+Each day the same as the one before 
+Read my words if you find this 
+See what we had to endure
+
+October 1942
+
+It's always still dark when they wake us 
+We rise to the sound of the gong
+Wait in line for a cold water wash 
+Blows rain down to rush us along 
+
+No food in the morning just a warm drink
+My stomach is used to the pain
+Then roll call and we stand to be counted 
+In sunshine, snow or rain
+
+God help us all if someone is missing 
+We stand till the person is found
+Sometimes all day, sometimes all night
+Beaten if you slump to the ground 
+
+November 1942
+
+I work in the timber yard from dawn to dusk
+Chopping logs for fires we can't see
+Keeping our captors warm and happy 
+Trying to remember what it's like to be free
+
+Mouldy bread for supper, eat just a little 
+Save some for morning, hide it away 
+Then evening roll call , can hardly stand up
+But you have to. You have to do it their way
+
+December 1942
+
+From my dormitory window I see them arrive
+Thousands come every day to this place 
+Mothers and children walk hand in hand 
+Fear etched on each little one's face
+
+The stench of death is everywhere 
+It sticks to you like tar
+The dead are lucky, spirits set free
+Free from this festering scar
+
+Sometimes I stand at the wire 
+I can see fields, see birds flying by 
+And I wonder what life is like out there
+Beyond the point where the land meets the sky
+
+January 1943
+
+Today I was beaten by the guards
+Today I did something wrong 
+Today I committed a terrible crime
+I was caught singing my favourite song 
+
+ When they lash you then you must count
+Don't get it wrong or they go back to the start
+Then you thank them for your punishment 
+Bow your head to them as you depart 
+
+February 1943
+
+This winter is endless, I'm cold to my bones 
+How I'm still alive I do not know 
+Sleep brings no relief, best to keep moving 
+Try to brace against cold winds that blow 
+
+My time is coming, I sense that it's near 
+And I'm ready to take God's hand
+Bring me to you oh lord, end this pitiful life 
+Carry me to the promised land
+
+When you find my diary please tell the world 
+Dont let all this be in vain 
+Remember me . Remember us all
+Remember these years full of pain
+
+March 1943
+
+My name is Hela a name that means hope 
+It was all I had and now is no more 
+They are here, it is time. My words at an end
+Mother and Father await me at heavens door`
+            },
+            {
+                title: "A Light at Christmas (by Giselle)",
+                body: `Beneath the frost of winter's veil
+Where shadows linger cold and pale
+A spark ignites, a whisper calls
+Through quiet woods and snowbound halls
+
+The world may bow to weary night
+Yet Christmas births eternal light 
+A flame of hope, so soft, so pure 
+A warmth that weary hearts endure
+
+Amid the dark, the world's despair
+There blooms a love beyond compare 
+It wraps the lost, the broken near
+And dries the faintest trembling tear
+
+Each twinkling star, each candles glow
+Reminds us of what we still know 
+That kindness lives though faint it's spark 
+And peace can shine in places dark`
+            },
+            {
+                title: "Highland Paradise",
+                body: `When I was a child you told me 
+Of a land with mountains so tall 
+You filled my thoughts with such wonder 
+I could barely imagine it all 
+
+You spoke of mysterious monsters 
+Hiding in ancient deep dark lochs 
+And waterfalls cascading through rainbows 
+Over black and time worn rocks
+
+When I was grown you showed me 
+The place where your happiness lay
+And I fell in love as you did
+I knew then that one day I would stay 
+
+I held your hand as we climbed the hills 
+Fished for minnows with my little pink net
+We laughed as we stood in the waterfall's spray 
+Perfect memories I will never forget 
+
+Now I sit alone on the shingle 
+Remembering all the happy years 
+I never imagined you'd be gone from me
+And I try so hard to smile through my tears
+
+I know you are here in these mountains 
+Still holding my hand as I go on life's way 
+Thank you for sharing your highland paradise 
+All my life I've been longing to stay`
+            },
+            {
+                title: "The Grand Old Lady",
+                body: `You are the way of life we thought would never end 
+You are countless schoolboy hopes and dreams 
+You are the winter darkness and sunny summer days 
+You are the home of the People's team 
+
+You are a century of memories of golden glory days 
+You are a birthright that's always handed down 
+You are a Saturday day out for every dad and lad 
+You are the cheers, the tears and the frowns 
+
+You are Harvey, Ball and Kendall a trinity sublime 
+You are the hopes and dreams watching from the stands 
+You are Sagar, West and Southall standing tall against the foe
+You are the safest pairs of hands 
+
+You are Z cars ringing out as the players take the field 
+You are the beating blue heart of a city so proud 
+You are the posters on every bedroom wall 
+You are the songs sung by this faithful crowd 
+
+You are Dixie, our perfect Dixie 
+You are a legend who will never die 
+You are still here with all who went before 
+You are the souls who eternally fly 
+
+You are a tear in the eye as we wave a last goodbye 
+You are the badge so proud upon our chest 
+You are nil satis nisi optimum and will be forever more 
+You are Goodison. You are nothing but the best 💙🤍💙🤍`
+            },
+            {
+                title: "I Walked for You",
+                body: `I walked for the love you brought me 
+In those beautiful newborn eyes 
+I walked for the times I held you 
+And soothed your gentle sleepy cries 
+
+I walked for those Christmas mornings 
+Your tiny feet on the stair 
+I walked for your face full of wonder 
+Knowing that Santa had been there 
+
+I walked for the nights when you were sick 
+The hours spent by your bed 
+I walked for all the times I wished 
+I could take your place instead 
+
+I walked for my beautiful butterfly 
+Who finally emerged into the light 
+I walked for the privilege of seeing 
+Your fleeting dancing flight 
+
+I walked for the perfect memories 
+That still light my darkest hours 
+I walked through the rain and the sunshine 
+The bringers of beautiful flowers 
+
+I walked for all who struggle 
+For those who need a hand to guide 
+I walked for the day we can stand on the beach 
+And turn back this terrible tide 
+
+I walked for you my beautiful girl 
+Though these years have brought us pain 
+I walked because I know one day 
+I will hold you in my arms again`
+            },
+            {
+                title: "The Poppy",
+                body: `I am the boys who lied to serve their king 
+I am the Fathers who waved them on their way 
+I am the letters that never made it home 
+I am a Mother's wait, day after day 
+
+I am a million horses that carried our brave lads 
+I am the tears shed for a fallen steed 
+I am the terror and the fear in every young man's eyes 
+I am the destination where no road ever leads 
+
+I am a sweetheart's fading photograph 
+I am a distant memory of home 
+I am a song until we meet again 
+I am the hope whenever you feel alone 
+
+I am the only colour in this barren land 
+I am still blooming at the fading of the light 
+I am with you my boys as you take your final breath 
+I am proud to be your final earthly sight 
+
+I am the memories in every veteran's tears 
+I am the comrades that still walk by their side 
+I am the friendship that burns bright forever more
+I am the love, the loyalty and pride 
+
+I am the blood of all who went before 
+I am the heroes who gave only of their best 
+I am hope and peace for the future 
+I am your poppy, proud upon your chest`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>
