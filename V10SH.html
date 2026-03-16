@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 11</title>
+    <style>
+        :root {
+            --volume-color: #e3f2fd;
+            --accent-blue: #1565c0;
+            --text-dark: #2c3e50;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--volume-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #bbdefb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1976d2;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: var(--accent-blue); 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--volume-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "Awareness",
+                body: `Am I really a threat to you?
+Am I affecting your life?
+Am I something to be frightened of?
+Am I the one carrying the knife?
+
+We all deserve a peaceful life 
+We all deserve a fighting chance 
+We all deserve to sing our song 
+We all deserve our time to dance 
+
+Around the world, hand in hand 
+Around the world a message to bring 
+Around the world we stand together 
+Around the world our songs we'll sing 
+
+Reach out to people who live in fear 
+Reach out across the land 
+Reach out with love and laughter 
+Reach out and offer a hand 
+
+End the needless violence 
+End the need to hide away 
+End the pain and suffering 
+End it now. End it today 
+
+Now is the time for acceptance 
+Now you can open your heart 
+Now people can come together 
+Now there's no need to be apart 
+
+Embrace the lifestyles of everyone 
+Embrace the diversity of the world 
+Embrace every boy. Embrace every girl 
+Embrace our rainbow flag unfurled 
+
+Sing about freedom, sing about joy 
+Sing about peace and love 
+Sing your song with all your heart
+Sing it to our angels up above
+
+Shine your light across the world 
+Shine it so the blind may see
+Shine like a beacon across the land
+Shine bright for you and for me`
+            },
+            {
+                title: "The Phoenix",
+                body: `A little girl in mummy's shoes
+Makeup done just right
+Cinderella twirls in the mirror 
+Ready for the ball tonight
+
+This beautiful child with hopes and dreams 
+One day her prince will come
+To carry her away to her happy place
+Where two souls can be as one
+
+Darkness tried to block her way
+Demons brought her pain
+But like a Phoenix she rose from the flames 
+From despair she was born again
+
+A tale with happiness at it's end
+She found her prince at last 
+I know she's in her happy place 
+Free from the nightmares of the past
+
+A beautiful woman in a mothers shoes
+Makeup done just right
+A princess twirls in the mirror 
+Ready for the ball tonight`
+            },
+            {
+                title: "Cerise Wings",
+                body: `I went for a stroll through the park today 
+A little butterfly danced on the wind 
+I felt that I'd seen her somewhere before 
+A memory from somewhere deep within 
+
+Cerise were her wings, a vision in pink 
+She flew with me as I wandered the trail 
+Then led me to a garden where sweet peas grow 
+An oasis where life can prevail
+
+I sat for a while and watched her flit
+Around the snap dragons and roses so rare
+And I realised who my companion was 
+I knew that beauty beyond compare 
+
+She rested a while in my outstretched hand 
+Caught her breath and then she was gone 
+Off to spread her message of love
+To bring us all together as one
+
+Thank you Brianna for my fleeting chance
+Thank you for letting me have the key
+Thank you for touching my life today 
+Thank you for sharing yours with me`
+            },
+            {
+                title: "Stardust and Smiles",
+                body: `Hey Bradley you crossed my mind today 
+I smiled as I looked to the sky 
+Is that you playing footie with the angels?
+Give us a wave as you zoom by 
+
+Fly little black cat fly 
+Around the moon and the stars so bright 
+You are with us in happy memories 
+Your face lights up the darkest of nights 
+
+Dance little black cat dance 
+Ride on moonbeams across the clouds 
+Swoop down low on match days 
+Sprinkle your stardust over the crowds 
+
+Soar little black cat soar 
+Over rivers and oceans so wide 
+You touched so many of our lives 
+Left us all full of love and pride 
+
+Shine little black cat shine 
+Bathe us in the warmth of your smile 
+The world is now a better place 
+Because you stopped by for a while 
+
+So thank you Bradley for being you
+Thanks for crossing my mind today 
+I know for all those who love you
+You are never far away 🐈‍⬛⚽️♥️`
+            },
+            {
+                title: "The Problem Is You",
+                body: `I'm sorry that my colour offends your delicate eye
+I'm sorry that my God upsets you so
+I'm sorry for the darkness within your shuttered mind
+I'm sorry that you had no chance to grow 
+
+I'm sorry that my features make you feel unwell 
+I'm sorry that my looks aren't fairy tale 
+I'm sorry that I dont fit into your perfect world 
+I'm sorry you can't see beyond your veil
+
+I'm sorry that my wheelchair is always in your way
+I'm sorry you can't find a parking space 
+I'm sorry that I hold you up on crowded shopping streets 
+I'm sorry for the steps you can't retrace
+
+I'm sorry that I eat too much, that I take up too much room
+I'm sorry that my shadow hides your sun
+I'm sorry if I'm not as strong in mind as you
+I'm sorry that the past can't be undone 
+
+I'm sorry I can't take your hand and lead you to the light 
+I'm sorry I can't give you any clue
+I'm sorry that I took so long to realise one thing
+The problem isn't me at all. The problem here is you`
+            },
+            {
+                title: "The Morning Mist",
+                body: `I will wait for you in the morning mist 
+When you think you walk alone 
+I'll be by your side every step of the way 
+As you wend your way back home 
+
+I will wait for you as you do your work 
+When you come home to the quiet and still
+I'll sit in the hall and welcome you back 
+It was always my daily thrill
+
+I will wait for you in the evening time
+Curled up on the rug as I've always done 
+I wish I could lick your tears away 
+Oh how I hate you feeling so alone
+
+I will wait for you in the dark of the night
+Stand guard at the foot of your bed 
+I'll be there at the dawn of every day 
+I remember every word that you said
+
+I will wait for you at the rainbow bridge 
+One day we will again run free
+I will wait until that blessed day
+When you finally come home to me`
+            },
+            {
+                title: "Pure White Canvas",
+                body: `Little one little one where do you go 
+When the stars are in the sky?
+I wish you could tell us your secrets 
+I can see the twinkle in your eye 
+
+Do you fly to the moon in a rocket?
+Do you play tag amongst the clouds?
+Do you soar over mountains with the eagles?
+Do you swoop down low over the crowds?
+
+I'd love to travel one night with you 
+See you fly like a bird in the sky 
+Watch you spread your wings to the heavens 
+Blow you a kiss as you zoom by 
+
+Do fairies live in your dream world?
+Do you slay dragons on your trusty steed?
+Are you a brave knight in shining armour?
+So noble in thought and deed 
+
+Take a ride on a magic carpet 
+Let a Unicorn carry you home 
+All the places we only visit in dreams 
+Where the goblins and witches roam 
+
+Your mind is a pure white canvas 
+Colour it in as you go on your way 
+Treasure those early innocent years
+For tomorrow is just a day away`
+            },
+            {
+                title: "Real Friends",
+                body: `Thank you my friend for choosing me 
+Thank you for making me smile 
+Thank you for the morning kisses 
+You and me shared so many miles 
+
+Thank you for misty morning walks 
+Thank you for the mud in the car 
+Thank you for the sticks you brought home every day 
+You showed me what real friends are 
+
+Thank you for the mischief in those beautiful eyes 
+Thank you for the bathtime chase 
+Thank you for soaking me every time 
+You made our home such a happy place 
+
+Thank you for being there when I was down 
+Thank you for the head on my knee 
+Thank you for the unconditional love 
+You showed me how to be free 
+
+Thank you for all the hide and seek 
+Thank you for the after swim shake 
+Thank you for a million memories 
+I wish you were here to heal this heartache 
+
+Thank you my old friend its time to go
+Thank you for stopping by 
+Thank you for the joy you brought me
+Cross the rainbow, it's your time to fly`
+            },
+            {
+                title: "Halcyon Days",
+                body: `Think back to those long summer holidays 
+The release as you left the school gate 
+Six weeks of freedom, not a care in the world 
+Sleeping in and staying up late 
+
+Do you remember trying to silently creep 
+Past mum and dad in your cheap cider haze 
+Convinced that they never noticed 
+Oh those beautiful rebellious days 
+
+Long lazy days spent with your pals 
+Daisy chains and chewing the fat 
+Sharing our dreams of the future 
+Planning this and hoping for that 
+
+The thrill of watching the travelling fair 
+Roll into town to set up for a week 
+Candy floss, goldfish and coconuts 
+Prizes to win and thrills to seek 
+
+A cheeky grin from the lad on the waltzer 
+A wink from his beautiful blue eyes 
+I smile back as we head home again 
+His life must be filled with goodbyes 
+
+As August fades for another year 
+The thought of school fills my head 
+Back to the maths and the homework 
+No more mornings in bed 
+
+Looking back now on those halcyon days 
+The melancholy feelings of times gone by 
+Friends I had and people I lost 
+Memories gently fall from my eyes 
+
+All part of my youth and I miss it
+Not one second would I ever give back 
+Those long lazy days are with me forever 
+As I travel along life's track`
+            },
+            {
+                title: "Moonbeams",
+                body: `Your beautiful smile awaits me
+This road carries me on and on
+My head filled with my most precious memories 
+Times we had that are now long gone
+
+A few perfect days in your mountains 
+Under your beautiful Scottish skies
+How I wish you could hold me one more time 
+Wipe the pain away from my eyes 
+
+I will try and smile for you mum
+I can show you I'm doing OK
+I'll show you just how far I've come 
+Since that day you were taken away 
+
+So come to me in moonbeams 
+Watch over me tonight 
+Wrap your arms around me 
+And bathe me in your light xx`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 9</title>
+    <style>
+        :root {
+            --rose-pink: #f4c2c2;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--rose-pink);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #ffe4e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d08484;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #b05e5e;
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: #b05e5e; 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--rose-pink);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "Fields of Dandelions",
+                body: `Do you miss those carefree summer days 
+Of childhood times gone by 
+When you danced through fields of dandelions 
+And blew them to the sky 
+
+Do you miss the bedtime stories 
+All the places you visited in dreams 
+The nights you flew into space in a rocket 
+Then rode home on moonbeams 
+
+Do you miss the Christmas mornings
+Excited feet on the stair 
+Hoping in your heart of hearts 
+That Santa had been there 
+
+Do you miss those early birthdays 
+Your parents hugs and kiss 
+Blow out all your candles 
+Close your eyes and make a wish 
+
+Do you miss just always knowing 
+That you were loved so much 
+When all you really needed 
+Was Mother's gentle touch 
+
+Do you miss just taking a moment 
+To remember those beautiful days 
+The days of love and laughter 
+We treasured in so many ways 
+
+When you danced through fields of dandelions 
+And blew them to the sky 
+Our happiest of memories 
+Of a childhood time gone by`
+            },
+            {
+                title: "I Chose You",
+                body: `I chose you for the kindness 
+Behind your weary eyes 
+I chose you because like me 
+You'd had enough of sad goodbyes 
+
+I chose you as soon as I saw 
+The sadness in your face 
+I chose you because I knew
+I could make your world a happy place 
+
+I chose you for adventures 
+For the beaches, hills and lakes 
+I chose you for the chases
+The bath times and the shakes
+
+I chose you for companionship 
+The nights spent on your bed 
+I chose you for all the beautiful times 
+You would stroke my tired old head
+
+I chose you to be my friend 
+I could tell that you were kind
+I chose you for all the memories 
+That now are yours and mine`
+            },
+            {
+                title: "Gently Holding My Hand",
+                body: `I used to live in darkness 
+There was no hope in sight 
+But slowly I began to realise 
+Which way to turn to find the light 
+
+My nights were filled with monsters 
+Bad dreams that made me weep 
+But you sent me happy memories 
+Led me back to peaceful sleep 
+
+I walked the endless desert sands 
+Stumbling, lost and afraid 
+Until you brought me an oasis 
+And rest in your beautiful shade 
+
+I was drowning in a stormy sea
+With no sight of safe dry land
+Did you gently place me on the beach?
+Did you lend a helping hand?
+
+The days of all consuming anger
+When I stood and screamed at the sky
+Are now replaced by peace and love 
+And thanks that you stopped by
+
+I'd never known such lonliness 
+Nobody knew what to say or do
+But the skies are brighter nowadays 
+In my heart I carry you 
+
+I was lost somewhere in space and time 
+I've conquered the darkness, the sea and the sand 
+Now I know you walk beside me
+Gently holding my hand`
+            },
+            {
+                title: "A Precious Baby Girl",
+                body: `A newborn baby made from love 
+A happy couples pride and joy 
+A family now complete at last 
+A precious little boy 
+
+A dawn breaks on a Christmas morning 
+A little footstep on the stair 
+A child with wonder in his eyes 
+A hope that Santa had been there
+
+A box of bricks,  a racing car 
+A tin of soldiers brave 
+A pirate ship and eye patch 
+A game of life on the ocean wave
+
+A childhood blessed with only love 
+A feeling kept inside 
+A need to stifle and suppress 
+A secret to try and hide 
+
+A chance to try on mummy's shoes 
+A touch of her favourite dress 
+A taste of lipstick,  a spray of cologne 
+A time to stand tall and confess 
+
+A Mother who knew all along 
+A run to those arms open wide 
+A family together in silent embrace 
+A Father bursting with pride 
+
+A sixteenth birthday here at last 
+A childhood time now done 
+A day to leave the past behind 
+A chance to reach out for the sun 
+
+A bottle of perfume, some scented soap 
+A trinket box with a key 
+A mirror to put on that beautiful face 
+A bracelet engraved with "Me"
+
+A prom princess glides down the stairs 
+A young man gasps at this beautiful sight 
+A link of arms, a beaming smile 
+A time to enjoy this magical night 
+
+A Mother wipes a tear away 
+A young lady does a twirl 
+A Father bows and kisses her hand 
+A most precious baby girl`
+            },
+            {
+                title: "When Your Angel Smiles",
+                body: `When the first light of day creeps into your room 
+When you reach for their side of the bed 
+When every day starts with a tear 
+When happy memories fill your head 
+
+When you spend another night in that tiny bed 
+When teddy is wet from your tears 
+When all you can do is remember 
+When you think of all the lost years 
+
+When you say goodbye to mum or dad 
+When the day you always feared has come 
+When you wonder how on earth you'll cope 
+When it feels like your race is run 
+
+When you remember those days on grandads knee 
+When all those stories carried you away 
+When you lived your life in wonder 
+When once upon a time was every day 
+
+When that wagging tail is no longer there
+When there's no more welcome home
+When tears full of memories fall from your eyes
+When all you feel is so desperately alone
+
+When you step outside in the dark of night 
+When all the stars are shining through 
+When you search the heavens for your angel 
+Then your angel is smiling down at you`
+            },
+            {
+                title: "The Harbour Wall",
+                body: `A lad and lassie hand in hand 
+Two young lovers running free 
+A kiss beside the harbour wall 
+And dreams of life beyond the sea 
+
+Hamish was a fisherman 
+And Flora his beautiful belle 
+Always there to wave him off 
+And the crew of the Mary Well 
+
+And while he sailed the highland sea 
+She would spend her lonely days 
+Singing while she sewed the nets 
+She missed him in so many ways 
+
+Each evening at the harbour wall 
+She would gaze into the distant sky 
+The Tobermory clock tower told her 
+How slowly the time went by 
+
+And now that time is here again 
+The Mary Well lies ready to go 
+Flora tried to smile through her tears 
+As she waved goodbye to her beau 
+
+She stood by the quay as they sailed away 
+Until the boat was at one with the sea 
+"Keep them safe oh Lord I beg you 
+Bring my Hamish back to me "
+
+Each night as always she wandered down 
+To the harbour where their love began 
+And gazed out into the endless ocean 
+Blew a kiss to her brave young man 
+
+The days went by and the sky grew dark 
+The old fishwives warned of a gale 
+The sea grew restless and the wild wind blew 
+And a torrent of rain and hail 
+
+The storm raged from the dusk till the dawn 
+Flora stood alone on the quay 
+She searched the skyline for the Mary Well 
+And she pleaded with the sea 
+
+To send her Hamish home again 
+So she could hold him in her arms 
+Take him safely home again 
+And keep him safe from harm 
+
+Two days went by and then at dawn 
+The sound of a distant bell 
+The Tobermory Fair sailed in
+With the wheel of the Mary Well 
+
+The Captain stood and bowed his head 
+"This was the only thing we found 
+We searched all day and half the night 
+All across the fishing ground "
+
+Now every day a lassie walks down 
+To the place where they once were free
+And she blows a kiss from the harbour wall 
+To her love across the endless sea..`
+            },
+            {
+                title: "The Sound of My Soul",
+                body: `I remember that glorious summer 
+I remember that Friday so well 
+I remember praying that this was the day 
+I remember the lonliness of the school bell 
+
+I remember gazing at you in History 
+I remember how you knotted your tie 
+I remember wishing you would look back at me 
+I remember how you made my heart fly 
+
+I remember writing a thousand notes 
+I remember throwing each one away 
+I remember avoiding your eyes in the corridor 
+I remember having nothing to say 
+
+I remember the Friday lunchtime disco 
+I remember my final chance 
+I remember the sun peeping through the old curtains 
+I remember day dreaming about our dance 
+
+I remember the song of that summer 
+I remember every word,  every line 
+I remember wondering if you liked it too 
+I remember aching for you to be mine 
+
+"So true, funny how it seems 
+Always in time but never in line for dreams 
+Head over heels when toe to toe 
+This is the sound of my soul "
+
+I remember you reach out a hand to me 
+I remember the softness of your gentle touch 
+I remember the feeling of floating on air 
+I remember that moment I'd craved so much 
+
+I remember your smile,  I remember my tears 
+I remember how you kissed them away 
+I remember our dance with love and a smile 
+I remember that most beautiful day 
+
+And now I wake in your arms where I've always belonged
+Today is forty years since you made my life whole 
+Still head over heels when toe to toe 
+This is the sound of my soul`
+            },
+            {
+                title: "Shining On",
+                body: `Sometimes I wake in the dawns early light 
+When the sunrise is trying to peek through 
+And I find myself wiping a tear away 
+Another day begins with thoughts of you
+
+I can stroll through the woods and know you are there
+As the wind makes the cherry blossom fall
+Close my eyes and let my thoughts carry me
+On the breeze I can hear you call
+
+The butterflies dance around the flowers
+I wonder which one you might be
+You linger a while, the last one to depart 
+A perfect moment shared with me
+
+As evening falls and the sky turns to pink
+I look to the heavens and smile 
+I know you were with us a few fleeting hours
+I know you stopped by for a while 
+
+These words I send to you Brianna 
+We love you to the stars and the moon
+Catch them as you go on your way
+Why did you have to leave so soon?
+
+Tonight I will dream of a better time
+When bitterness and hate are gone
+And I'll wake to another sunrise 
+Another day with your light shining on`
+            },
+            {
+                title: "Unashamedly You",
+                body: `A heart so pure and full of love 
+A flower reaching for the light 
+A flickering flame in the darkness 
+The brightest star of the night 
+
+A beautiful butterfly dancing on air 
+The scent of summers blooms 
+The softness of a love song 
+The laughter in every room 
+
+You are the slowly turning seasons 
+The rush of winter streams 
+Springs gentle warmth and summer sun 
+You are the whisper in the falling leaves 
+
+A world that misses you oh so much 
+A perfect soul we'll never forget 
+How I wish I'd been there to save you 
+Now we must live with the regret 
+
+I imagine you flying with the angels 
+And I smile as I look into the blue 
+The girl with love in her heart and fire in her eyes 
+And always unashamedly you`
+            },
+            {
+                title: "Has Anybody Seen a Butterfly?",
+                body: `Has anybody seen a butterfly?
+I'm sure she came by this way 
+She dances among the flowers 
+But I know she cannot stay 
+
+Has anybody seen a butterfly?
+In February I know it's rare 
+She flits along on velvet wings 
+Her beauty beyond compare 
+
+Has anybody seen a butterfly?
+She has a message to bring 
+To banish prejudice and hate 
+A song of love to sing 
+
+Has anybody seen a butterfly?
+Look up high in the cherry blossom tree 
+She has but days to spread her wings 
+Before she's gone from you and me 
+
+Has anybody seen a butterfly?
+Open your hand, let her rest a while 
+Blow her a kiss as she goes on her way 
+Send her off with love and a smile 
+
+Has anybody seen a butterfly?
+In February it's so hard to do
+But if by chance you see one
+Maybe Brianna was there with you`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

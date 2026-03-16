@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 10</title>
+    <style>
+        :root {
+            --milestone-gold: #fcf4dd;
+            --accent-blue: #2c3e50;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--milestone-gold);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #e0eafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5d6d7e;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: #2c3e50; 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--milestone-gold);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "Blue and Gold",
+                body: `Glory days of blue and gold 
+Shoulder to shoulder whatever the weather 
+There for each other through thick and thin 
+Crossing the winning line together 
+
+One thousand games between them 
+A friendship forged in blood 
+The beating heart of a mighty team 
+Against many a foe they stood 
+
+Heroes to all who watched them 
+An example to every little lad 
+Who roared them on from the terraces 
+Through the good times and the bad 
+
+Now the glory days have faded away 
+ But friendship lingers on
+These days they battle an unseen enemy 
+And they'll fight till the war is won
+
+Two legends of the blue and gold
+Shoulder to shoulder whatever the weather 
+There for each other through thick and thin 
+Still crossing the winning line together`
+            },
+            {
+                title: "Letters to Graceland",
+                body: `Dear Elvis you're probably too busy 
+To spend any time writing to me 
+But I thought I'd send a few little lines 
+Just to read if ever you're free 
+
+My carer Lena suggested I write 
+She helps to guide my hand 
+It's not easy with Cerebral palsy 
+Like counting grains of sand 
+
+I watch all your latest movies 
+I hear your voice on the radio 
+Lena bought me your latest record 
+I see your smile wherever I go
+
+If I wasn't stuck in this wheelchair 
+I could get on a plane tonight 
+And fly across the land and sea 
+To Graceland, what a beautiful sight!
+
+I have to go now but thanks for reading 
+Say hi to Priscilla for me 
+Just know you always have a friend 
+Across the wild wide sea 
+
+All my love Karen 
+
+Dear Karen, hi I got your letter 
+It's great to know all the things you can do 
+Thank you for your beautiful words 
+Hey I'll always have time for you 
+
+I'm so happy you like my music 
+I really hope you all sing along 
+Tell me which one you like the best 
+We all have a favourite song 
+
+Now Karen I need a big favor
+I have a job I need you to do
+I'm sending a friend to keep you company 
+And her name is Karen too!
+
+She's my favourite pink Teddy bear 
+And she gets lonely just like you
+So look out for her, she's on her way 
+She'll cheer you up when you're feeling blue 
+
+I have to go now but I feel so blessed 
+To have you there across the miles 
+Don't forget to look after Karen 
+And replace all your tears with smiles 
+
+With love from Elvis`
+            },
+            {
+                title: "Christmas With You",
+                body: `When Christmas eve is fading away 
+When the time comes to rest your head 
+Please dont climb the stairs with a heavy heart 
+Don't let tomorrow fill you with dread 
+
+For as you dream I will journey 
+Through memories of a lifetime or two 
+Guided by starlight and moonbeams 
+Home to spend Christmas with you 
+
+Wake with a smile and greet the day 
+Think of all the happy times we shared 
+Remember the glances across crowded rooms 
+Little things to show that we cared 
+
+As family gather I'll sit there and smile 
+I'll be bursting with love and pride 
+I know you miss me. I miss you too
+I know the river of tears we've both cried 
+
+Set me a place and pour me a drink 
+But don't weep at my empty chair 
+I am with you today and always 
+In the wind and the rain I am there
+
+And in the evening time when you sit alone 
+And your tears start to gently flow
+I'll be there to stroke your weary head
+How I wish I hadn't had to go
+
+The gift I have for you is my love 
+I pray it will help you through 
+Keep it safe in your heart till next Christmas 
+And I'll come home to spend it with you`
+            },
+            {
+                title: "Far Out of Reach",
+                body: `I can see all the way to Australia mammy 
+When I stand on Ballycroneen beach 
+I know somewhere daddy is waving 
+Even though he's out of reach 
+
+When I drift among dreams in the dark of night 
+He holds me in his arms like before 
+Carried aloft on his shoulders 
+Laughing till I can laugh no more 
+
+We talk about so many things 
+He tells me to look after you 
+And he sends me his love on moonbeams 
+I open my window to let them peep through 
+
+I told him how you cry at night 
+How you miss him oh so much 
+I promised I'd wipe your tears away 
+And pass on his gentle touch 
+
+He knows you stood on the sand that day 
+He knows you stood till the ship was long gone 
+But he promises us that the day will come
+When we'll all be together as one
+
+So take my hand mammy and walk with me
+Come and stand on Ballycroneen beach 
+Because somewhere daddy is waving 
+Even though he's so far out of reach`
+            },
+            {
+                title: "When Christmas Depended on Him",
+                body: `In a secret castle at the top of the world 
+A little elf lay sneezing in his bed 
+Too sick to help Santa this Christmas eve 
+But who could do the job instead?
+
+"Don't worry " said Santa tapping his nose 
+"I know just the person for the job 
+You leave it with me and old Rudolph 
+And the rest of the reindeer mob!"
+
+Over in England children were sleeping 
+Dreaming of what was to come 
+But one little boy just couldn't rest 
+He lay listening to the tears of his mum 
+
+Peter's mum tried so hard from dawn to dusk 
+Working two jobs to keep them fed 
+But this time of year always brings tears 
+He knew how it filled her with dread 
+
+And then on the wind, what was that sound?
+Sleighbells in the dead of night 
+Peter tiptoed to the window 
+And was greeted by a beautiful sight 
+
+Below in the moonlight Santa was waving 
+Beckoning him to come down 
+Peter crept downstairs and out the back door 
+Still in pyjamas and dressing gown!
+
+"Hello Peter! I need your help 
+Tinsel my elf is in bed with the flu
+Will you ride with me and my reindeer?
+Christmas depends on me and you!"
+
+A crack of the whip and into the sky
+Loop the loop and away they zoomed 
+Australia, New Zealand and China 
+Guided along by the midnight moon
+
+Was this a dream? Am I awake?
+Peter wondered with eyes open wide
+America, Canada and Mexico 
+The glow of Rudolphs nose as their guide
+
+Presents rained down on magic dust
+Sleeping children all unaware 
+Santa turned and shot Peter a wink
+"Not long now, we're getting there!"
+
+Onwards and upwards the reindeer flew
+Over Africa's wide open plains
+Santa put his arm around Peter 
+As they soared across Italy and Spain 
+
+Then gently so gently they started to slow
+The lights of England began to appear 
+And Peter could see his little house
+He couldn't help but shed a tear 
+
+Santa smiled and said " no need to cry
+This Christmas wont be the same
+You've helped me out so much tonight 
+The world will remember your name 
+
+I've left you some presents under your tree 
+To remind you of me and my boys
+Go back to bed son, sleep happy and well
+And tomorrow enjoy your toys
+
+But before all that promise me this 
+Make it the very first thing that you do
+Take your mother in your arms
+And tell her "I love you""
+
+A hug from Santa "off you go!
+Morning will soon be here
+Get some sleep and wake up feeling 
+Full of Christmas cheer"
+
+Peter watched from his window as the sleigh disappeared 
+He thought of Santa's cheeky grin 
+And he knew he'd never forget the night
+When Christmas depended on him`
+            },
+            {
+                title: "Brian and Epstein",
+                body: `Wind off the Mersey
+Chilled to our bone 
+Huddled together
+Never walking alone
+
+Hi there! I'm Epstein 
+A Staff without a gaff
+Let me tell you a story 
+Let me give you a laugh 
+
+I live here with Brian 
+In a Mathew Street backie 
+We share what we have
+From biscuits to baccy
+
+Life is hard on this old cobbled street
+We sit and watch the world go by 
+And we wonder what riches lie beyond 
+Liverpool's golden sky 
+
+Folk walking past us hour after hour
+Busy lives , appointments to meet
+They can't see us, they never look down 
+At the world right beneath their feet
+
+People are shopping, bags full of joy
+Presents and gifts to share
+I have Brian and he has me
+A friendship beyond compare 
+
+Twinkling lights of red and green 
+Music drifts on the wind to my ears 
+I curl up in my masters lap
+And dream of better years
+
+Dawn breaks on another winter morning 
+To cold to stand on four paws
+Brian and Epstein are having a duvet day 
+Merry Christmas from our door to yours`
+            },
+            {
+                title: "Forever I Will Remember You",
+                body: `When I wake alone in the dawns early light 
+When the new day shines gently through 
+When I turn to touch your side of the bed 
+And I realise I no longer have you 
+
+When I remember the battles we fought and won 
+When all we wanted was a life for us two 
+When you were ill and I wanted to take it away 
+All I could do was cradle you 
+
+When I sit in the evenings firelight glow 
+When I think of our love so true 
+When the shadows begin to take over 
+For a moment I am there with you 
+
+When dreams overtake my restless mind 
+When they show me the world that I knew 
+When tears flow from my sleeping eyes
+In my dreams I fly with you 
+
+When the dawn breaks again on another day 
+When happy memories are becoming few 
+When I recall that moment so perfect 
+Then forever I will remember you`
+            },
+            {
+                title: "My Safe Place",
+                body: `Thinking back in my mind to those infant school days 
+All day longing for your smiling face 
+A call of my name and I'd run to your arms 
+Finally in my safe place
+
+Then home for those few precious hours of play
+Sneaky biscuits, television and pop 
+Till daddy came home and we'd all have tea
+Why do such happy times have to stop
+
+It was a time when I thought mums and dads lived forever
+Nobody could ever take it away 
+But it can't be like that and I can't have you back 
+Only in my memories now do you stay
+
+So mum I've decided to try and move on 
+To be the person you taught me to be
+To care and be humble, to help when I can
+Lose these chains of grief and be free
+
+I was angry at you and then I felt bad
+I know now why you kept it inside 
+I was selfish and cruel, I should've known 
+The river of tears you must have cried 
+
+I feel you with me now and then
+I've opened my eyes, now I see
+In the wind and the ocean I know you are there
+Flying high and flying free
+
+Mum I promise to live my life
+Make you proud each and every day
+You live in my heart and my memories 
+Nobody will ever take that away 
+
+So tonight as I look to your star shining bright 
+I know one day I'll see your face
+A call of my name and I'll run to your arms 
+Finally in my safe place`
+            },
+            {
+                title: "A Grateful Country",
+                body: `I'm sitting on an English hillside 
+The poppies are swaying in the breeze 
+Somewhere a lark is singing 
+The wind is whispering through the trees
+
+In the distance I can hear footsteps 
+I strain my eyes to see 
+A million men are marching 
+A million men who died for me 
+
+Led by the boys of Passchendaele 
+Of Ypres, Jutland and the Somme 
+Brave young lads who stood up tall 
+Faced the gas, the bullets and the bomb 
+
+They march in silence, in perfect time 
+Turn to salute me as they go 
+I blow them a kiss as they fade away 
+To where I do not know 
+
+Now come the men who fought for the skies 
+The Spitfire aces that fell 
+And the boys who died on the beaches 
+Who didn't flinch in the face of hell 
+
+As they disappear, a song I hear 
+Borne on the wind from somewhere far away 
+" We.ll meet again, dont know where,dont know when 
+But I know we'll meet again some sunny day "
+
+Now a moment of quiet as i sit and reflect
+On this army that would never yield 
+Approaching me the boys of the Ardent 
+Of Coventry, Glamorgan and the Sheffield 
+
+The class of 82. A task force so brave 
+Sent to reclaim our land far away 
+Sir Galahad's lads were right by their side 
+Their legacy is a safer world today 
+
+I can feel the heat of the desert now 
+Imagine the sand blowing into their eyes 
+Our heroes who fell so far from home 
+Underneath those blistering skies 
+
+The heat of the day and the chill of the night 
+Thoughts of sweethearts and family time 
+Every one of them died a hero 
+For a freedom that is yours and mine 
+
+So thank you to all our boys and girls 
+On the land, in the air and at sea 
+Thank you from a grateful country 
+You gave it all so that we could live free`
+            },
+            {
+                title: "Seventeen Candles",
+                body: `I walked with you in dreams again 
+On this your special day 
+Seventeen candles burning bright 
+Showing me the way 
+
+You led me through the fields again 
+Placed a dandelion in my hand 
+Seventeen gentle blows it took 
+To send you floating across the land 
+
+Butterfly butterfly dance for me
+As the cherry blossom petals fall 
+Seventeen caress your velvet wings
+The world is answering your call 
+
+We will never forget you 
+You live in our thoughts every day 
+Seventeen years shining your light 
+Always showing us the way 
+
+Happy birthday beautiful Brianna 
+Fly with the angels day and night 
+And today of all days we promise 
+Seventeen candles burning bright`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

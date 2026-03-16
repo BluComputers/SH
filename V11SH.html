@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 12</title>
+    <style>
+        :root {
+            --volume-color: #fce4ec;
+            --accent-pink: #d81b60;
+            --text-dark: #2c3e50;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--volume-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #f8bbd0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c2185b;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: var(--accent-pink); 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--volume-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "Petals of Gold",
+                body: `Take my hand in dreams Brianna 
+Lead me through fields where dandelions grow 
+I'll pick a few and make a wish 
+Watch you fly with each gentle blow 
+
+Drift little dandelion drift 
+Carry your message on the wind 
+Into people's hearts and minds 
+Let them hear the song you sing 
+
+Float little dandelion float 
+Across rivers and oceans so wide 
+Spread your love throughout the world 
+Banish the hatred and turn the tide 
+
+Dance little dandelion dance 
+By the light of the midnight moon 
+Our candles are lit in your memory 
+A beautiful soul taken too soon 
+
+Rest little dandelion rest 
+Under the tapestry of stars in the sky 
+Your happy smile is with us forever 
+The world is better because you stopped by 
+
+Grow little dandelion grow 
+Bring us hope that the future is bright 
+Reach for the sun with your petals of gold 
+Bathe us all in your beautiful light`
+            },
+            {
+                title: "The Best Teacher",
+                body: `I know how to hold my knife and fork
+Because you showed me how
+I know what sound the horses make
+I know that milk comes from a cow
+
+I know how to kick a football
+Because of the matches we played together
+I know how to build a sandcastle
+I know how to dig for buried treasure
+
+I know how to ride a bicycle
+Because you were there at my side
+I know how to get up and try again
+I know i filled your heart with pride
+
+I know how to climb the highest tree
+You would point to the strongest branch
+I know so much because i had you
+I know you gave me my fighting chance
+
+I know how to change plugs and light bulbs
+The little things i need every day
+I know when the grass needs cutting
+I know how to do it your way
+
+I know how to be humble and show i care
+I try to be the person you want me to be
+I know i had the best teacher
+I know you were there for me
+
+So many things you taught me dad
+But there's something you never got round to
+The one thing i really needed to know
+Just how do i live without you?`
+            },
+            {
+                title: "A Bit of Bully",
+                body: `After a busy afternoon of boozing
+Coming down from my Saturday high
+I love nothing better than watching
+A few editions of good old Bullseye
+
+The old dears all sit in the front row
+Here comes Jim to introduce all the guests
+Brenda and Graham from Huddersfield
+Charles and Lucy from Haverfordwest
+
+With Raymond and Margaret from Stafford
+We're ready to get on with the show
+It's the category board " places please Jim!"
+"Fifty pounds! Great stuff on we go!"
+
+"Oh no it's gone in affairs!
+The category's gone and we can't ask the question"
+Brenda is starting to panic
+Charles is worried about his indigestion
+
+"Don't worry" says Jim "It's pounds for points
+Listen to Tony. Slow down, settle in
+Plenty of money to be had in this round
+Still time for anyone to win"
+
+Brenda and Graham have 200 pounds
+Raymond and Margaret have 102
+It'll take Jim two minutes to count it all out
+Come back when you've made a brew!
+
+We're back and it's Bronze Bully time
+The Crafty Cockney lands 303
+" We'll double that, it's on it's way
+To your chosen local charity"
+
+Now it gets serious, silence descends
+Bully's prize board rears it's head
+"Keep out of the black and in the red
+Nothing in this game for two in a bed!"
+
+A cassette player and garden tables
+A chess set and a wendy house
+A moped, some spanners, a cutlery set
+Matching pens for you and your spouse
+
+The tension is building, they've done really well
+Five prizes and 300 pounds
+Will they gamble for what's behind Bully?
+They've got the time it takes the board to go round
+
+"We've had a great day Jim, we'll take it and run"
+Brenda and Graham return
+A chance to gamble, a chance to shine
+This is more than they'll ever earn
+
+Brenda goes first, she hits an 11
+11 again then 3. It's 25!
+"Graham it's 76 or more required
+To keep your dream alive
+
+Twenty. Twenty. And another 20!
+You really could've done with a ton
+But come on i have to say it
+Here's what you could've won!
+
+A beautiful caravan! But never mind
+You've got BFH so no need to worry
+Join us again next sunday
+You can't beat a bit of Bully!"`
+            },
+            {
+                title: "My Folks",
+                body: `Thank you for bringing me into this world
+Thank you for that first loving touch
+Thank you for shielding my newborn eyes
+Thank you for a life that means so much
+
+Thank you for catching my faltering steps
+Thank you for the joy in your eyes
+Thank you for bedtime stories
+Thank you for the lullabies
+
+Thank you for fun filled days by the sea
+Thank you for explaining the tides
+Thank you for the Punch and Judy show
+Thank you for the donkey rides
+
+Thank you for helping me with exams
+Thank you for spending the time
+Thank you for always showing the way
+Thank you for the reason to my rhyme
+
+Thank you for egg hunts and chocolate
+Thank you for the tooth fairy surprise
+Thank you for Christmas when you didn't have a dime
+Thank you for the Santa disguise
+
+Thank you for the 2 am pick ups
+Thank you for coming for me
+Thank you for bringing me home safe every night 
+Thank you for helping me find my key
+
+Thank you for the late night phone calls
+Thank you for the advice when i'm feeling blue
+Thank you for always being there
+Thank you for just being you
+
+Thank you for wiping my tears away
+Thank you for letting me dance
+Thank you for the hugs and the kisses
+Thank you for giving me my chance
+
+Thank you for never judging me
+Thank you for the laughs and the jokes
+Thank you for the love and the memories
+Thank you for being my folks`
+            },
+            {
+                title: "A Gift for Esther",
+                body: `Is that you again Brianna?
+Dancing around in my head
+Is that you rustling my curtains?
+Is that you gently stroking my head?
+
+Come and spend the day with me
+I'll carry you around in my heart
+Let's get out there and show the world
+We've never really been apart
+
+I can smell your perfume on the breeze
+See you dance as you dry your hair
+Hear you sing as you do your makeup
+And i know you will always be there
+
+Let's walk through the park and pick flowers
+Let's sit and chat for a while
+Let's put the whole damn world to rights
+Let me see that beautiful smile
+
+We can go shopping and buy that little black dress
+The mirror watches you spin and twirl
+And i can stand back and watch you shine
+My princess, my beautiful girl
+
+Hold my hand as we make our way home again
+Let me know you are here by my side
+The pleasure has all been mine Brianna
+Every second you fill me with pride
+
+Shall we watch a film before bedtime?
+Lay down and rest your head on my knee
+Close your eyes and drift into dreamland
+Places for now i cannot be
+
+Now i'll tuck you in like i've always done
+A goodnight kiss to send you on your way
+Moonbeams carry this message from me to you
+Thank you so much for today`
+            },
+            {
+                title: "The View from the Balcony",
+                body: `Join me on a journey
+Come and share my balcony
+Let me paint for you a picture
+Of life with my old friend the sea
+
+As the year dawns into winter's grip
+Wild white horses crash and roll
+The beach is lost to snow and ice
+A seaside town has lost it's soul 
+
+A few will brave the morning walk 
+Valentines shelter in the warmth of embrace
+The seagulls left to fend for themselves
+Waiting for spring to show her face
+
+Now schools are closed it's Easter time
+Gloves and wellies descend on the beach 
+Digging for treasure, digging for gold 
+Summer holidays just out of reach
+
+As May rolls round my morning is warmer
+The oceans anger is beginning to fade
+She knows brighter days are coming
+Families and lovers, plans are made
+
+Summer sun fills my room with light
+I smile as i watch the scene
+This is the song of the seaside
+This is her moment serene
+
+As she invites the children in to paddle
+Leap the waves and flee the spray
+Till she turns her tide and takes
+All those sandcastles away
+
+The summer is brief, the year is long
+And the ocean moves on apace
+She has no time for fun and games
+As she greets old autumn's face
+
+The kite surfers try to ride the wind
+The seagulls show how its done
+People have no place here
+As the sky and the sea become one
+
+The beach is deserted, the winter bites
+And the sea she will take her toll
+Respect her now and always
+As her wild white horses crash and roll`
+            },
+            {
+                title: "Judgement Day",
+                body: `I know you slept really well last night 
+I know you felt safe in your bed
+I know you laughed as you threw
+Rolled up paper at the back of his head 
+
+I know how you stalk and lie in wait
+I know how you push him around 
+I know you stole his lunchbox 
+Emptied his sandwiches on the ground 
+
+I know you follow him into the toilet 
+I know how desperately he holds it in
+I know what you make him do in there
+One day you will pay for your sin
+
+I know he tries so hard to be ill 
+I know he can't bring himself to tell
+I know he doesn't sleep at night 
+I know he dreads the morning bell
+
+I know you stole his pocket money 
+I know you spent it on fags with your mates 
+I know you made him smoke one
+Can't you stop before it's too late?
+
+I know you chased him after school 
+I know he ran till he could run no more 
+I know you beat and kicked him
+Left him broken in tears on the floor
+
+I know he wrote a letter
+I know he knew no other way 
+I know his mum screamed when she found him
+I know you will face your judgement day 
+
+I hope you can sleep really well at night
+Throw your paper at the empty chair 
+And when you reach your day of reckoning 
+I know that he will be there`
+            },
+            {
+                title: "The Jewel in the Crown",
+                body: `"First one to see the tower!"
+That's what dad said every time 
+I'd search the distant skyline 
+Just looking for any sign 
+
+Finally I see her standing tall 
+As she's done for a century and more 
+Welcoming the tourists to Blackpool 
+Where you're always left wanting more 
+
+Weekends with my folks were always a blast 
+Park the car and wait for a tram 
+Travel this age old golden mile 
+As I've done since those days in my pram 
+
+From the pleasure beach I can hear the terror 
+As the Big One thunders along 
+The happy screams of the funfair 
+Just one verse of the seaside song 
+
+The sound of bingo from the arcades 
+The ferris wheel slowly turns on the pier 
+An elderly couple walk hand in hand 
+Reliving their yester years 
+
+Look up at the tower and see the glass floor 
+I was scared I would fall right through 
+Happy memories watching the circus 
+Laughing at Mooky and Mr Boo 
+
+At night this place really comes alive 
+The winter months don't slow her down 
+Drive through the illuminations 
+The jewel in this old girls crown 
+
+Look for the trams all covered in lights 
+Paddle steamer, steam train and rocket 
+Children with spinning flashing toys 
+Parents digging deep in their pockets 
+
+As families depart to home or hotels 
+The nightlife takes over the town 
+The stag party boys singing their songs 
+The hen girls wearing their crowns 
+
+Police sirens wail, another fight in a pub 
+Another night out ends in a cell 
+Another busy night for our emergency angels 
+As the landlords ring the last bell 
+
+An old boy sleeps in a doorway 
+Sleeping bag covered in beer 
+The darker face of the seaside 
+No candy floss or kiss me quick here 
+
+Finally the drinkers wend their way home 
+They'll be back to do it all again next week 
+The tourists will come and the lights will shine 
+Towers to climb and thrills to seek
+
+As I leave the seaside and my memories behind 
+I see the donkeys being led to the shore 
+Another day begins in Blackpool 
+Where you're always left wanting more`
+            },
+            {
+                title: "All We Have Left Are Shoes",
+                body: `They marched in rows, dare not slow
+Fear etched across each face
+Men and women, children too
+Onwards to that place
+
+They came by train all crammed inside
+No room to sit or rest
+Not knowing what hell lay ahead
+No chance of passing this test
+
+They arrived on trucks like sheep to slaughter
+The lucky ones died on the way
+Good people herded like cattle
+The human race's darkest day
+
+Rise at dawn, work all day
+Beaten if they stop
+A number tattooed on an arm
+Starvation till they drop
+
+Salvation comes in the chambers 
+Finally spirits set free
+A story we cannot imagine
+Freedom for you and for me
+
+Now all we have are photographs
+Of the poor souls who paid their dues
+All we have is a terrible history
+All we have left are shoes
+
+All we have left are shoes`
+            },
+            {
+                title: "For All Eternity",
+                body: `April 1939
+
+A crisp and bright Easter sunday morning 
+Walter dresses and combs his hair
+Off to church with his sister and parents
+He wonders if she will be there
+
+He takes his seat and looks around
+Their eyes meet and they share a smile
+A touch from her mother, she turns away
+The burn of her father's glare across the aisle
+
+Alice and Walter are forbidden lovers
+At eighteen he's old enough to know
+She's only fifteen, still a child
+But love finds a way to grow
+
+Every chance they get they run to the hills
+Away from the head shakes and pointing hands
+Just to be together, to lie in the sun
+Talk of the future and making plans
+
+September 1939
+
+The radio tells of war on the way
+How men must sign up to fight
+Alice had no one to turn to
+Nobody to dry her tears each night 
+
+And then came the day he went away
+Defied her father to say her goodbyes
+Held Walter's hand till the train pulled them apart
+Her vision blurred from the heartbreak in her eyes
+
+Days turned to weeks and Alice would wander
+Down to the beach and stare out to sea
+"Where are you my love? Please keep safe
+Please please come home to me"
+
+March 1940
+
+Six months had passed and still no word
+No letter from her love far away
+She didnt understand. He'd promised to write
+How she yearned for him day after day
+
+She prayed each night "Lord keep him safe
+Protect them all and bring them home
+Bring us all back together again
+For too long now we've been alone"
+
+April 1941
+
+A crisp and bright Easter sunday morning 
+Alice dresses and brushes her hair
+Off to church with her parents
+It wont be the same without him there
+
+As the Vicar begins the service
+He reads out a list of local lads lost
+Walter and Alice's story is over
+They have paid the ultimate cost
+
+Stifled tears on the walk back home
+In her room she lets them flood out
+He loved her right up to the end
+In her mind she had no doubt
+
+January 1945
+
+Alice wakes on her twenty first birthday
+To find her father sat by her bed
+"I hope one day you'll forgive me
+Here are the letters you should have read"
+
+A little box tied up with ribbon
+Full of love from her brave soldier boy
+"My dearest Alice i hope you know
+How you fill my heart with joy
+
+I hope my letters reach you
+But if they dont then i send this plea
+Just know that i will love you
+For all eternity...
+
+Love always now and forever
+Your loving Walter xx`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>
