@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 15</title>
+    <style>
+        :root {
+            --volume-color: #e3f2fd; /* Light blue for Volume 15 */
+            --accent-blue: #1976d2;
+            --text-dark: #2c3e50;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--volume-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #bbdefb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0d47a1;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: var(--accent-blue); 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--volume-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "Twelve Months",
+                body: `Happy new year. A hug and a kiss
+Another mountain for me to climb
+Twelve more months of missing you
+Wishing i could phone you from time to time
+
+I see happy young couples so deeply in love
+They remind me of you and dad
+Valentines day has been stolen away
+Along with the happy days we all had
+
+Daffodils sway in the springtime breeze
+Just like you their brief life brings such joy
+Soon they,ll be gone. Until next year
+But my memories no one can destroy
+
+Easter is here. Egg hunts and chocolate
+Tales of a man who came back from the dead
+But for me i know i wont see you again
+Till it,s my turn to rest my head 
+
+The late spring sunshine glints off the sea
+Children finally return to the beach
+My head filled with childhood memories
+Of a time now so far out of reach
+
+I can feel the summer is coming
+The weather is warmer these days
+The happy families i see just remind me
+How i miss you in so many ways
+
+July brings tears that fall like the rain
+As i journey to your paradise home
+Those precious few days spent with you
+The most beautiful person i,ve ever known
+
+The warm August evenings stir my happiest memories
+Endless summers as a child spent with you
+My playmate, big sister, best friend and guide
+It felt like the whole world was only us two
+
+The days grow shorter. There,s a chill in the air
+Late summer is fading away
+The darkness of autumn. The leaves are my tears
+I yearn for you day after day
+
+No phone call again on my birthday
+I used to love that two hour chat
+Putting the whole world to rights
+Arranging this and planning that
+
+Children look to the heavens as the fireworks crackle
+Eyes wide with wonder and glee
+I do the same but my reason
+Is to search for a sign just for me
+
+And now as the year comes to its end
+I wipe my tears and blow a kiss to your star
+I will carry you with me forever
+Merry Christmas mum. Wherever you are`
+            },
+            {
+                title: "I.G.N.O.R.A.N.C.E.",
+                body: `I will hold my head up high
+I will walk proudly down your street
+I will wear my favourite dress
+I will smile at whoever i meet
+
+Go and question your principles
+Go and search within yourself
+Go and embrace what you find uncomfortable
+Go and climb down from your shelf
+
+Nobody will ever deny me
+Nobody can stand in my way
+Nobody has the right to laugh
+Nobody will be my judgement day
+
+One day you will all understand
+One day you will all be my friend
+One day i wont have to fight
+One day this hatred will end
+
+Remember your happy childhood
+Remember the punches you threw
+Remember the child who was different
+Remember it was me and not you
+
+Ask me how i am feeling
+Ask me my beautiful new name
+Ask me all the things you dont understand
+Ask me how to forgive you your shame
+
+Never deny me my seat on the bus
+Never call me behind my back
+Never pretend to be my friend
+Never blame me for the things you lack
+
+Cant you try and understand?
+Cant you care for once in your life?
+Cant you just accept me?
+Cant you stop yourself twisting the knife?
+
+Everyone in this world deserves freedom
+Everyone should reach for the sky
+Everyone has the right to their dance
+Everyone has a chance to fly
+
+So dont inflict your hate on me
+If you dont like me then walk away
+And leave me to live my chosen life
+Until my dying day`
+            },
+            {
+                title: "Unconditional",
+                body: `I remember gazing into your newborn eyes 
+The overwhelming pride and joy 
+I promised to love you forever 
+My beautiful baby boy 
+
+Those early days are etched in my mind 
+Oh the happiest times we had 
+Carefree moments I spent with you 
+My perfect little lad 
+
+The day you were chased by the bullies 
+All the way home you ran 
+And I held you until your tears ran dry 
+So proud of my young man
+
+We knew you were different your mum and me
+And we didn't care what the gossips said 
+I vowed I would never let anyone 
+Harm a hair of your beautiful head 
+
+And now as I sit in this chapel
+Waiting to give you away
+I'll walk arm in arm with my daughter 
+On this your wedding day 
+
+And I'll stand proudly as you start your life
+As you stand tall against the world 
+And I promise to love you forever 
+My beautiful baby girl`
+            },
+            {
+                title: "The Moon Story",
+                body: `"Grandad! Grandad! tell us the moon story!
+Tell us about your dad in the war
+We know we,ve heard it many times
+But please tell us just once more"
+
+Well i was six years old when war came
+Up to then i knew no pain or fear
+But i remember the look on my father,s face
+As he wiped away my mother,s tears
+
+That night as he sat on the edge of my bed
+We both looked at the moon shining bright
+And we made a pact between father and son
+To always remember that sight
+
+"Wherever this war takes me son
+Just remember we see the same sky
+At bedtime each night look for moonlight
+And i promise the time will fly by"
+
+The next day we went to the station
+To wave our boys off on their way
+I felt out out of place as mother held him so tight
+Tried to hold my own tears at bay
+
+As the train pulled away he shot me a wink
+"Remember to look for the moon!"
+I waved till the last carriage was out of sight
+Now just hope that i,d see him again soon
+
+I held mother,s hand as we trudged home that day
+Both lost in our own thoughts and fears
+The house seemed so empty without father,s laugh
+Just sadness , lonliness and tears
+
+Mother gave me a picture of father to keep
+And i placed it at the side of my bed
+Each night as i prayed i held it close to my heart 
+And remembered the words that he,d said
+
+Then before i finally turned out the light
+I,d look to the moon and make a wish
+"Bring them all safely back to us"
+Sent on it,s way with a kiss
+
+I would hear mother crying herself to sleep
+I felt so helpless. We missed him so much
+I tried so hard to make her happy
+All she wanted was father,s touch
+
+Weeks turned to months. Months to a year
+Just one letter to say he was well
+He missed us and loved us so very much
+The end of the war nobody could tell
+
+I missed his stories. I missed his laugh
+I longed to hear his voice again
+I wandered sometimes to the station
+But he was never on the next train
+
+The radio told us things were better
+How the enemy was now on the run
+And mother seemed to be hopeful
+That just maybe this war might be won
+
+I remember the last night so clearly
+Said my prayers to the light of the moon
+Closed my eyes as tight as can be
+Hoped i,d wake to a happier tune
+
+And then as the sun kissed me gently awake
+I looked out of my window to see
+A weary soldier slowly marching
+Marching home to me
+
+Still in pyjamas i ran down the lane 
+He dropped his bag and sank to one knee
+And i sobbed as i fell into his embrace
+At last we were once again three
+
+And then for a while i stayed out of the way
+I played in the garden till late afternoon
+Then at bedtime a kiss from my father
+And we said thank you to our old friend the moon
+
+As i drifted off to a peaceful sleep
+I heard my parents laughing together once more
+Our family complete. The story now told
+How the moon brought father home from the war`
+            },
+            {
+                title: "Do You Remember?",
+                body: `Do you remember that safe feeling
+Wrapped in your mother,s arms
+Do you remember always knowing
+She would keep you safe from harm
+
+Do you remember bedtime stories
+How you fought against the sleep
+Do you remember mother,s parting kiss
+And taking that sneaky peep
+
+Do you remember the morning walk to school
+Two steps forward and one step back
+Do you remember jumping the paving stones
+And avoiding all the cracks
+
+Do you remember the days you were home and ill
+And the medecine you had to endure
+Do you remember the shouts from the playground
+And the morning,s miracle cure
+
+Do you remember the excitement of Christmas
+Creeping downstairs in the dawn,s early light
+Do you remember how happy you were that day
+The future seemed happy and bright
+
+Do you remember the teenage broken heart 
+How it felt like the whole world would end
+Do you remember the tears on your pillow
+The texts you typed but didnt send
+
+Do you remember the day you flew the nest
+The first time you,d seen your dad cry
+Do you remember trying not to look back
+As you waved your last goodbye
+
+Do you remember finally being alone
+Your first night away from your folks
+Do you remember that feeling of lonliness
+And actually missing your dads awful jokes
+
+Do you remember the weekend visits back home
+The tears as you hugged them once more
+Do you remember being back in your room
+Left just as it was before
+
+Do you remember thinking it all went too fast
+How you,d love to be little again
+Do you remember those blissful early days
+Free from sadness and pain
+
+Do you remember. Do you remember
+A little child who had it all
+I remember. I remember
+Etched in my mind as my tears gently fall`
+            },
+            {
+                title: "The Naughty Parrot",
+                body: `Margaret and Dave were a happy couple
+He worked and she ran the home
+Two beautiful teenage daughters
+A dog and a garden gnome
+
+But one fateful day they came down to find
+That Bob their old terrier had died
+Dave buried his old pal in the garden
+While the girls sat inside and cried
+
+A week later Margaret decided
+To do something to cheer the girls up
+A new pet was what was required
+A kitten or maybe a pup
+
+So off down the high street she wandered
+She walked till a sign caught her eye
+"Parrot free to a good home" it read
+"With free cage and a years food supply"
+
+The bell on the door tinkled as she went in
+A man appeared from behind a screen
+And there on the counter proud on his perch
+A beautiful bird with plumage of green
+
+"Oh he,s handsome" Margaret said to the man with a smile 
+"Dont be fooled madam. He,s really not cute
+This is a foul mouthed parrot
+Rescued from a house of ill repute!"
+
+"Oh nonsense i,ll take him" came Margaret,s reply
+And off she went home on the bus
+Excited to show all the family
+She knew they,d all make such a fuss
+
+As she carried the cage through the front door
+The parrot began to shriek
+"Where are the whores! Where are the whores!"
+She didnt expect that to come out of his beak!
+
+Margaret laughed and sat the cage in the window
+So he could watch the world go by
+And she couldnt help but notice
+A very cheeky glint in his eye
+
+At half past three her youngest
+Came wandering in from school
+And that very naughty parrot
+Began to lose his cool 
+
+"Show us your knickers! Show us your knickers!"
+He screamed with all his might
+Margaret and her daughter 
+Both giggled at the sight
+
+Daughter number two appeared at twenty five past four
+She walked into the living room unaware
+The bird flapped his wings and looked her up and down
+"Nice pair! Nice pair! Nice pair!"
+
+The girls sat and laughed at this very naughty bird
+First time they,d smiled since losing Bob
+And all agreed "Dads going to love him
+When he comes home tonight from his job"
+
+At six dad arrived exhausted from work
+Walked into the living room with a weary smile 
+The parrot took one look at dad and exclaimed
+"Dave! I havent seen you in a while!`
+            },
+            {
+                title: "The Promised Land",
+                body: `Why did you leave me screaming
+When it annoyed you oh so much
+Why didnt you just cuddle me
+We could,ve shared a touch
+
+Why did you leave me hungry
+My empty stomach in such pain
+Why didnt we play a little game
+Pretend it was a train
+
+Why did you lock me in cupboards
+When you know i,m afraid of the dark
+Why didnt we go out for the day
+To the beach or maybe the park
+
+Why did you scream down my ears
+When you know i can hear you so well
+I wanted you to whisper my name
+And hear the stories you had to tell
+
+Why did you screw up my homework
+When you knew it couldn,t  be late
+I looked to you for knowledge
+But all i got was hate
+
+Why did you hit me all those times
+When you knew i couldn,t hit back
+When all i wanted was to be loved
+And walk in my parent,s tracks
+
+Why did you lock me away at night
+In my room so cold and so damp
+When all i wanted was a story
+And the gentle glow of a lamp
+
+Why did you suddenly love me
+When family came round to call
+When they,d gone you,d instantly hate me
+Sent me back to feeling so small
+
+Why did you send me outside
+When the rain was pouring down
+When all i wanted was a hot bath
+And the warmth of my dressing gown
+
+Why did you even have me
+When so many long for this chance
+Why did you take away
+My only time to dance
+
+Why did you not stop yourself
+When you saw me fading fast
+An adult against a little child
+Till i finally breathed my last
+
+Why do you not show remorse
+As you sit behind your bars
+Maybe one night you should look up
+And stare into the stars
+
+Why cant you see i,m safe now
+Away from your evil hand
+I,m somewhere you will never be
+Flying free in the promised land`
+            },
+            {
+                title: "Alfie's Carnation",
+                body: `A red carnation in a button hole
+Hearts full of love so true
+Two lives entwined forever
+Old, new, borrowed and blue
+
+The suit hangs from the wardrobe door
+Alfie smiles as he lies in his bed
+Today he and Molly will finally be one
+This is the day they,ll be wed
+
+His mind races back to those childhood days
+Ten years old when he asked for her hand
+Touches his cheek as he remembers the kiss
+Even back then he was making plans
+
+Memories of summers spent wrapped up in love
+His head in her lap as they slept
+The carnation he stole from the flower stall
+That pressed in a book she had kept
+
+But dark days of war were looming
+Alfie was told he must go
+He held her close and asked her again
+But still her answer was no
+
+"Come back to me Alfie when the war is won
+When all the fighting is through
+March back to my arms my soldier brave
+And then i,ll marry you"
+
+And now the day is finally here
+He puts on the suit so smart
+Tie and handkerchief just right
+Ready for a new life to start
+
+Alfie has one final look in the mirror
+Smells the carnation,s gentle bouquet
+"I,m coming to get you Molly my love
+Nothing will stand in our way"
+
+A bus ride to church he meets his friend Jack 
+His best mate and now his best man
+Stood shoulder to shoulder like their army days
+Waiting to greet Molly Anne
+
+Gasps from the pews as this vision appears
+Alfie wipes away happy tears
+From under her veil a gentle smile 
+"Sorry i made you wait all these years"
+
+Rings exchanged now hand in hand
+They walk out to rice and a cheer
+Alfie whispers "thank you" to his new bride
+Jack tells everyone "it,s time for a beer!"
+
+As this beautiful day draws to its close
+Two young lovers locked together in a dance
+The song they sing to each other
+Grateful they both took the chance
+
+"The night seemed to fade into blossoming dawn 
+The sun shone anew but the dance lingered on
+Could we but recall that sweet moment sublime
+We,d find that our love is unaltered by time".......
+
+A hand on his shoulder makes Alfie jump
+As the landlord wakes him from his trance
+"Come on old timer it,s closing time!"
+The newlyweds have danced their last dance
+
+Alfie wanders home to a dark lonely house
+Sits for a while in Molly,s chair
+He wasnt ready for this moment
+For the day when she,s no longer there
+
+For tomorrow he,ll lay sweet Molly to rest
+After seventy years at her side
+And he,ll whisper "thank you Molly my love"
+Through tears of sadness and pride
+
+And he,ll wear the carnation in his button hole
+A heart full of love so true
+Two lives entwined forever
+Old, new, borrowed and blue`
+            },
+            {
+                title: "Leo's Gift",
+                body: `Four years had rolled by since Leo looked into the eyes
+Of the poppy man outside his school
+Generations bridged through heartbreak
+Friendship forged against life so cruel
+
+Leo had never forgotten the kindness
+That old George had shown him that day
+A poppy he kept under his pillow
+That kept all the nightmares at bay
+
+As Remembrance day drew near every year
+George and Leo would sit on the street
+Selling their poppies and saying hello
+To all the people they chanced to meet
+
+George would tell stories of all his old friends
+And of how they fell on that day
+Leo would gently touch his hand
+Try and love the demons away
+
+Then one day it happened. George wasnt there
+The lollipop lady looked sad
+"He,s in the hospital Leo my love
+Had a fall and it looks pretty bad"
+
+Leo ran home and sobbed to his mum
+Off to visit with grapes and flowers
+"We,re friends of the family. Is he alright?"
+Left to wonder and pray for hours
+
+As the hours passed and turned into days
+Leo sat and chatted away
+Tried to remind old George of the time
+He,d chased his nightmares away
+
+"Do you remember George? You helped so much
+You taught me to smile again
+Gave my mummy back to me 
+When all we had was pain"
+
+Mum and Leo visited George
+Every day. No family came
+Then one day Leo heard
+A whispered voice call out his name
+
+"I,m still here lad. Not ready to go yet
+I cant face those lads that we lost
+I,ve had ninety five years. A good life
+I havent paid my dues or the cost
+
+Those boys died for me and they died for you
+Gave their whole lives and for what?
+For us to have fun. To have a good time
+To give life our very best shot
+
+Help me stay awake lad. Talk to me
+Please dont let me drift away
+I cant go yet. Still carry the guilt
+Of surviving that awful day"
+
+Leo whispered to mum his instructions
+She nodded with a knowing smile 
+Time to nip home and fetch
+Something she hadnt seen in a while
+
+As she returned she held him tight
+"I,m so proud of you my son
+You,re only ten but somehow you know
+Just what needs to be done"
+
+George fell asleep one final time
+Leo sat with his hero till the end
+Placed the poppy in George,s hand
+A parting gift from a grateful friend
+
+"Carry it with you George" he said
+"Wear it proudly as you meet your mates
+Run into their arms one more time
+As they greet you at heaven,s gates
+
+And if you see my dad up there
+Please send to him my love
+Tell him me and mum are doing fine
+Thanks to our heroes up above"`
+            },
+            {
+                title: "Our Queen",
+                body: `You were a light in the after war years
+You were one of a precious pair
+You were born to unknown destiny
+You were a beautiful princess so fair
+
+You were a happy and loving child
+You were dancing to the happiest tune
+You were so full of life and laughter
+You were ready when it all came too soon
+
+You were an example in the darkness of war
+You were there showing the way
+You were a beacon of light for your people
+You were their strength and their stay
+
+You were the answer as a nation mourned
+You were ready despite your grief
+You were in your father,s footsteps
+You were a grateful country,s chief
+
+You were blessed to find the love of your life
+You were forever entwined in your hearts
+You were a playful smile to each other
+You were a team till death pulled you apart
+
+You were a daughter , a sister and mother
+You were a constant in this nation,s life
+You were there for all the happy times
+You were there for the trouble and strife
+
+You were a reason to celebrate
+You were our toast on your jubilee
+You were the happy street parties
+You were a bringer of unity
+
+You were the twinkle in this nation,s eye
+You were the humour we loved so much
+You were still that cheeky little girl
+You were blessed with a gentle touch
+
+You were so strong when grief came again
+You were alone but you rose above
+You were in all our hearts and minds
+You were surrounded by all our love
+
+You were always there for all of us
+You were a monarch like no one has seen
+You were our nation,s mother
+You were our Elizabeth, our Lilibet our Queen`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

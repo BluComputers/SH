@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 14</title>
+    <style>
+        :root {
+            --volume-color: #fce4ec; /* Soft pink for Volume 14 */
+            --accent-pink: #d81b60;
+            --text-dark: #2c3e50;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--volume-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #f8bbd0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #880e4f;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: var(--accent-pink); 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--volume-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "She Is",
+                body: `She is that little child who ran to your arms
+She is the laughter caught on the breeze
+She is daisy chains and dandelions
+She is the memories we all long to freeze
+
+She is the one who carried you
+She is the one who just can't rest
+She is the one who toiled for nine months
+She is ready to pass this test
+
+She is the blurry sight of newborn eyes
+She is the oasis of that first sleep
+She is the place you needed to be
+She is the giver of a love so deep
+
+She is the arms held wide open for you
+She is the plaster you need on your knee
+She is the hand that wipes away your tears
+She is always there for you and for me
+
+She is the grandma who gave you cookies
+She is bedtime stories and a kiss
+She is wondrous tales of times gone by
+She is the one you so desperately miss
+
+She is the glue that binds the family
+She is the house that stands so tall
+She is the rock on which all this is built
+She is the mortar in every wall 
+
+She is the warrior queen of ages
+She is the leader of a million men
+She is the one who would never lie down
+She is the bringer of peace again
+
+She is the hidden makeup and brushes
+She is a lock desperate for it's key
+She is the ones who dared to be different
+She is the girl you were born to be
+
+She is the bringer of seasons
+She is the tornado and the volcano's glow
+She is the mighty lion and the lowly lamb 
+She is the beauty of the aurora's show
+
+She is power and strength, nature and nurture
+She is the moon, the stars and the sun
+She is with you always and forever
+She is woman until this human race is run`
+            },
+            {
+                title: "Our Paths Converged",
+                body: `There have been the saddest of times in my life
+When i thought that i just couldn't cope
+But you came my way on that fateful day
+And gave me a reason and hope
+
+We were lost in a terrible darkness
+Two little boats tossed on life's sea
+But fate brought us into the light again
+A new existence for you and for me
+
+You were a child so frightened and lost
+I was in the depths of despair
+But day after day we grew stronger
+Now our love is beyond compare
+
+Life has dealt us so many blows
+But we face them together as one
+And we'll be there for each other
+Till our time on this planet is done 
+
+Sometimes i sit and talk to the stars
+And thank them for sending you here
+The sister i thought i would never have
+The angel who still dries my tears
+
+I'm so grateful that our paths converged
+Our souls are forever entwined
+The twinkling stars in the heavens
+All know that you are mine
+
+An unbreakable bond, a love so true
+Two best friends, an unbeatable team
+I'm honoured to share my life with you
+Together we're building our dream
+
+So thank you for loving me day after day
+For wiping my tears and making me smile
+Thank you for being here at my side
+And thank you for sharing the miles`
+            },
+            {
+                title: "B.R.I.A.N.N.A.",
+                body: `Because the world wasn't ready
+Because people have blinkers on
+Because you dared to be different
+Because you were there for everyone
+
+Reality is now sinking in
+Reality that you are gone
+Reality of a family lost
+Reality you're not coming home
+
+Imagine a world without hatred
+Imagine a world without pain
+Imagine a world without sorrow
+Imagine you home again
+
+All of us should feel ashamed
+All of us should grieve
+All of us will remember your name
+All of us still believe
+
+No one should be bullied
+No one should feel pain
+No one should be taken too soon
+No one should suffer again
+
+Now as i see your beautiful face
+Now as i cry for your loss
+Now we are more determined
+Now the world must count the cost
+
+A beautiful woman has left us
+A new angel flies high tonight
+A perfect memory for those who loved her
+A star shines eternally bright`
+            },
+            {
+                title: "Cathedral of Memories",
+                body: `I,m walking on hallowed ground today
+To a place under a golden sky
+Protected by 97 angels
+Where their spirits eternally fly
+
+I,ll nip in for a drink in the Albert 
+Before i learn the incredible story
+A tapestry of scarves all around me
+Reminders of endless glory
+
+I,ll pause for a moment and bow my head
+At the eternal flame burning so bright 
+A symbol of a city that wouldnt lie down
+Till the terrible wrong was made right
+
+As i pass through the Paisley gateway
+Shankly greets me with arms open wide
+I can feel the passion and the friendship
+Of a club bursting with love and pride
+
+How many players have placed their hands on that sign
+The chosen few who made it this far
+To play for the shirt and the red of the Pool
+Live their dreams and be every boys star
+
+And now i walk out on the sacred turf
+This cathedral of memories and ghosts
+Spirits of fans and players past
+Every corner filled with the heavenly host
+
+Close my eyes and let it carry me
+Through decades of visions and sights
+Sunny afternoons and the darkness of winter
+And those glorious Anfield nights
+
+At the dug-out i stop and sit for a while
+Feel the legends who,ve sat in this spot
+From Paisley and Shanks to King Kenny
+Houllier, Rafa and Jurgen Klopp
+
+The afternoon sun warms my face as i stroll
+Down the touchline where wingers have flown
+Liddell and Heighway, Stevie Mac and John Barnes
+The roar of the Kop driving them home
+
+Stand for a moment in the goalmouth
+So many teams had attacking plans
+But Lawrence and Clemence had other ideas
+There,s been so many safe pairs of hands
+
+And now at the spot where the flowers were laid
+Thousands of blooms for the lost
+I can smell the bouquet as it drifts on the wind
+This place is still counting the cost
+
+But they are still here in the shadows
+A guard of honour each match for the team
+Roaring them on as they,ve always done
+Still sharing every other fans dream
+
+You can feel the past on the terraces here
+As a child hears the sea through a shell
+Feel the hopes and dreams of the future
+What it brings nobody can tell
+
+This club is one loving family
+Schoolboy idols and legends aplenty 
+But some names are immortal 
+Diogo, forever our number 20
+
+The songs will go on forever
+And they,ll chant their heroes name
+I know that once you,ve been here
+You will never feel the same
+
+So for now i,ll say goodbye to this place
+And i,ll leave the 97 to fly
+Around this cathedral of memories
+Under its golden sky
+
+YNWA`
+            },
+            {
+                title: "The Music of the Seaside",
+                body: `Think back to your childhood days at the beach
+The softness of the sand between your toes
+Close your eyes and drift among memories
+Feel the cooling breeze as it blows
+
+Stroll down the shore to the pier
+The barnacles hold fast to her ancient frame
+There,s a chill in the air beneath her
+Two centuries havent moved this old dame
+
+This old girl is a witness
+To the thousands who've been to this place
+Through sepia years to the here and now
+And a world constantly changing it's face
+
+The weary old donkeys carry their giggling load
+From the morning until the sunset
+So many children down through the years
+Happy memories we never forget
+
+Frisbees and cricket, buckets and spades
+Sleeping dads buried deep in the sand 
+Reminders of happy holidays
+A scene repeated all over our land
+
+I'll wander down to the end of the pier
+Past Mr Punch and his crocodile
+So many happy little faces here
+Maybe i'll stop and watch for a while
+
+The aroma of fish and chips on the breeze
+Pulls me onward down these old boards
+Past the gift shop with fishing nets and postcards
+Rubber dinghies and flashing swords
+
+There's a row of children with buckets
+Empty now but still they persist
+Patiently waiting with lines
+Baited with bacon no crab can resist
+
+The noise of the arcade penny machines
+The melody of the carousel as it goes round
+This is the music of the seaside
+To me it's a magical sound
+
+Cockles, mussels and candy floss
+Children running from the incoming tide
+The happiest days of your childhood
+Memories safely locked away inside
+
+And now as the light begins to fade
+Tired little ones carried off home
+The sea reclaims the beach again
+And finally i'm all alone
+
+To sit for a moment and remember
+Those beautiful days by the sea
+Perfect childhood memories
+Of Mummy, Daddy and me`
+            },
+            {
+                title: "Under Your Wings",
+                body: `When the world seems stacked against me 
+When I'm all alone and blue
+I turn to you because I know
+Your love will get me through 
+
+When I can't stop my tears from falling 
+When all I need is a hug or two
+I feel all of your arms around me
+And your friendship gently pulling me through 
+
+In my darkest hours you are here for me
+And I promise I'll be there for you too
+So thank you for taking me under your wings
+And sending me a love so true
+
+For all of you. Love always and forever. Sarah xxx`
+            },
+            {
+                title: "Oasis of Green",
+                body: `I fancy a stroll to the park today
+A place full of sights and sounds i hold dear
+It fills my head full of memories
+And happy thoughts of yesteryear
+
+I remember the feeling of excitement so well
+As i walked with my dad through the gates
+Hours spent playing. Not a care in the world
+Then wobbling home on my skates
+
+As i sit on this bench i try to imagine
+Ladies with parasols arm in arm with a beau
+This oasis of green passed down through the years
+Where our busy lives can gently slow
+
+I can see children feeding the ducks and the geese
+The seagulls swooping to grab a share
+The swans float along their effortless way
+A regal beauty beyond compare
+
+The icecream van serves it,s endless queue
+Life seems to move at a slower pace
+I smile at the thought of my mother
+Wetting her hand to wipe clean my face
+
+Happy laughter from boys in the sandpit
+Building cities with diggers and cranes
+All their hard work will soon be lost
+Washed away the next time it rains
+
+Lovers on blankets. His head in her lap
+She strokes his hair as he sleeps in the sun
+A moment of pure and unbreakable love
+A lifetime together begun
+
+The weekend dads spend their fleeting hours
+Try to cram it all in. Precious time
+Dreading the moment they have to hand back
+Like Cinderella and her midnight chime
+
+Children on swings. "Higher!" they shout
+Weary parents just want to sit down
+Checking the time "we,ll have to go soon!"
+Smiles slowly turning to frowns
+
+First time on two wheels for one little girl
+Finally free as her daddy lets go
+I remember that moment so clearly
+One of life,s stepping stones as we grow
+
+Zip wires and water spouts. A bandstand unused
+A symbol of an age now gone by
+As i sit and watch i realise
+Just how fast our time really does fly
+
+This happy scene fills my heart with joy
+Children smiling and laughing. No tears
+And one day i hope they,ll sit on this bench
+And remember their own yesteryears`
+            },
+            {
+                title: "December 1914",
+                body: `Is anybody coming for me?
+Is this where my life will end?
+I,m only a lad. It,s not my time
+Happier days are just round the bend
+
+How can you leave me here in this mud?
+When yesterday no bullets flew
+We were friends for twenty four hours
+Now it means nothing to me or you
+
+Two days ago the guns fell silent
+We waited. Too scared to blink
+The hours of nothing but stillness
+Not knowing just what to think
+
+Then suddenly the softest of voices
+A Christmas melody borne on the wind
+An enemy choir, A serenade
+All aggression suddenly dimmed
+
+And then with both arms aloft
+A single soldier came over the top
+"Frohe Weihnacten" he said in a nervous voice
+"Frohe Weihnacten for one day let,s stop"
+
+Then slowly his comrades began to appear
+Arms raised. They meant us no harm
+We did the same. We met in the middle
+There were smiles. No cause for alarm
+
+The officers saluted. A mutual respect
+Handshakes and cigarettes shared
+And photographs of our girls back home
+We were all human, We all knew we cared
+
+I got some chocolate. Oh the heaven of it,s taste
+Exchanged for a cigar or two
+Conversation and laughter. A smile and a wink
+Friendships forged as we shared a brew
+
+Then out of the blue a ball appeared
+In that instant the war was no more
+A football match for two hundred men
+Nobody cared who won or what score
+
+We ran till our hearts burst out of our chests
+Nations aligned in the common goal
+That day football brought us together
+No enemies. Just a perfect collective soul 
+
+And then at the dusk it was over
+We shared a rum and bid them goodnight
+Back to our trench. Back to the stench
+Back to the pointless fight
+
+Morning came and over we went
+I felt bullets whizz past my ear
+You dont have time to stop and think
+Too busy to feel any fear
+
+But then you know. It burns so bad
+You know when you,ve been hit
+And you lie there and hope they dont see you
+The lads will fetch me back in a bit
+
+The winter sky is grey and white 
+The snowflakes cover my face
+It,s nearly time to say goodbye
+For my soul to leave this place
+
+I,ll leave it in the knowledge
+That there,s always another way
+I,ve made my peace with God and man
+On this my dying day`
+            },
+            {
+                title: "Beyond the Clouds",
+                body: `There is a place beyond the clouds
+Way above the moon and stars
+Where they take away your worries
+And heal your earthly scars
+
+This is where the angels are born
+Where they soar and fly so free
+Where loved ones are reunited
+No longer just a memory
+
+Every one of us has an angel
+One day waiting to be found
+They stand with arms wide open
+As our final moment comes around
+
+The children welcome parents
+Their days of pain all done
+Families complete again
+Joy for every daughter and son
+
+Mother,s arms are waiting
+With a perfect hug and kiss 
+Look into her beautiful eyes again
+Float in that moment of bliss 
+
+Hold your father,s hand again
+Walk with him across the clouds
+Let perfect peace surroud you
+And know you made him proud
+
+In the distance there's a rainbow 
+With colours of every hue
+Where all your beloved animals
+Wait patiently for you
+
+As you cross the bridge and call them 
+They will run to your embrace 
+You've waited so many years 
+To see that beautiful face 
+
+And so i wait for my turn to come
+One day my eyes will see
+As i make my final journey
+My angels are waiting for me`
+            },
+            {
+                title: "I Don't Give a Shit",
+                body: `As the morning light creeps round the curtains
+I can hear you crawling out of your pit
+But i,m staying here till you,ve filled my bowl
+I,m a cat and i dont give a shit
+
+A stretch and a shake. Off to the tray
+Bury my business under mountains of grit
+Then watch with a smile as you trudge to the bin
+Hey i,m a cat. I dont give a shit
+
+Out and about patrolling my beat
+Going anywhere and everywhere i see fit
+Using vegetable patches for a toilet
+Coz i,m a cat and i dont give a shit
+
+Chasing mice or catching birds
+I might bring you a sparrow or a tit
+You,re always so damn ungrateful
+But i,m a cat and i dont give a shit
+
+How stupid are dogs? So many round here
+Every one of them a complete half wit
+Chasing cars and balls while i doze in the sun
+Us cats really dont give a shit
+
+I,ll stroll home for a while. Have a bite to eat
+Might let you stroke my back for a bit
+Let you think i,m your best friend in the world
+When really i dont give a shit
+
+Sometimes i visit the lady next door
+She,s always good for a titbit
+Sleep for an hour in front of her fire
+Dont care who,s house. Dont give a shit
+
+She sits there and smiles at me. I lick my bits
+Sometimes she,ll sew or she,ll knit
+As the light fades i head back home again
+She really thinks i give a shit
+
+Oh you must be going out tonight
+Admiring yourself in a new outfit
+I,ll stay here then and guard the place
+Dont mind me i dont give a shit
+
+Another day dawns. Looks nice out there
+I find the spot on the floor that,s sunlit
+A whole day to snooze and be lazy
+And practice not giving a shit
+
+I,m the same every day. I,ll never change
+You know i,m no hypocrite
+And maybe one day you,ll all realise
+That i,m a cat and i dont give a shit!`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

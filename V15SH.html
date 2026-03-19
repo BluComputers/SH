@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 16</title>
+    <style>
+        :root {
+            --volume-color: #fce4ec; /* Light pink for Volume 16 */
+            --accent-pink: #d81b60;
+            --text-dark: #2c3e50;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--volume-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #f8bbd0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #880e4f;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: var(--accent-pink); 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--volume-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "Harry's Bike Rack",
+                body: `Harry was a simple man
+He didnt ask much from life
+Lived in a nice suburban home
+With his all controlling wife
+
+Children long grown up and gone
+He envied their escape
+They had a chance to live their lives
+Before others dictated its shape
+
+Harry was married at 20 years old
+To the first girl he ever asked out
+She wore the trousers and called all the shots
+He was never in any doubt
+
+From breakfast to bedtime she moaned and she nagged
+His ears would ache and they,d burn 
+But there,s only so much a man can take
+And this worm was beginning to turn
+
+On a tuesday she went out to bingo
+Harry met Ted for a chat and a can
+But this week something was different
+Harry was hatching a plan
+
+He told Ted how he was at his wits end
+How she was slowly driving him mad
+"I,m going to bump her off" he said
+"And go back to the life that i had"
+
+Ted just laughed and said "goodnight"
+And thought "it,s just the drink"
+Harry sank back in his armchair
+A man standing right on the brink
+
+Next day he cycled into town
+And bought himself a shiny new spade
+"About time you did that garden!" she yelled
+Harry smiled. No longer afraid
+
+As the weekend arrived he nodded "hello"
+To his neighbour in her flower beds
+"How,s your lovely wife?" she asked
+"Oh lying down. She,s got one of her heads"
+
+Tuesday rolled round and Ted popped by
+With a four pack of bitter and nuts
+"Hows your week been Harry old mate?"
+"Up and down " Harry said "ifs and buts"
+
+"But i,ve done what i said. I,ve bumped her off!"
+Ted,s jaw fell straight to the floor
+"I dont believe you Harry" he cried
+"You,re just down like you have been before"
+
+Harry,s eyes twinkled "I poisoned her Ted
+Put rat poison into her tea
+Then watched her as she faded away
+Now a new life just for me
+
+Come on i,ll show you she,s out at the back"
+Ted followed not daring to peep
+Harry led on down the garden path
+Just beyond the compost heap 
+
+And there for all the world to see
+Where the results of old Harry,s toil
+A freshly filled in hole in the ground
+With his wife,s bum poking out of the soil
+
+Ted screamed "Harry you cant leave her like that!
+Poor woman you cant just do as you like!"
+Calmly Harry turned to his old friend and said
+"I needed somewhere to park my bike!"`
+            },
+            {
+                title: "The Harbour",
+                body: `I,m sitting under an umbrella
+Watching the world go by
+Sipping a gin and lemonade
+Wondering what , where and why
+
+This truly is my happy place
+Where all human kind come and go
+Where locals welcome the tourists
+Where there,s always someone to know
+
+As the sea gently fills up the harbour
+As the boats slowly rise on the tide
+Dad and Lisa sit laughing together
+And i,m filled with gratitude and pride
+
+I watch as a hiker approaches
+Cup and plate ringing like a cowbell
+He sits for a moment to catch his breath
+Before waving a cheery farewell
+
+Daily life goes on all around me
+The fishermen queue for their bait
+Tales of the sea and of those who were lost
+When the ocean decided their fate
+
+I smile at a lady with shopping bags
+She,s stooped with the weight of her load
+No one to help her. She soldiers on
+On down her long lonely road
+
+A car pulls up and a family spill out
+Mum and dad and their bundles of joy
+The air is filled with their voices
+Children fighting over a toy
+
+The parents look at their wits end
+As they try to get them to eat
+Dad snarls under his breath as his son
+Pushes his sister out of her seat
+
+Peace returns as they drive slowly away
+The harbour breathes a sigh of relief
+The seagull,s laugh floats on the breeze
+But our moment of silence is brief
+
+As the siren sounds for the lifeboat
+Men from all directions appear
+This volunteer band of angels
+Held by this nation so dear
+
+I glance at the tables around me
+Two young lovers share a smile and a kiss
+Her head gently rests on his shoulder
+Lost in their moment of bliss
+
+There,s a man with a wet border collie
+Both exhausted after walks end
+Man sits. Dog lies under the umbrella
+Water shared between two best friends
+
+People with ice cream. So many flavours
+Vanilla and strawberry. Chocolate chip
+Dads skim stones with their little boys
+The braver ones go in for a dip
+
+An old man holds a chair for his wife to sit down
+As he,s done since the day that they met
+Together for life till death do they part
+From their dawn to their last sunset
+
+The sun fades away. The boats lie in the mud
+We walk home along the wet sand
+Linking arms with my best friend in the world
+And holding my daddy,s hand
+
+In a week i,ll return and sit there again
+And i,ll watch as all life passes by
+The tide will rise and fall away
+And i,ll wonder the what , where and why`
+            },
+            {
+                title: "Ruby's Wages",
+                body: `Ruby was a precocious child
+Her parents pride and joy
+Never wanted for anything
+Always had the latest toy
+
+One day her daddy told her
+"We,ll be moving houses soon
+It,s brand new. Not even built yet
+You,ll have a bigger room!
+
+We,ll be the first on the new estate
+You can watch the builders graft
+See the houses as they grow
+From the first one to the last"
+
+So Ruby watched the progress
+Waved to the lads each day
+Watched the concrete being mixed
+And the diggers shift the clay
+
+One day as she sat in the window
+Watching the world go by
+She saw one of the builders waving
+Trying to catch her eye
+
+She ran down to see what he wanted
+He said " do you fancy a job?
+Help us out with this and that?
+The lads will chip in a few bob"
+
+Next day she was up bright and early
+Her mum made the lads a quick brew
+And Ruby carried one brick at a time
+Till she,d shifted seventy two!
+
+From Monday to Friday she slaved away
+Carried tea, carried messages and tiles
+Till she slumped exhausted into her bed
+Felt like she,d walked a hundred miles
+
+On Friday night the foreman said
+"Ruby you,ve earned your pay"
+Ten shiny pound coins. She held them tight
+No one could take them away
+
+As the weeks past and Ruby worked harder
+Her little pot started to grow
+Her ten pounds soon became fifty
+Now she really had something to show
+
+On Monday her dad took her down to the bank
+An account to save up her spoils
+She held onto her wages as tight as she could
+Earned from her sweat and her toils
+
+"What have we here?" the bank clerk said
+As she counted the cash carefully
+"It,s my wages!" said a very proud Ruby 
+"I,m going to be rich you,ll see!
+
+I,ve been building a house each day with the lads
+I,ve carried the soil and the sand 
+And i,ve earned my wages every week
+It feels so precious in my hand"
+
+"Thats nice dear" the lady replied
+"I,m sure you,ve done very well
+But hurry along i,ve got people to see
+Grown ups i,m sure you can tell"
+
+Ruby looked her straight in the eye
+She said "please dont take the mick 
+I,ll build another house tomorrow
+As long as Jewson deliver the f*****g bricks!"`
+            },
+            {
+                title: "The Lads of the Beach",
+                body: `You can stroll along the beach today
+Carry your flip flops in your hand
+Feel the gentle breeze in your face today
+And the softness of the sand
+
+Children paddle at the beach today
+You can sit and watch them play
+Happy laughter fills the air today
+See them flee the ocean,s spray
+
+People picnic on the beach today
+Cupcakes, crisps and lemonade
+Families come together today
+Memories shared and plans are made
+
+Lovers run on the beach today
+Write their names with a heart in the sand
+Share their hopes and dreams today
+Watch the sunset hand in hand
+
+Build a castle at the beach today
+Watch as the tide takes it away
+Dig for buried treasure today
+Pretend to be a castaway
+
+Toast marshmallows at the beach today
+Warm your hands in the firelight,s glow
+Precious moments with friends today
+Perfect days we must never let go
+
+Close your eyes as you lie in the sun today
+Your mind,s eye might let you see
+An armada of ships sailing today
+On a voyage to set the world free
+
+Watch as they near the shore today
+With their cargo of soldiers so proud
+They leap from the boats on the beach today
+Bravely facing the bullets and bombs so loud
+
+Soldiers are dying on the beach today
+The bravest who ever did live
+Their blood flows for freedom today
+They gave all that they had to give
+
+Their comrades march onwards today
+So many will not make it back
+Young lads will fight for you today
+On they go ready for the attack
+
+They fight for all the lovers today
+For the children who leap over waves
+For the fun that you had on the beach today
+Oh the countless lives they will save
+
+And now you wake from your dream today
+The battleground noise slowly fades
+The ghosts of heroes are with us today
+And the few last remaining comrades
+
+Close your eyes and feel the breeze today
+Try to imagine if all this was lost
+Picture those boys on the beach today
+Paying for us the ultimate cost
+
+We thank the lads of Omaha today
+Of Utah, Juno and Gold
+And thank you the boys of Sword today
+Quite simply the best of the brave and the bold
+
+The children play on the beach today
+Fun filled days with buckets and spades
+And we promise all those heroes today
+Our gratitude never fades`
+            },
+            {
+                title: "Albert's Adventure",
+                body: `Albert was a little lad
+From Liverpool.s darkest seams
+A happy and contented child
+Full of hopes and dreams
+
+Life was tough in those dirty streets
+His father tried so hard
+To keep his little family fed
+Long hours at the yard
+
+Albert,s treasured possession
+Was a ship his father made
+Adventures on the seven seas
+Oh the voyages they sailed
+
+Days spent with his father
+Watching the cargo ships come in
+Albert dreamt of climbing aboard
+One day he,ll be the captain
+
+Then one day his father told him
+About a very special trip
+Across the wild wide ocean
+On board a mighty ship
+
+A new life in America
+Where all your dreams come true
+No more hunger, no more pain
+Starting life anew
+
+So Albert packed his soldiers
+And his favourite little boat
+He wore his smartest cap
+And his warmest winter coat
+
+A train ride down to the coast
+Held his soldiers up to see
+The fields and animals flashing by
+What an adventure this would be
+
+As he walked into the dockyard
+Albert stopped and stared in awe
+The mightiest of mighty ships
+Such as he,d never seen before
+
+He ran his hand along it,s side
+Looked up at the endless height
+Lost for words he boarded her
+What an amazing sight!
+
+As mother arranged their little room
+Albert explored this incredible place
+His father showed him the funnels
+And the lifeboats just in case
+
+He gasped at the gentlemen in shiny top hats
+Strolling with ladies in velvet and lace 
+A wink from the Captain as he strode to the bridge
+Put a smile on Albert,s face
+
+And then she was on her way
+A loud resounding cheer
+Albert waved his cap aloft
+As the huge ship cleared the pier
+
+Albert stood and watched as the dock faded from view
+Now just the ship and the open sea
+What would his new life hold for him?
+What would he grow up to be?
+
+As night fell he lay in his little bed
+He could hear the engines turn
+Taking them to pastures new
+Customs and ways to learn
+
+Now as father smokes up on deck
+Mother reads from a classic tale 
+Captain Ahab still pursues
+That old elusive whale
+
+And so to bedtime for tonight
+The mighty ship on she steams
+Titanic ploughs on through the night 
+With her cargo of hopes and dreams`
+            },
+            {
+                title: "My Daddy",
+                body: `As i look through old family photographs
+See your face full of pride, love and glee
+I know you vowed on my very first day
+That you would always be there for me
+
+Those long ago baby days with you as my guide
+Hours spent curled up on your knee
+You told so many wonderful tales
+Adventures for you and for me
+
+A run to your arms when you came home from work
+A happy family sat together for tea
+I felt so safe. And i knew in my heart
+The love that you both had for me
+
+"Tidy your room!" mum would shout up the stairs
+You,d sneak in and wade through the debris
+We,d do it together in secret
+We made a great team you and me
+
+Hours spent helping with homework
+Showing me how it should be
+Preparing me for life ahead
+Planning a future for me
+
+I look back with only fond memories
+Of holidays spent by the sea
+Carefree days full of laughter and joy
+Nobody was luckier than me
+
+You held me up when i learned how to ride
+Showed me the easiest way up a tree
+Ready to catch me if ever i fell
+I knew you were right behind me
+
+The little wink you,d send my way
+Whenever me and mum would disagree
+I knew you were in my corner
+You fought your whole life for me
+
+I remember that look in your weary eyes
+Drunken nights when i lost my key
+Then brought my breakfast up the next day
+Every right to be angry at me
+
+But you never were. My incredible dad
+You,re the best i can guarantee
+I,ll never be able to thank you enough
+For the things you do for me
+
+Time rolled by and i flew the nest
+And i remember your parting plea
+Be humble. Work hard. Always be safe
+I really hope you are proud of me
+
+Our lives are changing all the time
+Things happen that we dont forsee
+We lean on each other so much these days
+Now it,s just you and me
+
+I,d give anything to relive those early years
+Those days when we were a three
+Now all we have are our memories
+Of you and mum and me
+
+You,re still here with me every step of the way
+No price. You give it all for free
+We,ll travel this road together
+Hand in hand you walk with me
+
+And when the time comes to let you go
+When the angels take my daddy
+I,ll smile through my tears and remember
+The beautiful life you gave me`
+            },
+            {
+                title: "The Last Time",
+                body: `There has to be a last time
+You crawled to mum,s embrace
+There has to be a last time
+Dad pulled that funny face
+
+There has to be a last time
+Daddy tucked you in so tight
+There has to be a last time
+Mummy came to say night night
+
+There has to be a last time 
+Mum dressed you for your day
+There has to be a last time
+Dad waved you on your way
+
+There has to be a last time
+Dad helped you with your maths
+There has to be a last time
+Mum ran those bubble baths
+
+There has to be a last time
+You held your mothers hand
+There has to be a last time
+You buried daddy in the sand
+
+There has to be a last time
+Dad picked you up from town
+There has to be a last time
+You saw mum wear that frown
+
+There has to be a last time
+You waved your dad goodbye
+There has to be a last time
+There was a tear in mothers eye
+
+There has to be a last time
+Mum calls you on the phone
+There has to be a last time
+Dad feels so desperately alone
+
+There has to be a last time
+I,ll see dads smiling face
+There has to be a last time
+I,ll be alone in this place
+
+There has to be a last time
+For lonliness and pain
+I pray there will be a first time
+For us to be together again`
+            },
+            {
+                title: "The Circle Complete",
+                body: `She waits as she,s waited for thirty eight years
+To look into those eyes once again
+To hold him so tight and never let go
+Finally be free from this pain
+
+As she waits she remembers. It,s all coming back
+That August week in 1965
+A holiday romance. The days went so fast
+She,s never quite felt so alive
+
+Back then she was 15. A rebellious child
+He was 18 with no fixed abode
+He made her feel special. Promised the world
+She believed all the stories he told
+
+She wept as she kissed him that final time
+Looked back as the car pulled away
+Back to reality. Back to a life
+That changed forever that day
+
+As weeks passed she felt different
+Mother had that look in her eye
+A trip to the doctor. A shake of his head
+The anguish in her father,s sigh
+
+Reminded every day of the family shame
+Whispers as she walked down the street
+Behind the scenes plans are made
+For the baby she,ll never meet
+
+So many nights she spent locked in her room
+She,d lie in the darkness and cry
+Feeling him move. Forging that bond
+Knowing it would soon be goodbye
+
+Then came the day they took her away
+To a place full of sadness and grief
+For a second she looked into his newborn eyes
+A picture captured in that moment so brief
+
+And then all consuming emptiness
+Her tears flowed for her little boy lost
+The world carried on without her
+While she paid the terrible cost
+
+The subject never raised again
+Time moved on. She made her own life
+Met a good man. Had two good kids
+Time to settle down and be a good wife
+
+But all the time that terrible weight
+Her first thought and her last every day
+A mother,s worry about her eldest
+A constant search along life,s way
+
+Scanning the faces as she shopped in the town
+Trying to find a match to that fleeting glance
+Maybe she passed him a thousand times
+Maybe she,s missed her chance
+
+Birthdays and mother,s days. She tried to be strong
+Husband so kind but he cant really know
+How she yearns so much for her lost one
+Only in private she lets the pain show
+
+And then one day a phone call
+An agency rang out of the blue
+"We think we,ve found your son" they said
+"His name is Robert. He,ll talk to you"
+
+She sat on the carpet. Husband at her side
+Her trembling hand dialled the phone
+For a second she sees that newborn face
+Now at last she wont feel so alone
+
+She talks through her tears for an hour
+He tells her it,s all going to be fine
+So many missing years to replace
+Two family trees begin to entwine
+
+Her children have their big brother
+Three more grandchildren to spoil
+This moment has been so long coming
+But its worth all the tears and the toil
+
+She hugs her husband as the car stops outside
+Robert hugs his wife as they stand in the street
+She walks slowly and opens the front door
+Finally the circle at last is complete`
+            },
+            {
+                title: "You Are",
+                body: `You are the grainy hospital photo
+You are tears of happiness of parents to be
+You are the melody of a music box
+You are the one they,re desperate to see
+
+You are the pink and blue bedrooms frozen in time
+You are bedtime stories left untold
+You are the fading scent in the hug of a pillow
+You are the hands we long to hold
+
+You are hopes and dreams of the future
+You are years of schooldays lost
+You are ambition unfulfilled
+You are the all consuming cost
+
+You are the names not on Santa,s list
+You are the houses he passes by
+You are the heartbroken parents
+You are the rivers they cry
+
+You are the babies born sleeping
+You are the ones not meant to be
+You are the reason for angels
+You are the souls that fly free
+
+You are the little ones taken too soon
+You are victims of terrible crimes
+You are a desperate country
+You are born into terrible times
+
+You are the mother screaming her heart out
+You are the hole in her life she cant close
+You are the tears each night as she lies in her bed
+You are the one that the angels chose
+
+You are the empty chair in the classroom
+You are the little friend they all miss
+You are the name they try not to mention
+You are the one they,re so desperate to kiss
+
+You are the teenager who just couldnt cope
+You are the cry for help we didnt hear
+You are the sounds in the headphones
+You are all that we held so dear
+
+You are potential forever hidden
+You are all opportunties gone
+You are part of our future lost to the sky
+You are the road we must travel alone
+
+You are forever daddy,s princesses
+You are the little soldier he misses so much
+You are the nights he spent curled up on your bed
+You are his memories. A smell. A touch
+
+You are broken hearted parents
+You are their reason to live
+You are the chasm left in our lives
+You are all that we had to give
+
+You are the reason we believe in heaven
+You are the place we wish we could be
+You are our final destination
+You are the reunion for you and for me
+
+You are children of God and we miss you
+You are the wind and the gentle rain 
+You are at playtime with the angels
+You are free from fear and pain
+
+You are our babies and we love you forever
+You are sight and touch and sound
+You are the lost ones we crave every day of our lives
+You are waiting one day to be found`
+            },
+            {
+                title: "Anne Frank",
+                body: `Imagine a book case
+Full of wondrous tales
+Volumes of adventures
+Of dragons and mighty whales
+
+Stories about giants
+And the world below the sea
+Pirate,s buried treasure
+The princess and the pea
+
+But this bookcase hides a secret
+No one can ever know
+What lies behind its wooden frame
+Can never be on show
+
+Try and imagine a little girl
+With all her hopes and dreams
+Locked away from the outside world
+And all its evil schemes
+
+She hides with all her family
+From those who wish them harm
+Always quiet. Must never shout
+Careful not to raise the alarm
+
+For there is evil in this country
+They want to obliterate her race
+So behind the wall she has to stay
+Safe for now within this place
+
+No toys or games to pass the time
+No dolls to feed and dress 
+No playground fun. No ball to catch
+No teachers to impress
+
+But this girl does have one thing
+A diary. And oh how she writes
+She fills it full of hopes and fears
+All her dark days and nights
+
+She writes about her family
+About how they hide away
+How she dreams of freedom
+How she prays for that day
+
+And she writes about her fears
+How one day they,ll take her away
+To a hell on earth. She,ll meet her end
+Before her sixteenth birthday
+
+For two whole years she hides away
+The diary her only escape
+But time is growing shorter
+The world is changing shape
+
+And now the bookcase is removed
+Betrayed by so called friends
+Soldiers march them all outside
+This secret now must end
+
+But the diary lives forever
+A snapshot from the past
+A look inside an evil world
+That thankfully didnt last
+
+And Anne i,m truly sorry
+For the evil that men do
+Your light will burn forever
+Your love keeps shining through
+
+The world has read your story
+Everyone knows your name
+A little girl who left her mark 
+Who never knew her fame
+
+The bookcase stands in its same old place
+Its tales told and a little girl to thank
+For a legacy of peace and love
+Innocent and beautiful Anne Frank`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>

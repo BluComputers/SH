@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 13</title>
+    <style>
+        :root {
+            --volume-color: #e3f2fd;
+            --accent-blue: #1976d2;
+            --text-dark: #2c3e50;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--volume-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #bbdefb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1565c0;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: var(--accent-blue); 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--volume-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "Yellow and Blue",
+                body: `If I could ask you to paint me a picture 
+Yellow sun and sea of blue 
+I'd proudly hang it on my wall 
+And tell the world it was created by you 
+
+If I could walk through your fields and pick flowers 
+Buttercups of yellow and forget me not blue 
+I'd make each and every one of you a posy 
+Brighten your lives for a moment or two 
+
+If I could spend just a day in your company 
+From the yellow dawn to the twilight of blue 
+We'd share stories and memories from happier times
+Hopes and dreams for me and for you
+
+If I could rebuild your houses 
+I'd paint them in shades of yellow and blue 
+Bright colours for a brighter future 
+A safe place for your light to shine through 
+
+If I could make a rainbow appear in your sky
+The brightest colours would be yellow and blue 
+Shining for peace, shining for love
+The start of a new life for you
+
+And one day I pray you will line the streets
+Waving your flags of yellow and blue 
+Welcoming home your daddies
+As they come marching home to you`
+            },
+            {
+                title: "Entwined",
+                body: `Hi daddy did i do good?
+I slept the whole night through
+I know you need a good nights sleep
+To do all the work you do
+
+Hi daddy welcome home again
+Look i'm standing up at last
+Soon i'll be running into your arms
+I'm growing up so fast!
+
+Hi daddy can we go to the park?
+Can you teach me how to ride?
+Hold on to me, don't let me fall
+Let me fill your heart with pride
+
+Hi daddy thanks for meeting me
+On my very first day at school
+I made some friends and played some games
+It was actually pretty cool!
+
+Hi daddy it's my party day!
+Another year all the way through
+Watch me blow my candles out
+I pray my wish comes true
+
+Hi dad thanks for picking me up
+These high school exams are rough
+Thanks for the time you spend with me
+When i'm finding life too tough
+
+Hi dad i know it's 2am
+But can you come and get me please
+I'm drunk and alone in the middle of town
+No idea what i've done with my keys
+
+Hi dad i've got some news for you
+He's asked me to be his wife
+I hope you give us your blessing
+As we start a brand new life
+
+Hi dad are you ready?
+To give your princess away today?
+Take my hand as you always have
+Take it and show me the way
+
+Hi dad i have something to tell you
+Your first grandchild will soon be here
+And i know he will love his grandad
+I know you will wipe away his tears
+
+Hi dad you didn't answer your phone
+Did you forget where you left it again?
+I know it's been tough since mum went
+We're all swimming against the pain
+
+Hi dad it's me . Dont you remember?
+The little girl you rocked on your knee?
+Candles and wishes?. 2am phone calls?
+Look in to my eyes, cant you see?
+
+Hi daddy i'm whoever you want me to be
+Your mum or your daughter, i don't care
+I will love you for all eternity
+Thank you for this life that we share
+
+Goodbye my hero. Fly high and free
+Thank you from the bottom of my heart
+A father and daughter forever entwined
+In life, in death. Never apart`
+            },
+            {
+                title: "The Missing Piece",
+                body: `September 1st 1985
+
+Nearer my God to thee, nearer to thee
+Or if on joyful wing, cleaving the sky
+Sun, moon and stars forgot, upwards i fly
+Still all my song shall be, nearer my God to thee
+
+That dream again. So many nights
+Seventy three years the same song
+The music he heard in the darkness
+He remembers people singing along
+
+The last gentle touch of father's hand
+As the lifeboat was lowered away
+That desperate look in his mother's eyes
+All around people starting to pray
+
+Through the dim distant past he remembers Carpathia
+Appear out of the blackness that night 
+The warmth of a blanket and the promise of home
+There never was a more beautiful sight
+
+Albert rubs his eyes and looks at the clock
+Better get up. Grandchildren today
+Coming to celebrate his 80th birthday
+A chance to shut all the memories away
+
+He looks at the fading old photograph
+He loved mother smiling that way
+Eternally grateful for the life she gave him
+Growing up on Saginaw bay
+
+For as long as he remembered it was always the sea
+He was always at one with it's call
+And somewhere out there his father lay
+But against the ocean you feel so small
+
+As the grandkids run giggling up to the house
+Albert,s daughter walks with tears in her eyes
+"Haven't you seen the news dad?
+They,ve discovered where grandpa lies!"
+
+They gather round the old tv set
+Grainy film from the bottom of the sea
+And the name of the ship TITANIC
+Clear for all the world to see
+
+Outside for a moment he thinks of his mother
+Hopes she can finally be at peace
+The question they always wanted answered
+At last they now have the missing piece
+
+It's evening now, the family gone
+Albert sits and reflects for a while
+Thinks back to those days down at Liverpool docks
+And remembers his dad with a smile
+
+He looks up at the highest shelf in the room
+A little boat still sailing away
+Full of a little boys hopes and dreams
+From his 7th to his 80th birthday
+
+Nearer my God to thee, nearer to thee
+There let the way appear, steps up to heaven
+All that thou senses me in mercy given
+Angels to beckon me, nearer my God to thee`
+            },
+            {
+                title: "Number Twenty Seven",
+                body: `Bedtime rolls round as it does every night
+The end of another day filled with pain
+I say my goodnights to my favourite star
+Wonder if i'll dream that dream again
+
+I climb into bed and feel it's welcoming warmth
+Close my eyes and picture your face
+Ready for you to come and carry me
+In my dreams to my happiest place
+
+I'm drifting, flying back through time
+To those streets where i used to play
+Familiar faces i miss so much
+Etched in my mind from my very first day
+
+Don't step on the lines it brings bad luck
+Childhood memories that make me smile
+Kerby and skipping, knock on and run
+Wish i could stop and play for a while
+
+Through the mist of sleep i wander down 
+Past the old doors i remember so well
+Till i reach number twenty seven
+There's no need to ring the bell
+
+The door is ajar, i can see inside
+I push it and let myself in
+I'm back again in my childhood home
+Where all my thoughts and memories begin
+
+Past daddy's work boots banished to the hall 
+Past the vase that always had fresh flowers
+Past that little room set aside for my toys
+Where i spent so many happy hours
+
+I can hear the football commentary
+I can hear dad rant and rave
+I can picture him shaking his head
+At the shot that should've been saved
+
+Counting the stairs as i always did
+Fourteen, i did it in twos
+Up to my room, my precious place
+My sanctuary away from the blues
+
+I'll sit for a while and remember
+This room with it's posters and tears
+The nights with dad sat by my bed
+How he carried me through those years
+
+I can hear you singing your beautiful songs
+Your voice floats on the midnight wind
+I follow it, i need to feel your touch
+And the comfort i know it will bring
+
+There you are, how i wish i could hold you
+Bring you back to this time and place
+If only it was as simple
+As picturing your beautiful face
+
+Daybreak brings reality
+I can feel the dried up tears
+Through that journey through the mists of time
+Memories of my happiest years`
+            },
+            {
+                title: "Do You Remember?",
+                body: `Do you remember those long ago innocent days
+When there wasn't a care in our world?
+Two playmates together, a story begun
+A journey for a boy and a girl
+
+Do you remember me closing my eyes so tight
+When you promised me that very first kiss?
+You ran straight home and left me thinking
+It can't ever get better than this
+
+Do you remember the laughter on the bus to school?
+Other boys tried so hard for your heart
+But you held my hand and somehow i knew
+Nothing would ever tear us apart
+
+Do you remember our dance on prom night
+How it felt like we floated on air?
+That beautiful moment of purest love
+A feeling beyond compare
+
+Do you remember me nervously asking
+Your dad for your beautiful hand?
+He always made me feel so welcome
+He always seemed to understand
+
+Do you remember how you kept me waiting
+So long at the altar that day?
+The most beautiful sight i'd ever seen
+Nobody could take you away
+
+Do you remember how we danced round the living room
+When we knew we would soon be a three?
+My perfect family, my perfect life
+Just you, my son and me
+
+Do you remember the days spent on the beach 
+Paddling together hand in hand?
+Me falling asleep in the afternoon sun
+You two burying me deep in the sand 
+
+Do you remember how empty the house felt
+After he left for his university days?
+We both suddenly felt so lonely
+Started facing opposite ways
+
+Do you remember your love start to wear thin?
+You seemed to focus on other things
+The dances and the laughter stopped
+We no longer wore our rings
+
+Do you remember me at all these days?
+I'm the one you held so tight
+The lad you held hands with on the bus
+To show me everything would be alright
+
+Do you remember this hotel room?
+I carried you in on our wedding night
+I needed to be here today
+To keep our candle burning bright
+
+I'll remember you with only love
+Forgiveness is all i hope for
+I'd do it all again in a heartbeat
+Of that you can be sure
+
+I'll remember you my playmate
+Goodbye my very first kiss
+Till we dance again in some other world
+I pray please let it be better than this`
+            },
+            {
+                title: "Visibility",
+                body: `Value is all i ask from you
+Value is all i need
+Value me in society
+Value me in thought and deed
+
+In this life our time is short
+In this life we need to shine
+In this life i have no room for hate
+In this life my dream is mine
+
+Spend an hour in these shoes of mine
+Spend some quality time with me
+Spend just a day living this life
+Spend it and try to live free
+
+Imagine a lie that you live every day
+Imagine the cry from the voice inside
+Imagine the tears in the bathroom mirror
+Imagine a life denied
+
+Be there for me in times of need
+Be that person i know i can call
+Be my friend for now and always
+Be the arms that catch me when i fall
+
+I ask you to let me live in peace
+I know you dont really understand
+I hope you can open your heart and mind
+I pray one day you'll hold my hand
+
+Leave your fear and hatred behind
+Leave your blinkers off so you can see
+Leave your ignorance and intolerance
+Leave some kind words for me
+
+Inside me is who i'm meant to be
+Inside but not for long
+Inside i'll be ready for my day
+Inside i'm rehearsing my song
+
+This girl will not be stifled
+This boy will not be put down
+This is our day to finally shine
+This is our time to wear the crown
+
+You are the ones that can change it
+You are the ones with the knife
+You can take a step back, take a long look
+You can leave me to live my life`
+            },
+            {
+                title: "Tilikum",
+                body: `I am the young and frightened calf 
+I am at my mother's side 
+I am the future of my family 
+I am my noble father's pride 
+
+I am the wave that dislodges the seal 
+I am the predator he'll never out run 
+I am unmatched in this wild wide ocean 
+I am relentless till the hunt is won 
+
+I am feared in oceans all over this world 
+I am the black and white king of the sea 
+I am stealth and darkness, terror and fear 
+I am upon you before you can flee 
+
+I am waking from a dream back into my nightmare 
+I am a clown. The star of your show 
+I am swimming in circles and jumping through hoops 
+I am so far from the world that I know 
+
+I am counting the days and the years in this place 
+I am desperate one day to be free 
+I am a prisoner for your satisfaction 
+I am listening for the song of the sea 
+
+I am the rogue. The killer of men 
+I am the one with the name that means friend
+I am the one they thought they could trust 
+I am the reason they met their end
+
+I am a lifetime lost for your entertainment 
+I am old now, my time has gone by
+I am the king of the sea only in my dreams 
+I am the sadness in these fading dark eyes 
+
+I am the blackfish. Remember my name
+I am singing the song of the sea 
+I am reunited with my own kind 
+I am Tilikum. I am finally free`
+            },
+            {
+                title: "For Me and You",
+                body: `I was with you today when you woke from your dream
+I was lying there pulling you through
+I wiped away your morning tears
+I'm still here for me and you
+
+I was there as you sipped your coffee
+I passed you the butter for your toast
+I remember you never did like the crust
+I watched as you read through the post
+
+I walked with you to the bus stop
+I waited with the same distant look
+I sat opposite you and studied your face
+I read our page from the saddest of books
+
+I sat with you at your computer
+I watched as you typed in a trance
+I wanted to drag you up on your feet
+I was desperate for just one more dance
+
+I sat in the pub with you and your friends
+I knew you didn't want to be there
+I watched you put a brave face on
+I saw them all trying to care
+
+I walked slowly again to the bus stop
+I know how desperately tired you are
+I need to take you home again
+I need to heal this endless scar 
+
+I followed you into a dark lonely house
+I watched you cooking a meal just for one
+I watched you lock up and head for the stairs
+I watched you climb until you were gone
+
+I'm with you tonight as you search for a dream
+I wish you could pull me through
+I need you to wipe away my night time tears
+I wish i was here for me and you`
+            },
+            {
+                title: "One More Day",
+                body: `If i could climb the highest mountain
+If i could reach out and touch the sky
+If i could see your face again
+If i could gaze into your eyes
+
+If i could stroll hand in hand again
+If i could walk for just one mile
+If i could feel your arms around me
+If i could lie in the warmth of your smile
+
+If i could tell you how much i miss you
+If i could reverse these last few years
+If i could bring you home again
+If i could wipe away these tears
+
+If i could write a message
+If i could send it on a cloud
+If i could thank you for what you did for me
+If i could show you that i'm proud
+
+If i could hear your voice once more
+If i could share a drink or two
+If i could hug you tight and never let go
+If i could start our lives anew
+
+If i could blow a kiss up to heaven
+If i could send a wish up into the blue
+If i could persuade the angels
+If i could have one more day with you`
+            },
+            {
+                title: "Flickering Flames",
+                body: `I feel like i've known you forever
+I cant get you out of my head 
+I want to give you your life back
+Erase the awful things that were said
+
+Why do we harm such beautiful flowers?
+When all they want is to reach for the light
+How can young people possess such hate?
+Why do they feel the need to fight?
+
+I wish i had met you along life's road
+I know i'd have loved you as a friend
+All i can hope is you have found your peace
+All i have is my love to send
+
+As we stand in vigil to your memory
+You are the light of our candles gentle glow
+You dance in each of these flickering flames
+For you this nation's tears will flow
+
+We'll see you in winter snowflakes
+When the daffodils bloom in the spring
+Feel you in the softness of summer
+Hear you in falling leaves that autumn brings
+
+Brianna we'll never forget you
+Your star illuminates the darkest of sky
+Sleep well as you take your final journey
+To the place where the angels fly`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>
