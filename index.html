@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Bo & Obs | Sarah Halligan</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1:400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
 <style>
   :root {
@@ -23,6 +24,27 @@
     line-height: 1.8;
     scroll-behavior: smooth;
   }
+
+  /* Facebook Floating Button */
+  .fb-float {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #1877F2;
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    z-index: 2001;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+  }
+  .fb-float:hover { transform: scale(1.1); }
+
   header {
     padding: 40px 20px;
     text-align: center;
@@ -65,6 +87,37 @@
     border-radius: 30px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
   }
+
+  /* Latest Poems Button & Animation */
+  .latest-poems-container {
+    padding: 20px 20px 60px 20px;
+    text-align: center;
+  }
+  .btn-latest {
+    display: inline-block;
+    padding: 18px 45px;
+    background-color: var(--accent-dark);
+    color: white;
+    text-decoration: none;
+    font-family: var(--header-font);
+    font-size: 1.5rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+  }
+  .btn-latest:hover {
+    background-color: #704a4e;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    animation: none;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
   h2 {
     font-family: var(--header-font);
     font-size: 2.2rem;
@@ -107,12 +160,10 @@
     aspect-ratio: 1 / 1;
     text-decoration: none;
     position: relative;
-    
     background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), 
                       url('https://static.vecteezy.com/system/resources/thumbnails/001/782/987/small/pages-of-a-book-forming-the-shape-of-the-heart-free-photo.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
   }
   .tile:hover {
     transform: translateY(-8px);
@@ -152,7 +203,6 @@
     border: 5px solid white;
     border-radius: 5px;
   }
-
   footer {
     text-align: center;
     padding: 60px 20px;
@@ -160,13 +210,16 @@
     color: var(--accent-dark);
     font-weight: bold;
   }
-
   @media (max-width: 768px) {
     .archive-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
 <body>
+
+<a href="https://www.facebook.com/Sarahlouhals94" target="_blank" class="fb-float" title="Follow Sarah on Facebook">
+  <i class="fab fa-facebook-f"></i>
+</a>
 
 <div id="lightbox" class="modal" onclick="closeLightbox()">
   <img id="lightbox-img" src="">
@@ -190,6 +243,10 @@
     <p>I want my poems to be available to anyone so if you do see one you'd like to use for any occasion there's no need to ask me. Here and now I give my blessing. Just dont say you wrote it!! Thanks for dropping by.</p>
     <p><strong>Love Sarah H ❤️</strong></p>
   </div>
+</div>
+
+<div class="latest-poems-container">
+  <a href="https://blucomputers.github.io/SH/Latest.html" target="_blank" class="btn-latest">Click here to read the latest poems from Sarah</a>
 </div>
 
 <section id="bo-obs">
