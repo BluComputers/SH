@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 17</title>
+    <style>
+        :root {
+            --volume-color: #e3f2fd; /* Light blue for Volume 17 */
+            --accent-blue: #1976d2;
+            --text-dark: #2c3e50;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--volume-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #bbdefb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0d47a1;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .tile-title {
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        h2 { 
+            margin-bottom: 30px; 
+            color: var(--accent-blue); 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--volume-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "Anne Frank",
+                body: `Imagine a book case
+Full of wondrous tales
+Volumes of adventures
+Of dragons and mighty whales
+
+Stories about giants
+And the world below the sea
+Pirate,s buried treasure
+The princess and the pea
+
+But this bookcase hides a secret
+No one can ever know
+What lies behind its wooden frame
+Can never be on show
+
+Try and imagine a little girl
+With all her hopes and dreams
+Locked away from the outside world
+And all its evil schemes
+
+She hides with all her family
+From those who wish them harm
+Always quiet. Must never shout
+Careful not to raise the alarm
+
+For there is evil in this country
+They want to obliterate her race
+So behind the wall she has to stay
+Safe for now within this place
+
+No toys or games to pass the time
+No dolls to feed and dress 
+No playground fun. No ball to catch
+No teachers to impress
+
+But this girl does have one thing
+A diary. And oh how she writes
+She fills it full of hopes and fears
+All her dark days and nights
+
+She writes about her family
+About how they hide away
+How she dreams of freedom
+How she prays for that day
+
+And she writes about her fears
+How one day they,ll take her away
+To a hell on earth. She,ll meet her end
+Before her sixteenth birthday
+
+For two whole years she hides away
+The diary her only escape
+But time is growing shorter
+The world is changing shape
+
+And now the bookcase is removed
+Betrayed by so called friends
+Soldiers march them all outside
+This secret now must end
+
+But the diary lives forever
+A snapshot from the past
+A look inside an evil world
+That thankfully didnt last
+
+And Anne i,m truly sorry
+For the evil that men do
+Your light will burn forever
+Your love keeps shining through
+
+The world has read your story
+Everyone knows your name
+A little girl who left her mark 
+Who never knew her fame
+
+The bookcase stands in its same old place
+Its tales told and a little girl to thank
+For a legacy of peace and love
+Innocent and beautiful Anne Frank`
+            },
+            {
+                title: "The Pilgrimage",
+                body: `I,m going to make a pilgrimage
+A road trip with my dad
+Through valleys filled with memories
+Of happy times we had
+A journey we,ve made so many times
+We were three but now are two
+I count the days till i can spend
+These fleeting hours with you
+Six hundred miles divide us
+Ten hours of traffic and toil
+Memories and songs sustain me
+Till i can stand on your hallowed soil
+As i leave my daily life behind
+And as all my worries and tensions release
+Thoughts turn to your highland paradise
+Where i will find my missing piece
+Dad chats as he drives. I sleep for a while
+The endless motorway guides us on
+Past the turn off for Preston my childhood home
+Memories of a time now long gone
+The Cumbrian mountains soar all around us
+The gateway to your magical place
+Every inch of this road brings us closer
+I close my eyes and picture your face
+Gretna Green flashes past. A lovers escape
+You were so proud to carry dads name
+A true love still alive across space and time
+Not even death can extinguish your flame
+Loch Lomonds beauty tells me i,m closer
+The water shimmers in the afternoon sun
+I imagine you kneeling as i run to your arms
+My journey to you nearly done
+As we reach Fort Augustus i say "hi mum" out loud
+Loch Ness stretches as far as my eyes can see
+On to our little cabin. Home for a week
+Where our two can once again become three
+I walk down to your loch and sit for a while
+I can feel your touch in the breeze
+I can see you in these mysterious depths
+I can hear you in the rustle of the trees
+I leave dad to chat and tell you his news
+I,m never quite sure how he,ll cope
+I,m trying so hard to keep him going
+To give him some strength and new hope
+Dad lights the fire as i cook us a meal
+A bottle of wine and a baileys for you
+I know you are with us and i smile at the thought
+For these few hours we are no longer two
+I lie in dads arms in the firelight,s glow
+You dance in shadows of orange and gold
+How i wish i could hold you one more time
+Hear the stories that remain untold
+As bedtime nears i sit under the stars
+The highland sky a glittering carpet of black
+My thoughts turn to having to leave you
+The real world is calling me back
+As i sip my coffee in the morning mist 
+A young fawn stops and we share a glance
+This place means so much to both of us
+And i,m grateful he gave me my chance
+To share in his world for a few fleeting hours
+To spend time in your paradise rest
+To wonder at Scotland,s tapestry
+I,m always honoured to be its guest
+A last lingering look at this place that i love
+This loch and it,s ancient dark water 
+Death can never break our bond 
+Or the love between mother and daughter
+"See you next year mum" i smile through my tears
+I turn for a hug from dad
+We head home through valleys filled with memories
+Of happy times we had`
+            },
+            {
+                title: "Full Circle",
+                body: `Every morning i sit on this balcony
+Sipping a coffee or two
+And every day my mind is drawn
+To things that remind me of you
+As time goes on its relentless way
+As the years begin to roll by
+Each season has its own memories
+Each give me reasons to cry
+I smile more than i cry these days
+You gave me the strength to go on
+But fleeting moments sometimes find
+A way to remind me you,re gone
+As another Christmas day fades gently away
+I hear your laughter in the new year crowd
+And i think of the months that lie ahead
+And how i can make you proud
+As i brace on my walks against January,s chill
+I hear the ocean call out my name
+You are it,s gentle lapping and it,s mighty surf
+Without you life can never be the same
+February,s dark mornings i search for our star
+I take comfort in your celestial light
+This month is for lovers. Still in love though apart
+Daddy sends kisses and hugs so tight
+As spring arrives and the daffodils bloom
+Life anew all around me appears
+And i know it,s your way of showing me
+How to carry on and smile through my tears
+The late spring sunshine warms my body
+As i sunbathe with daydreams of you
+I try to imagine you next to me
+Planning all the things we had wanted to do
+As May dawns i make plans. To come to your place
+To your mountains where you,ll always belong
+To sit on the shore of that beautiful loch
+And remember your wondrous song
+The summer brings families out for happy times
+Little girls skip into mummy,s embrace
+In an instant it,s me and you once again
+I,ll never forget the kindness in your face
+Now it,s July. The month that you left
+I dread it from its first to its last
+I will grieve for you forever and a day
+No matter how much time has passed
+The height of summer i see the children play
+Unaware of the sorrow life can bring
+I pray they grow up happy and safe
+Let their sprits shine and sing
+As autumn approaches and the leaves start to fall 
+The world fades to black and white
+The beach is now empty. The ocean alone
+Dark mornings and the darkest of nights
+October brings ghouls and goblins out
+You loved all of those games. Trick or treat
+Happy times you gave me i,ll never forget
+Toffee apples, treacle toffee and sweets 
+It,s nearly full circle. Another year done
+Christmas day fills my head with a dread
+Your favourite time of the year approaches
+And i remember the words that you said
+Try to be kind and try to be humble
+Be a friend to someone in need
+Dont turn your back on anyone
+Try always to do a good deed
+You are my mummy. My guardian angel 
+And i,m proud to be your Sarah Lou 
+And  as i travel through these years of life
+I,m blessed to be travelling with you x`
+            },
+            {
+                title: "The Acceptance Speech",
+                body: `Imagine if you won an award
+You,d have to make a speech
+Stand up there and be sincere
+Dont condescend or preach
+I,m going to say some thank you,s
+And give some backs a pat
+To all the things that rock my world
+For all the love and chat
+I,m going to start with Lisa
+My boss, my sis ,my friend
+Thank you for dropping into my world
+Our love will never end
+I want to thank my dear old dad
+Even though he shakes his head
+And i promise when it,s sunny
+I,ll cover up instead!
+Next i,ll thank the seagulls
+For waking us each day
+No need for an alarm clock
+Cant print the words i say!
+I want to say thanks to Butlins
+You pay for all my gin
+Smile all day through gritted teeth
+Friday night is when i win!
+Thanks to the Biffa bin men
+7am they bang crash me awake
+In a previous life you were seagulls!
+Cant you have a lie in for gods sake?
+I think my friends on facebook
+deserve a verse or two
+There have been times in the last few years 
+Your love has pulled me through
+So thank you for the messages
+thanks for the hearts and the likes
+Thanks for the times i had to explain
+Me and Lisa are really not dyk**s!
+Thanks to my poets and thanks for the games
+Thank you for reading my rants
+Thanks for the all night saturdays
+And thanks for the football bants
+Thanks for the d**k pics i struggle to see
+Thank you for reading my rhymes
+Thank you for real friends who have my back
+Thanks for my happiest times
+My trans friends mean so much to me
+And i,m on your side till you win
+Thank you for sharing your lives with me
+And thank you for letting me in
+I,ve saved the last few verses
+To thank my beautiful mum
+To say thank you for making me
+The woman i,ve become
+Thank you for my humility
+Thanks for a pureness of heart
+Thanks for your teaching and wisdom
+Now i know how to play my part
+Our time together was oh so short
+Cant express how much i miss you
+But thank you for leaving me ready
+For all i,ve needed to do
+So mum as i write these lines of love
+As i sit here and wipe away a tear
+I can put my feelings of sorrow aside
+And thank you that i,m here`
+            },
+            {
+                title: "The Ripple Effect (JF97)",
+                body: `I remember standing by the window
+Waiting for dad,s key in the latch
+Did he get those precious tickets?
+Are we going to the match?
+
+Then his head round the door, a beaming smile
+"Guess what i,ve got!" he said with a grin
+Then lifted me high with a hug and a kiss
+"We,re going to watch the boys win!"
+
+Football days with my dad they brought us so close
+The reds were our life and our soul
+This one was going to be special
+Wembley way was our ultimate goal
+
+A day trip to Sheffield to watch Kenny,s team
+A hug from mum as we got on our way
+"See you tonight mam after we,ve won!"
+"Look after each other" she,d say
+
+We sang all the songs as we drove along
+Tried to guess who the scorers would be
+Dad said Barnsey and Beardsley will get one each
+I said it,ll be Aldridge for three
+
+Nottingham Forest our foe today
+Giants of Europe like us
+Watching the players warm up on the pitch
+Dont feel safe. People starting to push
+
+Dad drifting away. I reach for his hand
+We touch fingers and then he,s gone
+I,m lifted up by strangers, dont know where i am
+Suddenly feel so alone
+
+I feel like i,m floating. Carried aloft
+Safe outside free from fear and pain
+Then i hear my name. A familiar voice
+And i,m safe in his arms again
+
+I was 10 years old then. I,m 42 now
+Those memories are as clear as the day
+And i know just how lucky we were
+The ultimate price we didnt pay
+
+But 97 did. They never came home
+On that day as a child i didnt know
+I got my dad back. Felt his touch again
+Still had my life. A chance to grow
+
+I remember the carpet of flowers and scarves
+Tributes to those who were lost
+And i remember the lies and the people who fought
+To make people pay for this terrible cost
+
+Those who were there carry the weight
+Some who were there just deny
+But Liverpool knows the truth
+And her 97 angels will fly
+
+They,ll fly for justice and they,ll fly for truth
+And one day the truth will come out
+And Yorkshire policemen with folded arms
+Will be left without any doubt
+
+This city will never forget her souls
+And this football club marches on
+In memory of supporters
+Who were here but now are gone
+
+I,m honoured i was in that place on that day
+With the 97. I was a child. Now i,ve grown
+And i carry their eternal memory
+They will never walk alone
+
+JF97 YNWA`
+            },
+            {
+                title: "My Scotland the Brave",
+                body: `You are a place that lives in my heart
+You are a place that i think of each day
+You are my childhood memories
+You are the place i long to stay
+
+You are the long and winding roads
+You are the rain, the sun and the snow
+You are a starlit tapestry of celestial light
+You are the aurora's glow
+
+You are singing and dancing to the happiest tune
+You are food and drink so rare
+You are a roaring fire on a winter night
+You are beauty beyond compare
+
+You are the guardian of my mother's spirit
+You are the place where she wanted to be
+You are the place that made her happy
+You are the place she shared with me
+
+You are soaring peaks where eagles fly
+You are the mist in the break of the dawn
+You are the proud and noble majestic stag
+You are the land where i feel reborn
+
+You are the skirl of the pipes on a lonely road
+You are the heather that blooms in the spring
+You are a lad and a lassie sharing a kiss
+You are the reel and the highland fling
+
+You are the home of heroes and monsters
+You are the mystery in your deep dark lochs
+You are the keeper of legends
+You are the secrets in your ancient rocks
+
+You are white sandy beaches and crystal blue ocean
+You are islands unspoilt by our race
+You are the rainbow in the waterfall's cascading spray
+You are life at a slower pace
+
+You are the land that fought for freedom
+You are the clans that wouldnt lie down
+You are the warriors that beat back the enemy
+You are the grateful hamlets and towns
+
+You are the jewel in the crown of this earth
+You are Alba from your castles to your caves
+You are my paradise. My childhood memories
+You are my Scotland. My Scotland the brave`
+            },
+            {
+                title: "Hela's Hope",
+                body: `September 1942
+My name is Hela. A name that means hope
+Tattoo number 294533
+I write my words in darkness
+Must never let them see
+I am a prisoner of all that is evil
+My homeland invaded by hate
+Faceless imposters, wicked and cruel
+They will decide my fate
+I am writing this so the world will know
+What mankind can do to it,s own
+A fourteen year old girl alone in this place
+I am nothing now but skin and bone
+What year is this? What day? What time?
+Each day the same as the one before
+Read my words if you find this
+See what we had to endure
+
+October 1942
+It,s always still dark when they wake us
+We rise to the sound of the gong
+Wait in line for a cold water wash
+Blows rain down to rush us along
+No food in the morning, just a warm drink
+My stomach is used to the pain
+Then roll call and we all stand to be counted
+In sunshine, snow or rain
+God help us all if someone is missing
+We stand till the person is found
+Sometimes all day. Sometimes all night
+Beaten if you slump to the ground
+
+November 1942
+I work in the timber yard from dawn to dusk
+Chopping logs for fires we cant see
+Keeping our captors warm and happy
+Trying to remember what it,s like to be free
+Mouldy bread for supper. Eat just a little
+Save some for morning. Hide it away
+Then evening roll call. Can hardly stand up
+But you have to. You have to do it their way
+
+December 1942
+From my dormitory window i see them arrive
+Thousands come every day to this place
+Mothers and children walk hand in hand
+Fear etched on each little one,s face
+The stench of death is everywhere
+It sticks to you like tar
+The dead are lucky. Spirits set free
+Free from this festering scar
+Sometimes i stand at the wire
+I can see fields. See birds flying by
+And i wonder what life is like out there
+Beyond the point where the land meets the sky
+
+January 1943
+Today i was beaten by the guards
+Today i did something wrong
+Today i committed a terrible crime
+I was caught singing my favourite song
+When they lash you then you must count
+Dont get it wrong or they go back to the start
+Then you thank them for your punishment
+Bow your head to them as you depart
+
+February 1943
+This winter is endless. I,m cold to my bones
+How i,m still alive i do not know
+Sleep brings no relief. Best to keep moving
+Try to brace against cold winds that blow
+My time is coming. I sense that it,s near
+And i,m ready to take God,s hand
+Bring me to you oh Lord. End this pitiful life
+Carry me to the promised land
+When you find my diary please tell the world
+Dont let this all be in vain
+Remember me. Remember us all
+Remember these years full of pain
+
+March 1943
+My name is Hela. A name that means hope
+It was all i had and now it is no more
+They are here. It is time. My words at an end
+Mother and Father await me at heaven,s door`
+            },
+            {
+                title: "If I Could",
+                body: `If i could change perceptions
+I promise i would try
+I'd open eyes and minds and hearts
+No need to live that lie
+
+If i could give you childhood back 
+I promise that i would
+Being different would be fine
+Feel the feelings that you should
+
+If i could write a fairy tale
+Mirror mirror on the wall
+You'd see only a princess staring back
+No more tears would fall
+
+If i could walk you down the street
+We'd do it heads held high
+How proud I'd be to see you shine
+Folk would smile as we passed by
+
+If i could bring you to my home
+My door would open wide
+No judgement here just friendship
+And endless love and pride
+
+If i could take away the bullies
+I promise that I'd fight
+Wipe your tears with my bare hands 
+Defend you with all my might
+
+If i could make a wish come true
+I'd clear all minds of hate
+Your world would be a better place
+Safe beyond your garden gate
+
+If i could make you happy
+I promise thats my aim
+To see you live a perfect life
+Free from hate and pain
+
+If i could guide you through the darkness
+I'd shine my light so bright
+Carry you home along life's,s roads
+Hold your hand so tight
+
+If i could write a song for you
+I promise that I'd sing 
+Of happy days and beautiful dreams
+And what tomorrow brings
+
+If i could tell you just four words
+From my heart i swear its true
+I'd look you in the eyes and say
+Forever I'll love you
+
+If i could be your friend forever
+I promise you just this
+My love for you is endless
+I send to each of you a kiss x
+
+Love Sarah xx💙🩷💙🩷`
+            },
+            {
+                title: "The Two Heroes",
+                body: `Leo wakes from another sad dream
+The one where he cant find his dad
+Wipes away tears. Cant upset mum
+Time to step up and be a big lad
+
+The man of the house at 6 years old
+Down to breakfast he goes with a smile
+Mum looks tired today. He gives her a hug
+She hasnt slept in such a long while
+
+Leo,s dad was a soldier in a far away land
+A hero to all that he knew
+But heroes dont always make it back home
+Sometimes they dont make it through
+
+He remembers the day that his daddy came home
+In a cargo plane,s dark lonely hold
+Then carried aloft by six comrades
+The best of the brave and the bold
+
+Hat and gloves on for the walk to school
+Holding hands against November,s chill
+Mum doesnt speak. People just smile
+Feels like time is standing still 
+
+Across from the school there,s a man in a wheelchair
+An old boy with medals so bright
+Leo wants to talk. Mum says "no time"
+All day he remembers that sight
+
+The old man is there again at hometime
+Mum chats. Leo seizes his chance
+Wanders across, smiles and says "hi"
+There,s a sparkle in the old hero,s glance
+
+"You look a bit sad young man, are you ok?"
+Leo tells him how daddy didnt come home
+"Ah well, me and you are kind of the same
+Let me tell you where all heroes roam
+
+These poppies i sell remind of a time
+That men fought for kids just like you
+For freedom so precious. Against evil we stood
+And now we are left but a few
+
+I remember so clearly good mates at my side
+And i remember them fall by the way
+You never forget son. You just soldier on
+Just like your dad did day after day
+
+Each year in November i sit on this street
+And i cry for the lads that were lost
+But they died for a reason and i,ll never forget
+How many paid the ultimate cost
+
+So here lad take two poppies. Pin one on your chest
+The other one keep for your dad
+Put it under your pillow each night when you rest
+It,ll get you through nights when you,re sad"
+
+"Can you make my mummy happy again?
+Can you put the smile back in its place?
+I miss her laughter and bedtime stories
+And the sparkle in her beautiful face"
+
+"She just needs time Leo" the old man said
+"And hugs from her brave little man
+Together you,ll get there. Lean on each other
+And one day you,ll see that you can"
+
+The two heroes hugged. "Thanks for the chat!"
+Now he knew what had to be done
+A run to his mum. A hug and a smile
+Home for tea. Who knows maybe some fun?
+
+Bedtime and mum reads. First time in a while
+A few chapters from Wind in the willows
+And a little boy dreams happy dreams of his dad
+Thanks to a friend and a poppy under his pillow`
+            },
+            {
+                title: "Aberfan",
+                body: `Where the daisies grow on Merthyr hill
+Over the valley where children ran
+One hundred and sixteen angels
+Shine down on Aberfan
+
+For this place has a broken heart
+Still counting the awful cost
+Of men in suits who didn't listen
+And a generation that was lost
+
+Last day of school before half term
+They trudged through driving rain
+Nobody could imagine, nobody could know
+They would never be home again
+
+The rain it had poured down for days
+How much more could the rivers take?
+The monster on the mountain
+Slowly began to wake
+
+Down in Pantglas all was happy
+Teachers took names, who was in, who was ill?
+No one took notice, no one could tell
+What was happening up on that hill
+
+What was that noise? Was it an earthquake?
+Or a train thundering down on it's track?
+Nowhere to run, nowhere to turn
+Finally the all consuming black
+
+Then silence. Dead silence. Time just stood still
+Until cries came from the darkness below
+And people came running from the mine and the town
+Bare hands digging, parents desperate to know
+
+For fifteen days and fifteen nights
+Never questioned the sweat and the toil
+Till they found the last one, freed the last soul
+From the never ending sludge and the spoil
+
+They lay at Bethania, a chapel of God
+On the pews for the families to view
+One hundred and sixteen children
+And guilt for the families of the few
+
+Mothers and fathers filed in one by one
+An orderly queue, desperate wails filled the air
+Searching for answers, searching for truth
+One last touch of their little one's hair
+
+As days passed the heroes began to emerge
+The teachers who had stood in the way
+And stories were told of the ultimate price
+That they paid on that terrible day
+
+Nansi Williams. David Benyon. Two names from the list
+Lost their lives as they tried to protect
+Their names etched in history, remembered forever
+With gratitude and deepest respect
+
+One hundred and forty four souls that day
+Some to teach, some to learn, some at home
+The lost generation, the scar that wont heal
+Now names on a memorial stone
+
+On the day that the Queen came to pay her respects
+A little girl gave a posy, bowed her head
+"From the remaining children of Aberfan"
+The heartbreaking words the card read
+
+Fifty nine years have passed since that day
+Blame now forgotten. Pointless. Old news
+But the ones who were left, the few who survived
+Are still paying the ultimate dues
+
+Now the blackness is gone and the daisies  grow free
+Children play where the lost ones once ran
+And one hundred and sixteen angels 
+Still shine down on Aberfan`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>
