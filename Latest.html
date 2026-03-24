@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Volume 20</title>
+    <style>
+        :root {
+            --volume-color: #f3e5f5; /* Soft Lavender for Volume 20 */
+            --accent-purple: #7b1fa2;
+            --text-dark: #2c3e50;
+            --overlay-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            background-color: var(--volume-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .poem-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .poem-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .tile-image {
+            width: 100%;
+            height: 250px; 
+            /* Changed to contain to ensure the FULL image is visible */
+            object-fit: contain; 
+            background-color: #fff;
+            padding: 5px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tile-title {
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .poem-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-bg);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .poem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            white-space: pre-line;
+            color: #222;
+        }
+
+        /* Full image display inside the poem view */
+        .full-poem-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 400px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: bold;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 { 
+            margin-bottom: 20px; 
+            color: var(--accent-purple); 
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--volume-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div id="overlay" class="poem-overlay">
+        <span class="close-btn" onclick="closePoem()">&times;</span>
+        <div id="full-poem-view" class="poem-content"></div>
+    </div>
+
+    <script>
+        const poems = [
+            {
+                title: "The Messenger",
+                image_url: "https://files.fm/thumb.php?i=fk8c26tt9u",
+                body: `Do you have an angel?
+Someone you miss so very much?
+Do you wish deep down within your soul
+You could have just one more touch?
+
+Do you dream about them every night?
+Those memories that bring tears
+Do you remember all the happy times
+You shared throughout the years?
+
+I know your heart is heavy
+And I know how huge the pain
+I carry with me a message
+One day you'll meet again
+
+Look for me throughout your day
+In the garden or maybe the park
+I'll be there as the yellow dawn
+Banishes the dark
+
+The red I carry on my breast
+Is there because of love
+Unbreakable and powerful
+Sent up to heaven above
+
+I am the luckiest of all the birds
+So blessed in the work I do
+Because only I can fly with the angels
+And bring them home to you`
+            },
+            {
+                title: "Our Story Never Ends",
+                image_url: "https://files.fm/thumb.php?i=nhtkgnyc9g",
+                body: `Don't throw away my blanket 
+I know it breaks your heart 
+I'll still need it on those winter nights 
+Even though we're worlds apart 
+
+Don't throw away my favourite rug 
+How I love the firelight's glow 
+I'm still curled up there every night 
+How I wish I could let you know 
+
+Don't throw away my collar 
+I was so proud to wear my name 
+We must have walked a thousand miles 
+In sunshine, wind and rain 
+
+Don't throw away my old lead 
+Walk all the tracks we used to do 
+On those autumn misty mornings 
+I'm still right there with you 
+
+Don't throw away our memories 
+One day your broken heart will mend 
+I'm with you every step of the way 
+Our story never ends 
+
+So don't throw away my blanket 
+Even though you're in despair 
+You may think my bed is empty 
+But I'm still lying there`
+            }
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('gallery');
+            container.innerHTML = poems.map((p, index) => `
+                <div class="poem-tile" onclick="openPoem(${index})">
+                    <img src="${p.image_url}" alt="${p.title}" class="tile-image">
+                    <div class="tile-title">${p.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function openPoem(index) {
+            const poem = poems[index];
+            const view = document.getElementById('full-poem-view');
+            view.innerHTML = `
+                <img src="${poem.image_url}" class="full-poem-image">
+                <h2>${poem.title}</h2>
+                <div style="margin-top:20px;">${poem.body}</div>
+            `;
+            document.getElementById('overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePoem() {
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        renderGallery();
+    </script>
+</body>
+</html>
