@@ -9,14 +9,12 @@
             --rose-pink: #f4c2c2;
             --overlay-bg: #ffffff;
         }
-
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
             background-color: var(--rose-pink);
         }
-
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -24,7 +22,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .poem-tile {
             background: white;
             border-radius: 12px;
@@ -33,12 +30,19 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
-
         .poem-tile:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
-
+        .tile-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; 
+            background-color: #fffafb;
+            margin-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            display: block;
+        }
         .image-placeholder {
             width: 100%;
             height: 200px;
@@ -50,7 +54,13 @@
             font-style: italic;
             border-bottom: 1px solid #eee;
         }
-
+        .poem-img-header {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
         .tile-title {
             padding: 20px;
             text-align: center;
@@ -58,7 +68,6 @@
             font-size: 1.1rem;
             color: #444;
         }
-
         .poem-overlay {
             display: none;
             position: fixed;
@@ -72,7 +81,6 @@
             padding: 60px 20px;
             box-sizing: border-box;
         }
-
         .poem-content {
             max-width: 700px;
             margin: 0 auto;
@@ -82,7 +90,6 @@
             white-space: pre-line;
             color: #222;
         }
-
         .close-btn {
             position: fixed;
             top: 25px;
@@ -92,7 +99,6 @@
             color: #b05e5e;
             font-weight: bold;
         }
-
         h2 { 
             margin-bottom: 30px; 
             color: #b05e5e; 
@@ -104,18 +110,16 @@
     </style>
 </head>
 <body>
-
     <div class="gallery" id="gallery"></div>
-
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
         <div id="full-poem-view" class="poem-content"></div>
     </div>
-
     <script>
         const poems = [
             {
                 title: "Bo and Obs go to Blackpool",
+                image: "https://files.fm/thumb_show.php?i=wt3dpsk85w",
                 body: `I am Bo! And I am Obs!
 We're snug and warm in bed 
 Waiting very patiently 
@@ -153,6 +157,7 @@ Full of wobbliness and shaking!!`
             },
             {
                 title: "A Birthday Wish",
+                image: "https://files.fm/thumb_show.php?i=vqrga35qkb",
                 body: `A birthday wish , I have but one
 The time we shared before you were gone 
 I miss your songs , I miss your voice 
@@ -164,7 +169,7 @@ I need to close my eyes,  then see
 That you are standing next to me
 
 Opening gifts, eyes open wide 
-You watching , smiling full of pride 
+Watching , smiling full of pride 
 The doll i wanted oh so much 
 How I'd trade for one more touch
 
@@ -180,6 +185,7 @@ For one more birthday spent with you 💔`
             },
             {
                 title: "Social media alphabet",
+                image: "https://files.fm/thumb_show.php?i=rztn7n8ytv",
                 body: `A is for Add me, I be really good friend!
 B gets you Blocked if you call me again 
 
@@ -221,6 +227,7 @@ But he's a friend of the Orange so we don't give a f**k!`
             },
             {
                 title: "Rita's dodgy tattoo",
+                image: "https://files.fm/thumb_show.php?i=rvm3wmay78",
                 body: `Rita was an Elvis fan 
 She loved his smouldering eyes 
 And she'd always wanted his picture 
@@ -283,6 +290,7 @@ That's definitely Donald Trump!!"`
             },
             {
                 title: "I'm your friend to the end",
+                image: "https://files.fm/thumb_show.php?i=tgseuz6pv2",
                 body: `In the dead of night when the moon shines bright 
 You might hear my footsteps creep 
 Was that a cat? Or maybe a rat?
@@ -312,6 +320,7 @@ I'm your friend to the end!!! 😈😈`
             },
             {
                 title: "Rosie's song",
+                image: "https://files.fm/thumb_show.php?i=sf4yrzqz3k",
                 body: `"Rosie you are my posie 
 You are my heart's bouquet 
 Come out here in the moonlight 
@@ -359,6 +368,7 @@ My blushing Rosie, my posie sweet"...`
             },
             {
                 title: "The Paint Tin",
+                image: "https://files.fm/thumb_show.php?i=3yaw5ykkx9",
                 body: `She saves the loose change she finds in his pockets 
 In an old paint tin behind the shed
 One day she knows she will leave this place 
@@ -461,6 +471,7 @@ And she's ready to claim her prize`
             },
             {
                 title: "Limericks for a squeaky tank",
+                image: "https://files.fm/thumb_show.php?i=tw3tdhv36h",
                 body: `Donny a spoilt brat from Queens 
 Didn't care about other human beings 
 He never said thanks
@@ -481,6 +492,7 @@ Fly the rainbow flag of surrender!`
             },
             {
                 title: "For Matthew Shephard",
+                image: "https://files.fm/thumb_show.php?i=p7n8fxm8mp",
                 body: `I didn't know you Matthew 
 I really wish I had
 I imagine you were full of life
@@ -538,6 +550,7 @@ A smile from that beautiful face 💔`
             },
             {
                 title: "Bo and Obs go to the seaside",
+                image: "https://files.fm/thumb_show.php?i=mps253r3qx",
                 body: `I am Bo! And I am Obs!
 It's a beautiful sunny day 
 We wonder where Sarah will take us 
@@ -560,7 +573,7 @@ When you're squished up in a towel!
 
 Later on she buys an ice cream 
 Always chocolate, she's very picky 
-It dribbles down our cleavage 
+Dribbles down our cleavage 
 And makes us very sticky 
 
 Before we go we take a dip 
@@ -577,18 +590,26 @@ Where Sarah scrubs us squeaky clean!!`
 
         function renderGallery() {
             const container = document.getElementById('gallery');
-            container.innerHTML = poems.map((p, index) => `
-                <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
-                    <div class="tile-title">${p.title}</div>
-                </div>
-            `).join('');
+            container.innerHTML = poems.map((p, index) => {
+                const mediaHtml = p.image 
+                    ? `<img src="${p.image}" class="tile-img">`
+                    : `<div class="image-placeholder">Illustration for "${p.title}"</div>`;
+                
+                return `
+                    <div class="poem-tile" onclick="openPoem(${index})">
+                        ${mediaHtml}
+                        <div class="tile-title">${p.title}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openPoem(index) {
             const poem = poems[index];
             const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const imageHtml = poem.image ? `<img src="${poem.image}" class="poem-img-header">` : '';
+            
+            view.innerHTML = `${imageHtml}<h2>${poem.title}</h2><br>${poem.body}`;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
