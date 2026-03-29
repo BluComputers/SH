@@ -51,6 +51,25 @@
             border-bottom: 1px solid #eee;
         }
 
+        /* Fixed: Use contain and a background color to prevent cutting off images */
+        .tile-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; 
+            background-color: #fffafb;
+            margin-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            display: block;
+        }
+
+        .poem-img-header {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
         .tile-title {
             padding: 20px;
             text-align: center;
@@ -59,7 +78,6 @@
             color: #444;
         }
 
-        /* Fullscreen Overlay */
         .poem-overlay {
             display: none;
             position: fixed;
@@ -117,6 +135,7 @@
         const poems = [
             {
                 title: "Ode To A Pink Rabbit",
+                image: "https://files.fm/thumb_show.php?i=tqper9ukws",
                 body: `I have a pet rabbit called John 
 He's there for me when that mood comes on 
 He's not soft and fuzzy 
@@ -155,6 +174,7 @@ Well that's a secret between me and my John 😈`
             },
             {
                 title: "Tribute To Louise Butcher",
+                image: "https://files.fm/thumb_show.php?i=kchgv8e3tc",
                 body: `I am Bo! And I am Obs!
 Let us tell you about a stunner 
 You might have seen her on the telly 
@@ -194,6 +214,7 @@ Thank you Louise for all you do for the women of the world! All our love Bo , Ob
             },
             {
                 title: "Message To A Monster",
+                image: "",
                 body: `You lie there clinging to your life
 We pray it is at an end
 There are no angels waiting for you
@@ -211,6 +232,7 @@ May you burn in the fires of hell`
             },
             {
                 title: "For Holly and Jess",
+                image: "https://files.fm/thumb_show.php?i=rkwuax88ep",
                 body: `I went for a stroll through the park today
 Two little butterflies danced on the wind
 I felt I'd seen them somewhere before 
@@ -240,6 +262,7 @@ Our lives are richer because you stopped by
             },
             {
                 title: "Limericks For Bo and Obs",
+                image: "https://files.fm/thumb_show.php?i=g5t5b8zene",
                 body: `A bouncy young booby called Bo
 Would whinge everywhere that she'd go
 She said "it's not fair
@@ -260,6 +283,7 @@ They really are living the dream!`
             },
             {
                 title: "Sodor's New Recruit",
+                image: "https://files.fm/thumb_show.php?i=nxems66pa4",
                 body: `It was a beautiful sunny Sodor day 
 And Thomas was working hard 
 Picking up coal from Brendam docks 
@@ -271,7 +295,7 @@ But Thomas pressed on with a wink and a smile
 And he giggled at their protest 
 
 As he passed the ironworks Gordon went by 
-And said "I feel sorry for you 
+And said "i feel sorry for you 
 You'd better get over to Knapford 
 The fat controller wants a word or two!"
 
@@ -329,6 +353,7 @@ Night night Thomas 🌙`
             },
             {
                 title: "A Message from Bo and Obs",
+                image: "https://files.fm/thumb_show.php?i=g5t5b8zene",
                 body: `I am Bo! And I am Obs!
 We'd like to send a little rhyme 
 To all the ladies of the world 
@@ -363,6 +388,7 @@ Check those Boobs!!!`
             },
             {
                 title: "Bo and Obs at the Fair",
+                image: "https://files.fm/thumb_show.php?i=cckhjbyyxb",
                 body: `I am Bo! And I am Obs!
 We're really quite a pair 
 And what a day we've had today 
@@ -395,6 +421,7 @@ A Sarah Halligan titty!! 😃😃`
             },
             {
                 title: "A Wish For Brianna",
+                image: "https://files.fm/thumb_show.php?i=2raj3ded4y",
                 body: `I wish that I had known you 
 And we'd shared a joke or two 
 I wish we'd climbed a flowery hill
@@ -422,6 +449,7 @@ How I wish that you were still here 💔`
             },
             {
                 title: "Dad's Army Tribute",
+                image: "https://files.fm/thumb_show.php?i=kg89j2wgae",
                 body: `Today I'm paying tribute 
 And I'm sure you'll all agree 
 To the finest band of fighting men 
@@ -471,18 +499,26 @@ All together now "Don't tell him Pike!!"`
 
         function renderGallery() {
             const container = document.getElementById('gallery');
-            container.innerHTML = poems.map((p, index) => `
-                <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
-                    <div class="tile-title">${p.title}</div>
-                </div>
-            `).join('');
+            container.innerHTML = poems.map((p, index) => {
+                const mediaHtml = p.image 
+                    ? `<img src="${p.image}" class="tile-img">`
+                    : `<div class="image-placeholder">Illustration for "${p.title}"</div>`;
+                
+                return `
+                    <div class="poem-tile" onclick="openPoem(${index})">
+                        ${mediaHtml}
+                        <div class="tile-title">${p.title}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openPoem(index) {
             const poem = poems[index];
             const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const imageHtml = poem.image ? `<img src="${poem.image}" class="poem-img-header">` : '';
+            
+            view.innerHTML = `${imageHtml}<h2>${poem.title}</h2><br>${poem.body}`;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
