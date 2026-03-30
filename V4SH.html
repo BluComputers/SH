@@ -9,14 +9,12 @@
             --rose-pink: #f4c2c2;
             --overlay-bg: #ffffff;
         }
-
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
             background-color: var(--rose-pink);
         }
-
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -24,7 +22,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .poem-tile {
             background: white;
             border-radius: 12px;
@@ -33,12 +30,19 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
-
         .poem-tile:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
-
+        .tile-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; 
+            background-color: #fffafb;
+            margin-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            display: block;
+        }
         .image-placeholder {
             width: 100%;
             height: 200px;
@@ -50,7 +54,13 @@
             font-style: italic;
             border-bottom: 1px solid #eee;
         }
-
+        .poem-img-header {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
         .tile-title {
             padding: 20px;
             text-align: center;
@@ -58,7 +68,6 @@
             font-size: 1.1rem;
             color: #444;
         }
-
         .poem-overlay {
             display: none;
             position: fixed;
@@ -72,7 +81,6 @@
             padding: 60px 20px;
             box-sizing: border-box;
         }
-
         .poem-content {
             max-width: 700px;
             margin: 0 auto;
@@ -82,7 +90,6 @@
             white-space: pre-line;
             color: #222;
         }
-
         .close-btn {
             position: fixed;
             top: 25px;
@@ -92,7 +99,6 @@
             color: #b05e5e;
             font-weight: bold;
         }
-
         h2 { 
             margin-bottom: 30px; 
             color: #b05e5e; 
@@ -104,18 +110,16 @@
     </style>
 </head>
 <body>
-
     <div class="gallery" id="gallery"></div>
-
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
         <div id="full-poem-view" class="poem-content"></div>
     </div>
-
     <script>
         const poems = [
             {
                 title: "Tribute to George Stephenson",
+                image: "https://files.fm/thumb_show.php?i=5cdarny6sa",
                 body: `In a corner of Northumberland 
 Where there are no silver spoons 
 A little lad dreamt of building a rocket 
@@ -128,7 +132,7 @@ And what he might become
 
 No money, no school, no sums to learn 
 No mysteries to unravel 
-But this lad had a vision 
+This lad had a vision 
 About how the world should travel 
 
 He knew that horses had had their day 
@@ -163,6 +167,7 @@ And that Rocket that flew to the moon`
             },
             {
                 title: "Bo and Obs go to the pub",
+                image: "https://files.fm/thumb_show.php?i=uev4r2m8me",
                 body: `I am Bo! and I am Obs!
 Saturday once again is here!
 The day we feel the cooling breeze 
@@ -200,8 +205,9 @@ Sarah's having a night on the gin!`
             },
             {
                 title: "The dark dark water",
+                image: "https://files.fm/thumb_show.php?i=mpkmkajknu",
                 body: `By the dark dark water where the midgies dance 
-Under ancient highland skies 
+Ancient highland skies 
 You might want to come and search for me
 Or listen for my age old cries
 
@@ -213,7 +219,7 @@ No proof has there ever been
 I'll never tell ye yay or nay
 Am I a girl or am I a boy?
 The nearest you will ever get
-Is your Nessie souvenir toy
+Your Nessie souvenir toy
 
 Year after year they search for me
 Centuries come and they go
@@ -222,7 +228,7 @@ I'm the secret that no one can know
 
 Many times I've thought of raising my head
 Give them the answer they truly desire
-But that would bring an end for me
+That would bring an end for me
 Surely that would extinguish my fire
 
 So if you come to my loch and scour the water 
@@ -231,12 +237,13 @@ You'll not see me but I'll see you
 And down in the depths I'll stay
 
 By the dark dark water where the midgies dance 
-You can search and hope to see
- But I'll be safe in my highland paradise 
+You can search and hope to see 
+But I'll be safe in my highland paradise 
 Wishing the world would leave me be`
             },
             {
                 title: "Waiting for a playmate",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `How many more years of lonliness?
 How many more nights must I cry?
 How many more days must I wait in this cave
@@ -269,6 +276,7 @@ Adventures for you and for me`
             },
             {
                 title: "She",
+                image: "https://files.fm/thumb_show.php?i=uyudwqwkjw",
                 body: `She is in the morning birdsong that stirs your weary soul 
 She is with you as you wake to greet the day 
 She is with you when you wonder just how to make it through 
@@ -291,6 +299,7 @@ There never was a more precious child than you ❤️`
             },
             {
                 title: "A squaddie's farewell",
+                image: "https://files.fm/thumb_show.php?i=nwr5f2g225",
                 body: `It's a beautiful day today mam
 Blue skies, whispy clouds passing by
 And I'm trying to remember the good times 
@@ -373,6 +382,7 @@ Full of love and bursting with pride`
             },
             {
                 title: "Title number 20 YNWA!",
+                image: "https://files.fm/thumb_show.php?i=a9ah75f84d",
                 body: `We welcome people young and old
 They've witnessed titles a plenty 
 But today under Liverpool's golden sky
@@ -392,6 +402,7 @@ YNWA 20 ❤️‍🔥`
             },
             {
                 title: "Liverpool - acrostic",
+                image: "https://files.fm/thumb_show.php?i=jp6bjtamg3",
                 body: `Listen to our music all over the world 
 Listen to the Mersey lap the shore 
 Listen to this city's proud beating heart 
@@ -439,6 +450,7 @@ Listen to our songs for evermore`
             },
             {
                 title: "The Bench",
+                image: "https://files.fm/thumb_show.php?i=jwr3zj94zq",
                 body: `A race to the bench, we ran like the wind 
 Some days it was you, some days me 
 It didn't matter who won and we didn't care 
@@ -461,7 +473,7 @@ We promised we'd never let go
 
 We made it through, we made it home
 We married, had children, made a life
-But friends are forever whatever the weather 
+Friends are forever whatever the weather 
 Through good times, through trouble and strife 
 
 And then we were widowed. Back to us two
@@ -481,6 +493,7 @@ And I know you will wait for me`
             },
             {
                 title: "For my sisters",
+                image: "https://files.fm/thumb_show.php?i=27rsv3kc4d",
                 body: `If I could change perceptions 
 I promise I would try
 I'd open eyes and minds and hearts 
@@ -542,18 +555,26 @@ Love Sarah ❤️`
 
         function renderGallery() {
             const container = document.getElementById('gallery');
-            container.innerHTML = poems.map((p, index) => `
-                <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
-                    <div class="tile-title">${p.title}</div>
-                </div>
-            `).join('');
+            container.innerHTML = poems.map((p, index) => {
+                const mediaHtml = p.image 
+                    ? `<img src="${p.image}" class="tile-img">`
+                    : `<div class="image-placeholder">Illustration for "${p.title}"</div>`;
+                
+                return `
+                    <div class="poem-tile" onclick="openPoem(${index})">
+                        ${mediaHtml}
+                        <div class="tile-title">${p.title}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openPoem(index) {
             const poem = poems[index];
             const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const imageHtml = poem.image ? `<img src="${poem.image}" class="poem-img-header">` : '';
+            
+            view.innerHTML = `${imageHtml}<h2>${poem.title}</h2><br>${poem.body}`;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
