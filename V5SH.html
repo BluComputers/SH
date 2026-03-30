@@ -9,14 +9,12 @@
             --rose-pink: #f4c2c2;
             --overlay-bg: #ffffff;
         }
-
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
             background-color: var(--rose-pink);
         }
-
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -24,7 +22,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .poem-tile {
             background: white;
             border-radius: 12px;
@@ -33,12 +30,19 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
-
         .poem-tile:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
-
+        .tile-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; 
+            background-color: #fffafb;
+            margin-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            display: block;
+        }
         .image-placeholder {
             width: 100%;
             height: 200px;
@@ -50,7 +54,13 @@
             font-style: italic;
             border-bottom: 1px solid #eee;
         }
-
+        .poem-img-header {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
         .tile-title {
             padding: 20px;
             text-align: center;
@@ -58,7 +68,6 @@
             font-size: 1.1rem;
             color: #444;
         }
-
         .poem-overlay {
             display: none;
             position: fixed;
@@ -72,7 +81,6 @@
             padding: 60px 20px;
             box-sizing: border-box;
         }
-
         .poem-content {
             max-width: 700px;
             margin: 0 auto;
@@ -82,7 +90,6 @@
             white-space: pre-line;
             color: #222;
         }
-
         .close-btn {
             position: fixed;
             top: 25px;
@@ -92,7 +99,6 @@
             color: #b05e5e;
             font-weight: bold;
         }
-
         h2 { 
             margin-bottom: 30px; 
             color: #b05e5e; 
@@ -104,18 +110,16 @@
     </style>
 </head>
 <body>
-
     <div class="gallery" id="gallery"></div>
-
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
         <div id="full-poem-view" class="poem-content"></div>
     </div>
-
     <script>
         const poems = [
             {
                 title: "Visibility - acrostic",
+                image: "https://files.fm/thumb_show.php?i=sxvuw5qhcy",
                 body: `Value is all I ask of you
 Value is all I need 
 Value me in society 
@@ -168,6 +172,7 @@ You can leave me to live my life`
             },
             {
                 title: "Ode to My Boobs",
+                image: "https://files.fm/thumb_show.php?i=ab6ersqkhp",
                 body: `I am Bo! And I am Obs!
 We live in Sarah's shirt
 She keeps us safe within her bra
@@ -195,6 +200,7 @@ So we wish you all goodnight!!`
             },
             {
                 title: "Ode to the Odious orange - AKA Trump",
+                image: "https://files.fm/thumb_show.php?i=dzda7srs7p",
                 body: `Old Orange died and went to hell 
 The Devil said "We're full !
 But just for you I'll make some room 
@@ -240,13 +246,15 @@ Did what she did best
 Donald smiled and nodded 
 "Oh I think I can pass this test!"
 
-"Very well " said the Devil "You've made your choice
+"Very well " said the Devil 
+"You've made your choice
 Welcome to hell, what a party we'll throw!"
 Turning back to door 3 the Devil said
 "Monica you're free to go!"`
             },
             {
                 title: "If butterflies lived forever - Brianna",
+                image: "https://files.fm/thumb_show.php?i=scjy4xk9ng",
                 body: `If butterflies lived forever 
 What a beautiful world it would be 
 Velvet colours of every hue 
@@ -271,8 +279,8 @@ Fly with the angels Brianna 💔💔💔💔`
             },
             {
                 title: "Hela's Last Winter",
+                image: "https://files.fm/thumb_show.php?i=tmng5k4596",
                 body: `September 1942
-
 My name is Hela . A name that means hope 
 Tattoo number 294533
 I write my words in darkness 
@@ -294,7 +302,6 @@ Read my words if you find this
 See what we had to endure
 
 October 1942
-
 It's always still dark when they wake us 
 We rise to the sound of the gong
 Wait in line for a cold water wash 
@@ -311,7 +318,6 @@ Sometimes all day, sometimes all night
 Beaten if you slump to the ground 
 
 November 1942
-
 I work in the timber yard from dawn to dusk
 Chopping logs for fires we can't see
 Keeping our captors warm and happy 
@@ -319,11 +325,10 @@ Trying to remember what it's like to be free
 
 Mouldy bread for supper, eat just a little 
 Save some for morning, hide it away 
-Then evening roll call , can hardly stand up
+Evening roll call , can hardly stand up
 But you have to. You have to do it their way
 
 December 1942
-
 From my dormitory window I see them arrive
 Thousands come every day to this place 
 Mothers and children walk hand in hand 
@@ -340,19 +345,17 @@ And I wonder what life is like out there
 Beyond the point where the land meets the sky
 
 January 1943
-
 Today I was beaten by the guards
 Today I did something wrong 
 Today I committed a terrible crime
 I was caught singing my favourite song 
 
- When they lash you then you must count
+When they lash you then you must count
 Don't get it wrong or they go back to the start
 Then you thank them for your punishment 
 Bow your head to them as you depart 
 
 February 1943
-
 This winter is endless, I'm cold to my bones 
 How I'm still alive I do not know 
 Sleep brings no relief, best to keep moving 
@@ -369,7 +372,6 @@ Remember me . Remember us all
 Remember these years full of pain
 
 March 1943
-
 My name is Hela a name that means hope 
 It was all I had and now is no more 
 They are here, it is time. My words at an end
@@ -377,6 +379,7 @@ Mother and Father await me at heavens door`
             },
             {
                 title: "A Light at Christmas",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `Beneath the frost of winter's veil
 Where shadows linger cold and pale
 A spark ignites, a whisper calls
@@ -394,11 +397,12 @@ And dries the faintest trembling tear
 
 Each twinkling star, each candles glow
 Reminds us of what we still know 
-That kindness lives though faint it's spark 
+Kindness lives though faint it's spark 
 And peace can shine in places dark`
             },
             {
                 title: "My Highland Paradise",
+                image: "https://files.fm/thumb_show.php?i=w9pb6hzft6",
                 body: `When I was a child you told me 
 Of a land with mountains so tall 
 You filled my thoughts with such wonder 
@@ -431,6 +435,7 @@ All my life I've been longing to stay`
             },
             {
                 title: "A goodbye to Goodison",
+                image: "https://files.fm/thumb_show.php?i=6veqqwrb5h",
                 body: `You are the way of life we thought would never end 
 You are countless schoolboy hopes and dreams 
 You are the winter darkness and sunny summer days 
@@ -463,6 +468,7 @@ You are Goodison. You are nothing but the best 💙🤍💙🤍`
             },
             {
                 title: "Tribute to 3 dads walking",
+                image: "https://files.fm/thumb_show.php?i=9uk788g9d8",
                 body: `I walked for the love you brought me 
 In those beautiful newborn eyes 
 I walked for the times I held you 
@@ -500,6 +506,7 @@ I will hold you in my arms again`
             },
             {
                 title: "The Poppy",
+                image: "https://files.fm/thumb_show.php?i=h92fncvjmw",
                 body: `I am the boys who lied to serve their king 
 I am the Fathers who waved them on their way 
 I am the letters that never made it home 
@@ -534,18 +541,26 @@ I am your poppy, proud upon your chest`
 
         function renderGallery() {
             const container = document.getElementById('gallery');
-            container.innerHTML = poems.map((p, index) => `
-                <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
-                    <div class="tile-title">${p.title}</div>
-                </div>
-            `).join('');
+            container.innerHTML = poems.map((p, index) => {
+                const mediaHtml = p.image 
+                    ? `<img src="${p.image}" class="tile-img">`
+                    : `<div class="image-placeholder">Illustration for "${p.title}"</div>`;
+                
+                return `
+                    <div class="poem-tile" onclick="openPoem(${index})">
+                        ${mediaHtml}
+                        <div class="tile-title">${p.title}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openPoem(index) {
             const poem = poems[index];
             const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const imageHtml = poem.image ? `<img src="${poem.image}" class="poem-img-header">` : '';
+            
+            view.innerHTML = `${imageHtml}<h2>${poem.title}</h2><br>${poem.body}`;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
