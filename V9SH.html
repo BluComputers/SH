@@ -10,14 +10,12 @@
             --accent-blue: #2c3e50;
             --overlay-bg: #ffffff;
         }
-
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
             background-color: var(--milestone-gold);
         }
-
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -25,7 +23,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .poem-tile {
             background: white;
             border-radius: 12px;
@@ -34,12 +31,19 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
-
         .poem-tile:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
-
+        .tile-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; 
+            background-color: #fffdf7;
+            margin-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            display: block;
+        }
         .image-placeholder {
             width: 100%;
             height: 200px;
@@ -51,7 +55,13 @@
             font-style: italic;
             border-bottom: 1px solid #eee;
         }
-
+        .poem-img-header {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
         .tile-title {
             padding: 20px;
             text-align: center;
@@ -59,7 +69,6 @@
             font-size: 1.1rem;
             color: #2c3e50;
         }
-
         .poem-overlay {
             display: none;
             position: fixed;
@@ -73,7 +82,6 @@
             padding: 60px 20px;
             box-sizing: border-box;
         }
-
         .poem-content {
             max-width: 700px;
             margin: 0 auto;
@@ -83,7 +91,6 @@
             white-space: pre-line;
             color: #222;
         }
-
         .close-btn {
             position: fixed;
             top: 25px;
@@ -93,7 +100,6 @@
             color: #2c3e50;
             font-weight: bold;
         }
-
         h2 { 
             margin-bottom: 30px; 
             color: #2c3e50; 
@@ -105,18 +111,16 @@
     </style>
 </head>
 <body>
-
     <div class="gallery" id="gallery"></div>
-
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
         <div id="full-poem-view" class="poem-content"></div>
     </div>
-
     <script>
         const poems = [
             {
                 title: "For Rob Burrow and Kevin Sinfield",
+                image: "https://files.fm/thumb_show.php?i=auheb2ezam",
                 body: `Glory days of blue and gold 
 Shoulder to shoulder whatever the weather 
 There for each other through thick and thin 
@@ -132,8 +136,8 @@ An example to every little lad
 Who roared them on from the terraces 
 Through the good times and the bad 
 
-Now the glory days have faded away 
- But friendship lingers on
+Now the glory days have faded away  
+But friendship lingers on
 These days they battle an unseen enemy 
 And they'll fight till the war is won
 
@@ -144,6 +148,7 @@ Still crossing the winning line together`
             },
             {
                 title: "A letter to Graceland",
+                image: "https://files.fm/thumb_show.php?i=zu7p3wgprx",
                 body: `Dear Elvis you're probably too busy 
 To spend any time writing to me 
 But I thought I'd send a few little lines 
@@ -200,6 +205,7 @@ With love from Elvis`
             },
             {
                 title: "The empty chair",
+                image: "https://files.fm/thumb_show.php?i=2kx4tw98mx",
                 body: `When Christmas eve is fading away 
 When the time comes to rest your head 
 Please dont climb the stairs with a heavy heart 
@@ -237,6 +243,7 @@ And I'll come home to spend it with you`
             },
             {
                 title: "Ballycroneen beach",
+                image: "https://files.fm/thumb_show.php?i=bstdc5srea",
                 body: `I can see all the way to Australia mammy 
 When I stand on Ballycroneen beach 
 I know somewhere daddy is waving 
@@ -269,6 +276,7 @@ Even though he's so far out of reach`
             },
             {
                 title: "Santa's little helper",
+                image: "https://files.fm/thumb_show.php?i=qhrd22hhrh",
                 body: `In a secret castle at the top of the world 
 A little elf lay sneezing in his bed 
 Too sick to help Santa this Christmas eve 
@@ -281,7 +289,7 @@ And the rest of the reindeer mob!"
 
 Over in England children were sleeping 
 Dreaming of what was to come 
-But one little boy just couldn't rest 
+One little boy just couldn't rest 
 He lay listening to the tears of his mum 
 
 Peter's mum tried so hard from dawn to dusk 
@@ -356,6 +364,7 @@ When Christmas depended on him`
             },
             {
                 title: "Brian and Epstein",
+                image: "https://files.fm/thumb_show.php?i=m9twr9pehu",
                 body: `Wind off the Mersey
 Chilled to our bone 
 Huddled together
@@ -398,6 +407,7 @@ Merry Christmas from our door to yours`
             },
             {
                 title: "Forever I remember you",
+                image: "https://files.fm/thumb_show.php?i=g7kpkxdh8c",
                 body: `When I wake alone in the dawns early light 
 When the new day shines gently through 
 When I turn to touch your side of the bed 
@@ -425,6 +435,7 @@ Then forever I will remember you`
             },
             {
                 title: "Sneaky biscuits",
+                image: "https://files.fm/thumb_show.php?i=fnqv2fzskc",
                 body: `Thinking back in my mind to those infant school days 
 All day longing for your smiling face 
 A call of my name and I'd run to your arms 
@@ -467,6 +478,7 @@ Finally in my safe place`
             },
             {
                 title: "A million men",
+                image: "https://files.fm/thumb_show.php?i=rhtgsj9gua",
                 body: `I'm sitting on an English hillside 
 The poppies are swaying in the breeze 
 Somewhere a lark is singing 
@@ -524,6 +536,7 @@ You gave it all so that we could live free`
             },
             {
                 title: "Seventeen Candles",
+                image: "https://files.fm/thumb_show.php?i=6a4jzugkh2",
                 body: `I walked with you in dreams again 
 On this your special day 
 Seventeen candles burning bright 
@@ -553,18 +566,26 @@ Seventeen candles burning bright`
 
         function renderGallery() {
             const container = document.getElementById('gallery');
-            container.innerHTML = poems.map((p, index) => `
-                <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
-                    <div class="tile-title">${p.title}</div>
-                </div>
-            `).join('');
+            container.innerHTML = poems.map((p, index) => {
+                const mediaHtml = p.image 
+                    ? `<img src="${p.image}" class="tile-img">`
+                    : `<div class="image-placeholder">Illustration for "${p.title}"</div>`;
+                
+                return `
+                    <div class="poem-tile" onclick="openPoem(${index})">
+                        ${mediaHtml}
+                        <div class="tile-title">${p.title}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openPoem(index) {
             const poem = poems[index];
             const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const imageHtml = poem.image ? `<img src="${poem.image}" class="poem-img-header">` : '';
+            
+            view.innerHTML = `${imageHtml}<h2>${poem.title}</h2><br>${poem.body}`;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
