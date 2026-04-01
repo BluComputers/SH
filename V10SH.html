@@ -11,14 +11,12 @@
             --text-dark: #2c3e50;
             --overlay-bg: #ffffff;
         }
-
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
             background-color: var(--volume-color);
         }
-
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -26,7 +24,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .poem-tile {
             background: white;
             border-radius: 12px;
@@ -35,12 +32,19 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
-
         .poem-tile:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
-
+        .tile-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; 
+            background-color: #f8fbff;
+            margin-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            display: block;
+        }
         .image-placeholder {
             width: 100%;
             height: 200px;
@@ -52,7 +56,13 @@
             font-style: italic;
             border-bottom: 1px solid #eee;
         }
-
+        .poem-img-header {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
         .tile-title {
             padding: 20px;
             text-align: center;
@@ -60,7 +70,6 @@
             font-size: 1.1rem;
             color: var(--text-dark);
         }
-
         .poem-overlay {
             display: none;
             position: fixed;
@@ -74,7 +83,6 @@
             padding: 60px 20px;
             box-sizing: border-box;
         }
-
         .poem-content {
             max-width: 700px;
             margin: 0 auto;
@@ -84,7 +92,6 @@
             white-space: pre-line;
             color: #222;
         }
-
         .close-btn {
             position: fixed;
             top: 25px;
@@ -94,7 +101,6 @@
             color: var(--text-dark);
             font-weight: bold;
         }
-
         h2 { 
             margin-bottom: 30px; 
             color: var(--accent-blue); 
@@ -106,18 +112,16 @@
     </style>
 </head>
 <body>
-
     <div class="gallery" id="gallery"></div>
-
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
         <div id="full-poem-view" class="poem-content"></div>
     </div>
-
     <script>
         const poems = [
             {
                 title: "Awareness - acrostic",
+                image: "https://files.fm/thumb_show.php?i=4n45c9ysme",
                 body: `Am I really a threat to you?
 Am I affecting your life?
 Am I something to be frightened of?
@@ -165,6 +169,7 @@ Shine bright for you and for me`
             },
             {
                 title: "For Katie Piper -my inspiration",
+                image: "https://files.fm/thumb_show.php?i=j2k7mr3jj9",
                 body: `A little girl in mummy's shoes
 Makeup done just right
 Cinderella twirls in the mirror 
@@ -192,6 +197,7 @@ Ready for the ball tonight`
             },
             {
                 title: "A walk with Brianna",
+                image: "https://files.fm/thumb_show.php?i=nwquuxnfzf",
                 body: `I went for a stroll through the park today 
 A little butterfly danced on the wind 
 I felt that I'd seen her somewhere before 
@@ -219,6 +225,7 @@ Thank you for sharing yours with me`
             },
             {
                 title: "Little black cat - for Bradley Lowery",
+                image: "https://files.fm/thumb_show.php?i=wn9v3ya2gt",
                 body: `Hey Bradley you crossed my mind today 
 I smiled as I looked to the sky 
 Is that you playing footie with the angels?
@@ -251,6 +258,7 @@ You are never far away 🐈‍⬛⚽️♥️`
             },
             {
                 title: "The Problem",
+                image: "https://files.fm/thumb_show.php?i=6zzkkycpe9",
                 body: `I'm sorry that my colour offends your delicate eye
 I'm sorry that my God upsets you so
 I'm sorry for the darkness within your shuttered mind
@@ -278,6 +286,7 @@ The problem isn't me at all. The problem here is you`
             },
             {
                 title: "I will wait for you",
+                image: "https://files.fm/thumb_show.php?i=u5m32y84sz",
                 body: `I will wait for you in the morning mist 
 When you think you walk alone 
 I'll be by your side every step of the way 
@@ -305,6 +314,7 @@ When you finally come home to me`
             },
             {
                 title: "Little one little one",
+                image: "https://files.fm/thumb_show.php?i=9z26nhwaqv",
                 body: `Little one little one where do you go 
 When the stars are in the sky?
 I wish you could tell us your secrets 
@@ -337,6 +347,7 @@ For tomorrow is just a day away`
             },
             {
                 title: "Thank you",
+                image: "https://files.fm/thumb_show.php?i=3by367e53s",
                 body: `Thank you my friend for choosing me 
 Thank you for making me smile 
 Thank you for the morning kisses 
@@ -369,6 +380,7 @@ Cross the rainbow, it's your time to fly`
             },
             {
                 title: "School holidays",
+                image: "https://files.fm/thumb_show.php?i=m33et2hbj6",
                 body: `Think back to those long summer holidays 
 The release as you left the school gate 
 Six weeks of freedom, not a care in the world 
@@ -411,6 +423,7 @@ As I travel along life's track`
             },
             {
                 title: "A message to mum",
+                image: "https://files.fm/thumb_show.php?i=m33et2hbj6",
                 body: `Your beautiful smile awaits me
 This road carries me on and on
 My head filled with my most precious memories 
@@ -435,18 +448,26 @@ And bathe me in your light xx`
 
         function renderGallery() {
             const container = document.getElementById('gallery');
-            container.innerHTML = poems.map((p, index) => `
-                <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
-                    <div class="tile-title">${p.title}</div>
-                </div>
-            `).join('');
+            container.innerHTML = poems.map((p, index) => {
+                const mediaHtml = p.image 
+                    ? `<img src="${p.image}" class="tile-img">`
+                    : `<div class="image-placeholder">Illustration for "${p.title}"</div>`;
+                
+                return `
+                    <div class="poem-tile" onclick="openPoem(${index})">
+                        ${mediaHtml}
+                        <div class="tile-title">${p.title}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openPoem(index) {
             const poem = poems[index];
             const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const imageHtml = poem.image ? `<img src="${poem.image}" class="poem-img-header">` : '';
+            
+            view.innerHTML = `${imageHtml}<h2>${poem.title}</h2><br>${poem.body}`;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
