@@ -11,14 +11,12 @@
             --text-dark: #2c3e50;
             --overlay-bg: #ffffff;
         }
-
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
             background-color: var(--volume-color);
         }
-
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -26,7 +24,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .poem-tile {
             background: white;
             border-radius: 12px;
@@ -35,12 +32,19 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
-
         .poem-tile:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
-
+        .tile-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; 
+            background-color: #fffafb;
+            margin-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            display: block;
+        }
         .image-placeholder {
             width: 100%;
             height: 200px;
@@ -52,7 +56,13 @@
             font-style: italic;
             border-bottom: 1px solid #eee;
         }
-
+        .poem-img-header {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
         .tile-title {
             padding: 20px;
             text-align: center;
@@ -60,7 +70,6 @@
             font-size: 1.1rem;
             color: var(--text-dark);
         }
-
         .poem-overlay {
             display: none;
             position: fixed;
@@ -74,7 +83,6 @@
             padding: 60px 20px;
             box-sizing: border-box;
         }
-
         .poem-content {
             max-width: 700px;
             margin: 0 auto;
@@ -84,7 +92,6 @@
             white-space: pre-line;
             color: #222;
         }
-
         .close-btn {
             position: fixed;
             top: 25px;
@@ -94,7 +101,6 @@
             color: var(--text-dark);
             font-weight: bold;
         }
-
         h2 { 
             margin-bottom: 30px; 
             color: var(--accent-pink); 
@@ -106,18 +112,16 @@
     </style>
 </head>
 <body>
-
     <div class="gallery" id="gallery"></div>
-
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
         <div id="full-poem-view" class="poem-content"></div>
     </div>
-
     <script>
         const poems = [
             {
                 title: "Woman",
+                image: "https://files.fm/thumb_show.php?i=xvb728y2fw",
                 body: `She is that little child who ran to your arms
 She is the laughter caught on the breeze
 She is daisy chains and dandelions
@@ -170,6 +174,7 @@ She is woman until this human race is run`
             },
             {
                 title: "For Lisa",
+                image: "https://files.fm/thumb_show.php?i=8s24ygd2gx",
                 body: `There have been the saddest of times in my life
 When i thought that i just couldn't cope
 But you came my way on that fateful day
@@ -177,7 +182,7 @@ And gave me a reason and hope
 
 We were lost in a terrible darkness
 Two little boats tossed on life's sea
-But fate brought us into the light again
+Fate brought us into the light again
 A new existence for you and for me
 
 You were a child so frightened and lost
@@ -212,6 +217,7 @@ And thank you for sharing the miles`
             },
             {
                 title: "Brianna acrostic",
+                image: "https://files.fm/thumb_show.php?i=x6rh87ud7y",
                 body: `Because the world wasn't ready
 Because people have blinkers on
 Because you dared to be different
@@ -249,17 +255,18 @@ A star shines eternally bright`
             },
             {
                 title: "Golden sky",
-                body: `I,m walking on hallowed ground today
+                image: "https://files.fm/thumb_show.php?i=hsutpcvbn9",
+                body: `I'm walking on hallowed ground today
 To a place under a golden sky
 Protected by 97 angels
 Where their spirits eternally fly
 
-I,ll nip in for a drink in the Albert 
+I'll nip in for a drink in the Albert 
 Before i learn the incredible story
 A tapestry of scarves all around me
 Reminders of endless glory
 
-I,ll pause for a moment and bow my head
+I'll pause for a moment and bow my head
 At the eternal flame burning so bright 
 A symbol of a city that wouldnt lie down
 Till the terrible wrong was made right
@@ -285,7 +292,7 @@ Sunny afternoons and the darkness of winter
 And those glorious Anfield nights
 
 At the dug-out i stop and sit for a while
-Feel the legends who,ve sat in this spot
+Feel the legends who've sat in this spot
 From Paisley and Shanks to King Kenny
 Houllier, Rafa and Jurgen Klopp
 
@@ -297,7 +304,7 @@ The roar of the Kop driving them home
 Stand for a moment in the goalmouth
 So many teams had attacking plans
 But Lawrence and Clemence had other ideas
-There,s been so many safe pairs of hands
+There's been so many safe pairs of hands
 
 And now at the spot where the flowers were laid
 Thousands of blooms for the lost
@@ -306,7 +313,7 @@ This place is still counting the cost
 
 But they are still here in the shadows
 A guard of honour each match for the team
-Roaring them on as they,ve always done
+Roaring them on as they've always done
 Still sharing every other fans dream
 
 You can feel the past on the terraces here
@@ -320,12 +327,12 @@ But some names are immortal
 Diogo, forever our number 20
 
 The songs will go on forever
-And they,ll chant their heroes name
-I know that once you,ve been here
+And they'll chant their heroes name
+I know that once you've been here
 You will never feel the same
 
-So for now i,ll say goodbye to this place
-And i,ll leave the 97 to fly
+So for now i'll say goodbye to this place
+And i'll leave the 97 to fly
 Around this cathedral of memories
 Under its golden sky
 
@@ -333,6 +340,7 @@ YNWA`
             },
             {
                 title: "Seaside memories",
+                image: "https://files.fm/thumb_show.php?i=mtmmxvtfjp",
                 body: `Think back to your childhood days at the beach
 The softness of the sand between your toes
 Close your eyes and drift among memories
@@ -340,7 +348,7 @@ Feel the cooling breeze as it blows
 
 Stroll down the shore to the pier
 The barnacles hold fast to her ancient frame
-There,s a chill in the air beneath her
+There's a chill in the air beneath her
 Two centuries havent moved this old dame
 
 This old girl is a witness
@@ -395,6 +403,7 @@ Of Mummy, Daddy and me`
             },
             {
                 title: "For my friends",
+                image: "https://files.fm/thumb_show.php?i=mtmmxvtfjp",
                 body: `When the world seems stacked against me 
 When I'm all alone and blue
 I turn to you because I know
@@ -414,6 +423,7 @@ For all of you. Love always and forever. Sarah xxx`
             },
             {
                 title: "The park",
+                image: "https://files.fm/thumb_show.php?i=mtmmxvtfjp",
                 body: `I fancy a stroll to the park today
 A place full of sights and sounds i hold dear
 It fills my head full of memories
@@ -434,7 +444,7 @@ The seagulls swooping to grab a share
 The swans float along their effortless way
 A regal beauty beyond compare
 
-The icecream van serves it,s endless queue
+The icecream van serves it's endless queue
 Life seems to move at a slower pace
 I smile at the thought of my mother
 Wetting her hand to wipe clean my face
@@ -456,13 +466,13 @@ Like Cinderella and her midnight chime
 
 Children on swings. "Higher!" they shout
 Weary parents just want to sit down
-Checking the time "we,ll have to go soon!"
+Checking the time "we'll have to go soon!"
 Smiles slowly turning to frowns
 
 First time on two wheels for one little girl
 Finally free as her daddy lets go
 I remember that moment so clearly
-One of life,s stepping stones as we grow
+One of life's stepping stones as we grow
 
 Zip wires and water spouts. A bandstand unused
 A symbol of an age now gone by
@@ -471,14 +481,15 @@ Just how fast our time really does fly
 
 This happy scene fills my heart with joy
 Children smiling and laughing. No tears
-And one day i hope they,ll sit on this bench
+And one day i hope they'll sit on this bench
 And remember their own yesteryears`
             },
             {
-                title: "The football match ",
+                title: "The football match",
+                image: "https://files.fm/thumb_show.php?i=snqk76fxjk",
                 body: `Is anybody coming for me?
 Is this where my life will end?
-I,m only a lad. It,s not my time
+I'm only a lad. It's not my time
 Happier days are just round the bend
 
 How can you leave me here in this mud?
@@ -499,7 +510,7 @@ All aggression suddenly dimmed
 And then with both arms aloft
 A single soldier came over the top
 "Frohe Weihnacten" he said in a nervous voice
-"Frohe Weihnacten for one day let,s stop"
+"Frohe Weihnacten for one day let's stop"
 
 Then slowly his comrades began to appear
 Arms raised. They meant us no harm
@@ -511,7 +522,7 @@ Handshakes and cigarettes shared
 And photographs of our girls back home
 We were all human, We all knew we cared
 
-I got some chocolate. Oh the heaven of it,s taste
+I got some chocolate. Oh the heaven of it's taste
 Exchanged for a cigar or two
 Conversation and laughter. A smile and a wink
 Friendships forged as we shared a brew
@@ -537,22 +548,23 @@ You dont have time to stop and think
 Too busy to feel any fear
 
 But then you know. It burns so bad
-You know when you,ve been hit
+You know when you've been hit
 And you lie there and hope they dont see you
 The lads will fetch me back in a bit
 
 The winter sky is grey and white 
 The snowflakes cover my face
-It,s nearly time to say goodbye
+It's nearly time to say goodbye
 For my soul to leave this place
 
-I,ll leave it in the knowledge
-That there,s always another way
-I,ve made my peace with God and man
+I'll leave it in the knowledge
+There's always another way
+I've made my peace with God and man
 On this my dying day`
             },
             {
                 title: "Heaven",
+                image: "https://files.fm/thumb_show.php?i=q6q2m4t8k4",
                 body: `There is a place beyond the clouds
 Way above the moon and stars
 Where they take away your worries
@@ -573,12 +585,12 @@ Their days of pain all done
 Families complete again
 Joy for every daughter and son
 
-Mother,s arms are waiting
+Mother's arms are waiting
 With a perfect hug and kiss 
 Look into her beautiful eyes again
 Float in that moment of bliss 
 
-Hold your father,s hand again
+Hold your father's hand again
 Walk with him across the clouds
 Let perfect peace surroud you
 And know you made him proud
@@ -600,77 +612,86 @@ My angels are waiting for me`
             },
             {
                 title: "Ode to a cat",
+                image: "https://files.fm/thumb_show.php?i=mtmmxvtfjp",
                 body: `As the morning light creeps round the curtains
 I can hear you crawling out of your pit
-But i,m staying here till you,ve filled my bowl
-I,m a cat and i dont give a shit
+But i'm staying here till you've filled my bowl
+I'm a cat and i dont give a shit
 
 A stretch and a shake. Off to the tray
 Bury my business under mountains of grit
 Then watch with a smile as you trudge to the bin
-Hey i,m a cat. I dont give a shit
+Hey i'm a cat. I dont give a shit
 
 Out and about patrolling my beat
 Going anywhere and everywhere i see fit
 Using vegetable patches for a toilet
-Coz i,m a cat and i dont give a shit
+Coz i'm a cat and i dont give a shit
 
 Chasing mice or catching birds
 I might bring you a sparrow or a tit
-You,re always so damn ungrateful
-But i,m a cat and i dont give a shit
+You're always so damn ungrateful
+But i'm a cat and i dont give a shit
 
 How stupid are dogs? So many round here
 Every one of them a complete half wit
 Chasing cars and balls while i doze in the sun
 Us cats really dont give a shit
 
-I,ll stroll home for a while. Have a bite to eat
+I'll stroll home for a while. Have a bite to eat
 Might let you stroke my back for a bit
-Let you think i,m your best friend in the world
+Let you think i'm your best friend in the world
 When really i dont give a shit
 
 Sometimes i visit the lady next door
-She,s always good for a titbit
+She's always good for a titbit
 Sleep for an hour in front of her fire
-Dont care who,s house. Dont give a shit
+Dont care who's house. Dont give a shit
 
 She sits there and smiles at me. I lick my bits
-Sometimes she,ll sew or she,ll knit
+Sometimes she'll sew or she'll knit
 As the light fades i head back home again
 She really thinks i give a shit
 
 Oh you must be going out tonight
 Admiring yourself in a new outfit
-I,ll stay here then and guard the place
+I'll stay here then and guard the place
 Dont mind me i dont give a shit
 
 Another day dawns. Looks nice out there
-I find the spot on the floor that,s sunlit
+I find the spot on the floor that's sunlit
 A whole day to snooze and be lazy
 And practice not giving a shit
 
-I,m the same every day. I,ll never change
-You know i,m no hypocrite
-And maybe one day you,ll all realise
-That i,m a cat and i dont give a shit!`
+I'm the same every day. I'll never change
+You know i'm no hypocrite
+And maybe one day you'll all realise
+That i'm a cat and i dont give a shit!`
             }
         ];
 
         function renderGallery() {
             const container = document.getElementById('gallery');
-            container.innerHTML = poems.map((p, index) => `
-                <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
-                    <div class="tile-title">${p.title}</div>
-                </div>
-            `).join('');
+            container.innerHTML = poems.map((p, index) => {
+                const mediaHtml = p.image 
+                    ? `<img src="${p.image}" class="tile-img">`
+                    : `<div class="image-placeholder">Illustration for "${p.title}"</div>`;
+                
+                return `
+                    <div class="poem-tile" onclick="openPoem(${index})">
+                        ${mediaHtml}
+                        <div class="tile-title">${p.title}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openPoem(index) {
             const poem = poems[index];
             const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const imageHtml = poem.image ? `<img src="${poem.image}" class="poem-img-header">` : '';
+            
+            view.innerHTML = `${imageHtml}<h2>${poem.title}</h2><br>${poem.body}`;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
