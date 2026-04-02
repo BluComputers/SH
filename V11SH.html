@@ -11,14 +11,12 @@
             --text-dark: #2c3e50;
             --overlay-bg: #ffffff;
         }
-
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
             background-color: var(--volume-color);
         }
-
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -26,7 +24,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .poem-tile {
             background: white;
             border-radius: 12px;
@@ -35,12 +32,19 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
-
         .poem-tile:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
-
+        .tile-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; 
+            background-color: #fffafb;
+            margin-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            display: block;
+        }
         .image-placeholder {
             width: 100%;
             height: 200px;
@@ -52,7 +56,13 @@
             font-style: italic;
             border-bottom: 1px solid #eee;
         }
-
+        .poem-img-header {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
         .tile-title {
             padding: 20px;
             text-align: center;
@@ -60,7 +70,6 @@
             font-size: 1.1rem;
             color: var(--text-dark);
         }
-
         .poem-overlay {
             display: none;
             position: fixed;
@@ -74,7 +83,6 @@
             padding: 60px 20px;
             box-sizing: border-box;
         }
-
         .poem-content {
             max-width: 700px;
             margin: 0 auto;
@@ -84,7 +92,6 @@
             white-space: pre-line;
             color: #222;
         }
-
         .close-btn {
             position: fixed;
             top: 25px;
@@ -94,7 +101,6 @@
             color: var(--text-dark);
             font-weight: bold;
         }
-
         h2 { 
             margin-bottom: 30px; 
             color: var(--accent-pink); 
@@ -106,50 +112,51 @@
     </style>
 </head>
 <body>
-
     <div class="gallery" id="gallery"></div>
-
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
         <div id="full-poem-view" class="poem-content"></div>
     </div>
-
     <script>
         const poems = [
             {
-                title: "Little dandelion",
-                body: `Take my hand in dreams Brianna 
-Lead me through fields where dandelions grow 
-I'll pick a few and make a wish 
-Watch you fly with each gentle blow 
+                title: "Ode to the unwanted dick pic ",
+                image: "https://files.fm/thumb_show.php?i=cqkx6vq8zm",
+                body: `There's a willy in my inbox 
+And I thank my lucky stars
+Maybe he'll buy me jewellery 
+Perfume and fancy cars!
 
-Drift little dandelion drift 
-Carry your message on the wind 
-Into people's hearts and minds 
-Let them hear the song you sing 
+There's a willy in my inbox 
+I think I might be in love 
+How lucky am I to have a guy
+Sent by the angels up above!
 
-Float little dandelion float 
-Across rivers and oceans so wide 
-Spread your love throughout the world 
-Banish the hatred and turn the tide 
+There's a willy in my inbox 
+This one's hairy and quite ginger 
+I get them from all over the world 
+But most of them come from India !
 
-Dance little dandelion dance 
-By the light of the midnight moon 
-Our candles are lit in your memory 
-A beautiful soul taken too soon 
+There's a willy in my inbox 
+It's like finding buried treasure 
+I have to squint my eyes to see
+No need for the tape measure !
 
-Rest little dandelion rest 
-Under the tapestry of stars in the sky 
-Your happy smile is with us forever 
-The world is better because you stopped by 
+There's a willy in my inbox 
+Like Christmas chipolatas 
+I wonder what the main course is
+If this is just the starters!
 
-Grow little dandelion grow 
-Bring us hope that the future is bright 
-Reach for the sun with your petals of gold 
-Bathe us all in your beautiful light`
+There's a willy in my inbox 
+My whole world has been rocked
+I roll my eyes and look to the skies
+Guess what mate, you're blocked!
+
+Copyright ©️ Sarah Halligan 25`
             },
             {
                 title: "For dad",
+                image: "https://files.fm/thumb_show.php?i=sqw8zr46s2",
                 body: `I know how to hold my knife and fork
 Because you showed me how
 I know what sound the horses make
@@ -186,7 +193,8 @@ The one thing i really needed to know
 Just how do i live without you?`
             },
             {
-                title: "Ode to Bullseye ",
+                title: "Ode to Bullseye",
+                image: "https://files.fm/thumb_show.php?i=p55zuxg34h",
                 body: `After a busy afternoon of boozing
 Coming down from my Saturday high
 I love nothing better than watching
@@ -243,8 +251,8 @@ A chance to gamble, a chance to shine
 This is more than they'll ever earn
 
 Brenda goes first, she hits an 11
-11 again then 3. It's 25!
-"Graham it's 76 or more required
+11 again then 3. It's 25!"
+Graham it's 76 or more required
 To keep your dream alive
 
 Twenty. Twenty. And another 20!
@@ -258,7 +266,8 @@ Join us again next sunday
 You can't beat a bit of Bully!"`
             },
             {
-                title: "A thank you to my folks ",
+                title: "A thank you to my folks",
+                image: "https://files.fm/thumb_show.php?i=zuhsj9uvvt",
                 body: `Thank you for bringing me into this world
 Thank you for that first loving touch
 Thank you for shielding my newborn eyes
@@ -306,6 +315,7 @@ Thank you for being my folks`
             },
             {
                 title: "For Esther and Brianna",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `Is that you again Brianna?
 Dancing around in my head
 Is that you rustling my curtains?
@@ -348,6 +358,7 @@ Thank you so much for today`
             },
             {
                 title: "A year by the sea",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `Join me on a journey
 Come and share my balcony
 Let me paint for you a picture
@@ -400,6 +411,7 @@ As her wild white horses crash and roll`
             },
             {
                 title: "Rolled up paper",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `I know you slept really well last night 
 I know you felt safe in your bed
 I know you laughed as you threw
@@ -441,74 +453,13 @@ And when you reach your day of reckoning
 I know that he will be there`
             },
             {
-                title: "Blackpool!!",
-                body: `"First one to see the tower!"
-That's what dad said every time 
-I'd search the distant skyline 
-Just looking for any sign 
-
-Finally I see her standing tall 
-As she's done for a century and more 
-Welcoming the tourists to Blackpool 
-Where you're always left wanting more 
-
-Weekends with my folks were always a blast 
-Park the car and wait for a tram 
-Travel this age old golden mile 
-As I've done since those days in my pram 
-
-From the pleasure beach I can hear the terror 
-As the Big One thunders along 
-The happy screams of the funfair 
-Just one verse of the seaside song 
-
-The sound of bingo from the arcades 
-The ferris wheel slowly turns on the pier 
-An elderly couple walk hand in hand 
-Reliving their yester years 
-
-Look up at the tower and see the glass floor 
-I was scared I would fall right through 
-Happy memories watching the circus 
-Laughing at Mooky and Mr Boo 
-
-At night this place really comes alive 
-The winter months don't slow her down 
-Drive through the illuminations 
-The jewel in this old girls crown 
-
-Look for the trams all covered in lights 
-Paddle steamer, steam train and rocket 
-Children with spinning flashing toys 
-Parents digging deep in their pockets 
-
-As families depart to home or hotels 
-The nightlife takes over the town 
-The stag party boys singing their songs 
-The hen girls wearing their crowns 
-
-Police sirens wail, another fight in a pub 
-Another night out ends in a cell 
-Another busy night for our emergency angels 
-As the landlords ring the last bell 
-
-An old boy sleeps in a doorway 
-Sleeping bag covered in beer 
-The darker face of the seaside 
-No candy floss or kiss me quick here 
-
-Finally the drinkers wend their way home 
-They'll be back to do it all again next week 
-The tourists will come and the lights will shine 
-Towers to climb and thrills to seek
-
-As I leave the seaside and my memories behind 
-I see the donkeys being led to the shore 
-Another day begins in Blackpool 
-Where you're always left wanting more`
+                title: "New Poem Coming Soon",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
+                body: `"Coming Soon`
             },
             {
                 title: "Shoes",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `They marched in rows, dare not slow
 Fear etched across each face
 Men and women, children too
@@ -543,8 +494,8 @@ All we have left are shoes`
             },
             {
                 title: "Alice and Walter- a tale of love and loss",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `April 1939
-
 A crisp and bright Easter sunday morning 
 Walter dresses and combs his hair
 Off to church with his sister and parents
@@ -566,7 +517,6 @@ Just to be together, to lie in the sun
 Talk of the future and making plans
 
 September 1939
-
 The radio tells of war on the way
 How men must sign up to fight
 Alice had no one to turn to
@@ -583,7 +533,6 @@ Down to the beach and stare out to sea
 Please please come home to me"
 
 March 1940
-
 Six months had passed and still no word
 No letter from her love far away
 She didnt understand. He'd promised to write
@@ -595,7 +544,6 @@ Bring us all back together again
 For too long now we've been alone"
 
 April 1941
-
 A crisp and bright Easter sunday morning 
 Alice dresses and brushes her hair
 Off to church with her parents
@@ -612,7 +560,6 @@ He loved her right up to the end
 In her mind she had no doubt
 
 January 1945
-
 Alice wakes on her twenty first birthday
 To find her father sat by her bed
 "I hope one day you'll forgive me
@@ -635,18 +582,26 @@ Your loving Walter xx`
 
         function renderGallery() {
             const container = document.getElementById('gallery');
-            container.innerHTML = poems.map((p, index) => `
-                <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
-                    <div class="tile-title">${p.title}</div>
-                </div>
-            `).join('');
+            container.innerHTML = poems.map((p, index) => {
+                const mediaHtml = p.image 
+                    ? `<img src="${p.image}" class="tile-img">`
+                    : `<div class="image-placeholder">Illustration for "${p.title}"</div>`;
+                
+                return `
+                    <div class="poem-tile" onclick="openPoem(${index})">
+                        ${mediaHtml}
+                        <div class="tile-title">${p.title}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openPoem(index) {
             const poem = poems[index];
             const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const imageHtml = poem.image ? `<img src="${poem.image}" class="poem-img-header">` : '';
+            
+            view.innerHTML = `${imageHtml}<h2>${poem.title}</h2><br>${poem.body}`;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
