@@ -11,14 +11,12 @@
             --text-dark: #2c3e50;
             --overlay-bg: #ffffff;
         }
-
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
             background-color: var(--volume-color);
         }
-
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -26,7 +24,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .poem-tile {
             background: white;
             border-radius: 12px;
@@ -35,12 +32,19 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
-
         .poem-tile:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
-
+        .tile-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; 
+            background-color: #f8fbff;
+            margin-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            display: block;
+        }
         .image-placeholder {
             width: 100%;
             height: 200px;
@@ -52,7 +56,13 @@
             font-style: italic;
             border-bottom: 1px solid #eee;
         }
-
+        .poem-img-header {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
         .tile-title {
             padding: 20px;
             text-align: center;
@@ -60,7 +70,6 @@
             font-size: 1.1rem;
             color: var(--text-dark);
         }
-
         .poem-overlay {
             display: none;
             position: fixed;
@@ -74,7 +83,6 @@
             padding: 60px 20px;
             box-sizing: border-box;
         }
-
         .poem-content {
             max-width: 700px;
             margin: 0 auto;
@@ -84,7 +92,6 @@
             white-space: pre-line;
             color: #222;
         }
-
         .close-btn {
             position: fixed;
             top: 25px;
@@ -94,7 +101,6 @@
             color: var(--text-dark);
             font-weight: bold;
         }
-
         h2 { 
             margin-bottom: 30px; 
             color: var(--accent-blue); 
@@ -106,18 +112,16 @@
     </style>
 </head>
 <body>
-
     <div class="gallery" id="gallery"></div>
-
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
         <div id="full-poem-view" class="poem-content"></div>
     </div>
-
     <script>
         const poems = [
             {
-                title: "For the children of Ukraine ",
+                title: "For the children of Ukraine",
+                image: "https://files.fm/thumb_show.php?i=gnyh6mf9sg",
                 body: `If I could ask you to paint me a picture 
 Yellow sun and sea of blue 
 I'd proudly hang it on my wall 
@@ -150,6 +154,7 @@ As they come marching home to you`
             },
             {
                 title: "Hi daddy",
+                image: "https://files.fm/thumb_show.php?i=vpgf3cyvgf",
                 body: `Hi daddy did i do good?
 I slept the whole night through
 I know you need a good nights sleep
@@ -205,9 +210,9 @@ Did you forget where you left it again?
 I know it's been tough since mum went
 We're all swimming against the pain
 
-Hi dad it's me . Dont you remember?
+Hi dad it's me. Dont you remember?
 The little girl you rocked on your knee?
-Candles and wishes?. 2am phone calls?
+Candles and wishes? 2am phone calls?
 Look in to my eyes, cant you see?
 
 Hi daddy i'm whoever you want me to be
@@ -221,9 +226,9 @@ A father and daughter forever entwined
 In life, in death. Never apart`
             },
             {
-                title: "Albert's story part 2 ( see 145 for part 1)",
+                title: "Albert's story part 2",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `September 1st 1985
-
 Nearer my God to thee, nearer to thee
 Or if on joyful wing, cleaving the sky
 Sun, moon and stars forgot, upwards i fly
@@ -262,7 +267,7 @@ But against the ocean you feel so small
 As the grandkids run giggling up to the house
 Albert,s daughter walks with tears in her eyes
 "Haven't you seen the news dad?
-They,ve discovered where grandpa lies!"
+They've discovered where grandpa lies!"
 
 They gather round the old tv set
 Grainy film from the bottom of the sea
@@ -290,7 +295,8 @@ All that thou senses me in mercy given
 Angels to beckon me, nearer my God to thee`
             },
             {
-                title: "27 kingfisher street ",
+                title: "27 kingfisher street",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `Bedtime rolls round as it does every night
 The end of another day filled with pain
 I say my goodnights to my favourite star
@@ -358,10 +364,11 @@ Memories of my happiest years`
             },
             {
                 title: "A love story",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `Do you remember those long ago innocent days
 When there wasn't a care in our world?
 Two playmates together, a story begun
-A journey for a boy and a girl
+Dreaming as a boy and a girl
 
 Do you remember me closing my eyes so tight
 When you promised me that very first kiss?
@@ -430,10 +437,12 @@ I pray please let it be better than this`
             },
             {
                 title: "New poem coming soon",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `New poem coming soon`
             },
             {
                 title: "Black fish",
+                image: "https://files.fm/thumb_show.php?i=hnny9dn229",
                 body: `I am the young and frightened calf 
 I am at my mother's side 
 I am the future of my family 
@@ -475,7 +484,8 @@ I am reunited with my own kind
 I am Tilikum. I am finally free`
             },
             {
-                title: " I was there ",
+                title: "I was there",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `I was with you today when you woke from your dream
 I was lying there pulling you through
 I wiped away your morning tears
@@ -518,6 +528,7 @@ I wish i was here for me and you`
             },
             {
                 title: "If",
+                image: "https://files.fm/thumb_show.php?i=94kjma2cwz",
                 body: `If i could climb the highest mountain
 If i could reach out and touch the sky
 If i could see your face again
@@ -549,7 +560,8 @@ If i could persuade the angels
 If i could have one more day with you`
             },
             {
-                title: "For Brianna ",
+                title: "For Brianna",
+                image: "https://files.fm/thumb_show.php?i=uy9f5qyrx5",
                 body: `I feel like i've known you forever
 I cant get you out of my head 
 I want to give you your life back
@@ -567,7 +579,7 @@ All i have is my love to send
 
 As we stand in vigil to your memory
 You are the light of our candles gentle glow
-You dance in each of these flickering flames
+Your dance in each of these flickering flames
 For you this nation's tears will flow
 
 We'll see you in winter snowflakes
@@ -584,18 +596,26 @@ To the place where the angels fly`
 
         function renderGallery() {
             const container = document.getElementById('gallery');
-            container.innerHTML = poems.map((p, index) => `
-                <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
-                    <div class="tile-title">${p.title}</div>
-                </div>
-            `).join('');
+            container.innerHTML = poems.map((p, index) => {
+                const mediaHtml = p.image 
+                    ? `<img src="${p.image}" class="tile-img">`
+                    : `<div class="image-placeholder">Illustration for "${p.title}"</div>`;
+                
+                return `
+                    <div class="poem-tile" onclick="openPoem(${index})">
+                        ${mediaHtml}
+                        <div class="tile-title">${p.title}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openPoem(index) {
             const poem = poems[index];
             const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const imageHtml = poem.image ? `<img src="${poem.image}" class="poem-img-header">` : '';
+            
+            view.innerHTML = `${imageHtml}<h2>${poem.title}</h2><br>${poem.body}`;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
