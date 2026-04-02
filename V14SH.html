@@ -11,14 +11,12 @@
             --text-dark: #2c3e50;
             --overlay-bg: #ffffff;
         }
-
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
             background-color: var(--volume-color);
         }
-
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -26,7 +24,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .poem-tile {
             background: white;
             border-radius: 12px;
@@ -35,12 +32,19 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
-
         .poem-tile:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
-
+        .tile-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain; 
+            background-color: #f8fbff;
+            margin-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            display: block;
+        }
         .image-placeholder {
             width: 100%;
             height: 200px;
@@ -52,7 +56,13 @@
             font-style: italic;
             border-bottom: 1px solid #eee;
         }
-
+        .poem-img-header {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
         .tile-title {
             padding: 20px;
             text-align: center;
@@ -60,7 +70,6 @@
             font-size: 1.1rem;
             color: var(--text-dark);
         }
-
         .poem-overlay {
             display: none;
             position: fixed;
@@ -70,11 +79,9 @@
             height: 100%;
             background: var(--overlay-bg);
             z-index: 1000;
-            overflow-y: auto;
-            padding: 60px 20px;
+            overflow-y: auto;            padding: 60px 20px;
             box-sizing: border-box;
         }
-
         .poem-content {
             max-width: 700px;
             margin: 0 auto;
@@ -84,7 +91,6 @@
             white-space: pre-line;
             color: #222;
         }
-
         .close-btn {
             position: fixed;
             top: 25px;
@@ -94,7 +100,6 @@
             color: var(--text-dark);
             font-weight: bold;
         }
-
         h2 { 
             margin-bottom: 30px; 
             color: var(--accent-blue); 
@@ -106,18 +111,16 @@
     </style>
 </head>
 <body>
-
     <div class="gallery" id="gallery"></div>
-
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
         <div id="full-poem-view" class="poem-content"></div>
     </div>
-
     <script>
         const poems = [
             {
-                title: "A year without you ",
+                title: "A year without you",
+                image: "https://files.fm/thumb_show.php?i=unxvbwgyex",
                 body: `Happy new year. A hug and a kiss
 Another mountain for me to climb
 Twelve more months of missing you
@@ -130,13 +133,13 @@ Along with the happy days we all had
 
 Daffodils sway in the springtime breeze
 Just like you their brief life brings such joy
-Soon they,ll be gone. Until next year
+Soon they'll be gone. Until next year
 But my memories no one can destroy
 
 Easter is here. Egg hunts and chocolate
 Tales of a man who came back from the dead
 But for me i know i wont see you again
-Till it,s my turn to rest my head 
+Till it's my turn to rest my head 
 
 The late spring sunshine glints off the sea
 Children finally return to the beach
@@ -151,14 +154,14 @@ How i miss you in so many ways
 July brings tears that fall like the rain
 As i journey to your paradise home
 Those precious few days spent with you
-The most beautiful person i,ve ever known
+The most beautiful person i've ever known
 
 The warm August evenings stir my happiest memories
 Endless summers as a child spent with you
 My playmate, big sister, best friend and guide
 It felt like the whole world was only us two
 
-The days grow shorter. There,s a chill in the air
+The days grow shorter. There's a chill in the air
 Late summer is fading away
 The darkness of autumn. The leaves are my tears
 I yearn for you day after day
@@ -171,7 +174,7 @@ Arranging this and planning that
 Children look to the heavens as the fireworks crackle
 Eyes wide with wonder and glee
 I do the same but my reason
-Is to search for a sign just for me
+To search for a sign just for me
 
 And now as the year comes to its end
 I wipe my tears and blow a kiss to your star
@@ -179,7 +182,8 @@ I will carry you with me forever
 Merry Christmas mum. Wherever you are`
             },
             {
-                title: " Ignorance acrostic",
+                title: "Ignorance acrostic",
+                image: "https://files.fm/thumb_show.php?i=m2erqr8b8e",
                 body: `I will hold my head up high
 I will walk proudly down your street
 I will wear my favourite dress
@@ -232,6 +236,7 @@ Until my dying day`
             },
             {
                 title: "Unconditional love",
+                image: "https://files.fm/thumb_show.php?i=m2erqr8b8e",
                 body: `I remember gazing into your newborn eyes 
 The overwhelming pride and joy 
 I promised to love you forever 
@@ -264,15 +269,16 @@ My beautiful baby girl`
             },
             {
                 title: "Moon tale",
+                image: "https://files.fm/thumb_show.php?i=mww83znvet",
                 body: `"Grandad! Grandad! tell us the moon story!
 Tell us about your dad in the war
-We know we,ve heard it many times
+We know we've heard it many times
 But please tell us just once more"
 
 Well i was six years old when war came
 Up to then i knew no pain or fear
-But i remember the look on my father,s face
-As he wiped away my mother,s tears
+But i remember the look on my father's face
+As he wiped away my mother's tears
 
 That night as he sat on the edge of my bed
 We both looked at the moon shining bright
@@ -292,27 +298,27 @@ Tried to hold my own tears at bay
 As the train pulled away he shot me a wink
 "Remember to look for the moon!"
 I waved till the last carriage was out of sight
-Now just hope that i,d see him again soon
+Now just hope that i'd see him again soon
 
-I held mother,s hand as we trudged home that day
+I held mother's hand as we trudged home that day
 Both lost in our own thoughts and fears
-The house seemed so empty without father,s laugh
-Just sadness , lonliness and tears
+The house seemed so empty without father's laugh
+Just sadness, lonliness and tears
 
 Mother gave me a picture of father to keep
 And i placed it at the side of my bed
 Each night as i prayed i held it close to my heart 
-And remembered the words that he,d said
+And remembered the words that he'd said
 
 Then before i finally turned out the light
-I,d look to the moon and make a wish
+I'd look to the moon and make a wish
 "Bring them all safely back to us"
-Sent on it,s way with a kiss
+Sent on it's way with a kiss
 
 I would hear mother crying herself to sleep
 I felt so helpless. We missed him so much
 I tried so hard to make her happy
-All she wanted was father,s touch
+All she wanted was father's touch
 
 Weeks turned to months. Months to a year
 Just one letter to say he was well
@@ -332,7 +338,7 @@ That just maybe this war might be won
 I remember the last night so clearly
 Said my prayers to the light of the moon
 Closed my eyes as tight as can be
-Hoped i,d wake to a happier tune
+Hoped i'd wake to a happier tune
 
 And then as the sun kissed me gently awake
 I looked out of my window to see
@@ -356,14 +362,15 @@ How the moon brought father home from the war`
             },
             {
                 title: "Do You Remember?",
+                image: "https://files.fm/thumb_show.php?i=m2erqr8b8e",
                 body: `Do you remember that safe feeling
-Wrapped in your mother,s arms
+Wrapped in your mother's arms
 Do you remember always knowing
 She would keep you safe from harm
 
 Do you remember bedtime stories
 How you fought against the sleep
-Do you remember mother,s parting kiss
+Do you remember mother's parting kiss
 And taking that sneaky peep
 
 Do you remember the morning walk to school
@@ -374,10 +381,10 @@ And avoiding all the cracks
 Do you remember the days you were home and ill
 And the medecine you had to endure
 Do you remember the shouts from the playground
-And the morning,s miracle cure
+And the morning's miracle cure
 
 Do you remember the excitement of Christmas
-Creeping downstairs in the dawn,s early light
+Creeping downstairs in the dawn's early light
 Do you remember how happy you were that day
 The future seemed happy and bright
 
@@ -387,7 +394,7 @@ Do you remember the tears on your pillow
 The texts you typed but didnt send
 
 Do you remember the day you flew the nest
-The first time you,d seen your dad cry
+The first time you'd seen your dad cry
 Do you remember trying not to look back
 As you waved your last goodbye
 
@@ -402,7 +409,7 @@ Do you remember being back in your room
 Left just as it was before
 
 Do you remember thinking it all went too fast
-How you,d love to be little again
+How you'd love to be little again
 Do you remember those blissful early days
 Free from sadness and pain
 
@@ -413,6 +420,7 @@ Etched in my mind as my tears gently fall`
             },
             {
                 title: "The very naughty parrot",
+                image: "https://files.fm/thumb_show.php?i=3s3vueqj3n",
                 body: `Margaret and Dave were a happy couple
 He worked and she ran the home
 Two beautiful teenage daughters
@@ -438,15 +446,15 @@ A man appeared from behind a screen
 And there on the counter proud on his perch
 A beautiful bird with plumage of green
 
-"Oh he,s handsome" Margaret said to the man with a smile 
-"Dont be fooled madam. He,s really not cute
+"Oh he's handsome" Margaret said to the man with a smile 
+"Dont be fooled madam. He's really not cute
 This is a foul mouthed parrot
 Rescued from a house of ill repute!"
 
-"Oh nonsense i,ll take him" came Margaret,s reply
+"Oh nonsense i'll take him" came Margaret's reply
 And off she went home on the bus
 Excited to show all the family
-She knew they,d all make such a fuss
+She knew they'd all make such a fuss
 
 As she carried the cage through the front door
 The parrot began to shriek
@@ -474,7 +482,7 @@ The bird flapped his wings and looked her up and down
 "Nice pair! Nice pair! Nice pair!"
 
 The girls sat and laughed at this very naughty bird
-First time they,d smiled since losing Bob
+First time they'd smiled since losing Bob
 And all agreed "Dads going to love him
 When he comes home tonight from his job"
 
@@ -485,10 +493,11 @@ The parrot took one look at dad and exclaimed
             },
             {
                 title: "Child with no voice",
+                image: "https://files.fm/thumb_show.php?i=m2erqr8b8e",
                 body: `Why did you leave me screaming
 When it annoyed you oh so much
 Why didnt you just cuddle me
-We could,ve shared a touch
+We could've shared a touch
 
 Why did you leave me hungry
 My empty stomach in such pain
@@ -496,7 +505,7 @@ Why didnt we play a little game
 Pretend it was a train
 
 Why did you lock me in cupboards
-When you know i,m afraid of the dark
+When you know i'm afraid of the dark
 Why didnt we go out for the day
 To the beach or maybe the park
 
@@ -506,23 +515,23 @@ I wanted you to whisper my name
 And hear the stories you had to tell
 
 Why did you screw up my homework
-When you knew it couldn,t  be late
+When you knew it couldn't be late
 I looked to you for knowledge
 But all i got was hate
 
 Why did you hit me all those times
-When you knew i couldn,t hit back
+When you knew i couldn't hit back
 When all i wanted was to be loved
-And walk in my parent,s tracks
+And walk in my parent's tracks
 
 Why did you lock me away at night
 In my room so cold and so damp
-When all i wanted was a story
+All i wanted was a story
 And the gentle glow of a lamp
 
 Why did you suddenly love me
 When family came round to call
-When they,d gone you,d instantly hate me
+When they'd gone you'd instantly hate me
 Sent me back to feeling so small
 
 Why did you send me outside
@@ -545,13 +554,14 @@ As you sit behind your bars
 Maybe one night you should look up
 And stare into the stars
 
-Why cant you see i,m safe now
+Why cant you see i'm safe now
 Away from your evil hand
-I,m somewhere you will never be
+I'm somewhere you will never be
 Flying free in the promised land`
             },
             {
-                title: "Alfie and Molly- a never ending love",
+                title: "Alfie and Molly",
+                image: "https://files.fm/thumb_show.php?i=vgm8gusz2a",
                 body: `A red carnation in a button hole
 Hearts full of love so true
 Two lives entwined forever
@@ -560,7 +570,7 @@ Old, new, borrowed and blue
 The suit hangs from the wardrobe door
 Alfie smiles as he lies in his bed
 Today he and Molly will finally be one
-This is the day they,ll be wed
+This is the day they'll be wed
 
 His mind races back to those childhood days
 Ten years old when he asked for her hand
@@ -580,7 +590,7 @@ But still her answer was no
 "Come back to me Alfie when the war is won
 When all the fighting is through
 March back to my arms my soldier brave
-And then i,ll marry you"
+And then i'll marry you"
 
 And now the day is finally here
 He puts on the suit so smart
@@ -588,8 +598,8 @@ Tie and handkerchief just right
 Ready for a new life to start
 
 Alfie has one final look in the mirror
-Smells the carnation,s gentle bouquet
-"I,m coming to get you Molly my love
+Smells the carnation's gentle bouquet
+"I'm coming to get you Molly my love
 Nothing will stand in our way"
 
 A bus ride to church he meets his friend Jack 
@@ -605,7 +615,7 @@ From under her veil a gentle smile
 Rings exchanged now hand in hand
 They walk out to rice and a cheer
 Alfie whispers "thank you" to his new bride
-Jack tells everyone "it,s time for a beer!"
+Jack tells everyone "it's time for a beer!"
 
 As this beautiful day draws to its close
 Two young lovers locked together in a dance
@@ -615,30 +625,31 @@ Grateful they both took the chance
 "The night seemed to fade into blossoming dawn 
 The sun shone anew but the dance lingered on
 Could we but recall that sweet moment sublime
-We,d find that our love is unaltered by time".......
+We'd find that our love is unaltered by time".......
 
 A hand on his shoulder makes Alfie jump
 As the landlord wakes him from his trance
-"Come on old timer it,s closing time!"
+"Come on old timer it's closing time!"
 The newlyweds have danced their last dance
 
 Alfie wanders home to a dark lonely house
-Sits for a while in Molly,s chair
+Sits for a while in Molly's chair
 He wasnt ready for this moment
-For the day when she,s no longer there
+For the day when she's no longer there
 
-For tomorrow he,ll lay sweet Molly to rest
+For tomorrow he'll lay sweet Molly to rest
 After seventy years at her side
-And he,ll whisper "thank you Molly my love"
+And he'll whisper "thank you Molly my love"
 Through tears of sadness and pride
 
-And he,ll wear the carnation in his button hole
+And he'll wear the carnation in his button hole
 A heart full of love so true
 Two lives entwined forever
 Old, new, borrowed and blue`
             },
             {
-                title: "Leo and the poppy man part 2( see 159 for part 1)",
+                title: "Leo and the poppy man part 2",
+                image: "https://files.fm/thumb_show.php?i=m2erqr8b8e",
                 body: `Four years had rolled by since Leo looked into the eyes
 Of the poppy man outside his school
 Generations bridged through heartbreak
@@ -661,18 +672,18 @@ Try and love the demons away
 
 Then one day it happened. George wasnt there
 The lollipop lady looked sad
-"He,s in the hospital Leo my love
+"He's in the hospital Leo my love
 Had a fall and it looks pretty bad"
 
 Leo ran home and sobbed to his mum
 Off to visit with grapes and flowers
-"We,re friends of the family. Is he alright?"
+"We're friends of the family. Is he alright?"
 Left to wonder and pray for hours
 
 As the hours passed and turned into days
 Leo sat and chatted away
 Tried to remind old George of the time
-He,d chased his nightmares away
+He'd chased his nightmares away
 
 "Do you remember George? You helped so much
 You taught me to smile again
@@ -684,9 +695,9 @@ Every day. No family came
 Then one day Leo heard
 A whispered voice call out his name
 
-"I,m still here lad. Not ready to go yet
+"I'm still here lad. Not ready to go yet
 I cant face those lads that we lost
-I,ve had ninety five years. A good life
+I've had ninety five years. A good life
 I havent paid my dues or the cost
 
 Those boys died for me and they died for you
@@ -705,19 +716,19 @@ Time to nip home and fetch
 Something she hadnt seen in a while
 
 As she returned she held him tight
-"I,m so proud of you my son
-You,re only ten but somehow you know
+"I'm so proud of you my son
+You're only ten but somehow you know
 Just what needs to be done"
 
 George fell asleep one final time
 Leo sat with his hero till the end
-Placed the poppy in George,s hand
+Placed the poppy in George's hand
 A parting gift from a grateful friend
 
 "Carry it with you George" he said
 "Wear it proudly as you meet your mates
 Run into their arms one more time
-As they greet you at heaven,s gates
+As they greet you at heaven's gates
 
 And if you see my dad up there
 Please send to him my love
@@ -726,6 +737,7 @@ Thanks to our heroes up above"`
             },
             {
                 title: "For Our Queen",
+                image: "https://files.fm/thumb_show.php?i=msqawx9vpk",
                 body: `You were a light in the after war years
 You were one of a precious pair
 You were born to unknown destiny
@@ -743,16 +755,16 @@ You were their strength and their stay
 
 You were the answer as a nation mourned
 You were ready despite your grief
-You were in your father,s footsteps
-You were a grateful country,s chief
+You were in your father's footsteps
+You were a grateful country's chief
 
 You were blessed to find the love of your life
 You were forever entwined in your hearts
 You were a playful smile to each other
 You were a team till death pulled you apart
 
-You were a daughter , a sister and mother
-You were a constant in this nation,s life
+You were a daughter, a sister and mother
+You were a constant in this nation's life
 You were there for all the happy times
 You were there for the trouble and strife
 
@@ -761,7 +773,7 @@ You were our toast on your jubilee
 You were the happy street parties
 You were a bringer of unity
 
-You were the twinkle in this nation,s eye
+You were the twinkle in this nation's eye
 You were the humour we loved so much
 You were still that cheeky little girl
 You were blessed with a gentle touch
@@ -773,25 +785,33 @@ You were surrounded by all our love
 
 You were always there for all of us
 You were a monarch like no one has seen
-You were our nation,s mother
+You were our nation's mother
 You were our Elizabeth, our Lilibet our Queen`
             }
         ];
 
         function renderGallery() {
             const container = document.getElementById('gallery');
-            container.innerHTML = poems.map((p, index) => `
-                <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
-                    <div class="tile-title">${p.title}</div>
-                </div>
-            `).join('');
+            container.innerHTML = poems.map((p, index) => {
+                const mediaHtml = p.image 
+                    ? `<img src="${p.image}" class="tile-img">`
+                    : `<div class="image-placeholder">Illustration for "${p.title}"</div>`;
+                
+                return `
+                    <div class="poem-tile" onclick="openPoem(${index})">
+                        ${mediaHtml}
+                        <div class="tile-title">${p.title}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openPoem(index) {
             const poem = poems[index];
             const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const imageHtml = poem.image ? `<img src="${poem.image}" class="poem-img-header">` : '';
+            
+            view.innerHTML = `${imageHtml}<h2>${poem.title}</h2><br>${poem.body}`;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
