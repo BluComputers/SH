@@ -6,8 +6,8 @@
     <title>Poetry Collection - Volume 17</title>
     <style>
         :root {
-            --volume-color: #e3f2fd; /* Light blue for Volume 17 */
-            --accent-blue: #1976d2;
+            --volume-color: #fdf2f0; /* Soft Terracotta tint for Volume 17 */
+            --accent-clay: #a0522d;
             --text-dark: #2c3e50;
             --overlay-bg: #ffffff;
         }
@@ -41,18 +41,22 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
 
-        .image-placeholder {
+        .tile-img {
             width: 100%;
             height: 200px;
-            background: #bbdefb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #0d47a1;
-            font-style: italic;
-            border-bottom: 1px solid #eee;
-            text-align: center;
-            padding: 10px;
+            object-fit: contain; 
+            background-color: #fcf9f8;
+            margin-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            display: block;
+        }
+
+        .poem-img-header {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
         }
 
         .tile-title {
@@ -99,7 +103,7 @@
 
         h2 { 
             margin-bottom: 30px; 
-            color: var(--accent-blue); 
+            color: var(--accent-clay); 
             font-size: 2.2rem;
             border-bottom: 2px solid var(--volume-color);
             display: inline-block;
@@ -120,6 +124,7 @@
         const poems = [
             {
                 title: "Anne Frank",
+                image: "https://files.fm/thumb_show.php?i=ea8p9j2pm3",
                 body: `Imagine a book case
 Full of wondrous tales
 Volumes of adventures
@@ -127,7 +132,7 @@ Of dragons and mighty whales
 
 Stories about giants
 And the world below the sea
-Pirate,s buried treasure
+Pirate's buried treasure
 The princess and the pea
 
 But this bookcase hides a secret
@@ -166,8 +171,8 @@ How she dreams of freedom
 How she prays for that day
 
 And she writes about her fears
-How one day they,ll take her away
-To a hell on earth. She,ll meet her end
+How one day they'll take her away
+To a hell on earth. She'll meet her end
 Before her sixteenth birthday
 
 For two whole years she hides away
@@ -185,7 +190,7 @@ A snapshot from the past
 A look inside an evil world
 That thankfully didnt last
 
-And Anne i,m truly sorry
+And Anne i'm truly sorry
 For the evil that men do
 Your light will burn forever
 Your love keeps shining through
@@ -202,6 +207,7 @@ Innocent and beautiful Anne Frank`
             },
             {
                 title: "A road trip with my dad",
+                image: "https://files.fm/thumb_show.php?i=m2erqr8b8e",
                 body: `I’m going to make a pilgrimage,
 A road trip with my dad;
 Through valleys filled with memories
@@ -293,7 +299,8 @@ We head home through valleys filled with memories
 Of happy times we had.`
             },
             {
-                title: "12 months ",
+                title: "12 months",
+                image: "https://files.fm/thumb_show.php?i=m2erqr8b8e",
                 body: `Every morning I sit on this balcony,
 Sipping a coffee or two;
 And every day my mind is drawn
@@ -381,6 +388,7 @@ I’m blessed to be travelling with you. x`
             },
             {
                 title: "A few thank you's",
+                image: "https://files.fm/thumb_show.php?i=m2erqr8b8e",
                 body: `Imagine if you won an award,
 You’d have to make a speech;
 Stand up there and be sincere,
@@ -431,7 +439,7 @@ Thank you for reading my rants;
 Thanks for the all-night Saturdays,
 And thanks for the football bants.
 
-Thanks for the d**k pics I struggle to see,
+Thanks for the pics I struggle to see,
 Thank you for reading my rhymes;
 Thank you for real friends who have my back,
 Thanks for my happiest times.
@@ -463,30 +471,31 @@ And thank you that I’m here.`
             },
             {
                 title: "Hillsborough",
+                image: "https://files.fm/thumb_show.php?i=rce3estbv6",
                 body: `I remember standing by the window
-Waiting for dad,s key in the latch
+Waiting for dad's key in the latch
 Did he get those precious tickets?
 Are we going to the match?
 
 Then his head round the door, a beaming smile
-"Guess what i,ve got!" he said with a grin
+"Guess what i've got!" he said with a grin
 Then lifted me high with a hug and a kiss
-"We,re going to watch the boys win!"
+"We're going to watch the boys win!"
 
 Football days with my dad they brought us so close
 The reds were our life and our soul
 This one was going to be special
 Wembley way was our ultimate goal
 
-A day trip to Sheffield to watch Kenny,s team
+A day trip to Sheffield to watch Kenny's team
 A hug from mum as we got on our way
-"See you tonight mam after we,ve won!"
-"Look after each other" she,d say
+"See you tonight mam after we've won!"
+"Look after each other" she'd say
 
 We sang all the songs as we drove along
 Tried to guess who the scorers would be
 Dad said Barnsey and Beardsley will get one each
-I said it,ll be Aldridge for three
+I said it'll be Aldridge for three
 
 Nottingham Forest our foe today
 Giants of Europe like us
@@ -494,16 +503,16 @@ Watching the players warm up on the pitch
 Dont feel safe. People starting to push
 
 Dad drifting away. I reach for his hand
-We touch fingers and then he,s gone
-I,m lifted up by strangers, dont know where i am
+We touch fingers and then he's gone
+I'm lifted up by strangers, dont know where i am
 Suddenly feel so alone
 
-I feel like i,m floating. Carried aloft
+I feel like i'm floating. Carried aloft
 Safe outside free from fear and pain
 Then i hear my name. A familiar voice
-And i,m safe in his arms again
+And i'm safe in his arms again
 
-I was 10 years old then. I,m 42 now
+I was 10 years old then. I'm 42 now
 Those memories are as clear as the day
 And i know just how lucky we were
 The ultimate price we didnt pay
@@ -523,7 +532,7 @@ Some who were there just deny
 But Liverpool knows the truth
 And her 97 angels will fly
 
-They,ll fly for justice and they,ll fly for truth
+They'll fly for justice and they'll fly for truth
 And one day the truth will come out
 And Yorkshire policemen with folded arms
 Will be left without any doubt
@@ -533,8 +542,8 @@ And this football club marches on
 In memory of supporters
 Who were here but now are gone
 
-I,m honoured i was in that place on that day
-With the 97. I was a child. Now i,ve grown
+I'm honoured i was in that place on that day
+With the 97. I was a child. Now i've grown
 And i carry their eternal memory
 They will never walk alone
 
@@ -542,6 +551,7 @@ JF97 YNWA`
             },
             {
                 title: "My Scotland the Brave",
+                image: "https://files.fm/thumb_show.php?i=awt59hs4r2",
                 body: `You are a place that lives in my heart
 You are a place that i think of each day
 You are my childhood memories
@@ -594,6 +604,7 @@ You are my Scotland. My Scotland the brave`
             },
             {
                 title: "Hela's last winter",
+                image: "https://files.fm/thumb_show.php?i=g3tzdk9kx7",
                 body: `September 1942
 My name is Hela. A name that means hope
 Tattoo number 294533
@@ -604,7 +615,7 @@ My homeland invaded by hate
 Faceless imposters, wicked and cruel
 They will decide my fate
 I am writing this so the world will know
-What mankind can do to it,s own
+What mankind can do to it's own
 A fourteen year old girl alone in this place
 I am nothing now but skin and bone
 What year is this? What day? What time?
@@ -613,7 +624,7 @@ Read my words if you find this
 See what we had to endure
 
 October 1942
-It,s always still dark when they wake us
+It's always still dark when they wake us
 We rise to the sound of the gong
 Wait in line for a cold water wash
 Blows rain down to rush us along
@@ -630,7 +641,7 @@ November 1942
 I work in the timber yard from dawn to dusk
 Chopping logs for fires we cant see
 Keeping our captors warm and happy
-Trying to remember what it,s like to be free
+Trying to remember what it's like to be free
 Mouldy bread for supper. Eat just a little
 Save some for morning. Hide it away
 Then evening roll call. Can hardly stand up
@@ -640,7 +651,7 @@ December 1942
 From my dormitory window i see them arrive
 Thousands come every day to this place
 Mothers and children walk hand in hand
-Fear etched on each little one,s face
+Fear etched on each little one's face
 The stench of death is everywhere
 It sticks to you like tar
 The dead are lucky. Spirits set free
@@ -661,12 +672,12 @@ Then you thank them for your punishment
 Bow your head to them as you depart
 
 February 1943
-This winter is endless. I,m cold to my bones
-How i,m still alive i do not know
+This winter is endless. I'm cold to my bones
+How i'm still alive i do not know
 Sleep brings no relief. Best to keep moving
 Try to brace against cold winds that blow
-My time is coming. I sense that it,s near
-And i,m ready to take God,s hand
+My time is coming. I sense that it's near
+And i'm ready to take God's hand
 Bring me to you oh Lord. End this pitiful life
 Carry me to the promised land
 When you find my diary please tell the world
@@ -678,10 +689,11 @@ March 1943
 My name is Hela. A name that means hope
 It was all i had and now it is no more
 They are here. It is time. My words at an end
-Mother and Father await me at heaven,s door`
+Mother and Father await me at heaven's door`
             },
             {
                 title: "If I Could",
+                image: "https://files.fm/thumb_show.php?i=6shnd393c2",
                 body: `If i could change perceptions
 I promise i would try
 I'd open eyes and minds and hearts
@@ -724,7 +736,7 @@ Free from hate and pain
 
 If i could guide you through the darkness
 I'd shine my light so bright
-Carry you home along life's,s roads
+Carry you home along life's roads
 Hold your hand so tight
 
 If i could write a song for you
@@ -745,7 +757,8 @@ I send to each of you a kiss x
 Love Sarah xx💙🩷💙🩷`
             },
             {
-                title: "Leo and the poppyman part 1( see 139 for part 2)",
+                title: "Leo and the poppyman part 1",
+                image: "https://files.fm/thumb_show.php?i=m2erqr8b8e",
                 body: `Leo wakes from another sad dream
 The one where he cant find his dad
 Wipes away tears. Cant upset mum
@@ -756,22 +769,22 @@ Down to breakfast he goes with a smile
 Mum looks tired today. He gives her a hug
 She hasnt slept in such a long while
 
-Leo,s dad was a soldier in a far away land
+Leo's dad was a soldier in a far away land
 A hero to all that he knew
 But heroes dont always make it back home
 Sometimes they dont make it through
 
 He remembers the day that his daddy came home
-In a cargo plane,s dark lonely hold
+In a cargo plane's dark lonely hold
 Then carried aloft by six comrades
 The best of the brave and the bold
 
 Hat and gloves on for the walk to school
-Holding hands against November,s chill
+Holding hands against November's chill
 Mum doesnt speak. People just smile
 Feels like time is standing still 
 
-Across from the school there,s a man in a wheelchair
+Across from the school there's a man in a wheelchair
 An old boy with medals so bright
 Leo wants to talk. Mum says "no time"
 All day he remembers that sight
@@ -779,7 +792,7 @@ All day he remembers that sight
 The old man is there again at hometime
 Mum chats. Leo seizes his chance
 Wanders across, smiles and says "hi"
-There,s a sparkle in the old hero,s glance
+There's a sparkle in the old hero's glance
 
 "You look a bit sad young man, are you ok?"
 Leo tells him how daddy didnt come home
@@ -789,7 +802,7 @@ Let me tell you where all heroes roam
 These poppies i sell remind of a time
 That men fought for kids just like you
 For freedom so precious. Against evil we stood
-And now we are left but a few
+Now we are left but a few
 
 I remember so clearly good mates at my side
 And i remember them fall by the way
@@ -798,13 +811,13 @@ Just like your dad did day after day
 
 Each year in November i sit on this street
 And i cry for the lads that were lost
-But they died for a reason and i,ll never forget
+But they died for a reason and i'll never forget
 How many paid the ultimate cost
 
 So here lad take two poppies. Pin one on your chest
 The other one keep for your dad
 Put it under your pillow each night when you rest
-It,ll get you through nights when you,re sad"
+It'll get you through nights when you're sad"
 
 "Can you make my mummy happy again?
 Can you put the smile back in its place?
@@ -813,8 +826,8 @@ And the sparkle in her beautiful face"
 
 "She just needs time Leo" the old man said
 "And hugs from her brave little man
-Together you,ll get there. Lean on each other
-And one day you,ll see that you can"
+Together you'll get there. Lean on each other
+And one day you'll see that you can"
 
 The two heroes hugged. "Thanks for the chat!"
 Now he knew what had to be done
@@ -828,6 +841,7 @@ Thanks to a friend and a poppy under his pillow`
             },
             {
                 title: "Aberfan",
+                image: "https://files.fm/thumb_show.php?i=m2erqr8b8e",
                 body: `Where the daisies grow on Merthyr hill
 Over the valley where children ran
 One hundred and sixteen angels
@@ -900,30 +914,38 @@ The heartbreaking words the card read
 
 Fifty nine years have passed since that day
 Blame now forgotten. Pointless. Old news
-But the ones who were left, the few who survived
+The ones who were left, the few who survived
 Are still paying the ultimate dues
 
-Now the blackness is gone and the daisies  grow free
+Now the blackness is gone and the daisies grow free
 Children play where the lost ones once ran
-And one hundred and sixteen angels 
-Still shine down on Aberfan`
+One hundred and sixteen angels 
+Shine down on Aberfan`
             }
         ];
 
         function renderGallery() {
             const container = document.getElementById('gallery');
-            container.innerHTML = poems.map((p, index) => `
-                <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
-                    <div class="tile-title">${p.title}</div>
-                </div>
-            `).join('');
+            container.innerHTML = poems.map((p, index) => {
+                const mediaHtml = p.image 
+                    ? `<img src="${p.image}" class="tile-img">`
+                    : `<div class="image-placeholder">Illustration for "${p.title}"</div>`;
+                
+                return `
+                    <div class="poem-tile" onclick="openPoem(${index})">
+                        ${mediaHtml}
+                        <div class="tile-title">${p.title}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openPoem(index) {
             const poem = poems[index];
             const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const imageHtml = poem.image ? `<img src="${poem.image}" class="poem-img-header">` : '';
+            
+            view.innerHTML = `${imageHtml}<h2>${poem.title}</h2><br>${poem.body}`;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
