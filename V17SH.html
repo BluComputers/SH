@@ -6,61 +6,60 @@
     <title>Poetry Collection - Volume 18</title>
     <style>
         :root {
-            --volume-color: #fce4ec; /* Light pink for Volume 18 */
-            --accent-pink: #d81b60;
-            --text-dark: #2c3e50;
+            --volume-bg: #fff5f6; 
+            --tile-bg: #ffffff;
+            --accent-rose: #d81b60;
+            --text-main: #2c3e50;
             --overlay-bg: #ffffff;
+            --placeholder-color: #fce4ec;
         }
 
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
-            background-color: var(--volume-color);
+            background-color: var(--volume-bg);
+            color: var(--text-main);
         }
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1250px;
+            margin: 40px auto;
         }
 
         .poem-tile {
-            background: white;
-            border-radius: 12px;
+            background: var(--tile-bg);
+            border-radius: 15px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 20px rgba(216, 27, 96, 0.08);
+            display: flex;
+            flex-direction: column;
         }
 
         .poem-tile:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(216, 27, 96, 0.15);
         }
 
-        .image-placeholder {
+        .tile-img {
             width: 100%;
-            height: 200px;
-            background: #f8bbd0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #880e4f;
-            font-style: italic;
-            border-bottom: 1px solid #eee;
-            text-align: center;
-            padding: 10px;
+            height: 220px;
+            object-fit: contain;
+            background-color: #fff;
+            border-bottom: 1px solid #f0f0f0;
         }
 
         .tile-title {
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             font-weight: bold;
-            font-size: 1.1rem;
-            color: var(--text-dark);
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
         }
 
         .poem-overlay {
@@ -71,39 +70,52 @@
             width: 100%;
             height: 100%;
             background: var(--overlay-bg);
-            z-index: 1000;
+            z-index: 2000;
             overflow-y: auto;
-            padding: 60px 20px;
-            box-sizing: border-box;
-        }
-
-        .poem-content {
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: center;
-            line-height: 1.8;
-            font-size: 1.3rem;
-            white-space: pre-line;
-            color: #222;
+            padding: 80px 20px;
         }
 
         .close-btn {
             position: fixed;
-            top: 25px;
-            right: 35px;
-            font-size: 2.5rem;
+            top: 20px;
+            right: 40px;
+            font-size: 3rem;
             cursor: pointer;
-            color: var(--text-dark);
-            font-weight: bold;
+            color: var(--accent-rose);
+            line-height: 1;
+            z-index: 2100;
         }
 
-        h2 { 
-            margin-bottom: 30px; 
-            color: var(--accent-pink); 
-            font-size: 2.2rem;
-            border-bottom: 2px solid var(--volume-color);
+        .poem-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .poem-body {
+            white-space: pre-line;
+            line-height: 1.8;
+            font-size: 1.35rem;
+            color: #333;
+            margin-top: 30px;
+            padding-bottom: 100px;
+        }
+
+        .header-img {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            object-fit: contain;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--accent-rose);
+            margin: 10px 0;
+            border-bottom: 2px solid var(--placeholder-color);
             display: inline-block;
-            padding-bottom: 10px;
+            padding-bottom: 5px;
         }
     </style>
 </head>
@@ -113,21 +125,22 @@
 
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
-        <div id="full-poem-view" class="poem-content"></div>
+        <div id="poem-target" class="poem-content"></div>
     </div>
 
     <script>
         const poems = [
             {
                 title: "I've always had you",
+                image: "https://files.fm/thumb_show.php?i=hz9vpnctu7",
                 body: `My earliest memories are full of your smile
-You,d hide your face in your hands then say "boo!"
+You'd hide your face in your hands then say "boo!"
 And somehow i just knew i was safe
 I was certain because i had you
 
 The hours we spent baking cakes, having fun
 Learning so much as i grew
-Such happy times i,ll cherish forever
+Such happy times i'll cherish forever
 Made perfect because i had you
 
 Those holiday car rides with you and dad
@@ -136,7 +149,7 @@ Singsongs and i spy to help us along
 Nothing else mattered because i had you
 
 You always had time for all of my friends
-Many days i,d turn up with a crew
+Many days i'd turn up with a crew
 Lemonade, sandwiches and biscuits galore
 We were happy because we had you
 
@@ -153,7 +166,7 @@ Nothing scared me because i had you
 Best friends and sisters thats what we were
 Although days spent together were few
 But i knew i was always there in your mind
-In my heart i knew i,d always have you
+In my heart i knew i'd always have you
 
 Then a phone call one day. I ran to your side
 The doctors all said that you knew
@@ -192,6 +205,7 @@ All along i have always had you`
             },
             {
                 title: "Christmas",
+                image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
                 body: `When the witches and monsters have all filled their buckets,
 And the firework crackles are few;
 The happiest time of the year now approaches,
@@ -268,7 +282,8 @@ Be with me always, my beautiful friends,
 Merry Christmas from Lisa and me. xx`
             },
             {
-                title: " Liverpool ",
+                title: "Liverpool",
+                image: "https://files.fm/thumb_show.php?i=f99zbszmvn", 
                 body: `Of all the places I have been,
 All the cities I learned in school,
 One place stands tall above the rest—
@@ -314,7 +329,7 @@ Drag you howling off the floor;
 Tickling sticks and Diddy men,
 Laugh till your ribs are sore.
 
-Atop the Cathedral, oh what a view,
+At atop the Cathedral, oh what a view,
 There’s a peace and a silence up there;
 Look down on her splendor, this city of love,
 Her soul and her spirit laid bare.
@@ -345,7 +360,8 @@ And one day soon, if you’ll have me,
 I’ll travel that sweet road back.`
             },
             {
-                title: "Love me tender ",
+                title: "Love me tender",
+                image: "https://files.fm/thumb_show.php?i=chh5wyh6hc", 
                 body: `Tears full of memories roll down her cheeks,
 For five minutes she’ll take a short break;
 A little oasis, a chance to look back,
@@ -433,6 +449,7 @@ Till the end of time.`
             },
             {
                 title: "The Soldier's Place",
+                image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
                 body: `A soldier went to heaven,
 St. Peter at the gate;
 He stood in line with other men,
@@ -509,7 +526,8 @@ And the reason, son, why there is no chair for you,
 Is that your place is here by my side.`
             },
             {
-                title: "Journey's end ",
+                title: "Journey's end",
+                image: "https://files.fm/thumb_show.php?i=tuph2xeqrv", 
                 body: `It’s a beautiful day today, Mam,
 Blue skies, wispy clouds passing by;
 And I’m trying to remember the good times,
@@ -596,7 +614,8 @@ And I’ll turn to your beautiful face, Mam,
 Full of love and bursting with pride.`
             },
             {
-                title: "Little pink memories ",
+                title: "Little pink memories",
+                image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
                 body: `The house is quiet, it’s dark and still,
 And I know this is journey’s end;
 So tonight I’ll remember my time on earth,
@@ -674,6 +693,7 @@ Snuggled up tight away from the chill.`
             },
             {
                 title: "The secret",
+                image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
                 body: `Still dark outside, it’s 6am,
 He’s had about an hour;
 Another day on autopilot,
@@ -751,6 +771,7 @@ Another shave, another shower.`
             },
             {
                 title: "The Case in the Attic",
+                image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
                 body: `He smiles as he thinks of the weekend to come,
 Finally he’s getting a chance;
 House to himself, wife away,
@@ -828,6 +849,7 @@ Lose the hate. Gain the love and the care`
             },
             {
                 title: "Boris!!!",
+                image: "https://files.fm/thumb_show.php?i=y5e747ufsk", 
                 body: `Boris, oh Boris, it’s going down in Wuhan,
 The Chinese are ill, but you tell us it’s okay;
 A disease like this could never reach our shores—
@@ -909,16 +931,22 @@ For the 230,000 souls who didn’t make it.`
             const container = document.getElementById('gallery');
             container.innerHTML = poems.map((p, index) => `
                 <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <img src="${p.image}" class="tile-img">
                     <div class="tile-title">${p.title}</div>
                 </div>
             `).join('');
         }
 
         function openPoem(index) {
-            const poem = poems[index];
-            const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const p = poems[index];
+            const target = document.getElementById('poem-target');
+            
+            target.innerHTML = `
+                <img src="${p.image}" class="header-img">
+                <h2>${p.title}</h2>
+                <div class="poem-body">${p.body}</div>
+            `;
+            
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
