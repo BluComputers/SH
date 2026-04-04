@@ -6,61 +6,63 @@
     <title>Poetry Collection - Volume 19</title>
     <style>
         :root {
-            --volume-color: #e3f2fd; /* Soft Blue for Volume 19 */
-            --accent-blue: #1976d2;
-            --text-dark: #2c3e50;
+            /* Volume 19 Theme: Midnight Navy, Silver & Slate */
+            --volume-bg: #f4f7f9; 
+            --tile-bg: #ffffff;
+            --accent-blue: #1a237e; 
+            --secondary-blue: #5c6bc0;
+            --text-main: #2c3e50;
             --overlay-bg: #ffffff;
+            --placeholder-bg: #e8eaf6;
         }
 
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
-            background-color: var(--volume-color);
+            background-color: var(--volume-bg);
+            color: var(--text-main);
         }
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1250px;
+            margin: 40px auto;
         }
 
         .poem-tile {
-            background: white;
-            border-radius: 12px;
+            background: var(--tile-bg);
+            border-radius: 15px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 20px rgba(26, 35, 126, 0.05);
+            display: flex;
+            flex-direction: column;
         }
 
         .poem-tile:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(26, 35, 126, 0.12);
         }
 
-        .image-placeholder {
+        .tile-img {
             width: 100%;
-            height: 200px;
-            background: #bbdefb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #0d47a1;
-            font-style: italic;
-            border-bottom: 1px solid #eee;
-            text-align: center;
-            padding: 10px;
+            height: 220px;
+            object-fit: contain;
+            background-color: #fff;
+            border-bottom: 1px solid #f0f0f0;
         }
 
         .tile-title {
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             font-weight: bold;
-            font-size: 1.1rem;
-            color: var(--text-dark);
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            color: var(--accent-blue);
         }
 
         .poem-overlay {
@@ -71,39 +73,52 @@
             width: 100%;
             height: 100%;
             background: var(--overlay-bg);
-            z-index: 1000;
+            z-index: 2000;
             overflow-y: auto;
-            padding: 60px 20px;
-            box-sizing: border-box;
-        }
-
-        .poem-content {
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: center;
-            line-height: 1.8;
-            font-size: 1.3rem;
-            white-space: pre-line;
-            color: #222;
+            padding: 80px 20px;
         }
 
         .close-btn {
             position: fixed;
-            top: 25px;
-            right: 35px;
-            font-size: 2.5rem;
+            top: 20px;
+            right: 40px;
+            font-size: 3.5rem;
             cursor: pointer;
-            color: var(--text-dark);
-            font-weight: bold;
+            color: var(--accent-blue);
+            line-height: 1;
+            z-index: 2100;
         }
 
-        h2 { 
-            margin-bottom: 30px; 
-            color: var(--accent-blue); 
-            font-size: 2.2rem;
-            border-bottom: 2px solid var(--volume-color);
+        .poem-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .poem-body {
+            white-space: pre-line;
+            line-height: 1.9;
+            font-size: 1.4rem;
+            color: #222;
+            margin-top: 35px;
+            padding-bottom: 100px;
+        }
+
+        .header-img {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            object-fit: contain;
+        }
+
+        h2 {
+            font-size: 2.6rem;
+            color: var(--accent-blue);
+            margin: 10px 0;
+            border-bottom: 3px solid var(--placeholder-bg);
             display: inline-block;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
     </style>
 </head>
@@ -113,13 +128,14 @@
 
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
-        <div id="full-poem-view" class="poem-content"></div>
+        <div id="poem-target" class="poem-content"></div>
     </div>
 
     <script>
         const poems = [
             {
                 title: "For Matthew Shepard",
+                image: "https://files.fm/thumb_show.php?i=b7mksyyuqr",
                 body: `I didn’t know you, Matthew,
 I really wish I had;
 I imagine you were full of life,
@@ -161,7 +177,7 @@ You must’ve wept for your mum—I know I would,
 My first thought when times are bleak.
 
 Matthew, I’m sorry for my species,
-And that I hadn’t heard your name;
+And that I hadnth heard your name;
 Your suffering on that awful night
 Is our eternal shame.
 
@@ -182,6 +198,7 @@ A smile from that beautiful face.`
             },
             {
                 title: "The Joy of My Life",
+                image: "https://files.fm/thumb_show.php?i=memexv3te9", 
                 body: `How many of us can say for sure
 We’ve found true love just once?
 I know I have, and in her eyes
@@ -254,6 +271,7 @@ You truly are the joy of my life.`
             },
             {
                 title: "If I Could",
+                image: "https://files.fm/thumb_show.php?i=6shnd393c2", 
                 body: `If I could change perceptions,
 I promise I would try;
 I’d open eyes and minds and hearts—
@@ -271,7 +289,7 @@ No more tears would fall.
 
 If I could walk you down the street,
 We’d do it heads held high;
-How proud I’d be to see you shine,
+How proud I’be to see you shine,
 Folk would smile as we passed by.
 
 If I could bring you to my home,
@@ -316,6 +334,7 @@ I send to each of you a kiss. x`
             },
             {
                 title: "The Secret Girl",
+                image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
                 body: `6am alarm clock rings,
 He rubs his eyes awake;
 Another day of missing her,
@@ -372,7 +391,8 @@ He whispers "sweet dreams" to his secret girl,
 Turns and kisses his wife goodnight.`
             },
             {
-                title: " Facebook!!",
+                title: "Facebook!!",
+                image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
                 body: `Happy to chat and make friends," it says,
 And I’m grateful for all those that do;
 So here’s a rhyme about a typical week,
@@ -442,10 +462,11 @@ But all of you were strangers
 When we started on this path;
 As time goes by we get closer with each day,
 So I want to say thanks to every one of you,
-For choosing to send your friendship my way.xx`
+For choosing to send your friendship my way. xx`
             },
             {
                 title: "How much do I miss you",
+                image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
                 body: `How much do I miss you?
 Can I even find the words?
 How do I describe a grief
@@ -474,7 +495,7 @@ Please take away this pain.
 And when my story comes to its end,
 When my time on earth is through,
 I pray I’ll find eternity
-And spend every day with you.💔`
+And spend every day with you. 💔`
             }
         ];
 
@@ -482,16 +503,22 @@ And spend every day with you.💔`
             const container = document.getElementById('gallery');
             container.innerHTML = poems.map((p, index) => `
                 <div class="poem-tile" onclick="openPoem(${index})">
-                    <div class="image-placeholder">Illustration for "${p.title}"</div>
+                    <img src="${p.image}" class="tile-img">
                     <div class="tile-title">${p.title}</div>
                 </div>
             `).join('');
         }
 
         function openPoem(index) {
-            const poem = poems[index];
-            const view = document.getElementById('full-poem-view');
-            view.innerHTML = `<h2>${poem.title}</h2><br>${poem.body}`;
+            const p = poems[index];
+            const target = document.getElementById('poem-target');
+            
+            target.innerHTML = `
+                <img src="${p.image}" class="header-img">
+                <h2>${p.title}</h2>
+                <div class="poem-body">${p.body}</div>
+            `;
+            
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
         }
