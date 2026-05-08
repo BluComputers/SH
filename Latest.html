@@ -11,14 +11,12 @@
             --text-dark: #2c3e50;
             --overlay-bg: #ffffff;
         }
-
         body {
             margin: 0;
             padding: 20px;
             font-family: 'Georgia', serif;
             background-color: var(--volume-color);
         }
-
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -26,7 +24,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .poem-tile {
             background: white;
             border-radius: 12px;
@@ -38,12 +35,10 @@
             flex-direction: column;
             height: 100%;
         }
-
         .poem-tile:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
-
         .tile-image {
             width: 100%;
             height: 250px; 
@@ -53,7 +48,6 @@
             box-sizing: border-box;
             border-bottom: 1px solid #eee;
         }
-
         .tile-title {
             padding: 15px;
             text-align: center;
@@ -61,7 +55,6 @@
             font-size: 1.1rem;
             color: var(--text-dark);
         }
-
         .poem-overlay {
             display: none;
             position: fixed;
@@ -75,17 +68,21 @@
             padding: 60px 20px;
             box-sizing: border-box;
         }
-
         .poem-content {
             max-width: 700px;
             margin: 0 auto;
             text-align: center;
             line-height: 1.8;
             font-size: 1.3rem;
-            white-space: pre-line;
             color: #222;
         }
-
+        /* Ensures line breaks and spacing are preserved and centered */
+        .poem-text {
+            white-space: pre-wrap;
+            display: inline-block;
+            text-align: center;
+            margin-top: 20px;
+        }
         .full-poem-image {
             max-width: 100%;
             height: auto;
@@ -93,7 +90,6 @@
             margin-bottom: 30px;
             border-radius: 8px;
         }
-
         .close-btn {
             position: fixed;
             top: 25px;
@@ -111,7 +107,6 @@
             justify-content: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
         h2 { 
             margin-bottom: 20px; 
             color: var(--accent-purple); 
@@ -123,9 +118,7 @@
     </style>
 </head>
 <body>
-
     <div class="gallery" id="gallery"></div>
-
     <div id="overlay" class="poem-overlay">
         <span class="close-btn" onclick="closePoem()">&times;</span>
         <div id="full-poem-view" class="poem-content"></div>
@@ -136,100 +129,216 @@
             {
                 title: "The Messenger",
                 image_url: "https://files.fm/thumb.php?i=fk8c26tt9u",
-                body: `Do you have an angel?Someone you miss so very much?Do you wish deep down within your soulYou could have just one more touch?
+                body: `Do you have an angel?
+Someone you miss so very much?
+Do you wish deep down within your soul
+You could have just one more touch?
 
-Do you dream about them every night?Those memories that bring tearsDo you remember all the happy timesYou shared throughout the years?
+Do you dream about them every night?
+Those memories that bring tears
+Do you remember all the happy times
+You shared throughout the years?
 
-I know your heart is heavyAnd I know how huge the painI carry with me a messageOne day you'll meet again
+I know your heart is heavy
+And I know how huge the pain
+I carry with me a message
+One day you'll meet again
 
-Look for me throughout your dayIn the garden or maybe the parkI'll be there as the yellow dawnBanishes the dark
+Look for me throughout your day
+In the garden or maybe the park
+I'll be there as the yellow dawn
+Banishes the dark
 
-The red I carry on my breastIs there because of loveUnbreakable and powerfulSent up to heaven above
+The red I carry on my breast
+Is there because of love
+Unbreakable and powerful
+Sent up to heaven above
 
-I am the luckiest of all the birdsSo blessed in the work I doBecause only I can fly with the angelsAnd bring them home to you`
+I am the luckiest of all the birds
+So blessed in the work I do
+Because only I can fly with the angels
+And bring them home to you`
             },
             {
                 title: "Our Story Never Ends",
                 image_url: "https://files.fm/thumb.php?i=nhtkgnyc9g",
-                body: `Don't throw away my blanket I know it breaks your heart I'll still need it on those winter nights Even though we're worlds apart 
+                body: `Don't throw away my blanket 
+I know it breaks your heart 
+I'll still need it on those winter nights 
+Even though we're worlds apart 
 
-Don't throw away my favourite rug How I love the firelight's glow I'm still curled up there every night How I wish I could let you know 
+Don't throw away my favourite rug 
+How I love the firelight's glow 
+I'm still curled up there every night 
+How I wish I could let you know 
 
-Don't throw away my collar I was so proud to wear my name We must have walked a thousand miles In sunshine, wind and rain 
+Don't throw away my collar 
+I was so proud to wear my name 
+We must have walked a thousand miles 
+In sunshine, wind and rain 
 
-Don't throw away my old lead Walk all the tracks we used to do On those autumn misty mornings I'm still right there with you 
+Don't throw away my old lead 
+Walk all the tracks we used to do 
+On those autumn misty mornings 
+I'm still right there with you 
 
-Don't throw away our memories One day your broken heart will mend I'm with you every step of the way Our story never ends 
+Don't throw away our memories 
+One day your broken heart will mend 
+I'm with you every step of the way 
+Our story never ends 
 
-So don't throw away my blanket Even though you're in despair You may think my bed is empty But I'm still lying there`
+So don't throw away my blanket 
+Even though you're in despair 
+You may think my bed is empty 
+But I'm still lying there`
             },
             {
                 title: "I'm the greatest.",
                 image_url: "https://files.fm/thumb_show.php?i=nksf623r92",
-                body: `Welcome to my White house Nobody ever saw the like before My beautiful new ballroom Let me take you on a tour!
+                body: `Welcome to my White house 
+Nobody ever saw the like before 
+My beautiful new ballroom 
+Let me take you on a tour!
 
-Up in the Oval office I met the leader of Ukraine Not a grateful man,  doesn't wear a suit I can't remember his name 
+Up in the Oval office 
+I met the leader of Ukraine 
+Not a grateful man, doesn't wear a suit 
+I can't remember his name 
 
-I surround myself with really great guys Although I had to remove Kristi Noem And I'm ending wars all over the world Six since the start of this poem!
+I surround myself with really great guys 
+Although I had to remove Kristi Noem 
+And I'm ending wars all over the world 
+Six since the start of this poem!
 
-I'm so great I liberated VenezuelaI'm the greatest President you've ever seen!And now I'm bombing the hell out of Iran Just come to me if you wanna change your regime!
+I'm so great I liberated Venezuela
+I'm the greatest President you've ever seen!
+And now I'm bombing the hell out of Iran 
+Just come to me if you wanna change your regime!
 
-I know you'd love me to chat all dayBut I've got a meeting with my sycophants I guess that's gonna have to wait Melania! I've shit my pants!
+I know you'd love me to chat all day
+But I've got a meeting with my sycophants 
+I guess that's gonna have to wait 
+Melania! I've shit my pants!
 
 Orange prick 🍊`
             },
             {
                 title: "I Will Look for You in Rainbows",
-                image_url: "https://files.fm/thumb_show.php?i=rwf2ympcpw", 
-                body: `When I was little I learned a rhyme About all the colours that I knew A song about a rainbow I can sing a rainbow too 
+                image_url: "https://files.fm/thumb_show.php?i=rwf2ympcpw",
+                body: `When I was little I learned a rhyme 
+About all the colours that I knew 
+A song about a rainbow 
+I can sing a rainbow too 
 
-I remember so many Christmas days Over the rainbow where skies are blue And I wondered if I dared to dream Would they really all come true?
+I remember so many Christmas days 
+Over the rainbow where skies are blue 
+And I wondered if I dared to dream 
+Would they really all come true?
 
-When I was grown I met you You really were my crock of gold The skies were clear, there was no rain Our endless love story was told 
+When I was grown I met you 
+You really were my crock of gold 
+The skies were clear, there was no rain 
+Our endless love story was told 
 
-We built our love, we shared a life But the clouds took away our sun Now you are gone and I am here A different life begun 
+We built our love, we shared a life 
+But the clouds took away our sun 
+Now you are gone and I am here 
+A different life begun 
 
-Some nights I wish upon those stars Send me a sign so I may see That you are looking down on us Remembering you and me 
+Some nights I wish upon those stars 
+Send me a sign so I may see 
+That you are looking down on us 
+Remembering you and me 
 
-But now I know you're here with me I know you come to ease my painAnd I will look for you in rainbows When the sunshine meets the rain`
+But now I know you're here with me 
+I know you come to ease my pain
+And I will look for you in rainbows 
+When the sunshine meets the rain`
             },
             {
                 title: "Good Morning",
-                image_url: "https://files.fm/thumb.php?i=3978t3aknm", 
-                body: `Good morning from my tootsies Good morning from my shinsGood morning from my knobbly kneesNo carpet burns or sins!
+                image_url: "https://files.fm/thumb.php?i=3978t3aknm",
+                body: `Good morning from my tootsies 
+Good morning from my shins
+Good morning from my knobbly knees
+No carpet burns or sins!
 
-Good morning from my wobbly thighs Maybe could lose a fraction Good morning from my you know what That's long been out of action!
+Good morning from my wobbly thighs 
+Maybe could lose a fraction 
+Good morning from my you know what 
+That's long been out of action!
 
-Good morning from my belly Full of haggis laterGood morning from Bo and Obs!They deserve their own moon crater!
+Good morning from my belly 
+Full of haggis later
+Good morning from Bo and Obs!
+They deserve their own moon crater!
 
-Good morning from my shoulders No bra straps here today Good morning from my old mush Just one thing I have to say 
+Good morning from my shoulders 
+No bra straps here today 
+Good morning from my old mush 
+Just one thing I have to say 
 
-Have a happy Saturday Spread kindness as you goI love you to the moon and back I just thought you'd like to know! ❤️`
+Have a happy Saturday 
+Spread kindness as you go
+I love you to the moon and back 
+I just thought you'd like to know! ❤️`
             },
             {
                 title: "DONALD'S SHIT HIS TROOSERS!!!!!!!",
-                image_url: "https://files.fm/thumb_show.php?i=2mm5xq64wq", 
-                body: `He thinks he's big And he thinks he's mean Ending wars is just routine!And the secret service have all gone green!Donald's shit his troosers!
+                image_url: "https://files.fm/thumb_show.php?i=2mm5xq64wq",
+                body: `He thinks he's big 
+And he thinks he's mean 
+Ending wars is just routine!
+And the secret service have all gone green!
+Donald's shit his troosers!
 
-His wind blows high And his wind blows low His cabinet team all hold their nose And all of congress shout "oh no!"Donald's shit his troosers!
+His wind blows high 
+And his wind blows low 
+His cabinet team all hold their nose 
+And all of congress shout "oh no!"
+Donald's shit his troosers!
 
-He says the news Is totally fake He tweets all night while he's wide awake Melania says "oh for goodness sake!"Donald's shit his troosers!
+He says the news 
+Is totally fake 
+He tweets all night while he's wide awake 
+Melania says "oh for goodness sake!"
+Donald's shit his troosers!
 
-His wind blows high And his wind blows low His cabinet team all hold their nose And all of congress shout "oh no!"Donald's shit his troosers!
+His wind blows high 
+And his wind blows low 
+His cabinet team all hold their nose 
+And all of congress shout "oh no!"
+Donald's shit his troosers!
 
-The King and Queen Will soon be thereTo greet the guy with the stupid hairAnd Charles will say "I do declare!"Donald's shit his troosers!
+The King and Queen 
+Will soon be there
+To greet the guy with the stupid hair
+And Charles will say "I do declare!"
+Donald's shit his troosers!
 
-His wind blows high And his wind blows low His cabinet team all hold their nose And all of congress shout "oh no!"Donald's shit his troosers!
+His wind blows high 
+And his wind blows low 
+His cabinet team all hold their nose 
+And all of congress shout "oh no!"
+Donald's shit his troosers!
 
-One day soonHe'll be down to hellWe'll all cheer as we toll the bellAnd the devil will say "what's that awful smell?"Donald's shit his troosers!
+One day soon
+He'll be down to hell
+We'll all cheer as we toll the bell
+And the devil will say "what's that awful smell?"
+Donald's shit his troosers!
 
-His wind blows high And his wind blows low His cabinet team all hold their nose And all of congress shout "oh no!"Donald's shit his troosers!
+His wind blows high 
+And his wind blows low 
+His cabinet team all hold their nose 
+And all of congress shout "oh no!"
+Donald's shit his troosers!
 
 DONALD'S SHIT HIS TROOSERS!!!!!!!`
             },
             {
                 title: "My Superman",
-                image_url: "https://files.fm/thumb_show.php?i=n5u9x5ewmp", 
+                image_url: "https://files.fm/thumb_show.php?i=n5u9x5ewmp",
                 body: `I thought I'd share a few little lines 
 About a hero of mine I call dad
 My superman, my santa, my last thought at night 
@@ -287,8 +396,10 @@ Safe in my arms you belong`
             const view = document.getElementById('full-poem-view');
             view.innerHTML = `
                 <img src="${poem.image_url}" class="full-poem-image">
+                <br>
                 <h2>${poem.title}</h2>
-                <div style="margin-top:20px;">${poem.body}</div>
+                <br>
+                <div class="poem-text">${poem.body}</div>
             `;
             document.getElementById('overlay').style.display = 'block';
             document.body.style.overflow = 'hidden'; 
