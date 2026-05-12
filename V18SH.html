@@ -93,6 +93,9 @@
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
+            display: flex; /* Added for centering */
+            flex-direction: column; /* Stacks image, title, body */
+            align-items: center; /* Horizontal centering */
         }
 
         .poem-body {
@@ -102,13 +105,15 @@
             color: #222;
             margin-top: 35px;
             padding-bottom: 100px;
+            width: 100%;
         }
 
         .header-img {
+            display: block;
+            margin: 0 auto 30px auto; /* Centers the image and adds bottom spacing */
             max-width: 100%;
             max-height: 500px;
             border-radius: 12px;
-            margin-bottom: 30px;
             object-fit: contain;
         }
 
@@ -136,366 +141,226 @@
             {
                 title: "For Matthew Shepard",
                 image: "https://files.fm/thumb_show.php?i=b7mksyyuqr",
-                body: `I didn’t know you, Matthew,
-I really wish I had;
-I imagine you were full of life,
-A beautiful young lad.
+                body: `I didn’t know you, Matthew,I really wish I had;I imagine you were full of life,A beautiful young lad.
 
-I came across your story
-By chance the other night,
-And it filled me with such sadness
-You inspired me to write.
+I came across your storyBy chance the other night,And it filled me with such sadnessYou inspired me to write.
 
-Twenty-three years have passed since then,
-Have attitudes changed? I’m not sure.
-Nobody should ever suffer again
-That terrible pain you endured.
+Twenty-three years have passed since then,Have attitudes changed? I’m not sure.Nobody should ever suffer againThat terrible pain you endured.
 
-They say you knew the people who hurt you,
-That you’d do drugs and drink and fight;
-But those are no excuses
-For your suffering on that night.
+They say you knew the people who hurt you,That you’d do drugs and drink and fight;But those are no excusesFor your suffering on that night.
 
-I close my eyes and try to imagine
-The blows raining down on your face,
-Tied to a fence, unable to run—
-Your final memory will be of that place.
+I close my eyes and try to imagineThe blows raining down on your face,Tied to a fence, unable to run—Your final memory will be of that place.
 
-In every blow, a spit of hatred,
-An ignorance we see every day;
-They probably laughed as they snuffed out your life,
-A price paid for being gay.
+In every blow, a spit of hatred,An ignorance we see every day;They probably laughed as they snuffed out your life,A price paid for being gay.
 
-What went through your mind as you hung on that fence?
-I imagine all your life’s hopes and fears;
-Your last taste of life was the blood on your face,
-And the salt from your final tears.
+What went through your mind as you hung on that fence?I imagine all your life’s hopes and fears;Your last taste of life was the blood on your face,And the salt from your final tears.
 
-They say your face was covered in blood,
-Apart from tear tracks, one on each cheek;
-You must’ve wept for your mum—I know I would,
-My first thought when times are bleak.
+They say your face was covered in blood,Apart from tear tracks, one on each cheek;You must’ve wept for your mum—I know I would,My first thought when times are bleak.
 
-Matthew, I’m sorry for my species,
-And that I hadnth heard your name;
-Your suffering on that awful night
-Is our eternal shame.
+Matthew, I’m sorry for my species,And that I hadnth heard your name;Your suffering on that awful nightIs our eternal shame.
 
-But I promise I’ll remember now,
-To keep you in my mind;
-To fight for rights for everyone,
-Be humble and be kind.
+But I promise I’ll remember now,To keep you in my mind;To fight for rights for everyone,Be humble and be kind.
 
-If heaven’s real, then one day, Matt,
-I’d love to be your mate,
-And tell you how the world is better,
-And free from pain and hate.
+If heaven’s real, then one day, Matt,I’d love to be your mate,And tell you how the world is better,And free from pain and hate.
 
-But for now, sleep well and rest your soul,
-Safe now, away from that place;
-I’ll meet you one day and hopefully I’ll get
-A smile from that beautiful face.`
+But for now, sleep well and rest your soul,Safe now, away from that place;I’ll meet you one day and hopefully I’ll getA smile from that beautiful face.`
             },
             {
                 title: "The Joy of My Life",
                 image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
-                body: `How many of us can say for sure
-We’ve found true love just once?
-I know I have, and in her eyes
-She gives me her response.
+                body: `How many of us can say for sureWe’ve found true love just once?I know I have, and in her eyesShe gives me her response.
 
-For this is not a physical love;
-It is destined, it is meant.
-The kind of love found only in dreams,
-It’s surely heaven-sent.
+For this is not a physical love;It is destined, it is meant.The kind of love found only in dreams,It’s surely heaven-sent.
 
-I wondered what my purpose was,
-My reason to be here,
-But then one day my whole world changed
-And it all became so clear.
+I wondered what my purpose was,My reason to be here,But then one day my whole world changedAnd it all became so clear.
 
-A broken soul had crossed my path,
-Her eyes so full of fear;
-I gently led her home with me
-To all I held so dear.
+A broken soul had crossed my path,Her eyes so full of fear;I gently led her home with meTo all I held so dear.
 
-How many would say they’d do the same—
-Take a stranger into your home?
-But I saw emptiness in those eyes,
-I couldn’t leave her alone.
+How many would say they’d do the same—Take a stranger into your home?But I saw emptiness in those eyes,I couldn’t leave her alone.
 
-She wore the only clothes she had:
-Skin and bone and pain.
-It broke my heart and I swore then,
-She’ll never suffer again.
+She wore the only clothes she had:Skin and bone and pain.It broke my heart and I swore then,She’ll never suffer again.
 
-That pain was mental and physical,
-Bruised from head to toe;
-Abused for years by a man she loved,
-This time she’d had to go.
+That pain was mental and physical,Bruised from head to toe;Abused for years by a man she loved,This time she’d had to go.
 
-And so I started to rebuild,
-Gave her confidence each day;
-Space to heal, to grow, to love,
-To slowly find her way.
+And so I started to rebuild,Gave her confidence each day;Space to heal, to grow, to love,To slowly find her way.
 
-And slowly, like a butterfly,
-I watched her be reborn—
-Still so scared and fragile,
-But stronger with each dawn.
+And slowly, like a butterfly,I watched her be reborn—Still so scared and fragile,But stronger with each dawn.
 
-Our little bubble grew stronger each day,
-We’d cry and laugh and dance,
-And I’d cast my mind back to that day
-When fate gave us our chance.
+Our little bubble grew stronger each day,We’d cry and laugh and dance,And I’d cast my mind back to that dayWhen fate gave us our chance.
 
-The rollercoaster of our life,
-The highs and desperate lows,
-Have created an unbreakable bond;
-Together we face life’s blows.
+The rollercoaster of our life,The highs and desperate lows,Have created an unbreakable bond;Together we face life’s blows.
 
-As I write this, I look up and glance across
-At my princess, safe and sound;
-An exchange of smiles, a knowing look—
-A paradise we’ve found.
+As I write this, I look up and glance acrossAt my princess, safe and sound;An exchange of smiles, a knowing look—A paradise we’ve found.
 
-I’ve never known a love like this,
-A closeness so very rare;
-And I will love her always,
-My life is hers to share.
+I’ve never known a love like this,A closeness so very rare;And I will love her always,My life is hers to share.
 
-And so I’ll sign these few lines off
-To Lisa, through troubles and strife:
-We did it together and, baby, guess what?
-You truly are the joy of my life.`
+And so I’ll sign these few lines offTo Lisa, through troubles and strife:We did it together and, baby, guess what?You truly are the joy of my life.`
             },
             {
                 title: "If I Could",
                 image: "https://files.fm/thumb_show.php?i=6shnd393c2", 
-                body: `If I could change perceptions,
-I promise I would try;
-I’d open eyes and minds and hearts—
-No need to live that lie.
+                body: `If I could change perceptions,I promise I would try;I’d open eyes and minds and hearts—No need to live that lie.
 
-If I could give you childhood back,
-I promise that I would;
-Being different would be fine,
-Feel the feelings that you should.
+If I could give you childhood back,I promise that I would;Being different would be fine,Feel the feelings that you should.
 
-If I could write a fairy tale—
-Mirror, mirror on the wall—
-You’d see only a princess staring back,
-No more tears would fall.
+If I could write a fairy tale—Mirror, mirror on the wall—You’d see only a princess staring back,No more tears would fall.
 
-If I could walk you down the street,
-We’d do it heads held high;
-How proud I’be to see you shine,
-Folk would smile as we passed by.
+If I could walk you down the street,We’d do it heads held high;How proud I’be to see you shine,Folk would smile as we passed by.
 
-If I could bring you to my home,
-My door would open wide;
-No judgment here, just friendship,
-And endless love and pride.
+If I could bring you to my home,My door would open wide;No judgment here, just friendship,And endless love and pride.
 
-If I could take away the bullies,
-I promise that I’d fight;
-Wipe your tears with my bare hands,
-Defend you with all my might.
+If I could take away the bullies,I promise that I’d fight;Wipe your tears with my bare hands,Defend you with all my might.
 
-If I could make a wish come true,
-I’d clear all minds of hate;
-Your world would be a better place,
-Safe beyond your garden gate.
+If I could make a wish come true,I’d clear all minds of hate;Your world would be a better place,Safe beyond your garden gate.
 
-If I could make you happy,
-I promise that’s my aim;
-To see you live a perfect life,
-Free from hate and pain.
+If I could make you happy,I promise that’s my aim;To see you live a perfect life,Free from hate and pain.
 
-If I could guide you through the darkness,
-I’d shine my light so bright;
-Carry you home along life’s roads,
-Hold your hand so tight.
+If I could guide you through the darkness,I’d shine my light so bright;Carry you home along life’s roads,Hold your hand so tight.
 
-If I could write a song for you,
-I promise that I’d sing
-Of happy days and beautiful dreams,
-And what tomorrow brings.
+If I could write a song for you,I promise that I’d singOf happy days and beautiful dreams,And what tomorrow brings.
 
-If I could tell you just four words,
-From my heart I swear it’s true;
-I’d look you in the eyes and say:
-"Forever I’ll love you."
+If I could tell you just four words,From my heart I swear it’s true;I’d look you in the eyes and say:"Forever I’ll love you."
 
-If I could be your friend forever,
-I promise you just this:
-My love for you is endless,
-I send to each of you a kiss. x`
+If I could be your friend forever,I promise you just this:My love for you is endless,I send to each of you a kiss. x`
             },
             {
                 title: "The Secret Girl",
                 image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
-                body: `6am alarm clock rings,
-He rubs his eyes awake;
-Another day of missing her,
-Another day feeling a fake.
+                body: `6am alarm clock rings,He rubs his eyes awake;Another day of missing her,Another day feeling a fake.
 
-He stares into the bathroom mirror,
-She stares back with empty eyes;
-Aftershave instead of perfume,
-He hangs his head and sighs.
+He stares into the bathroom mirror,She stares back with empty eyes;Aftershave instead of perfume,He hangs his head and sighs.
 
-No need for wigs or makeup,
-Hair combed, he’s dressed and ready
-To face the world, to tell his lies,
-To be reliable and steady.
+No need for wigs or makeup,Hair combed, he’s dressed and readyTo face the world, to tell his lies,To be reliable and steady.
 
-Downstairs to breakfast, he sits and smiles,
-Loves his family—he’s so full of pride;
-But he has a secret and they can’t know
-The turmoil that rages inside.
+Downstairs to breakfast, he sits and smiles,Loves his family—he’s so full of pride;But he has a secret and they can’t knowThe turmoil that rages inside.
 
-Onto the bus, he checks out the ladies,
-"Nice colour, would look good on me;"
-Admires the makeup and hairstyles—
-"One day I’ll show them, they’ll see."
+Onto the bus, he checks out the ladies,"Nice colour, would look good on me;"Admires the makeup and hairstyles—"One day I’ll show them, they’ll see."
 
-He works all day but in his mind,
-She whispers in his ear;
-She wants to be out, he needs her there,
-That voice is oh so clear.
+He works all day but in his mind,She whispers in his ear;She wants to be out, he needs her there,That voice is oh so clear.
 
-So home again he goes to family,
-Upstairs to change, to shower;
-His eyes catch a glimpse of the suitcase,
-They know nothing of its power.
+So home again he goes to family,Upstairs to change, to shower;His eyes catch a glimpse of the suitcase,They know nothing of its power.
 
-For in that case live all his dreams,
-The life he craves so much;
-Those clothes are her, they give her life,
-He’s desperate for their touch.
+For in that case live all his dreams,The life he craves so much;Those clothes are her, they give her life,He’s desperate for their touch.
 
-One day, he thinks, the world won’t hate,
-"One day I’ll do it, they’ll see;
-One day I’ll walk head high down the street,
-One day I’ll truly be me."
+One day, he thinks, the world won’t hate,"One day I’ll do it, they’ll see;One day I’ll walk head high down the street,One day I’ll truly be me."
 
-But for now, under the bed she must stay,
-In her suitcase, all folded and neat,
-Till the world catches up and opens its arms
-And smells the aroma of perfume so sweet.
+But for now, under the bed she must stay,In her suitcase, all folded and neat,Till the world catches up and opens its armsAnd smells the aroma of perfume so sweet.
 
-He lies in the darkness, reaches under the bed,
-Feels the lock on the case closed tight;
-He whispers "sweet dreams" to his secret girl,
-Turns and kisses his wife goodnight.`
+He lies in the darkness, reaches under the bed,Feels the lock on the case closed tight;He whispers "sweet dreams" to his secret girl,Turns and kisses his wife goodnight.`
             },
             {
                 title: "Facebook!!",
                 image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
-                body: `Happy to chat and make friends," it says,
-And I’m grateful for all those that do;
-So here’s a rhyme about a typical week,
-And the chats between me and you.
+                body: `Happy to chat and make friends," it says,And I’m grateful for all those that do;So here’s a rhyme about a typical week,And the chats between me and you.
 
-I still get the buzz when I first log on,
-Just to check if I’ve got a new friend;
-And then to the messages from all round the world,
-Games to play and replies to send.
+I still get the buzz when I first log on,Just to check if I’ve got a new friend;And then to the messages from all round the world,Games to play and replies to send.
 
-Some days I chat when I’m working—
-Don't tell Lisa, she thinks I’m a saint!
-But I’m under the radar, she has no idea,
-And so far there’s been no complaint.
+Some days I chat when I’m working—Don't tell Lisa, she thinks I’m a saint!But I’m under the radar, she has no idea,And so far there’s been no complaint.
 
-"How was your weekend, babe?" is Monday’s question,
-"Spent with my loved ones," I say.
-Glad you enjoyed it—they all seem to care,
-Humbling to be checked on each day.
+"How was your weekend, babe?" is Monday’s question,"Spent with my loved ones," I say.Glad you enjoyed it—they all seem to care,Humbling to be checked on each day.
 
-You wouldn’t believe the topics I cover:
-Pine Martens, Subbuteo, and comets!
-Films and songs, how often I shave,
-Coffee, creamcakes, and comics.
+You wouldn’t believe the topics I cover:Pine Martens, Subbuteo, and comets!Films and songs, how often I shave,Coffee, creamcakes, and comics.
 
-The marriage proposals—about three a week—
-I’m flattered, but guys, I’m not ready;
-My life is here in my little world,
-Starfishing each night with my teddies.
+The marriage proposals—about three a week—I’m flattered, but guys, I’m not ready;My life is here in my little world,Starfishing each night with my teddies.
 
-I love the games we play together,
-Words and quizzes and pool;
-Win some, I lose some, but that’s okay,
-I must’ve learned something in school.
+I love the games we play together,Words and quizzes and pool;Win some, I lose some, but that’s okay,I must’ve learned something in school.
 
-Sometimes a picture appears in my inbox—
-Male anatomy—and I strain my eyes;
-What thoughtful guys, that’s just what I wanted!
-What a shame about the size!
+Sometimes a picture appears in my inbox—Male anatomy—and I strain my eyes;What thoughtful guys, that’s just what I wanted!What a shame about the size!
 
-My trans friends make up most of my list,
-Special people I can’t be without;
-I follow their journeys, and I always will—
-Forever friends, of that there’s no doubt.
+My trans friends make up most of my list,Special people I can’t be without;I follow their journeys, and I always will—Forever friends, of that there’s no doubt.
 
-Some drop in now and again,
-Some are with me each day;
-Some have travelled my saddest road,
-And some I just met today.
+Some drop in now and again,Some are with me each day;Some have travelled my saddest road,And some I just met today.
 
-A few I feel I’ve known forever,
-Some I really wish I had;
-Always there when I need them,
-Through the good times and the bad.
+A few I feel I’ve known forever,Some I really wish I had;Always there when I need them,Through the good times and the bad.
 
-Can you love someone you’ve never met?
-I assure you that I do;
-Poets, artists, mums and dads,
-All show me a love that’s true.
+Can you love someone you’ve never met?I assure you that I do;Poets, artists, mums and dads,All show me a love that's true.
 
-I share your pain and sadness,
-The past things you can’t erase;
-I wish I could take it all away
-And give you only brighter days.
+I share your pain and sadness,The past things you can’t erase;I wish I could take it all awayAnd give you only brighter days.
 
-But all of you were strangers
-When we started on this path;
-As time goes by we get closer with each day,
-So I want to say thanks to every one of you,
-For choosing to send your friendship my way. xx`
+But all of you were strangersWhen we started on this path;As time goes by we get closer with each day,So I want to say thanks to every one of you,For choosing to send your friendship my way. xx`
             },
             {
                 title: "How much do I miss you",
                 image: "https://files.fm/thumb_show.php?i=hz9vpnctu7", 
-                body: `How much do I miss you?
-Can I even find the words?
-How do I describe a grief
-That’s bigger than the universe?
+                body: `How much do I miss you?Can I even find the words?How do I describe a griefThat’s bigger than the universe?
 
-Like the swan that bows his weary head
-As he mourns his lifelong love;
-Perhaps one day they’ll fly again
-Over the rainbow bridge above.
+Like the swan that bows his weary headAs he mourns his lifelong love;Perhaps one day they’ll fly againOver the rainbow bridge above.
 
-The autumn branches know my pain
-When their last leaves gently fall;
-Trees now cold and naked,
-Waiting for spring’s long-distant call.
+The autumn branches know my painPrefix last leaves gently fall;Trees now cold and naked,Waiting for spring’s long-distant call.
 
-I long for you like the early bees
-Miss their dance as the daffodils die;
-Why can’t beauty live forever?
-When will my tears dry?
+I long for you like the early beesMiss their dance as the daffodils die;Why can’t beauty live forever?When will my tears dry?
 
-Send me a sign, show me the way,
-Let me know my life’s not in vain;
-Hold me in your soft embrace,
-Please take away this pain.
+Send me a sign, show me the way,Let me know my life’s not in vain;Hold me in your soft embrace,Please take away this pain.
 
-And when my story comes to its end,
-When my time on earth is through,
-I pray I’ll find eternity
-And spend every day with you. 💔`
+And when my story comes to its end,When my time on earth is through,I pray I’ll find eternityAnd spend every day with you. 💔`
+            },
+            {
+                title: "Sweet Revenge",
+                image: "https://files.fm/thumb_show.php?i=ceq2xyshwc", 
+                body: `In the Black hills of South Dakota 
+Where the menfolk grow up mean 
+The tumbleweed goes rollin rollin 
+And bad things go unseen 
+
+Up high on Mount Moriah 
+As the sun begins to rise 
+A single horseman on a mission 
+Sweet revenge was in his eyes 
+
+Billy McConnell was born here 
+This place makes his blood run cold 
+Today he's returned to kill the man 
+Who shot his Pa and stole his gold 
+
+He was ten years old that day at the gulch 
+Sam McCall and his gang rode by 
+They knew that Pa had struck it big 
+There was nowhere to run or hide 
+
+Billy lay with his dad as his life ebbed away 
+Shot in the back as they fled 
+And he vowed right there to put things straight 
+"I'll bide my time " he said 
+
+At noon Billy rode into Deadwood 
+The old timers all knew his face 
+One of them pointed Billy 
+Down to Buffalo Bodega's place 
+
+Sure enough there was old Sam McCall 
+Perched high on his favourite stool 
+He turned and smiled at Billy 
+His eyes still cold and cruel 
+
+"Well well it's little Billy!
+What are you doin in my bar?
+Run along now little boy 
+You're just as yeller as your Pa "
+
+Billy didn't say a word 
+As he stood behind old Sam 
+He thought about all the things he'd lost 
+Because of this evil man 
+
+Tears filled his eyes as he thought of his Pa 
+Days spent fishing down at the creek 
+And he remembered one thing his daddy said 
+"Never show em that you're weak "
+
+"I know you think I'm yeller Sam
+But you took the life I should have had 
+And now I'm here to take yours away 
+This one's for my dad "
+
+A single shot, a soul appeased 
+Revenge and a conscience clear 
+A single horseman rode away 
+Through the mist of memories and tears
+
+In the Black hills of South Dakota 
+Where the menfolk grow up mean 
+The tumbleweed goes rollin rollin 
+And bad things go unseen`
             }
         ];
 
