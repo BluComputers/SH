@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarah's Latest Work - Bo & OB's Poetry</title>
+    <style>
+        /* Base Styling & Brand Colors */
+        :root {
+            --brand-blue: #7fa4cf;     
+            --brand-blue-hover: #638cb8; 
+            --brand-dark: #2c3e50;     
+            --bg-pink: #ffb6c1;        
+        }
+
+        body {
+            font-family: 'Georgia', serif; 
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-pink);
+            color: var(--brand-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0 10px 0;
+        }
+
+        .logo-img {
+            max-width: 130px; 
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            cursor: pointer;
+        }
+
+        .butterfly-divider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            opacity: 0.7;
+            font-size: 1.2rem;
+            color: var(--brand-blue);
+        }
+
+        .butterfly-line {
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--brand-blue), transparent);
+            max-width: 200px;
+        }
+
+        .back-nav {
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            color: var(--brand-dark);
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-back:hover {
+            color: var(--brand-blue);
+        }
+
+        /* Compact Responsive Grid System Layout */
+        .custom-grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            width: 100%;
+            max-width: 720px;
+            margin: 20px auto;
+        }
+
+        .poem-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(44, 62, 80, 0.05);
+        }
+
+        .poem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+        }
+
+        .poem-card-thumb {
+            width: 100%;
+            height: 200px; 
+            object-fit: cover;
+            background-color: #fafafa;
+            display: block;
+        }
+
+        .poem-card-footer {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.88rem;
+            font-weight: bold;
+            background-color: #fff;
+            border-top: 1px solid rgba(44, 62, 80, 0.04);
+            color: var(--brand-dark);
+        }
+
+        /* Full Expansion Pane Window Style */
+        .expanded-poem-wrapper {
+            max-width: 650px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 35px 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .expanded-poem-wrapper.active {
+            display: block;
+        }
+
+        .expanded-poem-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .expanded-poem-verses {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--brand-dark);
+            margin-top: 25px;
+        }
+
+        .expanded-poem-verses p {
+            margin-bottom: 25px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0 20px 0;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            line-height: 1.8;
+        }
+
+        .credit-link {
+            color: var(--brand-dark);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .credit-link:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .custom-grid-container { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .poem-card-thumb { height: 170px; }
+        }
+
+        @media (max-width: 600px) {
+            .custom-grid-container { grid-template-columns: 1fr; max-width: 260px; }
+            .poem-card-thumb { height: 240px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="main-content">
+            
+            <!-- Header Logo links back to your main domain landing page -->
+            <header onclick="window.location.href='index.html'">
+                <img src="https://raw.githubusercontent.com/BluComputers/SH/main/lgo.png" alt="Bo & OB's Logo" class="logo-img">
+            </header>
+
+            <div class="butterfly-divider">
+                <div class="butterfly-line"></div>
+                <span>🦋 🦋 🦋</span>
+                <div class="butterfly-line"></div>
+            </div>
+
+            <!-- Main Content Container -->
+            <div class="back-nav">
+                <a href="index.html" class="btn-back">← Back to Home</a>
+            </div>
+            
+            <h2 style="text-align: center; margin-bottom: 10px; color: var(--brand-dark);">Sarah's Latest Work</h2>
+            <p style="text-align: center; font-style: italic; margin-bottom: 30px; opacity: 0.8;">Select a poem below to display it in all its glory</p>
+            
+            <!-- Compact Grid View Matrix -->
+            <div id="latest-grid-view" class="custom-grid-container">
+                
+                <!-- POEM CARD: Memories and Macca -->
+                <div class="poem-card" onclick="expandPoem('poem-memories-macca')">
+                    <img src="https://files.fm/thumb_show.php?i=m2hhstpr5s" alt="Memories and Macca" class="poem-card-thumb">
+                    <div class="poem-card-footer">Memories and Macca</div>
+                </div>
+                
+                <!-- Future Poem Cards go right here when adding new ones -->
+
+            </div>
+
+            <!-- ================= EXPANDED POEM VIEWER PANES ================= -->
+
+            <!-- POEM VIEW: Memories and Macca -->
+            <div id="poem-memories-macca" class="expanded-poem-wrapper">
+                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                    <button class="btn-back" onclick="closeExpandedPoem('poem-memories-macca')">← Back to Grid</button>
+                </div>
+                <img src="https://files.fm/thumb_show.php?i=m2hhstpr5s" alt="Memories and Macca" class="expanded-poem-img">
+                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">Memories and Macca</h2>
+                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
+                
+                <div class="expanded-poem-verses">
+                    <p>
+                        I have the fondest memories<br>
+                        Of waterfalls and rain<br>
+                        Those days in the heart of the country<br>
+                        Now replaced by days of pain
+                    </p>
+                    <p>
+                        As I rise to face another day<br>
+                        Mum's photo smiles so bright<br>
+                        Her beautiful face is the first I see<br>
+                        I still kiss her every night
+                    </p>
+                    <p>
+                        I know if she was here today<br>
+                        The sun would always shine<br>
+                        They would dance to silly love songs<br>
+                        Sweet memories of a time
+                    </p>
+                    <p>
+                        Mum, I know that you are with us<br>
+                        Your loving flame shines clear and bright<br>
+                        Please help dad win his tug of war<br>
+                        Between the darkness and the light
+                    </p>
+                    <p>
+                        And maybe with a little luck<br>
+                        He'll find sweet love again<br>
+                        And there will be no more lonely nights<br>
+                        No more lonliness and pain
+                    </p>
+                </div>
+            </div>
+
+            <!-- Future Poem Expansion wrappers go down here -->
+
+        </div>
+
+        <!-- System Footer -->
+        <footer>
+            <p>© 2026 Bo & OB's Poetry. All Rights Reserved.</p>
+            <p>Website, Hosting, and Design Provided By <a href="https://blucomputers.co.uk" target="_blank" class="credit-link">Blucomputers.co.uk</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function expandPoem(id) {
+            document.getElementById('latest-grid-view').style.display = 'none';
+            const target = document.getElementById(id);
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function closeExpandedPoem(id) {
+            const target = document.getElementById(id);
+            if (target) {
+                target.classList.remove('active');
+            }
+            document.getElementById('latest-grid-view').style.display = 'grid';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
