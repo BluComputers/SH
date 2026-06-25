@@ -1,391 +1,795 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Bo & Obs | Sarah Halligan</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1:400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --bg-pink: #eabec3; 
-    --section-bg: #f4d3d6;
-    --accent-dark: #8c5e63;
-    --text-color: #2d2d2d;
-    --header-font: 'Playfair Display', serif;
-    --body-font: 'Lato', sans-serif;
-  }
-  body {
-    background-color: var(--bg-pink);
-    color: var(--text-color);
-    font-family: var(--body-font);
-    margin: 0;
-    padding: 0;
-    line-height: 1.8;
-    scroll-behavior: smooth;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bo & OB's Poetry</title>
+    <style>
+        /* Base Styling & Brand Colors */
+        :root {
+            --brand-blue: #7fa4cf;     
+            --brand-blue-hover: #638cb8; 
+            --brand-dark: #2c3e50;     
+            --bg-pink: #ffb6c1;        
+            --facebook-blue: #1877f2;  
+            --deep-purple: #5c2d91;     
+            --deep-purple-hover: #451e6e;
+        }
 
-  /* Facebook Floating Button */
-  .fb-float {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #1877F2;
-    color: white;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    z-index: 2001;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease;
-  }
-  .fb-float:hover { transform: scale(1.1); }
+        body {
+            font-family: 'Georgia', serif; 
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-pink);
+            color: var(--brand-dark);
+            line-height: 1.6;
+        }
 
-  header {
-    padding: 40px 20px;
-    text-align: center;
-    background-color: var(--bg-pink);
-  }
-  .main-logo {
-    max-width: 350px;
-    height: auto;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-  }
-  nav {
-    margin-top: 10px;
-    border-top: 1px solid var(--accent-dark);
-    border-bottom: 1px solid var(--accent-dark);
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    background-color: var(--bg-pink);
-    z-index: 100;
-  }
-  nav a {
-    text-decoration: none;
-    color: var(--text-color);
-    margin: 0 15px;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    font-weight: bold;
-    transition: color 0.3s ease;
-  }
-  nav a:hover { color: white; }
-  
-  section {
-    padding: 80px 20px;
-    max-width: 1100px;
-    margin: 40px auto;
-    text-align: center;
-    background: var(--section-bg);
-    border-radius: 30px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-  }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-  /* Latest Poems Button & Animation */
-  .latest-poems-container {
-    padding: 20px 20px 60px 20px;
-    text-align: center;
-  }
-  .btn-latest {
-    display: inline-block;
-    padding: 18px 45px;
-    background-color: var(--accent-dark);
-    color: white;
-    text-decoration: none;
-    font-family: var(--header-font);
-    font-size: 1.5rem;
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-    animation: pulse 2s infinite;
-  }
-  .btn-latest:hover {
-    background-color: #704a4e;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    animation: none;
-  }
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  }
+        .main-content {
+            flex: 1;
+        }
 
-  h2 {
-    font-family: var(--header-font);
-    font-size: 2.2rem;
-    margin-bottom: 30px;
-    color: var(--accent-dark);
-  }
+        header {
+            text-align: center;
+            padding: 20px 0 10px 0;
+        }
 
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    padding: 10px;
-  }
-  .gallery img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-  }
-  .gallery img:hover { transform: scale(1.03); }
-  
-  .archive-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 20px;
-    padding: 10px;
-  }
-  .tile {
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    border-bottom: 4px solid var(--accent-dark);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    aspect-ratio: 1 / 1;
-    text-decoration: none;
-    position: relative;
-    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), 
-                      url('https://static.vecteezy.com/system/resources/thumbnails/001/782/987/small/pages-of-a-book-forming-the-shape-of-the-heart-free-photo.jpg');
-    background-size: cover;
-    background-position: center;
-  }
-  .tile:hover {
-    transform: translateY(-8px);
-    background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), 
-                      url('https://static.vecteezy.com/system/resources/thumbnails/001/782/987/small/pages-of-a-book-forming-the-shape-of-the-heart-free-photo.jpg');
-  }
-  .tile-text-container {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 15px;
-    z-index: 1;
-  }
-  .tile h3 { 
-    margin: 0; 
-    font-family: var(--header-font); 
-    color: white;
-    font-size: 1.4rem;
-    line-height: 1.2;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-  }
+        .logo-img {
+            max-width: 130px; 
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            cursor: pointer;
+        }
 
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
-  #lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border: 5px solid white;
-    border-radius: 5px;
-  }
-  footer {
-    text-align: center;
-    padding: 60px 20px;
-    font-size: 0.9rem;
-    color: var(--accent-dark);
-    font-weight: bold;
-  }
-  @media (max-width: 768px) {
-    .archive-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-</style>
+        nav {
+            margin-top: 15px;
+            text-align: center;
+            border-top: 1px solid rgba(44, 62, 80, 0.15);
+            border-bottom: 1px solid rgba(44, 62, 80, 0.15);
+            padding: 12px 0;
+        }
+
+        nav a {
+            color: var(--brand-dark);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--brand-blue);
+        }
+
+        .butterfly-divider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            opacity: 0.7;
+            font-size: 1.2rem;
+            color: var(--brand-blue);
+        }
+
+        .butterfly-line {
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--brand-blue), transparent);
+            max-width: 200px;
+        }
+
+        .author-section {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            margin: 40px 0;
+            padding: 0 15px;
+        }
+
+        .author-photo-wrapper {
+            flex-shrink: 0;
+        }
+
+        .author-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%; 
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+        }
+
+        .author-bio {
+            font-size: 1.15rem;
+            font-style: italic;
+        }
+
+        /* Home Page Link Grid Layout Area */
+        .home-menu-wrapper {
+            margin: 50px 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .cta-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: stretch;
+            gap: 18px;
+            width: 100%;
+        }
+
+        .btn-brand, .btn-facebook, .btn-vol, .btn-purple {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px 25px;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.2s ease;
+            box-sizing: border-box;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-brand {
+            width: 33.33%;
+            background-color: var(--brand-blue);
+        }
+
+        .btn-brand:hover, .btn-vol:hover {
+            background-color: var(--brand-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-facebook {
+            width: 33.33%;
+            background-color: var(--facebook-blue);
+        }
+
+        .btn-facebook:hover {
+            background-color: #0e64d2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-purple {
+            width: 100%;
+            background-color: var(--deep-purple);
+            padding: 16px 25px;
+            font-size: 1.2rem;
+            border-radius: 35px;
+        }
+
+        .btn-purple:hover {
+            background-color: var(--deep-purple-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .view-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        .view-content.active {
+            display: block;
+        }
+
+        /* Volume Archive Grid Layout */
+        .volume-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 15px;
+            width: 100%;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        .btn-vol {
+            background-color: var(--brand-blue);
+            width: 100%; 
+            font-size: 1.1rem;
+            padding: 12px 15px;
+        }
+
+        /* Compact Responsive Grid System Layout */
+        .custom-grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            width: 100%;
+            max-width: 720px;
+            margin: 20px auto;
+        }
+
+        .poem-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(44, 62, 80, 0.05);
+        }
+
+        .poem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+        }
+
+        .poem-card-thumb {
+            width: 100%;
+            height: 200px; 
+            object-fit: cover;
+            background-color: #fafafa;
+            display: block;
+        }
+
+        .poem-card-footer {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.88rem;
+            font-weight: bold;
+            background-color: #fff;
+            border-top: 1px solid rgba(44, 62, 80, 0.04);
+            color: var(--brand-dark);
+        }
+
+        /* Custom Lightbox Modal Layout */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(44, 62, 80, 0.95);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 95%;
+            max-height: 90%;
+            border-radius: 6px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            object-fit: contain;
+            background: #fff;
+        }
+
+        .lightbox-modal.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: #fff;
+            font-size: 2.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            color: var(--brand-blue);
+        }
+
+        .back-nav {
+            margin-bottom: 20px;
+        }
+        .btn-back {
+            background: none;
+            border: none;
+            color: var(--brand-dark);
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-back:hover {
+            color: var(--brand-blue);
+        }
+
+        /* Seamless Full View Window Frame Layout */
+        .reader-wrapper {
+            width: 100%;
+            background: transparent;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .poem-frame {
+            width: 100%;
+            border: none;
+            display: block;
+            height: 1200px; 
+            overflow: hidden;
+        }
+
+        /* Footer Utilities */
+        footer {
+            text-align: center;
+            padding: 40px 0 20px 0;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            line-height: 1.8;
+        }
+        .counter-box {
+            margin-top: 12px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            color: var(--brand-dark);
+            background: rgba(255, 255, 255, 0.5);
+            padding: 4px 12px;
+            display: inline-block;
+            border-radius: 4px;
+            border: 1px solid rgba(44, 62, 80, 0.1);
+            letter-spacing: 1px;
+        }
+        .credit-link {
+            color: var(--brand-dark);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .credit-link:hover {
+            text-decoration: underline;
+        }
+
+        .btn-icon-img { height: 28px; width: auto; }
+        .fb-icon-img { height: 22px; width: auto; }
+        .btn-icon-emoji { font-size: 1.4rem; line-height: 1; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .custom-grid-container { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .poem-card-thumb { height: 170px; }
+            .cta-container { flex-direction: column; align-items: center; }
+            .btn-brand, .btn-facebook { width: 100%; max-width: 360px; }
+        }
+
+        @media (max-width: 600px) {
+            .author-section { flex-direction: column; text-align: center; }
+            nav a { display: inline-block; margin: 5px 12px; }
+            .volume-container { grid-template-columns: repeat(2, 1fr); }
+            .custom-grid-container { grid-template-columns: 1fr; max-width: 260px; }
+            .poem-card-thumb { height: 240px; }
+        }
+    </style>
+    
+    <!-- Firebase App and Firestore SDKs for Live Visitor Counter (v9 Compat Mode) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
-<a href="https://www.facebook.com/Sarahlouhals94" target="_blank" class="fb-float" title="Follow Sarah on Facebook">
-  <i class="fab fa-facebook-f"></i>
-</a>
+    <div class="container">
+        <div class="main-content">
+            
+            <!-- Header Logo -->
+            <header onclick="showView('home')">
+                <img src="https://raw.githubusercontent.com/BluComputers/SH/main/lgo.png" alt="Bo & OB's Logo" class="logo-img">
+            </header>
 
-<div id="lightbox" class="modal" onclick="closeLightbox()">
-  <img id="lightbox-img" src="">
-</div>
+            <!-- Navigation Links -->
+            <nav>
+                <a href="#" onclick="showView('home')">Home</a>
+                <a href="LATEST2.html">Latest</a>
+                <a href="#" onclick="showView('collection')">The Collection</a>
+                <a href="#" onclick="showView('archive')">Poetry Archive</a>
+                <a href="#">About</a>
+            </nav>
 
-<header>
-  <img src="https://raw.githubusercontent.com/BluComputers/SH/main/lgo.png" alt="Bo & Obs Logo" class="main-logo" />
-  <nav>
-    <a href="#bio">Bio</a>
-    <a href="#bo-obs">Bo & Obs</a>
-    <a href="#The-collection">The Collection</a>
-  </nav>
-</header>
+            <div class="butterfly-divider">
+                <div class="butterfly-line"></div>
+                <span>🦋 🦋 🦋</span>
+                <div class="butterfly-line"></div>
+            </div>
 
-<div id="bio" style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; padding:80px 20px;">
-  <img src="https://raw.githubusercontent.com/BluComputers/SH/main/Main.jpg" alt="Sarah Halligan" style="width:300px; height:auto; border-radius:50%; border:8px solid #f4d3d6; box-shadow:0 10px 30px rgba(0,0,0,0.15); margin-bottom:20px;" />
-  <div style="flex:1; min-width:300px; text-align:left; background: rgba(255,255,255,0.2); padding:30px; border-radius:20px; margin-left: 20px;">
-    <h2>About Sarah</h2>
-    <p>Hello everyone and welcome to my website! The home of <strong>Bo and Obs</strong>! And also the rest of my poetry.</p>
-    <p>I started writing after my mum died really as grief therapy. Looking after my dad through the day and writing at night. I write about anything that happens to drop into my head so maybe here you'll find something that strikes a chord.</p>
-    <p>I want my poems to be available to anyone so if you do see one you'd like to use for any occasion there's no need to ask me. Here and now I give my blessing. Just dont say you wrote it!! Thanks for dropping by.</p>
-    <p><strong>Love Sarah H ❤️</strong></p>
-  </div>
+            <!-- ================= HOME VIEW ================= -->
+            <div id="view-home" class="view-content active">
+                <section class="author-section">
+                    <div class="author-photo-wrapper">
+                        <img src="https://files.fm/thumb_show.php?i=ajxbwuw8bx" alt="Sarah Halligan" class="author-photo">
+                    </div>
+                    <div class="author-bio">
+                        <p>"Hello everyone and welcome to my website! The home of Bo and Obs! And also the rest of my poetry.
+
+I started writing after my mum died really as grief therapy. Looking after my dad through the day and writing at night. I write about anything that happens to drop into my head so maybe here you'll find something that strikes a chord.
+
+I want my poems to be available to anyone so if you do see one you'd like to use for any occasion there's no need to ask me. Here and now I give my blessing. Just dont say you wrote it!! Thanks for dropping by.
+
+Love Sarah H ❤️</p>
+                    </div>
 </div>
 
 <div style="text-align: center; margin-bottom: 40px;">
   <h2 style="margin-bottom: 20px;">Welcome To Boandobs.co.uk</h2>
   <img src="https://files.fm/thumb_show.php?i=qxzb2rh283" alt="Sarah's Featured Artwork" style="max-width: 300px; width: 100%; height: auto; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); cursor: pointer;" onclick="openLightbox(this.src)" />
 </div>
+                </section>
 
-<div class="latest-poems-container">
-  <a href="https://blucomputers.github.io/SH/Latest.html" target="_blank" class="btn-latest">Click here to read the latest poems from Sarah</a>
-</div>
+                <div class="home-menu-wrapper">
+                    <!-- Top Row: Horizontal Navigation Triplets -->
+                    <section class="cta-container">
+                        <a href="#" class="btn-brand" onclick="showView('collection')">
+                            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/lgo.png" alt="" class="btn-icon-img">
+                            <span>Bo & OB's The Collection</span>
+                        </a>
 
-<section id="bo-obs">
-  <h2>Bo & Obs Gallery</h2>
-  <div class="gallery">
-    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/1.jpg" alt="Poem 1" onclick="openLightbox(this.src)" />
-    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/2.jpg" alt="Poem 2" onclick="openLightbox(this.src)" />
-    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/3.jpg" alt="Poem 3" onclick="openLightbox(this.src)" />
-    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/4.jpg" alt="Poem 4" onclick="openLightbox(this.src)" />
-    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/5.jpg" alt="Poem 5" onclick="openLightbox(this.src)" />
-    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/6.jpg" alt="Poem 6" onclick="openLightbox(this.src)" />
-    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/7.jpg" alt="Poem 7" onclick="openLightbox(this.src)" />
-    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/8.jpg" alt="Poem 8" onclick="openLightbox(this.src)" />
-    <img src="https://raw.githubusercontent.com/BluComputers/SH/main/9.jpg" alt="Poem 9" onclick="openLightbox(this.src)" />
-    <img src="https://files.fm/thumb.php?i=s9d3qhe56g" onclick="openLightbox(this.src)"
-/>
-    <img src="https://files.fm/thumb_show.php?i=ecfcjed7zh" onclick="openLightbox(this.src)"
-/>
-    <img src="https://files.fm/thumb_show.php?i=43qmb6v2fs" onclick="openLightbox(this.src)"
-/>
-    <img src="https://files.fm/thumb_show.php?i=3mzbadbh2r" onclick="openLightbox(this.src)"
-/>
-    <img src="https://files.fm/thumb_show.php?i=nbswks95qm" onclick="openLightbox(this.src)"
-/>
-    <img src="https://files.fm/thumb_show.php?i=efkjunxttb" onclick="openLightbox(this.src)"
-/>
-    <img src="https://files.fm/thumb_show.php?i=d74ecb8mzm" onclick="openLightbox(this.src)"
-/>
-    <img src="https://files.fm/thumb_show.php?i=255w2ft4xv" onclick="openLightbox(this.src)"
-/>
-    <img src="https://files.fm/thumb_show.php?i=9mu5wa32xc" onclick="openLightbox(this.src)"
-/>
-    <img src="https://files.fm/thumb_show.php?i=r67kes7ycz" onclick="openLightbox(this.src)"
-/>
-    <img src="https://files.fm/thumb_show.php?i=3kttprvx35" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=xandesr379" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=muphvez7yy" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=uh3fku9rj2" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=y36nefj2ru" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=ry3e3td5zz" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=hjmqb3fdsu" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=byftfjs3x4" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=m5v97bfupu" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=nj328p9xe4" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=jqyt5ren2d" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=gee5zwkkys" onclick="openLightbox(this.src)"
-/>
-<img src="https://files.fm/thumb_show.php?i=hunf35nsxs" onclick="openLightbox(this.src)"
-  </div>
-</section>
+                        <button class="btn-brand" onclick="showView('archive')">
+                            <span class="btn-icon-emoji">📖</span>
+                            <span>Poetry Archive</span>
+                        </button>
 
-<section id="The-collection">
-  <h2>The Poetry Selection</h2>
-  <div class="archive-grid">
-    <a href="https://blucomputers.github.io/SH/V1SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 1-10</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V2SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 11-20</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V3SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 21-30</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V4SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 31-40</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V5SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 41-50</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V6SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 51-60</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V7SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 61-70</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V8SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 71-80</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V9SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 81-90</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V10SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 91-100</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V11SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 101-110</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V12SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 111-120</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V13SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 121-130</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V14SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 131-140</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V15SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 141-150</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V16SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 151-160</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V17SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 161-170</h3></div>
-    </a>
-    <a href="https://blucomputers.github.io/SH/V18SH.html" target="_blank" class="tile">
-      <div class="tile-text-container"><h3>Poems 171-176</h3></div>
-    </a>
-  </div>
-</section>
+                        <a href="https://www.facebook.com/Sarahlouhals94" target="_blank" class="btn-facebook">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg" alt="Facebook logo" class="fb-icon-img">
+                            <span>Follow Sarah on Facebook</span>
+                        </a>
+                    </section>
 
-<script>
-function openLightbox(src) {
-  document.getElementById('lightbox-img').src = src;
-  document.getElementById('lightbox').style.display = 'flex';
-}
-function closeLightbox() {
-  document.getElementById('lightbox').style.display = 'none';
-}
-</script>
+                    <!-- Bottom Row: Deep Purple Target Link Accent Button -->
+                    <a href="LATEST2.html" class="btn-purple" style="text-decoration: none;">
+                        <span class="btn-icon-emoji">✍️</span>
+                        <span>Read Sarah's Latest Work By Clicking Here</span>
+                    </a>
+                </div>
+            </div>
 
-<footer>
-  &copy; 2026 Bo & Obs By Sarah Halligan.
-</footer>
+
+            <!-- ================= THE COLLECTION VIEW ================= -->
+            <div id="view-collection" class="view-content">
+                <div class="back-nav">
+                    <button class="btn-back" onclick="showView('home')">← Back to Home</button>
+                </div>
+                
+                <h2 style="text-align: center; margin-bottom: 10px; color: var(--brand-dark);">Bo & OB's The Collection</h2>
+                <p style="text-align: center; font-style: italic; margin-bottom: 30px; opacity: 0.8;">Click any item to view full size and read</p>
+
+                <div class="custom-grid-container">
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=538tjkmq9w')">
+                        <img src="https://files.fm/thumb_show.php?i=538tjkmq9w" alt="Poem 1" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 1</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=fzwcey7226')">
+                        <img src="https://files.fm/thumb_show.php?i=fzwcey7226" alt="Poem 2" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 2</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=p728q3a582')">
+                        <img src="https://files.fm/thumb_show.php?i=p728q3a582" alt="Poem 3" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 3</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=fp32cz7sez')">
+                        <img src="https://files.fm/thumb_show.php?i=fp32cz7sez" alt="Poem 4" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 4</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=q9q25c95p4')">
+                        <img src="https://files.fm/thumb_show.php?i=q9q25c95p4" alt="Poem 5" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 5</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=wnsmwnxtdu')">
+                        <img src="https://files.fm/thumb_show.php?i=wnsmwnxtdu" alt="Poem 6" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 6</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=njkzvz6nkv')">
+                        <img src="https://files.fm/thumb_show.php?i=njkzvz6nkv" alt="Poem 7" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 7</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=69q5myzezc')">
+                        <img src="https://files.fm/thumb_show.php?i=69q5myzezc" alt="Poem 8" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 8</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=7evm89umqe')">
+                        <img src="https://files.fm/thumb_show.php?i=7evm89umqe" alt="Poem 9" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 9</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=qhn3j5ytmu')">
+                        <img src="https://files.fm/thumb_show.php?i=qhn3j5ytmu" alt="Poem 10" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 10</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=jswwujhjwd')">
+                        <img src="https://files.fm/thumb_show.php?i=jswwujhjwd" alt="Poem 11" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 11</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=w58kq7jcyf')">
+                        <img src="https://files.fm/thumb_show.php?i=w58kq7jcyf" alt="Poem 12" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 12</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=et6g8vsj2t')">
+                        <img src="https://files.fm/thumb_show.php?i=et6g8vsj2t" alt="Poem 13" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 13</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=3hh7c42pb9')">
+                        <img src="https://files.fm/thumb_show.php?i=3hh7c42pb9" alt="Poem 14" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 14</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=rpyb9hqjpa')">
+                        <img src="https://files.fm/thumb_show.php?i=rpyb9hqjpa" alt="Poem 15" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 15</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=zw5th7aday')">
+                        <img src="https://files.fm/thumb_show.php?i=zw5th7aday" alt="Poem 16" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 16</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=9sykqspp2z')">
+                        <img src="https://files.fm/thumb_show.php?i=9sykqspp2z" alt="Poem 17" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 17</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=4fzwhg6u53')">
+                        <img src="https://files.fm/thumb_show.php?i=4fzwhg6u53" alt="Poem 18" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 18</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=nbkwjmefyw')">
+                        <img src="https://files.fm/thumb_show.php?i=nbkwjmefyw" alt="Poem 19" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 19</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=5pahzrrkzh')">
+                        <img src="https://files.fm/thumb_show.php?i=5pahzrrkzh" alt="Poem 20" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 20</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=6zkqxfr6v4')">
+                        <img src="https://files.fm/thumb_show.php?i=6zkqxfr6v4" alt="Poem 21" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 21</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=va44wuvdf3')">
+                        <img src="https://files.fm/thumb_show.php?i=va44wuvdf3" alt="Poem 22" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 22</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=tjbjdzptgn')">
+                        <img src="https://files.fm/thumb_show.php?i=tjbjdzptgn" alt="Poem 23" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 23</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=9f6bz3dghx')">
+                        <img src="https://files.fm/thumb_show.php?i=9f6bz3dghx" alt="Poem 24" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 24</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=usx2gzsspw')">
+                        <img src="https://files.fm/thumb_show.php?i=usx2gzsspw" alt="Poem 25" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 25</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=cmgk38ngvp')">
+                        <img src="https://files.fm/thumb_show.php?i=cmgk38ngvp" alt="Poem 26" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 26</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=zpg6w5tk6r')">
+                        <img src="https://files.fm/thumb_show.php?i=zpg6w5tk6r" alt="Poem 27" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 27</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=pq5xughdke')">
+                        <img src="https://files.fm/thumb_show.php?i=pq5xughdke" alt="Poem 28" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 28</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=pwa7hs5cud')">
+                        <img src="https://files.fm/thumb_show.php?i=pwa7hs5cud" alt="Poem 29" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 29</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=e4q9s6rwa5')">
+                        <img src="https://files.fm/thumb_show.php?i=e4q9s6rwa5" alt="Poem 30" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 30</div>
+                    </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=zuwfqnjqvx')">
+                        <img src="https://files.fm/thumb_show.php?i=zuwfqnjqvx" alt="Poem 31" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 31</div>
+                        </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=gee5zwkkys')">
+                        <img src="https://files.fm/thumb_show.php?i=gee5zwkkys" alt="Poem 32" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 32</div>
+                        </div>
+                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=hunf35nsxs')">
+                        <img src="https://files.fm/thumb_show.php?i=hunf35nsxs" alt="Poem 33" class="poem-card-thumb">
+                        <div class="poem-card-footer">Poem 33</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ================= ARCHIVE VIEW (18 VOLUMES ROW) ================= -->
+            <div id="view-archive" class="view-content">
+                <div class="back-nav">
+                    <button class="btn-back" onclick="showView('home')">← Back to Home</button>
+                </div>
+                
+                <section class="volume-container">
+                    <button class="btn-vol" onclick="loadVolume(1)">Volume 1</button>
+                    <button class="btn-vol" onclick="loadVolume(2)">Volume 2</button>
+                    <button class="btn-vol" onclick="loadVolume(3)">Volume 3</button>
+                    <button class="btn-vol" onclick="loadVolume(4)">Volume 4</button>
+                    <button class="btn-vol" onclick="loadVolume(5)">Volume 5</button>
+                    <button class="btn-vol" onclick="loadVolume(6)">Volume 6</button>
+                    <button class="btn-vol" onclick="loadVolume(7)">Volume 7</button>
+                    <button class="btn-vol" onclick="loadVolume(8)">Volume 8</button>
+                    <button class="btn-vol" onclick="loadVolume(9)">Volume 9</button>
+                    <button class="btn-vol" onclick="loadVolume(10)">Volume 10</button>
+                    <button class="btn-vol" onclick="loadVolume(11)">Volume 11</button>
+                    <button class="btn-vol" onclick="loadVolume(12)">Volume 12</button>
+                    <button class="btn-vol" onclick="loadVolume(13)">Volume 13</button>
+                    <button class="btn-vol" onclick="loadVolume(14)">Volume 14</button>
+                    <button class="btn-vol" onclick="loadVolume(15)">Volume 15</button>
+                    <button class="btn-vol" onclick="loadVolume(16)">Volume 16</button>
+                    <button class="btn-vol" onclick="loadVolume(17)">Volume 17</button>
+                    <button class="btn-vol" onclick="loadVolume(18)">Volume 18</button>
+                    <button class="btn-vol" onclick="loadVolume(19)">Volume 19</button>
+                </section>
+            </div>
+
+
+            <!-- ================= LIVE POEM VIEWER ================= -->
+            <div id="view-poems" class="view-content">
+                <div class="back-nav">
+                    <button class="btn-back" onclick="showView('archive')">← Back to Volumes</button>
+                </div>
+                
+                <h2 id="volume-title-header" style="text-align: center; margin-bottom: 20px;">Volume Collection</h2>
+                
+                <div class="reader-wrapper">
+                    <iframe id="poetry-reader-frame" class="poem-frame" scrolling="yes" src="" style="height: 80vh; width: 100%; border: none;"></iframe>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ENLARGED LIGHTBOX MODAL VIEWER -->
+        <div id="lightbox-viewer" class="lightbox-modal" onclick="closeLightbox()">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <img id="lightbox-img" class="lightbox-content" src="" alt="Enlarged view" onclick="event.stopPropagation()">
+        </div>
+
+        <!-- System Footer -->
+        <footer>
+            <p>© 2026 Bo & OB's Poetry. All Rights Reserved.</p>
+            <p>Website, Hosting, and Design Provided By <a href="https://blucomputers.co.uk" target="_blank" class="credit-link">Blucomputers.co.uk</a></p>
+            <div class="counter-box">
+                Visits: <span id="visitor-count-val">...</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ==========================================
+        //  FIREBASE CONFIGURATION (For Site Counter Only)
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyCgmPlWWJJIcsvAkZsBuq5_07WgvzEBhYI",
+            authDomain: "poems-52609.firebaseapp.com",
+            projectId: "poems-52609",
+            storageBucket: "poems-52609.firebasestorage.app",
+            messagingSenderId: "106521750817",
+            appId: "1:106521750817:web:081329747d80bbf758e260"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const volumeUrls = {
+            1: "https://boandobs.co.uk/V1SH.html", 2: "https://boandobs.co.uk/V2SH.html",
+            3: "https://boandobs.co.uk/V3SH.html", 4: "https://boandobs.co.uk/V4SH.html",
+            5: "https://boandobs.co.uk/V5SH.html", 6: "https://boandobs.co.uk/V6SH.html",
+            7: "https://boandobs.co.uk/V7SH.html", 8: "https://boandobs.co.uk/V8SH.html",
+            9: "https://boandobs.co.uk/V9SH.html", 10: "https://boandobs.co.uk/V10SH.html",
+            11: "https://boandobs.co.uk/V11SH.html", 12: "https://boandobs.co.uk/V12SH.html",
+            13: "https://boandobs.co.uk/V13SH.html", 14: "https://boandobs.co.uk/V14SH.html",
+            15: "https://boandobs.co.uk/V15SH.html", 16: "https://boandobs.co.uk/V16SH.html",
+            17: "https://boandobs.co.uk/V17SH.html", 18: "https://boandobs.co.uk/V18SH.html",
+            19: "https://boandobs.co.uk/Latest.html"
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            runFirebaseWebsiteCounter();
+        });
+
+        function showView(viewId) {
+            const views = document.querySelectorAll('.view-content');
+            views.forEach(view => view.classList.remove('active'));
+
+            const activeView = document.getElementById('view-' + viewId);
+            if (activeView) {
+                activeView.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function loadVolume(volNum) {
+            const frame = document.getElementById('poetry-reader-frame');
+            const header = document.getElementById('volume-title-header');
+
+            if (volumeUrls[volNum]) {
+                header.textContent = `Volume ${volNum}`;
+                frame.style.height = "1200px"; 
+                frame.src = volumeUrls[volNum]; 
+                showView('poems');
+            }
+        }
+
+        function adjustFrameHeight(iframe) {
+            try {
+                if (iframe.contentWindow && iframe.contentWindow.document.body) {
+                    const dynamicHeight = iframe.contentWindow.document.documentElement.scrollHeight || iframe.contentWindow.document.body.scrollHeight;
+                    iframe.style.height = (dynamicHeight + 40) + "px";
+                }
+            } catch (e) {
+                iframe.style.height = "4500px";
+            }
+        }
+
+        function openLightbox(imageUrl) {
+            const modal = document.getElementById('lightbox-viewer');
+            const modalImg = document.getElementById('lightbox-img');
+            modalImg.src = imageUrl;
+            modal.classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-viewer').classList.remove('active');
+        }
+
+        function runFirebaseWebsiteCounter() {
+            const counterRef = db.collection("site_meta").doc("analytics");
+            const baseValue = 508456;
+
+            counterRef.get().then((doc) => {
+                if (!doc.exists) {
+                    counterRef.set({ totalVisits: baseValue });
+                    document.getElementById("visitor-count-val").textContent = baseValue.toLocaleString('en-US');
+                } else {
+                    counterRef.update({
+                        totalVisits: firebase.firestore.FieldValue.increment(1)
+                    });
+                    
+                    counterRef.onSnapshot((updatedDoc) => {
+                        if(updatedDoc.exists) {
+                            const count = updatedDoc.data().totalVisits;
+                            document.getElementById("visitor-count-val").textContent = count.toLocaleString('en-US');
+                        }
+                    });
+                }
+            }).catch((err) => {
+                console.log("Counter error omitted.");
+            });
+        }
+    </script>
 </body>
 </html>
