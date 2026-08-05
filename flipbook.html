@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Collection - Online Book</title>
+    <style>
+        :root {
+            --bg-color: #f4f1ea;
+            --container-bg: #fffdf9;
+            --text-color: #2c2c2c;
+            --accent-color: #8b5a2b;
+            --accent-hover: #5e3b1c;
+            --border-color: #d1c7bd;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .return-btn {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 8px 14px;
+            font-family: 'Georgia', serif;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .return-btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+            margin-top: 10px;
+        }
+
+        p.subtitle {
+            font-style: italic;
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+
+        /* Navigation Switcher Bar */
+        .view-switcher {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .switch-btn {
+            background-color: #e3dec9;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 18px;
+            font-family: 'Georgia', serif;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .switch-btn.active, .switch-btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        /* View Containers */
+        .view-section {
+            display: none;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        /* Front Page Grid View */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .poem-card {
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .poem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border-color: var(--accent-color);
+        }
+
+        .poem-card-thumb-wrapper {
+            width: 100%;
+            height: 200px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .poem-card-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .poem-card-footer {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            background-color: var(--container-bg);
+        }
+
+        /* Book Reader Layout */
+        .book-container {
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .book-page {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 500px;
+            justify-content: center;
+        }
+
+        .book-image-wrapper {
+            max-width: 100%;
+            max-height: 65vh;
+            cursor: pointer;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transition: transform 0.2s ease;
+            background: #fff;
+            padding: 5px;
+            border: 1px solid var(--border-color);
+        }
+
+        .book-image-wrapper:hover {
+            transform: scale(1.01);
+        }
+
+        .book-image {
+            max-width: 100%;
+            max-height: 60vh;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            margin-top: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* Navigation Controls */
+        .book-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 25px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        button.nav-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Georgia', serif;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button.nav-btn:hover:not(:disabled) {
+            background-color: var(--accent-hover);
+        }
+
+        button.nav-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .page-indicator {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Lightbox Fullscreen Modal */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .lightbox-close:hover {
+            color: #bbb;
+        }
+
+        @media (max-width: 768px) {
+            .return-btn {
+                position: relative;
+                margin-bottom: 10px;
+            }
+            header {
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="https://www.boandobs.co.uk" class="return-btn">&#8592; Return To Main Site</a>
+        <h1>Poetry Collection</h1>
+        <p class="subtitle">An Online Interactive Book Experience</p>
+        
+        <div class="view-switcher">
+            <button id="gridTabBtn" class="switch-btn active" onclick="switchView('grid')">Table of Contents (Front Page)</button>
+            <button id="bookTabBtn" class="switch-btn" onclick="switchView('book')">Single Page Reader</button>
+        </div>
+    </header>
+
+    <!-- Front Page: Table of Contents Thumbnails Grid -->
+    <div id="gridView" class="view-section active">
+        <div class="grid-container" id="poemsGrid">
+            <!-- Dynamically populated via JS -->
+        </div>
+    </div>
+
+    <!-- Single Page Book Reader View -->
+    <div id="bookView" class="view-section">
+        <div class="book-container">
+            <div class="book-page">
+                <div class="book-image-wrapper" onclick="openLightbox()">
+                    <img id="currentBookImage" src="" alt="" class="book-image">
+                </div>
+                <div id="currentBookTitle" class="page-title"></div>
+            </div>
+
+            <div class="book-controls">
+                <button id="prevBtn" class="nav-btn" onclick="changePage(-1)">Previous</button>
+                <span id="pageIndicator" class="page-indicator">Page 1 of 48</span>
+                <button id="nextBtn" class="nav-btn" onclick="changePage(1)">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal for Full Glory View -->
+    <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightboxImage" class="lightbox-content" src="" alt="Enlarged Poem">
+    </div>
+
+    <script>
+        // Array containing all 48 poems and image sources
+        const poems = [
+            { title: "Poem 1", url: "https://files.fm/thumb_show.php?i=538tjkmq9w" },
+            { title: "Poem 2", url: "https://files.fm/thumb_show.php?i=fzwcey7226" },
+            { title: "Poem 3", url: "https://files.fm/thumb_show.php?i=p728q3a582" },
+            { title: "Poem 4", url: "https://files.fm/thumb_show.php?i=fp32cz7sez" },
+            { title: "Poem 5", url: "https://files.fm/thumb_show.php?i=q9q25c95p4" },
+            { title: "Poem 6", url: "https://files.fm/thumb_show.php?i=wnsmwnxtdu" },
+            { title: "Poem 7", url: "https://files.fm/thumb_show.php?i=njkzvz6nkv" },
+            { title: "Poem 8", url: "https://files.fm/thumb_show.php?i=69q5myzezc" },
+            { title: "Poem 9", url: "https://files.fm/thumb_show.php?i=7evm89umqe" },
+            { title: "Poem 10", url: "https://files.fm/thumb_show.php?i=qhn3j5ytmu" },
+            { title: "Poem 11", url: "https://files.fm/thumb_show.php?i=jswwujhjwd" },
+            { title: "Poem 12", url: "https://files.fm/thumb_show.php?i=w58kq7jcyf" },
+            { title: "Poem 13", url: "https://files.fm/thumb_show.php?i=et6g8vsj2t" },
+            { title: "Poem 14", url: "https://files.fm/thumb_show.php?i=3hh7c42pb9" },
+            { title: "Poem 15", url: "https://files.fm/thumb_show.php?i=rpyb9hqjpa" },
+            { title: "Poem 16", url: "https://files.fm/thumb_show.php?i=zw5th7aday" },
+            { title: "Poem 17", url: "https://files.fm/thumb_show.php?i=9sykqspp2z" },
+            { title: "Poem 18", url: "https://files.fm/thumb_show.php?i=4fzwhg6u53" },
+            { title: "Poem 19", url: "https://files.fm/thumb_show.php?i=nbkwjmefyw" },
+            { title: "Poem 20", url: "https://files.fm/thumb_show.php?i=5pahzrrkzh" },
+            { title: "Poem 21", url: "https://files.fm/thumb_show.php?i=6zkqxfr6v4" },
+            { title: "Poem 22", url: "https://files.fm/thumb_show.php?i=va44wuvdf3" },
+            { title: "Poem 23", url: "https://files.fm/thumb_show.php?i=tjbjdzptgn" },
+            { title: "Poem 24", url: "https://files.fm/thumb_show.php?i=9f6bz3dghx" },
+            { title: "Poem 25", url: "https://files.fm/thumb_show.php?i=usx2gzsspw" },
+            { title: "Poem 26", url: "https://files.fm/thumb_show.php?i=cmgk38ngvp" },
+            { title: "Poem 27", url: "https://files.fm/thumb_show.php?i=zpg6w5tk6r" },
+            { title: "Poem 28", url: "https://files.fm/thumb_show.php?i=pq5xughdke" },
+            { title: "Poem 29", url: "https://files.fm/thumb_show.php?i=pwa7hs5cud" },
+            { title: "Poem 30", url: "https://files.fm/thumb_show.php?i=e4q9s6rwa5" },
+            { title: "Poem 31", url: "https://files.fm/thumb_show.php?i=zuwfqnjqvx" },
+            { title: "Poem 32", url: "https://files.fm/thumb_show.php?i=gee5zwkkys" },
+            { title: "Poem 33", url: "https://files.fm/thumb_show.php?i=hunf35nsxs" },
+            { title: "Poem 34", url: "https://files.fm/thumb_show.php?i=rqcybac7yf" },
+            { title: "Poem 35", url: "https://files.fm/thumb_show.php?i=saz5ub79j4" },
+            { title: "Poem 36", url: "https://files.fm/thumb_show.php?i=qv2wmqaabw" },
+            { title: "Poem 37", url: "https://files.fm/thumb_show.php?i=aacfdfgw3c" },
+            { title: "Poem 38", url: "https://files.fm/thumb_show.php?i=ettnypuuhp" },
+            { title: "Poem 39", url: "https://files.fm/thumb_show.php?i=rtqpwakkja" },
+            { title: "Poem 40", url: "https://files.fm/thumb_show.php?i=n27e2yajdq" },
+            { title: "Poem 41", url: "https://files.fm/thumb_show.php?i=e45egrq5j2" },
+            { title: "Poem 42", url: "https://files.fm/thumb_show.php?i=m2bm2fv6cr" },
+            { title: "Poem 43", url: "https://files.fm/thumb_show.php?i=n9338wj5zc" },
+            { title: "Poem 44", url: "https://files.fm/thumb_show.php?i=qjf9cjhxyg" },
+            { title: "Poem 45", url: "https://files.fm/thumb_show.php?i=267rvwwjau" },
+            { title: "Poem 46", url: "https://files.fm/thumb_show.php?i=8vrczpd8b7" },
+            { title: "Poem 47", url: "https://files.fm/thumb_show.php?i=bm66k2e2r5" },
+            { title: "Poem 48", url: "https://files.fm/thumb_show.php?i=qakr45etdx" }
+        ];
+
+        let currentIndex = 0;
+
+        function initGrid() {
+            const gridContainer = document.getElementById("poemsGrid");
+            gridContainer.innerHTML = "";
+            
+            poems.forEach((poem, index) => {
+                const card = document.createElement("div");
+                card.className = "poem-card";
+                card.onclick = () => jumpToPoem(index);
+                
+                card.innerHTML = `
+                    <div class="poem-card-thumb-wrapper">
+                        <img src="${poem.url}" alt="${poem.title}" class="poem-card-thumb" loading="lazy">
+                    </div>
+                    <div class="poem-card-footer">${poem.title}</div>
+                `;
+                gridContainer.appendChild(card);
+            });
+        }
+
+        function switchView(viewName) {
+            const gridView = document.getElementById("gridView");
+            const bookView = document.getElementById("bookView");
+            const gridBtn = document.getElementById("gridTabBtn");
+            const bookBtn = document.getElementById("bookTabBtn");
+
+            if (viewName === 'grid') {
+                gridView.classList.add("active");
+                bookView.classList.remove("active");
+                gridBtn.classList.add("active");
+                bookBtn.classList.remove("active");
+            } else {
+                gridView.classList.remove("active");
+                bookView.classList.add("active");
+                gridBtn.classList.remove("active");
+                bookBtn.classList.add("active");
+                updateBook();
+            }
+        }
+
+        function jumpToPoem(index) {
+            currentIndex = index;
+            switchView('book');
+        }
+
+        function updateBook() {
+            const currentPoem = poems[currentIndex];
+            const imgElement = document.getElementById("currentBookImage");
+            const titleElement = document.getElementById("currentBookTitle");
+            const indicatorElement = document.getElementById("pageIndicator");
+            
+            imgElement.src = currentPoem.url;
+            imgElement.alt = currentPoem.title;
+            titleElement.textContent = currentPoem.title;
+            indicatorElement.textContent = `Page ${currentIndex + 1} of ${poems.length}`;
+
+            document.getElementById("prevBtn").disabled = currentIndex === 0;
+            document.getElementById("nextBtn").disabled = currentIndex === poems.length - 1;
+        }
+
+        function changePage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = 0;
+            if (currentIndex >= poems.length) currentIndex = poems.length - 1;
+            updateBook();
+        }
+
+        function openLightbox() {
+            const modal = document.getElementById("lightboxModal");
+            const lightboxImg = document.getElementById("lightboxImage");
+            lightboxImg.src = poems[currentIndex].url;
+            modal.classList.add("active");
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById("lightboxModal");
+            modal.classList.remove("active");
+        }
+
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById("lightboxModal");
+            if (modal.classList.contains("active")) {
+                if (event.key === "Escape") closeLightbox();
+                return;
+            }
+
+            if (document.getElementById("bookView").classList.contains("active")) {
+                if (event.key === "ArrowLeft") {
+                    changePage(-1);
+                } else if (event.key === "ArrowRight") {
+                    changePage(1);
+                }
+            }
+        });
+
+        window.onload = function() {
+            initGrid();
+        };
+    </script>
+</body>
+</html>
