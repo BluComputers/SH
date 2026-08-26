@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sarah's Latest Work - Bo & OB's Poetry</title>
     <style>
-        /* Base Styling & Brand Colors */
         :root {
-            --brand-blue: #7fa4cf;     
-            --brand-blue-hover: #638cb8; 
-            --brand-dark: #2c3e50;     
-            --bg-pink: #ffb6c1;        
+            --brand-blue: #7fa4cf;
+            --brand-blue-hover: #638cb8;
+            --brand-dark: #2c3e50;
+            --bg-pink: #ffb6c1;
         }
 
         body {
-            font-family: 'Georgia', serif; 
+            font-family: 'Georgia', serif;
             margin: 0;
             padding: 0;
             background-color: var(--bg-pink);
@@ -41,7 +40,7 @@
         }
 
         .logo-img {
-            max-width: 130px; 
+            max-width: 130px;
             height: auto;
             margin: 0 auto;
             display: block;
@@ -88,7 +87,6 @@
             color: var(--brand-blue);
         }
 
-        /* Compact Responsive Grid System Layout */
         .custom-grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -117,7 +115,7 @@
 
         .poem-card-thumb {
             width: 100%;
-            height: 200px; 
+            height: 200px;
             object-fit: cover;
             background-color: #fafafa;
             display: block;
@@ -133,7 +131,6 @@
             color: var(--brand-dark);
         }
 
-        /* Full Expansion Pane Window Style */
         .expanded-poem-wrapper {
             max-width: 650px;
             margin: 20px auto;
@@ -188,486 +185,1679 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
-            .custom-grid-container { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .poem-card-thumb { height: 170px; }
+            .custom-grid-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .poem-card-thumb {
+                height: 170px;
+            }
         }
 
         @media (max-width: 600px) {
-            .custom-grid-container { grid-template-columns: 1fr; max-width: 260px; }
-            .poem-card-thumb { height: 240px; }
+            .custom-grid-container {
+                grid-template-columns: 1fr;
+                max-width: 260px;
+            }
+
+            .poem-card-thumb {
+                height: 240px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="main-content">
-            
-            <header onclick="window.location.href='index.html'">
-                <img src="https://raw.githubusercontent.com/BluComputers/SH/main/lgo.png" alt="Bo & OB's Logo" class="logo-img">
-            </header>
+<div class="container">
 
-            <div class="butterfly-divider">
-                <div class="butterfly-line"></div>
-                <span>🦋 🦋 🦋</span>
-                <div class="butterfly-line"></div>
+    <div class="main-content">
+
+        <header onclick="window.location.href='index.html'">
+            <img src="https://raw.githubusercontent.com/BluComputers/SH/main/lgo.png"
+                 alt="Bo & OB's Logo"
+                 class="logo-img">
+        </header>
+
+        <div class="butterfly-divider">
+            <div class="butterfly-line"></div>
+            <span>🦋 🦋 🦋</span>
+            <div class="butterfly-line"></div>
+        </div>
+
+        <div class="back-nav">
+            <a href="index.html" class="btn-back">← Back to Home</a>
+        </div>
+
+        <h2 style="text-align: center; margin-bottom: 10px; color: var(--brand-dark);">
+            Sarah's Latest Work
+        </h2>
+
+        <p style="text-align: center; font-style: italic; margin-bottom: 30px; opacity: 0.8;">
+            Select a poem below to display it in all its glory
+        </p>
+
+        <!-- ================= POEM GRID ================= -->
+
+        <div id="latest-grid-view" class="custom-grid-container">
+
+            <div class="poem-card" onclick="expandPoem('poem-its-all-lies')">
+                <img src="https://files.fm/thumb_show.php?i=9sjhybwhcq"
+                     alt="It's All Lies"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">It's All Lies</div>
             </div>
 
-            <div class="back-nav">
-                <a href="index.html" class="btn-back">← Back to Home</a>
-            </div>
-            
-            <h2 style="text-align: center; margin-bottom: 10px; color: var(--brand-dark);">Sarah's Latest Work</h2>
-            <p style="text-align: center; font-style: italic; margin-bottom: 30px; opacity: 0.8;">Select a poem below to display it in all its glory</p>
-            
-            <!-- Compact Grid View Matrix -->
-            <div id="latest-grid-view" class="custom-grid-container">
-                
-                <div class="poem-card" onclick="expandPoem('poem-memories-macca')">
-                    <img src="https://files.fm/thumb_show.php?i=m2hhstpr5s" alt="Memories and Macca" class="poem-card-thumb">
-                    <div class="poem-card-footer">Memories and Macca</div>
-                </div>
-                
-                <div class="poem-card" onclick="expandPoem('poem-daddy-smile')">
-                    <img src="https://files.fm/thumb_show.php?i=85r9kfg38w" alt="When I See My Daddy Smile" class="poem-card-thumb">
-                    <div class="poem-card-footer">When I See My Daddy Smile</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-dundee-law')">
-                    <img src="https://files.fm/thumb_show.php?i=hr4zjmxsn7" alt="The Dundee Law" class="poem-card-thumb">
-                    <div class="poem-card-footer">The Dundee Law</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-leaving-home')">
-                    <img src="https://files.fm/thumb_show.php?i=b5vzpnja88" alt="I'm Leaving Home!" class="poem-card-thumb">
-                    <div class="poem-card-footer">I'm Leaving Home!</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-taboo')">
-                    <img src="https://files.fm/thumb_show.php?i=fcuqzet9xm" alt="Taboo" class="poem-card-thumb">
-                    <div class="poem-card-footer">Taboo</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-a-million-tears')">
-                    <img src="https://files.fm/thumb_show.php?i=e5vgezb4hz" alt="A Million Tears" class="poem-card-thumb">
-                    <div class="poem-card-footer">A Million Tears</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-a-thank-you')">
-                    <img src="https://files.fm/thumb_show.php?i=5h4bbsx9ku" alt="A Thank You" class="poem-card-thumb">
-                    <div class="poem-card-footer">A Thank You</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-yellow-summer-dress')">
-                    <img src="https://files.fm/thumb_show.php?i=hujcy3jumm" alt="A Yellow Summer Dress" class="poem-card-thumb">
-                    <div class="poem-card-footer">A Yellow Summer Dress</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-blood-on-your-hands')">
-                    <img src="https://files.fm/thumb_show.php?i=63wtjwq3tk" alt="Blood On Your Hands" class="poem-card-thumb">
-                    <div class="poem-card-footer">Blood On Your Hands</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-knackered-old-and-grey')">
-                    <img src="https://files.fm/thumb_show.php?i=78qhh6e8pj" alt="Knackered, old and grey!" class="poem-card-thumb">
-                    <div class="poem-card-footer">Knackered, old and grey!</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-new-dreams')">
-                    <img src="https://files.fm/thumb_show.php?i=6gyrg2bbvy" alt="New Dreams" class="poem-card-thumb">
-                    <div class="poem-card-footer">New Dreams</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-lollypop-sarah')">
-                    <img src="https://files.fm/thumb_show.php?i=4am98qmkgy" alt="Lollypop 1, Sarah 0" class="poem-card-thumb">
-                    <div class="poem-card-footer">Lollypop 1, Sarah 0</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-magnus-gruffalo')">
-                    <img src="https://files.fm/thumb_show.php?i=ynacqm329q" alt="Magnus and the Gruffalo,s Godzilla adventure!!" class="poem-card-thumb">
-                    <div class="poem-card-footer">Magnus and the Gruffalo,s Godzilla adventure!!</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-yesterday-once-more')">
-                    <img src="https://files.fm/thumb_show.php?i=teem55yy5x" alt="Yesterday Once More" class="poem-card-thumb">
-                    <div class="poem-card-footer">Yesterday Once More</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-nurse-sarah')">
-                    <img src="https://files.fm/thumb_show.php?i=3ru4b4g3dh" alt="Nurse Sarah" class="poem-card-thumb">
-                    <div class="poem-card-footer">Nurse Sarah</div>
-                </div>
-
-                <div class="poem-card" onclick="expandPoem('poem-limp-larry-3')">
-                    <img src="https://files.fm/thumb_show.php?i=md72jw4zr92mwt3j" alt="Limp Larry Ep 3" class="poem-card-thumb">
-                    <div class="poem-card-footer">Limp Larry Ep 3</div>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-memories-macca')">
+                <img src="https://files.fm/thumb_show.php?i=m2hhstpr5s"
+                     alt="Memories and Macca"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">Memories and Macca</div>
             </div>
 
-            <!-- ================= EXPANDED POEM VIEWER PANES ================= -->
-
-            <!-- POEM VIEW: Memories and Macca -->
-            <div id="poem-memories-macca" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-memories-macca')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=m2hhstpr5s" alt="Memories and Macca" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">Memories and Macca</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>I have the fondest memories<br>Of waterfalls and rain<br>Those days in the heart of the country<br>Now replaced by days of pain</p>
-                    <p>As I rise to face another day<br>Mum's photo smiles so bright<br>Her beautiful face is the first I see<br>I still kiss her every night</p>
-                    <p>I know if she was here today<br>The sun would always shine<br>They would dance to silly love songs<br>Sweet memories of a time</p>
-                    <p>Mum, I know that you are with us<br>Your loving flame shines clear and bright<br>Please help dad win his tug of war<br>Between the darkness and the light</p>
-                    <p>And maybe with a little luck<br>He'll find sweet love again<br>And there will be no more lonely nights<br>No more lonliness and pain</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-daddy-smile')">
+                <img src="https://files.fm/thumb_show.php?i=85r9kfg38w"
+                     alt="When I See My Daddy Smile"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">When I See My Daddy Smile</div>
             </div>
 
-            <!-- POEM VIEW: When I See My Daddy Smile -->
-            <div id="poem-daddy-smile" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-daddy-smile')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=85r9kfg38w" alt="When I See My Daddy Smile" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">When I See My Daddy Smile</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>When I see my daddy smiling<br>I feel so very proud<br>Together we've walked so many miles<br>Weighed down by grief's dark cloud</p>
-                    <p>There was a time not long ago<br>When his world was torn apart<br>Nothing I could say or do<br>Would mend his broken heart</p>
-                    <p>But every day I tried so hard<br>Did my best to pull him through<br>To make him realise there's still a point<br>Now that we are two</p>
-                    <p>We make the best of what we have<br>Our daddy daughter team<br>We still have our happy memories<br>Despite all the might have beens</p>
-                    <p>Life is getting better now<br>Together we'll find the key<br>To the happiness I feel the most<br>When my daddy smiles at me ❤️❤️</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-dundee-law')">
+                <img src="https://files.fm/thumb_show.php?i=hr4zjmxsn7"
+                     alt="The Dundee Law"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">The Dundee Law</div>
             </div>
 
-            <!-- POEM VIEW: The Dundee Law -->
-            <div id="poem-dundee-law" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-dundee-law')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=hr4zjmxsn7" alt="The Dundee Law" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">The Dundee Law</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>There's a hill in eastern Scotland<br>The locals call it the Dundee Law<br>Where the tourists climb to see the view<br>And remember those who went before</p>
-                    <p>Atop there is a monument<br>To those who in battle fell<br>But this place holds her memories<br>She guards her secrets well</p>
-                    <p>The Law remembers the Christmas storm<br>Of eighteen seventy nine<br>And she remembers that distant whistle<br>As the train came down the line</p>
-                    <p>That night the storm was wild and free<br>No man should have been so bold<br>The Tay flowed fast, her waves were high<br>Her waters dark and cold</p>
-                    <p>The wind it blew a hurricane.<br>And the bridge it bowed and broke<br>And into the Tay all lives were lost<br>Amongst the lightning and the smoke</p>
-                    <p>On the 28th of December<br>Climb the Law and listen well<br>In the darkness a distant whistle<br>This is the night she fell</p>
-                    <p>There's a hill in eastern Scotland<br>The locals call it the Dundee Law<br>Where the tourists climb to see the view<br>And remember those who went before</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-leaving-home')">
+                <img src="https://files.fm/thumb_show.php?i=b5vzpnja88"
+                     alt="I'm Leaving Home!"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">I'm Leaving Home!</div>
             </div>
 
-            <!-- POEM VIEW: I'm Leaving Home! -->
-            <div id="poem-leaving-home" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-leaving-home')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=b5vzpnja88" alt="I'm Leaving Home!" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">I'm Leaving Home!</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>I'm running away from home today<br>Daddy shouted at me<br>How was I supposed to know<br>Crayons aren't allowed on the settee?</p>
-                    <p>I'm running away from home today<br>Mummy's wearing an awful frown<br>I trampled mud into the carpet again<br>Why don't they buy one that's brown?</p>
-                    <p>I'm running away from home today<br>My big sister told on me<br>All because I lifted her skirt up outside school<br>Well i thought it was funny heehee!</p>
-                    <p>I'm running away from home today<br>Now even the dog is being rude!<br>Every time I go near him he runs away<br>Doesn't he like pickled onions in his food?</p>
-                    <p>I'm running away from home today<br>Nobody around here wants me<br>On second thoughts maybe I'll leave tomorrow<br>We're going to Maccies for tea!</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-taboo')">
+                <img src="https://files.fm/thumb_show.php?i=fcuqzet9xm"
+                     alt="Taboo"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">Taboo</div>
             </div>
 
-            <!-- POEM VIEW: Taboo -->
-            <div id="poem-taboo" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-taboo')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=fcuqzet9xm" alt="Taboo" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">Taboo</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>She hasn't done her homework<br>She knows he'll make her stay<br>She yearns for her weekly punishment<br>Oh how she loves detention day</p>
-                    <p>Her friends think she's a rebel<br>But this secret no one can know<br>A forbidden love like this one<br>Can never be on show</p>
-                    <p>She rises early to shower<br>A touch of his favourite scent<br>The white lace beneath her uniform<br>Gives him her consent</p>
-                    <p>Their eyes meet across the classroom<br>In that glance a burning fire<br>Now they must wait for the final bell<br>Before releasing their desire</p>
-                    <p>Because she hasn't done her homework<br>And now he tells her she must stay<br>The punishment she longs for<br>Oh how she loves detention day</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-a-million-tears')">
+                <img src="https://files.fm/thumb_show.php?i=e5vgezb4hz"
+                     alt="A Million Tears"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">A Million Tears</div>
             </div>
 
-            <!-- POEM VIEW: A Million Tears -->
-            <div id="poem-a-million-tears" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-a-million-tears')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=e5vgezb4hz" alt="A Million Tears" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">A Million Tears</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>I must have cried a million tears<br>Since the day you went away<br>Inside my head a million words<br>All the things I still wanted to say</p>
-                    <p>Six years on and nothing has changed<br>You are my first and my last thought each day<br>I can't move forward and I can't go back<br>Am I forever to be stuck this way?</p>
-                    <p>People say " oh you're just like your mum "<br>What I'd give to be half of you<br>The most beautiful person I've ever known<br>Only this I know to be true</p>
-                    <p>Because I see you every day in my mirror<br>Looking back at me through our tears<br>Our happy lives have been stolen away<br>Replaced by these darkest years</p>
-                    <p>I will come to your resting place again<br>The water will lap and the breeze will blow<br>I will sit and cry for you once more<br>For the loss only we can know</p>
-                    <p>And then tomorrow I'll carry on<br>The world will turn again<br>Maybe next year it will be easier<br>But for now and until then</p>
-                    <p>I'll carry you with me as always<br>Safe in my heart under lock and key<br>The memories I treasure forever<br>Of you and dad and me</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-a-thank-you')">
+                <img src="https://files.fm/thumb_show.php?i=5h4bbsx9ku"
+                     alt="A Thank You"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">A Thank You</div>
             </div>
 
-            <!-- POEM VIEW: A Thank You -->
-            <div id="poem-a-thank-you" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-a-thank-you')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=5h4bbsx9ku" alt="A Thank You" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">A Thank You</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>I want to say a massive thank you<br>To you and you and you<br>To every single one of you<br>For everything you do</p>
-                    <p>The last few days were really tough<br>Me and mum six years apart<br>But you guys try so very hard<br>To mend my broken heart</p>
-                    <p>I wanted just to tell you<br>I appreciate so much<br>The love you send across the miles<br>I can feel your gentle touch</p>
-                    <p>On we go now hand in hand<br>Our friendship grows and grows<br>Life's ups and downs we face together<br>The future no one knows</p>
-                    <p>But of one thing I am certain<br>Because you've shown me that it's true<br>In my saddest, darkest moments<br>I know i can turn to you</p>
-                    <p>Thank you!! Sarah H xxx</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-yellow-summer-dress')">
+                <img src="https://files.fm/thumb_show.php?i=hujcy3jumm"
+                     alt="A Yellow Summer Dress"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">A Yellow Summer Dress</div>
             </div>
 
-            <!-- POEM VIEW: A Yellow Summer Dress -->
-            <div id="poem-yellow-summer-dress" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-yellow-summer-dress')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=hujcy3jumm" alt="A Yellow Summer Dress" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">A Yellow Summer Dress</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>As I was strolling through the park<br>I saw a little girl<br>She wore a yellow summer dress<br>I watched her dance and twirl</p>
-                    <p>She ran into her Mummy's arms<br>And was lifted way up high<br>The safest place in all the world<br>You really believe that you can fly</p>
-                    <p>I found a bench and sat a while<br>She giggled on the swing<br>Higher and higher, not a care in the world<br>No thought of what tomorrow might bring</p>
-                    <p>I think I shed a little tear<br>When she wandered over to me<br>She placed a buttercup in my hand<br>"It matches my dress, do you see?"</p>
-                    <p>A beaming smile, a happy wave<br>"Byebye!" and homeward bound<br>Mummy and daughter laughing in the sun<br>To me the most magical sound</p>
-                    <p>And now the new day gently dawns<br>First light wakes me from my sleep<br>And I realise these memories<br>Were always mine to keep</p>
-                    <p>I wish that I had told her<br>To treasure every day<br>She had no way of knowing<br>The sorrow that would come her way</p>
-                    <p>I miss that happy little girl<br>And how, oh how I miss her mum<br>But I'm so grateful for that memory<br>And the thousands more to come 💔</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-blood-on-your-hands')">
+                <img src="https://files.fm/thumb_show.php?i=63wtjwq3tk"
+                     alt="Blood On Your Hands"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">Blood On Your Hands</div>
             </div>
 
-            <!-- POEM VIEW: Blood On Your Hands -->
-            <div id="poem-blood-on-your-hands" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-blood-on-your-hands')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=63wtjwq3tk" alt="Blood On Your Hands" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">Blood On Your Hands</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>My name is Makan Nasiri<br>I am the one they never found<br>Forty six days searching for me<br>All across this broken ground</p>
-                    <p>I am nothing now but memories<br>I am dust, a single shoe<br>My grave lies cold and empty<br>So many families torn in two</p>
-                    <p>What was it that we did so wrong?<br>What did I do to you?<br>Why must the children pay the price<br>For the evil that men do?</p>
-                    <p>I see our mother's wailing<br>One hundred and twenty desperate cries<br>We are the lost generation<br>How many more must die?</p>
-                    <p>Still you deny your responsibility<br>You have nothing decent to say<br>Our blood on your hands will drip drip drip<br>Until you face your judgement day</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-knackered-old-and-grey')">
+                <img src="https://files.fm/thumb_show.php?i=78qhh6e8pj"
+                     alt="Knackered, old and grey!"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">Knackered, old and grey!</div>
             </div>
 
-            <!-- POEM VIEW: Knackered, old and grey! -->
-            <div id="poem-knackered-old-and-grey" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-knackered-old-and-grey')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=78qhh6e8pj" alt="Knackered, old and grey!" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">Knackered, old and grey!</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>Will all of you still love me<br>When I'm knackered, old and grey?<br>Will anyone still listen<br>To the things I have to say?</p>
-                    <p>Will anyone read my poems?<br>Will my fingers still want to type?<br>Will growing old disgracefully<br>Live up to all the hype?</p>
-                    <p>The end of the cheeky messages<br>Nobody asking for my pics<br>I'll need me readers on for sure<br>To see all their wrinkly dicks!</p>
-                    <p>Will there even be a Facebook?<br>Will anybody care?<br>Will I need a Stannah stairlift<br>To get me up the stairs?</p>
-                    <p>I'll sit here in my rocking chair<br>Full of memories and tears<br>And go back across the miles and smiles<br>Through all my yester years</p>
-                    <p>I have to say I had a blast<br>No complaints, it's been a treat!<br>I played the cards that life has dealt<br>From the bitter to the sweet</p>
-                    <p>So will all of you still love me?<br>Will you still hold me in your embrace?<br>I'll be knackered, I'll be old and grey<br>And Bo and Obs will be round my waist!</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-new-dreams')">
+                <img src="https://files.fm/thumb_show.php?i=6gyrg2bbvy"
+                     alt="New Dreams"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">New Dreams</div>
             </div>
 
-            <!-- POEM VIEW: New Dreams -->
-            <div id="poem-new-dreams" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-new-dreams')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=6gyrg2bbvy" alt="New Dreams" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">New Dreams</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>The Liver birds are waking<br>The statues shined and ready<br>The ghosts are getting restless<br>The atmosphere heady</p>
-                    <p>The lines are being painted<br>The grass is green and lush<br>The expectation rising<br>The crowd will banish the hush</p>
-                    <p>The team will take the field again<br>The songs will fill the air<br>The memories of young and old<br>The club beyond compare</p>
-                    <p>The red against the black and white<br>The hero that we share<br>The tears will fall for a legend<br>The Mighty mouse will be there</p>
-                    <p>The time is nearly with us<br>The demons are all gone<br>The stadium is Anfield<br>The prize is twenty one</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-lollypop-sarah')">
+                <img src="https://files.fm/thumb_show.php?i=4am98qmkgy"
+                     alt="Lollypop 1, Sarah 0"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">Lollypop 1, Sarah 0</div>
             </div>
 
-            <!-- POEM VIEW: Lollypop 1, Sarah 0 -->
-            <div id="poem-lollypop-sarah" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-lollypop-sarah')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=4am98qmkgy" alt="Lollypop 1, Sarah 0" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">Lollypop 1, Sarah 0</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p style="font-weight: bold; font-style: italic; margin-bottom: 20px;">The struggle is real!!</p>
-                    <p>I thought I'd have a Chuppa chup<br>The cola one in blue<br>Something to suck on while I write<br>And please, no smutty comments from you!</p>
-                    <p>Just take the paper off and pop it in<br>What could be easier than that?<br>But this little fella had other ideas<br>He was a right little stubborn brat!</p>
-                    <p>I tried with my nails to open him up<br>Twisted the stick to and fro<br>But this little bugger was superglued shut<br>So off to the shed I go!</p>
-                    <p>I tried with a hammer, I tried with a drill<br>Dad's angle grinder was no use at all!<br>I even tried sneaking up on it<br>Hit it hard with an old hockey ball!</p>
-                    <p>I slumped in the corner defeated and sad<br>My face all sweaty and red<br>Vanquished by a humble little lollipop<br>Fuck it, I'll have a banana instead!</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-magnus-gruffalo')">
+                <img src="https://files.fm/thumb_show.php?i=ynacqm329q"
+                     alt="Magnus and the Gruffalo,s Godzilla adventure!!"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">Magnus and the Gruffalo,s Godzilla adventure!!</div>
             </div>
 
-            <!-- POEM VIEW: Magnus and the Gruffalo,s Godzilla adventure!! -->
-            <div id="poem-magnus-gruffalo" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-magnus-gruffalo')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=ynacqm329q" alt="Magnus and the Gruffalo,s Godzilla adventure!!" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">Magnus and the Gruffalo,s Godzilla adventure!!</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p style="font-style: italic; margin-bottom: 20px; font-size: 1.05rem; line-height: 1.6;">So today i was tasked with writing something for a very special little boy called Magnus over in Edinburgh. Now Magnus is 5 years old and he loves the Gruffalo and dinosaurs. He really really loves Godzilla! He also has a pet gecko called Geccy ! Oh and Magnus had to be in the poem aswell. So I asked his dad to ask him if he could give Godzilla a present what would he give? And Magnus said a dinosaur tooth! So with a huge thank you to Julia Donaldson for the inspiration and my own childhood memories I give you Magnus and the Gruffalo,s Godzilla adventure!!</p>
-                    
-                    <p>The Gruffalo said to the Gruffalo,s child<br>And held it up to the world as proof<br>"As I was walking through the deep dark wood<br>I found a dinosaur tooth!</p>
-                    <p>Now I know Godzilla collects such things<br>So I'm really happy to give<br>But how on earth will I find him?<br>Does anyone know where he lives?"</p>
-                    <p>The Gruffalo,s child smiled and said<br>"You need to go to Scotland dad<br>Magnus in Edinburgh will show you the way<br>He's a very special little lad "</p>
-                    <p>Now up there in Scotland all was quiet<br>Mum and dad were gently creeping<br>Out of the room on tiptoes<br>Magnus was finally sleeping</p>
-                    <p>Then deep in the night it happened<br>The sound of the wind around the room<br>Magnus ran to the window<br>To see a truly magnificent broom!</p>
-                    <p>And there on the grass was the Gruffalo!<br>With a wave and a beaming smile<br>"Hello there Magnus nice to meet you<br>Can I borrow you for a while?</p>
-                    <p>I've heard you know Godzilla<br>He's scary and fills me with dread<br>But I have a dinosaur tooth to give him<br>Perhaps you'd like to give it instead?</p>
-                    <p>I've borrowed this broom from a witch friend of mine<br>It's faster than Santa's sleigh<br>And I've packed some scrambled snake sandwiches<br>We can eat them along the way!"</p>
-                    <p>"What about Geccy and my dinosaurs?<br>They'll get lonely if I'm not there"<br>"Oh bring them along!" The Gruffalo said<br>"We have plenty of room to spare!</p>
-                    <p>There's seats for us and seats for them<br>Come on everyone clamber on!"<br>The Gruffalo tapped the broomstick<br>3,2,1 and whoosh they were gone!</p>
-                    <p>Over the buildings and over the trees<br>Loop the loop and twice round the moon<br>In the distance Magnus could see the ocean<br>Gruffalo said "We'll be there soon!"</p>
-                    <p>The air grew warmer and Magnus knew<br>They'd reached Godzilla,s lair<br>He tapped the Gruffalo on the shoulder<br>"I think he's somewhere down there!"</p>
-                    <p>Then the water started to bubble<br>And smoke began to rise<br>Godzilla leapt from under the water<br>Magnus couldn't believe his eyes!</p>
-                    <p>"Next time he jumps throw him the tooth!"<br>Gruffalo held the broomstick steady<br>"Here he comes Magnus I see him<br>Give it your best shot, are you ready?"</p>
-                    <p>With an almighty leap Godzilla rose up<br>Magnus could see right into his jaws<br>"Here Godzilla this is for you!"<br>As the tooth landed right in his claws</p>
-                    <p>Down went Godzilla with an enormous splash<br>Then turned one last time in the deep<br>Then rose up again higher than ever<br>In one final thank you leap!</p>
-                    <p>The water now calm they said their goodbyes<br>"Great job!" The Gruffalo said<br>"Come on my friend its nearly morning<br>Let's get you back to bed!"</p>
-                    <p>Magnus woke up as dad came in<br>"Morning Magnus how was your night?<br>Any good dreams to tell me about?<br>Any amazing sights?"</p>
-                    <p>Magnus smiled to himself as he remembered the night<br>No way was he going to snitch<br>And for breakfast that morning Magnus ate, can you guess?<br>Hahaha yes! The last remaining scrambled snake sandwich!</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-yesterday-once-more')">
+                <img src="https://files.fm/thumb_show.php?i=teem55yy5x"
+                     alt="Yesterday Once More"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">Yesterday Once More</div>
             </div>
 
-            <!-- POEM VIEW: Yesterday Once More -->
-            <div id="poem-yesterday-once-more" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-yesterday-once-more')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=teem55yy5x" alt="Yesterday Once More" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">Yesterday Once More</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p style="font-style: italic; margin-bottom: 20px; font-size: 1.05rem; line-height: 1.6;">For mum and a massive thank you to the beautiful Karen Carpenter. Mum adored her</p>
-                    
-                    <p>When I was little I had you all to myself<br>How I miss that sweet sweet smile<br>I remember feeling on top of the world<br>With you as my guide along the miles</p>
-                    <p>Rainy days and Mondays just faded away<br>With you I never felt blue<br>Nothing in this world could hurt me<br>As long as I was close to you</p>
-                    <p>Only yesterday I was thinking back<br>To those perfect childhood days<br>For all we know and all we had<br>I miss you in so many ways</p>
-                    <p>I had to say goodbye to love<br>I couldn't pull you through<br>The day you left I realised<br>I won't last a day without you</p>
-                    <p>My mama, my friend, my superstar<br>Shine down on dad and me<br>We've only just begun to live<br>Send me a sign so I may see</p>
-                    <p>There's a kind of hush in the air tonight<br>As I sit on your gentle shore<br>I pray one day we will meet again<br>And find our yesterday once more</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-nurse-sarah')">
+                <img src="https://files.fm/thumb_show.php?i=3ru4b4g3dh"
+                     alt="Nurse Sarah"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">Nurse Sarah</div>
             </div>
 
-            <!-- POEM VIEW: Nurse Sarah -->
-            <div id="poem-nurse-sarah" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-nurse-sarah')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=3ru4b4g3dh" alt="Nurse Sarah" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">Nurse Sarah</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p>If you wake up in the morning<br>And you're feeling kinda stiff<br>Don't go reaching for the voddy<br>There's no need to smoke a spliff!</p>
-                    <p>Just get yourself on Facebook<br>Look for Sarah's little green dot<br>You'll soon be feeling better<br>She knows how to hit the spot!</p>
-                    <p>Ease yourself into the day<br>Pretend that nothing really matters<br>Nurse Sarah will bring you round again<br>With her gentle bedside chatter</p>
-                    <p>She may need to take your temperature<br>Bo and Obs might make it rise<br>And if you're really nice to her<br>She may send you a surprise!</p>
-                    <p>But be careful what you wish for<br>She doesn't want to see your c**k<br>Don't be that guy, don't be the one<br>Because you know that she will block!</p>
-                    <p>So start the day with Sarah<br>Let her ease your troubled mind<br>Be nice to her, she'll be nice to you<br>Let's all be friendly, sweet and kind ❤️❤️‍🩹</p>
-                </div>
+            <div class="poem-card" onclick="expandPoem('poem-limp-larry-3')">
+                <img src="https://files.fm/thumb_show.php?i=md72jw4zr92mwt3j"
+                     alt="Limp Larry Ep 3"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">Limp Larry Ep 3</div>
             </div>
 
-            <!-- POEM VIEW: Limp Larry Ep 3 -->
-            <div id="poem-limp-larry-3" class="expanded-poem-wrapper">
-                <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
-                    <button class="btn-back" onclick="closeExpandedPoem('poem-limp-larry-3')">← Back to Grid</button>
-                </div>
-                <img src="https://files.fm/thumb_show.php?i=md72jw4zr92mwt3j" alt="Limp Larry Ep 3" class="expanded-poem-img">
-                <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">Limp Larry Ep 3</h2>
-                <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">By Sarah Halligan</p>
-                
-                <div class="expanded-poem-verses">
-                    <p style="font-style: italic; margin-bottom: 20px;">Another terrible day for Limp Larry!</p>
-                    
-                    <p>It's a lovely sunny morning<br>And it's Limp Larry's favourite day<br>At last the month of June is here<br>Sodor pride week starts today!</p>
-                    <p>The engines are all polished<br>And the fat controller is here to see<br>He has a big announcement<br>What on earth could this news be?</p>
-                    <p>"This is a big week for the island<br>It's our very first pride event<br>We hope it'll all run smoothly<br>There's been a lot of money spent!</p>
-                    <p>Now Larry get over to Barrow<br>And fetch back our special guest star<br>You'll never guess who's coming<br>It's only Alan Carr!</p>
-                    <p>He'll be riding on your footplate<br>As you lead the grand parade<br>We want Sodor pride to be the best!<br>Put all the others in the shade!'</p>
-                    <p>Proudly Larry steamed away<br>To collect his famous VIP<br>"I'm leading the parade!" he chuffed<br>"I'll show them all, you'll see!"</p>
-                    <p>At Barrow Alan waved "yoohoo!<br>Ooh Larry I like your pink!<br>It matches the stripes in my silky shirt<br>We could be twins don't you think!"</p>
-                    <p>Larry chuckled as he steamed away<br>Alan waved to his adoring fans<br>Larry thought "Can't delay! Mustn't stop!<br>I'm the most important part of the plans!"</p>
-                    <p>Now a mile up the track there was trouble<br>Bertie the bus was stuck on the line<br>A flat tyre on this day of all days<br>Could they get it changed on time?</p>
-                    <p>Larry and Alan steamed ever closer<br>Bertie's driver was ready to go<br>Larry rounded the turn, his brakes started to burn<br>And everyone shouted "oh no!"</p>
-                    <p>Now Alan was thrown across the footplate<br>The throttle lever went right up his jacksy<br>Larry said "oh poo!" and Alan said "ooh!<br>I've never had this much fun in a taxi!"</p>
-                    <p>On Larry thundered unable to stop<br>He could see the fat controller lined up with the chuffers<br>"Get out of the way!" Larry started to say<br>As he finally smashed into the buffers!</p>
-                    <p>An impact so rotten it released Alan's bottom<br>And he flew like a bullet from a rifle<br>Then crashed through the roof of the cake stand<br>And landed face first in a trifle!</p>
-                    <p>An ambulance was called, poor Larry was appalled<br>The fat controller fainted in all the commotion<br>Then from a guerney before his hospital journey<br>Alan said " I declare Sodor pride week open!"</p>
-                    <p>At bedtime Gordon teased Larry<br>"I've never known anyone mess things up like you can!<br>The guy off the telly all covered in jelly<br>Now everyone calls him the splatty man!"</p>
-                </div>
+            <!-- NEW POEM: DOLLY -->
+
+            <div class="poem-card" onclick="expandPoem('poem-dolly')">
+                <img src="https://files.fm/thumb_show.php?i=8hzmp3wyzugmvvur"
+                     alt="Dolly"
+                     class="poem-card-thumb">
+                <div class="poem-card-footer">Dolly</div>
             </div>
 
         </div>
 
-        <footer>
-            <p>© 2026 Bo & OB's Poetry. All Rights Reserved.</p>
-            <p>Website, Hosting, and Design Provided By <a href="https://blucomputers.co.uk" target="_blank" class="credit-link">Blucomputers.co.uk</a></p>
-        </footer>
+
+        <!-- ================= EXPANDED POEM VIEWER PANES ================= -->
+
+
+        <!-- POEM VIEW: It's All Lies -->
+
+        <div id="poem-its-all-lies" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-its-all-lies')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=9sjhybwhcq"
+                 alt="It's All Lies"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                It's All Lies
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+                <p>
+                    I am Bo! And I am Obs!<br>
+                    We're here to spill some beans<br>
+                    About a minger we call Sarah<br>
+                    She's not as nice as she seems!
+                </p>
+
+                <p>
+                    Some nights we don't get a wink of sleep<br>
+                    Her snoring makes such a din<br>
+                    Especially when she's full of wine<br>
+                    Topped up with raspberry gin!
+                </p>
+
+                <p>
+                    She starts the day with a great big fart<br>
+                    Then traps us in the fumes.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: Memories and Macca -->
+
+        <div id="poem-memories-macca" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-memories-macca')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=m2hhstpr5s"
+                 alt="Memories and Macca"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                Memories and Macca
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    I have the fondest memories<br>
+                    Of waterfalls and rain<br>
+                    Those days in the heart of the country<br>
+                    Now replaced by days of pain
+                </p>
+
+                <p>
+                    As I rise to face another day<br>
+                    Mum's photo smiles so bright<br>
+                    Her beautiful face is the first I see<br>
+                    I still kiss her every night
+                </p>
+
+                <p>
+                    I know if she was here today<br>
+                    The sun would always shine<br>
+                    They would dance to silly love songs<br>
+                    Sweet memories of a time
+                </p>
+
+                <p>
+                    Mum, I know that you are with us<br>
+                    Your loving flame shines clear and bright<br>
+                    Please help dad win his tug of war<br>
+                    Between the darkness and the light
+                </p>
+
+                <p>
+                    And maybe with a little luck<br>
+                    He'll find sweet love again<br>
+                    And there will be no more lonely nights<br>
+                    No more lonliness and pain
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: When I See My Daddy Smile -->
+
+        <div id="poem-daddy-smile" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-daddy-smile')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=85r9kfg38w"
+                 alt="When I See My Daddy Smile"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                When I See My Daddy Smile
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    When I see my daddy smiling<br>
+                    I feel so very proud<br>
+                    Together we've walked so many miles<br>
+                    Weighed down by grief's dark cloud
+                </p>
+
+                <p>
+                    There was a time not long ago<br>
+                    When his world was torn apart<br>
+                    Nothing I could say or do<br>
+                    Would mend his broken heart
+                </p>
+
+                <p>
+                    But every day I tried so hard<br>
+                    Did my best to pull him through<br>
+                    To make him realise there's still a point<br>
+                    Now that we are two
+                </p>
+
+                <p>
+                    We make the best of what we have<br>
+                    Our daddy daughter team<br>
+                    We still have our happy memories<br>
+                    Despite all the might have beens
+                </p>
+
+                <p>
+                    Life is getting better now<br>
+                    Together we'll find the key<br>
+                    To the happiness I feel the most<br>
+                    When my daddy smiles at me ❤️❤️
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: The Dundee Law -->
+
+        <div id="poem-dundee-law" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-dundee-law')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=hr4zjmxsn7"
+                 alt="The Dundee Law"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                The Dundee Law
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    There's a hill in eastern Scotland<br>
+                    The locals call it the Dundee Law<br>
+                    Where the tourists climb to see the view<br>
+                    And remember those who went before
+                </p>
+
+                <p>
+                    Atop there is a monument<br>
+                    To those who in battle fell<br>
+                    But this place holds her memories<br>
+                    She guards her secrets well
+                </p>
+
+                <p>
+                    The Law remembers the Christmas storm<br>
+                    Of eighteen seventy nine<br>
+                    And she remembers that distant whistle<br>
+                    As the train came down the line
+                </p>
+
+                <p>
+                    That night the storm was wild and free<br>
+                    No man should have been so bold<br>
+                    The Tay flowed fast, her waves were high<br>
+                    Her waters dark and cold
+                </p>
+
+                <p>
+                    The wind it blew a hurricane.<br>
+                    And the bridge it bowed and broke<br>
+                    And into the Tay all lives were lost<br>
+                    Amongst the lightning and the smoke
+                </p>
+
+                <p>
+                    On the 28th of December<br>
+                    Climb the Law and listen well<br>
+                    In the darkness a distant whistle<br>
+                    This is the night she fell
+                </p>
+
+                <p>
+                    There's a hill in eastern Scotland<br>
+                    The locals call it the Dundee Law<br>
+                    Where the tourists climb to see the view<br>
+                    And remember those who went before
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: I'm Leaving Home! -->
+
+        <div id="poem-leaving-home" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-leaving-home')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=b5vzpnja88"
+                 alt="I'm Leaving Home!"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                I'm Leaving Home!
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    I'm running away from home today<br>
+                    Daddy shouted at me<br>
+                    How was I supposed to know<br>
+                    Crayons aren't allowed on the settee?
+                </p>
+
+                <p>
+                    I'm running away from home today<br>
+                    Mummy's wearing an awful frown<br>
+                    I trampled mud into the carpet again<br>
+                    Why don't they buy one that's brown?
+                </p>
+
+                <p>
+                    I'm running away from home today<br>
+                    My big sister told on me<br>
+                    All because I lifted her skirt up outside school<br>
+                    Well i thought it was funny heehee!
+                </p>
+
+                <p>
+                    I'm running away from home today<br>
+                    Now even the dog is being rude!<br>
+                    Every time I go near him he runs away<br>
+                    Doesn't he like pickled onions in his food?
+                </p>
+
+                <p>
+                    I'm running away from home today<br>
+                    Nobody around here wants me<br>
+                    On second thoughts maybe I'll leave tomorrow<br>
+                    We're going to Maccies for tea!
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: Taboo -->
+
+        <div id="poem-taboo" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-taboo')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=fcuqzet9xm"
+                 alt="Taboo"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                Taboo
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    She hasn't done her homework<br>
+                    She knows he'll make her stay<br>
+                    She yearns for her weekly punishment<br>
+                    Oh how she loves detention day
+                </p>
+
+                <p>
+                    Her friends think she's a rebel<br>
+                    But this secret no one can know<br>
+                    A forbidden love like this one<br>
+                    Can never be on show
+                </p>
+
+                <p>
+                    She rises early to shower<br>
+                    A touch of his favourite scent<br>
+                    The white lace beneath her uniform<br>
+                    Gives him her consent
+                </p>
+
+                <p>
+                    Their eyes meet across the classroom<br>
+                    In that glance a burning fire<br>
+                    Now they must wait for the final bell<br>
+                    Before releasing their desire
+                </p>
+
+                <p>
+                    Because she hasn't done her homework<br>
+                    And now he tells her she must stay<br>
+                    The punishment she longs for<br>
+                    Oh how she loves detention day
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: A Million Tears -->
+
+        <div id="poem-a-million-tears" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-a-million-tears')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=e5vgezb4hz"
+                 alt="A Million Tears"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                A Million Tears
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    I must have cried a million tears<br>
+                    Since the day you went away<br>
+                    Inside my head a million words<br>
+                    All the things I still wanted to say
+                </p>
+
+                <p>
+                    Six years on and nothing has changed<br>
+                    You are my first and my last thought each day<br>
+                    I can't move forward and I can't go back<br>
+                    Am I forever to be stuck this way?
+                </p>
+
+                <p>
+                    People say " oh you're just like your mum "<br>
+                    What I'd give to be half of you<br>
+                    The most beautiful person I've ever known<br>
+                    Only this I know to be true
+                </p>
+
+                <p>
+                    Because I see you every day in my mirror<br>
+                    Looking back at me through our tears<br>
+                    Our happy lives have been stolen away<br>
+                    Replaced by these darkest years
+                </p>
+
+                <p>
+                    I will come to your resting place again<br>
+                    The water will lap and the breeze will blow<br>
+                    I will sit and cry for you once more<br>
+                    For the loss only we can know
+                </p>
+
+                <p>
+                    And then tomorrow I'll carry on<br>
+                    The world will turn again<br>
+                    Maybe next year it will be easier<br>
+                    But for now and until then
+                </p>
+
+                <p>
+                    I'll carry you with me as always<br>
+                    Safe in my heart under lock and key<br>
+                    The memories I treasure forever<br>
+                    Of you and dad and me
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: A Thank You -->
+
+        <div id="poem-a-thank-you" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-a-thank-you')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=5h4bbsx9ku"
+                 alt="A Thank You"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                A Thank You
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    I want to say a massive thank you<br>
+                    To you and you and you<br>
+                    To every single one of you<br>
+                    For everything you do
+                </p>
+
+                <p>
+                    The last few days were really tough<br>
+                    Me and mum six years apart<br>
+                    But you guys try so very hard<br>
+                    To mend my broken heart
+                </p>
+
+                <p>
+                    I wanted just to tell you<br>
+                    I appreciate so much<br>
+                    The love you send across the miles<br>
+                    I can feel your gentle touch
+                </p>
+
+                <p>
+                    On we go now hand in hand<br>
+                    Our friendship grows and grows<br>
+                    Life's ups and downs we face together<br>
+                    The future no one knows
+                </p>
+
+                <p>
+                    But of one thing I am certain<br>
+                    Because you've shown me that it's true<br>
+                    In my saddest, darkest moments<br>
+                    I know i can turn to you
+                </p>
+
+                <p>
+                    Thank you!! Sarah H xxx
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: A Yellow Summer Dress -->
+
+        <div id="poem-yellow-summer-dress" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-yellow-summer-dress')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=hujcy3jumm"
+                 alt="A Yellow Summer Dress"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                A Yellow Summer Dress
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    As I was strolling through the park<br>
+                    I saw a little girl<br>
+                    She wore a yellow summer dress<br>
+                    I watched her dance and twirl
+                </p>
+
+                <p>
+                    She ran into her Mummy's arms<br>
+                    And was lifted way up high<br>
+                    The safest place in all the world<br>
+                    You really believe that you can fly
+                </p>
+
+                <p>
+                    I found a bench and sat a while<br>
+                    She giggled on the swing<br>
+                    Higher and higher, not a care in the world<br>
+                    No thought of what tomorrow might bring
+                </p>
+
+                <p>
+                    I think I shed a little tear<br>
+                    When she wandered over to me<br>
+                    She placed a buttercup in my hand<br>
+                    "It matches my dress, do you see?"
+                </p>
+
+                <p>
+                    A beaming smile, a happy wave<br>
+                    "Byebye!" and homeward bound<br>
+                    Mummy and daughter laughing in the sun<br>
+                    To me the most magical sound
+                </p>
+
+                <p>
+                    And now the new day gently dawns<br>
+                    First light wakes me from my sleep<br>
+                    And I realise these memories<br>
+                    Were always mine to keep
+                </p>
+
+                <p>
+                    I wish that I had told her<br>
+                    To treasure every day<br>
+                    She had no way of knowing<br>
+                    The sorrow that would come her way
+                </p>
+
+                <p>
+                    I miss that happy little girl<br>
+                    And how, oh how I miss her mum<br>
+                    But I'm so grateful for that memory<br>
+                    And the thousands more to come 💔
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: Blood On Your Hands -->
+
+        <div id="poem-blood-on-your-hands" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-blood-on-your-hands')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=63wtjwq3tk"
+                 alt="Blood On Your Hands"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                Blood On Your Hands
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    My name is Makan Nasiri<br>
+                    I am the one they never found<br>
+                    Forty six days searching for me<br>
+                    All across this broken ground
+                </p>
+
+                <p>
+                    I am nothing now but memories<br>
+                    I am dust, a single shoe<br>
+                    My grave lies cold and empty<br>
+                    So many families torn in two
+                </p>
+
+                <p>
+                    What was it that we did so wrong?<br>
+                    What did I do to you?<br>
+                    Why must the children pay the price<br>
+                    For the evil that men do?
+                </p>
+
+                <p>
+                    I see our mother's wailing<br>
+                    One hundred and twenty desperate cries<br>
+                    We are the lost generation<br>
+                    How many more must die?
+                </p>
+
+                <p>
+                    Still you deny your responsibility<br>
+                    You have nothing decent to say<br>
+                    Our blood on your hands will drip drip drip<br>
+                    Until you face your judgement day
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: Knackered, old and grey! -->
+
+        <div id="poem-knackered-old-and-grey" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-knackered-old-and-grey')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=78qhh6e8pj"
+                 alt="Knackered, old and grey!"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                Knackered, old and grey!
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    Will all of you still love me<br>
+                    When I'm knackered, old and grey?<br>
+                    Will anyone still listen<br>
+                    To the things I have to say?
+                </p>
+
+                <p>
+                    Will anyone read my poems?<br>
+                    Will my fingers still want to type?<br>
+                    Will growing old disgracefully<br>
+                    Live up to all the hype?
+                </p>
+
+                <p>
+                    The end of the cheeky messages<br>
+                    Nobody asking for my pics<br>
+                    I'll need me readers on for sure<br>
+                    To see all their wrinkly dicks!
+                </p>
+
+                <p>
+                    Will there even be a Facebook?<br>
+                    Will anybody care?<br>
+                    Will I need a Stannah stairlift<br>
+                    To get me up the stairs?
+                </p>
+
+                <p>
+                    I'll sit here in my rocking chair<br>
+                    Full of memories and tears<br>
+                    And go back across the miles and smiles<br>
+                    Through all my yester years
+                </p>
+
+                <p>
+                    I have to say I had a blast<br>
+                    No complaints, it's been a treat!<br>
+                    I played the cards that life has dealt<br>
+                    From the bitter to the sweet
+                </p>
+
+                <p>
+                    So will all of you still love me?<br>
+                    Will you still hold me in your embrace?<br>
+                    I'll be knackered, I'll be old and grey<br>
+                    And Bo and Obs will be round my waist!
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: New Dreams -->
+
+        <div id="poem-new-dreams" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-new-dreams')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=6gyrg2bbvy"
+                 alt="New Dreams"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                New Dreams
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    The Liver birds are waking<br>
+                    The statues shined and ready<br>
+                    The ghosts are getting restless<br>
+                    The atmosphere heady
+                </p>
+
+                <p>
+                    The lines are being painted<br>
+                    The grass is green and lush<br>
+                    The expectation rising<br>
+                    The crowd will banish the hush
+                </p>
+
+                <p>
+                    The team will take the field again<br>
+                    The songs will fill the air<br>
+                    The memories of young and old<br>
+                    The club beyond compare
+                </p>
+
+                <p>
+                    The red against the black and white<br>
+                    The hero that we share<br>
+                    The tears will fall for a legend<br>
+                    The Mighty mouse will be there
+                </p>
+
+                <p>
+                    The time is nearly with us<br>
+                    The demons are all gone<br>
+                    The stadium is Anfield<br>
+                    The prize is twenty one
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: Lollypop 1, Sarah 0 -->
+
+        <div id="poem-lollypop-sarah" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-lollypop-sarah')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=4am98qmkgy"
+                 alt="Lollypop 1, Sarah 0"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                Lollypop 1, Sarah 0
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p style="font-weight: bold; font-style: italic; margin-bottom: 20px;">
+                    The struggle is real!!
+                </p>
+
+                <p>
+                    I thought I'd have a Chuppa chup<br>
+                    The cola one in blue<br>
+                    Something to suck on while I write<br>
+                    And please, no smutty comments from you!
+                </p>
+
+                <p>
+                    Just take the paper off and pop it in<br>
+                    What could be easier than that?<br>
+                    But this little fella had other ideas<br>
+                    He was a right little stubborn brat!
+                </p>
+
+                <p>
+                    I tried with my nails to open him up<br>
+                    Twisted the stick to and fro<br>
+                    But this little bugger was superglued shut<br>
+                    So off to the shed I go!
+                </p>
+
+                <p>
+                    I tried with a hammer, I tried with a drill<br>
+                    Dad's angle grinder was no use at all!<br>
+                    I even tried sneaking up on it<br>
+                    Hit it hard with an old hockey ball!
+                </p>
+
+                <p>
+                    I slumped in the corner defeated and sad<br>
+                    My face all sweaty and red<br>
+                    Vanquished by a humble little lollipop<br>
+                    Fuck it, I'll have a banana instead!
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: Magnus and the Gruffalo,s Godzilla adventure!! -->
+
+        <div id="poem-magnus-gruffalo" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-magnus-gruffalo')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=ynacqm329q"
+                 alt="Magnus and the Gruffalo,s Godzilla adventure!!"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                Magnus and the Gruffalo,s Godzilla adventure!!
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p style="font-style: italic; margin-bottom: 20px; font-size: 1.05rem; line-height: 1.6;">
+                    So today i was tasked with writing something for a very special little boy called Magnus over in Edinburgh. Now Magnus is 5 years old and he loves the Gruffalo and dinosaurs. He really really loves Godzilla! He also has a pet gecko called Geccy ! Oh and Magnus had to be in the poem aswell. So I asked his dad to ask him if he could give Godzilla a present what would he give? And Magnus said a dinosaur tooth! So with a huge thank you to Julia Donaldson for the inspiration and my own childhood memories I give you Magnus and the Gruffalo,s Godzilla adventure!!
+                </p>
+
+                <p>
+                    The Gruffalo said to the Gruffalo,s child<br>
+                    And held it up to the world as proof<br>
+                    "As I was walking through the deep dark wood<br>
+                    I found a dinosaur tooth!
+                </p>
+
+                <p>
+                    Now I know Godzilla collects such things<br>
+                    So I'm really happy to give<br>
+                    But how on earth will I find him?<br>
+                    Does anyone know where he lives?"
+                </p>
+
+                <p>
+                    The Gruffalo,s child smiled and said<br>
+                    "You need to go to Scotland dad<br>
+                    Magnus in Edinburgh will show you the way<br>
+                    He's a very special little lad "
+                </p>
+
+                <p>
+                    Now up there in Scotland all was quiet<br>
+                    Mum and dad were gently creeping<br>
+                    Out of the room on tiptoes<br>
+                    Magnus was finally sleeping
+                </p>
+
+                <p>
+                    Then deep in the night it happened<br>
+                    The sound of the wind around the room<br>
+                    Magnus ran to the window<br>
+                    To see a truly magnificent broom!
+                </p>
+
+                <p>
+                    And there on the grass was the Gruffalo!<br>
+                    With a wave and a beaming smile<br>
+                    "Hello there Magnus nice to meet you<br>
+                    Can I borrow you for a while?
+                </p>
+
+                <p>
+                    I've heard you know Godzilla<br>
+                    He's scary and fills me with dread<br>
+                    But I have a dinosaur tooth to give him<br>
+                    Perhaps you'd like to give it instead?
+                </p>
+
+                <p>
+                    I've borrowed this broom from a witch friend of mine<br>
+                    It's faster than Santa's sleigh<br>
+                    And I've packed some scrambled snake sandwiches<br>
+                    We can eat them along the way!"
+                </p>
+
+                <p>
+                    "What about Geccy and my dinosaurs?<br>
+                    They'll get lonely if I'm not there"<br>
+                    "Oh bring them along!" The Gruffalo said<br>
+                    "We have plenty of room to spare!
+                </p>
+
+                <p>
+                    There's seats for us and seats for them<br>
+                    Come on everyone clamber on!"<br>
+                    The Gruffalo tapped the broomstick<br>
+                    3,2,1 and whoosh they were gone!
+                </p>
+
+                <p>
+                    Over the buildings and over the trees<br>
+                    Loop the loop and twice round the moon<br>
+                    In the distance Magnus could see the ocean<br>
+                    Gruffalo said "We'll be there soon!"
+                </p>
+
+                <p>
+                    The air grew warmer and Magnus knew<br>
+                    They'd reached Godzilla,s lair<br>
+                    He tapped the Gruffalo on the shoulder<br>
+                    "I think he's somewhere down there!"
+                </p>
+
+                <p>
+                    Then the water started to bubble<br>
+                    And smoke began to rise<br>
+                    Godzilla leapt from under the water<br>
+                    Magnus couldn't believe his eyes!
+                </p>
+
+                <p>
+                    "Next time he jumps throw him the tooth!"<br>
+                    Gruffalo held the broomstick steady<br>
+                    "Here he comes Magnus I see him<br>
+                    Give it your best shot, are you ready?"
+                </p>
+
+                <p>
+                    With an almighty leap Godzilla rose up<br>
+                    Magnus could see right into his jaws<br>
+                    "Here Godzilla this is for you!"<br>
+                    As the tooth landed right in his claws
+                </p>
+
+                <p>
+                    Down went Godzilla with an enormous splash<br>
+                    Then turned one last time in the deep<br>
+                    Then rose up again higher than ever<br>
+                    In one final thank you leap!
+                </p>
+
+                <p>
+                    The water now calm they said their goodbyes<br>
+                    "Great job!" The Gruffalo said<br>
+                    "Come on my friend its nearly morning<br>
+                    Let's get you back to bed!"
+                </p>
+
+                <p>
+                    Magnus woke up as dad came in<br>
+                    "Morning Magnus how was your night?<br>
+                    Any good dreams to tell me about?<br>
+                    Any amazing sights?"
+                </p>
+
+                <p>
+                    Magnus smiled to himself as he remembered the night<br>
+                    No way was he going to snitch<br>
+                    And for breakfast that morning Magnus ate, can you guess?<br>
+                    Hahaha yes! The last remaining scrambled snake sandwich!
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: Yesterday Once More -->
+
+        <div id="poem-yesterday-once-more" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-yesterday-once-more')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=teem55yy5x"
+                 alt="Yesterday Once More"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                Yesterday Once More
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p style="font-style: italic; margin-bottom: 20px; font-size: 1.05rem; line-height: 1.6;">
+                    For mum and a massive thank you to the beautiful Karen Carpenter. Mum adored her
+                </p>
+
+                <p>
+                    When I was little I had you all to myself<br>
+                    How I miss that sweet sweet smile<br>
+                    I remember feeling on top of the world<br>
+                    With you as my guide along the miles
+                </p>
+
+                <p>
+                    Rainy days and Mondays just faded away<br>
+                    With you I never felt blue<br>
+                    Nothing in this world could hurt me<br>
+                    As long as I was close to you
+                </p>
+
+                <p>
+                    Only yesterday I was thinking back<br>
+                    To those perfect childhood days<br>
+                    For all we know and all we had<br>
+                    I miss you in so many ways
+                </p>
+
+                <p>
+                    I had to say goodbye to love<br>
+                    I couldn't pull you through<br>
+                    The day you left I realised<br>
+                    I won't last a day without you
+                </p>
+
+                <p>
+                    My mama, my friend, my superstar<br>
+                    Shine down on dad and me<br>
+                    We've only just begun to live<br>
+                    Send me a sign so I may see
+                </p>
+
+                <p>
+                    There's a kind of hush in the air tonight<br>
+                    As I sit on your gentle shore<br>
+                    I pray one day we will meet again<br>
+                    And find our yesterday once more
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: Nurse Sarah -->
+
+        <div id="poem-nurse-sarah" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-nurse-sarah')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=3ru4b4g3dh"
+                 alt="Nurse Sarah"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                Nurse Sarah
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    If you wake up in the morning<br>
+                    And you're feeling kinda stiff<br>
+                    Don't go reaching for the voddy<br>
+                    There's no need to smoke a spliff!
+                </p>
+
+                <p>
+                    Just get yourself on Facebook<br>
+                    Look for Sarah's little green dot<br>
+                    You'll soon be feeling better<br>
+                    She knows how to hit the spot!
+                </p>
+
+                <p>
+                    Ease yourself into the day<br>
+                    Pretend that nothing really matters<br>
+                    Nurse Sarah will bring you round again<br>
+                    With her gentle bedside chatter
+                </p>
+
+                <p>
+                    She may need to take your temperature<br>
+                    Bo and Obs might make it rise<br>
+                    And if you're really nice to her<br>
+                    She may send you a surprise!
+                </p>
+
+                <p>
+                    But be careful what you wish for<br>
+                    She doesn't want to see your c**k<br>
+                    Don't be that guy, don't be the one<br>
+                    Because you know that she will block!
+                </p>
+
+                <p>
+                    So start the day with Sarah<br>
+                    Let her ease your troubled mind<br>
+                    Be nice to her, she'll be nice to you<br>
+                    Let's all be friendly, sweet and kind ❤️❤️‍🩹
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POEM VIEW: Limp Larry Ep 3 -->
+
+        <div id="poem-limp-larry-3" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-limp-larry-3')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=md72jw4zr92mwt3j"
+                 alt="Limp Larry Ep 3"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                Limp Larry Ep 3
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p style="font-style: italic; margin-bottom: 20px;">
+                    Another terrible day for Limp Larry!
+                </p>
+
+                <p>
+                    It's a lovely sunny morning<br>
+                    And it's Limp Larry's favourite day<br>
+                    At last the month of June is here<br>
+                    Sodor pride week starts today!
+                </p>
+
+                <p>
+                    The engines are all polished<br>
+                    And the fat controller is here to see<br>
+                    He has a big announcement<br>
+                    What on earth could this news be?
+                </p>
+
+                <p>
+                    "This is a big week for the island<br>
+                    It's our very first pride event<br>
+                    We hope it'll all run smoothly<br>
+                    There's been a lot of money spent!
+                </p>
+
+                <p>
+                    Now Larry get over to Barrow<br>
+                    And fetch back our special guest star<br>
+                    You'll never guess who's coming<br>
+                    It's only Alan Carr!
+                </p>
+
+                <p>
+                    He'll be riding on your footplate<br>
+                    As you lead the grand parade<br>
+                    We want Sodor pride to be the best!<br>
+                    Put all the others in the shade!'
+                </p>
+
+                <p>
+                    Proudly Larry steamed away<br>
+                    To collect his famous VIP<br>
+                    "I'm leading the parade!" he chuffed<br>
+                    "I'll show them all, you'll see!"
+                </p>
+
+                <p>
+                    At Barrow Alan waved "yoohoo!<br>
+                    Ooh Larry I like your pink!<br>
+                    It matches the stripes in my silky shirt<br>
+                    We could be twins don't you think!"
+                </p>
+
+                <p>
+                    Larry chuckled as he steamed away<br>
+                    Alan waved to his adoring fans<br>
+                    Larry thought "Can't delay! Mustn't stop!<br>
+                    I'm the most important part of the plans!"
+                </p>
+
+                <p>
+                    Now a mile up the track there was trouble<br>
+                    Bertie the bus was stuck on the line<br>
+                    A flat tyre on this day of all days<br>
+                    Could they get it changed on time?
+                </p>
+
+                <p>
+                    Larry and Alan steamed ever closer<br>
+                    Bertie's driver was ready to go<br>
+                    Larry rounded the turn, his brakes started to burn<br>
+                    And everyone shouted "oh no!"
+                </p>
+
+                <p>
+                    Now Alan was thrown across the footplate<br>
+                    The throttle lever went right up his jacksy<br>
+                    Larry said "oh poo!" and Alan said "ooh!<br>
+                    I've never had this much fun in a taxi!"
+                </p>
+
+                <p>
+                    On Larry thundered unable to stop<br>
+                    He could see the fat controller lined up with the chuffers<br>
+                    "Get out of the way!" Larry started to say<br>
+                    As he finally smashed into the buffers!
+                </p>
+
+                <p>
+                    An impact so rotten it released Alan's bottom<br>
+                    And he flew like a bullet from a rifle<br>
+                    Then crashed through the roof of the cake stand<br>
+                    And landed face first in a trifle!
+                </p>
+
+                <p>
+                    An ambulance was called, poor Larry was appalled<br>
+                    The fat controller fainted in all the commotion<br>
+                    Then from a guerney before his hospital journey<br>
+                    Alan said " I declare Sodor pride week open!"
+                </p>
+
+                <p>
+                    At bedtime Gordon teased Larry<br>
+                    "I've never known anyone mess things up like you can!<br>
+                    The guy off the telly all covered in jelly<br>
+                    Now everyone calls him the splatty man!"
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= NEW POEM: DOLLY ================= -->
+
+        <div id="poem-dolly" class="expanded-poem-wrapper">
+
+            <div class="back-nav" style="text-align: left; margin-bottom: 25px;">
+                <button class="btn-back" onclick="closeExpandedPoem('poem-dolly')">
+                    ← Back to Grid
+                </button>
+            </div>
+
+            <img src="https://files.fm/thumb_show.php?i=8hzmp3wyzugmvvur"
+                 alt="Dolly"
+                 class="expanded-poem-img">
+
+            <h2 style="color: var(--brand-dark); font-size: 2rem; margin-bottom: 5px;">
+                Dolly
+            </h2>
+
+            <p style="font-style: italic; opacity: 0.7; margin-bottom: 25px;">
+                By Sarah Halligan
+            </p>
+
+            <div class="expanded-poem-verses">
+
+                <p>
+                    A sunny August garden dream<br>
+                    Somewhere I can hear a radio play<br>
+                    The voice wakes me from my slumber<br>
+                    With news that you have passed away
+                </p>
+
+                <p>
+                    I cry for you, I cry for me<br>
+                    For the songs we two have shared<br>
+                    You were the soundtrack of so many lives<br>
+                    Through your words our souls laid bare
+                </p>
+
+                <p>
+                    In happiness, loss and heartbreak<br>
+                    You always knew just how to touch<br>
+                    And now the world is without you<br>
+                    I'm going to miss you oh so much
+                </p>
+
+                <p>
+                    A butterfly, a gentle thing<br>
+                    Carry our love so true<br>
+                    Fly on satin wings of many colours<br>
+                    To where the angels wait for you
+                </p>
+
+                <p>
+                    As you take your final journey<br>
+                    Look back with a smile, enjoy the view<br>
+                    And know in that beautiful country heart<br>
+                    We will always, always love you
+                </p>
+
+                <p>
+                    Sleep tight Dolly 💔💔
+                </p>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <script>
-        function expandPoem(id) {
-            document.getElementById('latest-grid-view').style.display = 'none';
-            const target = document.getElementById(id);
-            if (target) {
-                target.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Bo & OB's Poetry. All Rights Reserved.
+        </p>
+
+        <p>
+            Website, Hosting, and Design Provided By
+            <a href="https://blucomputers.co.uk"
+               target="_blank"
+               class="credit-link">
+                Blucomputers.co.uk
+            </a>
+        </p>
+
+    </footer>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    function expandPoem(id) {
+
+        document.getElementById('latest-grid-view').style.display = 'none';
+
+        const target = document.getElementById(id);
+
+        if (target) {
+
+            target.classList.add('active');
+
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
         }
 
-        function closeExpandedPoem(id) {
-            const target = document.getElementById(id);
-            if (target) {
-                target.classList.remove('active');
-            }
-            document.getElementById('latest-grid-view').style.display = 'grid';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+
+    function closeExpandedPoem(id) {
+
+        const target = document.getElementById(id);
+
+        if (target) {
+
+            target.classList.remove('active');
+
         }
-    </script>
+
+        document.getElementById('latest-grid-view').style.display = 'grid';
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+    }
+
+</script>
+
 </body>
 </html>
