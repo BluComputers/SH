@@ -441,17 +441,16 @@
         <div class="main-content">
             
             <!-- Header Logo -->
-            <header onclick="showView('home')">
+            <header onclick="location.href='https://www.boandobs.co.uk'" style="cursor: pointer;">
                 <img src="https://raw.githubusercontent.com/BluComputers/SH/main/lgo.png" alt="Bo & OB's Logo" class="logo-img">
             </header>
 
             <!-- Navigation Links -->
             <nav>
-                <a href="#" onclick="showView('home')">Home</a>
-                <a href="LATEST2.html">Latest</a>
-                <a href="flipbook.html">Bo & Obs</a>
-                <a href="#" onclick="showView('archive')">Poetry Archive</a>
-                <a href="#">About</a>
+                <a href="https://www.boandobs.co.uk">Home</a>
+                <a href="https://boandobs.co.uk/LATEST2.html">Latest</a>
+                <a href="https://boandobs.co.uk/flipbook.html">Bo & Obs</a>
+                <a href="https://boandobs.co.uk/archive.html">Poetry Archive</a>
             </nav>
 
             <div class="butterfly-divider">
@@ -493,15 +492,15 @@ Love Sarah H ❤️</p>
                 <div class="home-menu-wrapper">
                     <!-- Top Row: Horizontal Navigation Triplets -->
                     <section class="cta-container">
-                        <a href="https://boandobs.co.uk/flipbook.html" class="btn-brand" onclick="showView('collection')">
+                        <a href="https://boandobs.co.uk/flipbook.html" class="btn-brand">
                             <img src="https://raw.githubusercontent.com/BluComputers/SH/main/lgo.png" alt="" class="btn-icon-img">
                             <span>Bo & OB's The Collection</span>
                         </a>
 
-                        <button class="btn-brand" onclick="showView('archive')">
+                        <a href="https://boandobs.co.uk/archive.html" class="btn-brand">
                             <span class="btn-icon-emoji">📖</span>
                             <span>Poetry Archive</span>
-                        </button>
+                        </a>
 
                         <a href="https://www.facebook.com/Sarahlouhals94" target="_blank" class="btn-facebook">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg" alt="Facebook logo" class="fb-icon-img">
@@ -510,7 +509,7 @@ Love Sarah H ❤️</p>
                     </section>
 
                     <!-- Bottom Row: Deep Purple Target Link Accent Button -->
-                    <a href="LATEST2.html" class="btn-purple" style="text-decoration: none;">
+                    <a href="https://boandobs.co.uk/LATEST2.html" class="btn-purple" style="text-decoration: none;">
                         <span class="btn-icon-emoji">✍️</span>
                         <span>Read Sarah's Latest Work By Clicking Here</span>
                     </a>
@@ -521,7 +520,7 @@ Love Sarah H ❤️</p>
             <!-- ================= THE COLLECTION VIEW ================= -->
             <div id="view-collection" class="view-content">
                 <div class="back-nav">
-                    <button class="btn-back" onclick="showView('home')">← Back to Home</button>
+                    <button class="btn-back" onclick="location.href='https://www.boandobs.co.uk'">← Back to Home</button>
                 </div>
                 
                 <h2 style="text-align: center; margin-bottom: 10px; color: var(--brand-dark);">Bo & OB's The Collection</h2>
@@ -712,37 +711,63 @@ Love Sarah H ❤️</p>
                         <img src="https://files.fm/thumb_show.php?i=8vrczpd8b7" alt="Poem 46" class="poem-card-thumb">
                         <div class="poem-card-footer">Poem 46</div>
                     </div>
-                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=bm66k2e2r5')">
-                        <img src="https://files.fm/thumb_show.php?i=bm66k2e2r5" alt="Poem 47" class="poem-card-thumb">
-                        <div class="poem-card-footer">Poem 47</div>
-                    </div>
-                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=qakr45etdx')">
-                        <img src="https://files.fm/thumb_show.php?i=qakr45etdx" alt="Poem 48" class="poem-card-thumb">
-                        <div class="poem-card-footer">Poem 48</div>
-                    </div>
-                    <div class="poem-card" onclick="openLightbox('https://files.fm/thumb_show.php?i=h9zf45rbtd')">
-                        <img src="https://files.fm/thumb_show.php?i=h9zf45rbtd" alt="Poem 49" class="poem-card-thumb">
-                        <div class="poem-card-footer">Poem 49</div>
-                    </div>
                 </div>
             </div>
 
-
-            <!-- ================= ARCHIVE VIEW (18 VOLUMES ROW) ================= -->
+            <!-- ================= ARCHIVE VIEW ================= -->
             <div id="view-archive" class="view-content">
                 <div class="back-nav">
-                    <button class="btn-back" onclick="showView('home')">← Back to Home</button>
+                    <button class="btn-back" onclick="location.href='https://www.boandobs.co.uk'">← Back to Home</button>
                 </div>
                 
-                <section class="volume-container">
-                    <button class="btn-vol" onclick="loadVolume(1)">Volume 1</button>
-                    <button class="btn-vol" onclick="loadVolume(2)">Volume 2</button>
-                    <!-- (rest of archive content...) -->
-                </section>
+                <h2 style="text-align: center; margin-bottom: 10px; color: var(--brand-dark);">Poetry Archive</h2>
+                <p style="text-align: center; font-style: italic; margin-bottom: 30px; opacity: 0.8;">Select a volume below to browse</p>
+
+                <div class="volume-container">
+                    <button class="btn-vol" onclick="location.href='https://boandobs.co.uk/archive.html'">Volume 1</button>
+                    <button class="btn-vol" onclick="location.href='https://boandobs.co.uk/archive.html'">Volume 2</button>
+                    <button class="btn-vol" onclick="location.href='https://boandobs.co.uk/archive.html'">Volume 3</button>
+                </div>
             </div>
 
         </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 Bo & OB's Poetry. All rights reserved.<br>
+            Designed and Hosted by <a href="https://blucomputers.co.uk" target="_blank" class="credit-link">Blu Computers</a></p>
+            <div class="counter-box" id="visitor-counter">Visitors: Loading...</div>
+        </footer>
     </div>
 
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImg">
+    </div>
+
+    <script>
+        function showView(viewName) {
+            const views = document.querySelectorAll('.view-content');
+            views.forEach(v => v.classList.remove('active'));
+            const target = document.getElementById('view-' + viewName);
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function openLightbox(src) {
+            const modal = document.getElementById('lightboxModal');
+            const img = document.getElementById('lightboxImg');
+            img.src = src;
+            modal.classList.add('active');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('active');
+        }
+    </script>
 </body>
 </html>
