@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guestbook - Bo & OB's Poetry | Sarah Halligan</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#0a0c16',
+                            900: '#0f172a',
+                            850: '#131c31',
+                            800: '#1e293b',
+                            700: '#334155',
+                        },
+                        violetglow: '#7c3aed',
+                        warmgold: '#eab308',
+                        goldlight: '#fde047',
+                        softrose: '#f472b6',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        handwriting: ['Caveat', 'cursive'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'gold-glow': '0 0 25px rgba(234, 179, 8, 0.15)',
+                        'purple-glow': '0 0 30px rgba(124, 58, 237, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Signature Dark Gradient matching boandobs.co.uk main theme */
+        body {
+            background: linear-gradient(180deg, #0a0c16 0%, #0f172a 40%, #131c31 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        /* Gold Gradient Text */
+        .gold-gradient {
+            background: linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Floating Butterfly Animations */
+        @keyframes floatButterfly {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(-8px) rotate(5deg) scale(1.05); }
+        }
+        .butterfly {
+            display: inline-block;
+            animation: floatButterfly 4s ease-in-out infinite;
+        }
+        .butterfly-delay-1 { animation-delay: 1.2s; }
+        .butterfly-delay-2 { animation-delay: 2.4s; }
+
+        /* Card backdrop effect */
+        .glass-dark-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(234, 179, 8, 0.2);
+        }
+
+        /* Custom scrollbar for frame */
+        iframe {
+            color-scheme: normal;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-200 flex flex-col justify-between antialiased selection:bg-amber-400 selection:text-slate-950">
+
+    <!-- Top Decorative Banner -->
+    <div class="bg-gradient-to-r from-violet-900 via-purple-900 to-indigo-950 py-1.5 px-4 text-center text-xs tracking-widest text-amber-200 border-b border-amber-500/20 uppercase font-medium">
+        <span class="butterfly">🦋</span> Welcome to the Sarah Halligan Guestbook!<span class="butterfly butterfly-delay-1">🦋</span>
+    </div>
+
+    <!-- Main Navigation & Header Section -->
+    <header class="sticky top-0 z-50 bg-navy-950/90 backdrop-blur-md border-b border-slate-800 shadow-xl">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col items-center">
+            
+            <!-- Floating Butterfly Flourish -->
+            <div class="text-xl sm:text-2xl mb-1 select-none space-x-2">
+                <span class="butterfly">🦋</span>
+                <span class="butterfly butterfly-delay-1">🦋</span>
+                <span class="butterfly butterfly-delay-2">🦋</span>
+            </div>
+
+            <!-- Site Title & Branding -->
+            <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-center">
+                <a href="index.html" class="gold-gradient hover:opacity-90 transition">Bo &amp; OB's Poetry</a>
+            </h1>
+            
+            <!-- Handwritten Tagline -->
+            <p class="font-handwriting text-2xl sm:text-3xl text-purple-300 mt-0.5 text-center tracking-wide">
+                Poetry, Ramberlings &amp; Rhymes by Sarah Halligan
+            </p>
+
+            <!-- Navigation Links -->
+            <nav class="mt-5 w-full max-w-3xl flex flex-wrap justify-center items-center gap-2 sm:gap-3 text-xs sm:text-sm font-medium">
+                <a href="index.html" class="px-4 py-2 rounded-full bg-slate-900 text-slate-300 hover:text-amber-300 hover:bg-slate-800 border border-slate-700/80 transition shadow-sm">
+                    <i class="fa-solid fa-house text-amber-400 mr-1.5"></i>Home
+                </a>
+                
+                <a href="poetry.html" class="px-4 py-2 rounded-full bg-slate-900 text-slate-300 hover:text-amber-300 hover:bg-slate-800 border border-slate-700/80 transition shadow-sm">
+                    <i class="fa-solid fa-feather text-amber-400 mr-1.5"></i>Poetry &amp; Works
+                </a>
+                
+                <a href="LATEST2.html" class="px-4 py-2 rounded-full bg-slate-900 text-slate-300 hover:text-amber-300 hover:bg-slate-800 border border-slate-700/80 transition shadow-sm">
+                    <i class="fa-regular fa-star text-amber-400 mr-1.5"></i>Volume Archive
+                </a>
+
+                <a href="guestbook.html" class="px-4 py-2 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold border border-amber-300 shadow-gold-glow cursor-default">
+                    <i class="fa-solid fa-book-open mr-1.5"></i>Guestbook
+                </a>
+
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-blue-950/80 text-blue-300 hover:bg-blue-900 hover:text-white border border-blue-800/80 transition shadow-sm">
+                    <i class="fa-brands fa-facebook-f text-blue-400 mr-1.5"></i>Facebook
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 md:py-12">
+
+        <!-- Page Intro / Welcome Section -->
+        <div class="text-center mb-8">
+            <span class="inline-flex items-center gap-2 bg-purple-950/80 text-purple-300 border border-purple-800/60 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3 shadow-inner">
+                <i class="fa-solid fa-pen-nib text-amber-400"></i> Digital Memory Book
+            </span>
+            
+            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-white">
+                Leave a Message in Our Guestbook
+            </h2>
+
+            <!-- Decorative Gold Line -->
+            <div class="flex items-center justify-center gap-3 my-4">
+                <div class="h-px w-16 bg-gradient-to-r from-transparent to-amber-400"></div>
+                <span class="text-amber-400 text-sm">🦋</span>
+                <div class="h-px w-16 bg-gradient-to-l from-transparent to-amber-400"></div>
+            </div>
+
+            <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-light">
+                Welcome to Sarah's digital guestbook! Whether you came to read verse, share a memory, or leave a warm wish, we would love to hear from you. Sign the guestbook below.
+            </p>
+        </div>
+
+        <!-- Embedded Guestbook Container Card -->
+        <div class="glass-dark-card rounded-2xl shadow-purple-glow overflow-hidden mb-10 transition-all">
+            
+            <!-- Card Header Control Bar -->
+            <div class="bg-navy-950 px-6 py-4 border-b border-amber-500/20 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                        <i class="fa-solid fa-heart text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif font-semibold text-base sm:text-lg text-white">Sarah Halligan's Guestbook</h3>
+                        <p class="text-xs text-slate-400">Bo &amp; OB's Poetry Community Messages</p>
+                    </div>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex items-center gap-2">
+                    <button onclick="reloadFrame()" title="Refresh Guestbook" class="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs px-3.5 py-2 rounded-lg border border-slate-700 transition">
+                        <i class="fa-solid fa-rotate text-xs"></i>
+                        <span>Refresh</span>
+                    </button>
+                    <a href="https://guestbookworld.com/embed/boandobs/" target="_blank" rel="noopener noreferrer" title="Open full screen tab" class="inline-flex items-center gap-1.5 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white text-xs px-3.5 py-2 rounded-lg border border-purple-500/40 transition font-medium shadow-sm">
+                        <i class="fa-solid fa-up-right-from-square text-xs"></i>
+                        <span>Open Direct</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Responsive Iframe Embed -->
+            <div class="w-full relative bg-white rounded-b-2xl overflow-hidden min-h-[900px]">
+                <iframe 
+                    id="guestbook-iframe"
+                    src="https://guestbookworld.com/embed/boandobs/" 
+                    title="Sarah Halligan" 
+                    style="width:100%;height:900px;border:0"
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Quote & Poem Highlight Box -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 text-center max-w-3xl mx-auto shadow-xl">
+            <i class="fa-solid fa-quote-left text-3xl text-amber-500/40 mb-3 block"></i>
+            <blockquote class="font-serif italic text-xl sm:text-2xl text-amber-100 leading-relaxed">
+                "Words left behind are flowers planted in the gardens of tomorrow."
+            </blockquote>
+            <p class="font-handwriting text-2xl text-purple-300 mt-3">— Sarah Halligan</p>
+        </div>
+
+    </main>
+
+    <!-- Scroll to Top Floating Button -->
+    <button onclick="scrollToTop()" id="scrollTopBtn" class="fixed bottom-6 right-6 z-40 bg-amber-500 hover:bg-amber-400 text-slate-950 p-3 rounded-full shadow-lg transition duration-300 opacity-80 hover:opacity-100 border border-amber-300">
+        <i class="fa-solid fa-arrow-up text-base"></i>
+    </button>
+
+    <!-- Footer Section -->
+    <footer class="bg-navy-950 text-slate-400 text-xs py-10 border-t border-slate-800 mt-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center space-y-4">
+            
+            <!-- Butterfly Accent -->
+            <div class="text-2xl opacity-90 select-none">
+                <span class="butterfly">🦋</span>
+            </div>
+
+            <!-- Footer Branding -->
+            <div>
+                <p class="font-serif text-lg font-bold gold-gradient">Bo &amp; OB's Poetry</p>
+                <p class="text-slate-400 text-xs mt-0.5">Poetry, Musings &amp; Rhymes by Sarah Halligan</p>
+            </div>
+
+            <!-- Footer Quick Links -->
+            <div class="flex flex-wrap justify-center gap-6 text-slate-400 pt-2 border-t border-slate-800/80 w-full max-w-md">
+                <a href="index.html" class="hover:text-amber-400 transition">Home</a>
+                <a href="poetry.html" class="hover:text-amber-400 transition">Poetry</a>
+                <a href="LATEST2.html" class="hover:text-amber-400 transition">Volume Archive</a>
+                <a href="guestbook.html" class="hover:text-amber-400 transition">Guestbook</a>
+            </div>
+
+            <!-- Copyright Notice -->
+            <p class="text-slate-400 pt-2">
+                &copy; 2026 Bo &amp; OB's Poetry. All Rights Reserved.
+            </p>
+
+            <!-- Provider Attribution -->
+            <p class="text-slate-400 font-light text-xs">
+                Website, Hosting, and Design Provided By 
+                <a href="https://blucomputers.co.uk" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-normal">Blucomputers.co.uk</a>
+            </p>
+
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Reload iframe content
+        function reloadFrame() {
+            const iframe = document.getElementById('guestbook-iframe');
+            if (iframe) {
+                iframe.src = iframe.src;
+            }
+        }
+
+        // Smooth Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
